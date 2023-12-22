@@ -30,7 +30,7 @@ function UserPage() {
     setResponse('');
 
     // Dispatch an action to the store to make a request to OpenAI's server
-    // dispatch({ action: 'GET_OPENAI_API_RESPONSE' });
+    // dispatch({ type: 'SET_OPENAI_API_RESPONSE', payload: response });
 
     try {
       const chatResponse = await openai.chat.completions.create({
@@ -40,7 +40,9 @@ function UserPage() {
             'role': 'system',
             'content': `You are a helpful assistant that provides recipes according to users' requests. 
             You politely direct all non-recipe related requests back to the topic of recipes. Under no circumstances 
-            may you use an apostrophe in your response.`,
+            may you use an apostrophe in your response. Additionally, your responses are formatted in a way such that they render 
+            ordered or unordered lists when used in a React component. Users should see bullet points for the 
+            ingredients and numbered lists for the recipe instructions.`,
           },
           {
             'role': 'user',
@@ -57,7 +59,7 @@ function UserPage() {
     }
   };
 
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
+  // this component renders user reducer info to the DOM
   const user = useSelector((store) => store.user);
   return (
     <div className="container">

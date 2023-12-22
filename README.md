@@ -119,3 +119,11 @@ This code is also heavily commented. We recommend reading through the comments, 
 ## Update Documentation
 
 Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+
+## TO DO - Move OpenAI API code to the server
+- [ ] handleSubmit in UserPage.jsx dispatches action of type 'SET_OPENAI_API_RESPONSE', with the OpenAI API response as the payload?
+- [ ] Build out response.reducer.js reducer
+- [ ] Ensure response.reducer.js is appropriately stored in _root.reducer.js
+- [ ] Create a FETCH_OPENAI_API_RESPONSE redux saga to handle the OpenAI API request, like so: function* fetchOpenAiResponse() {
+  
+}
