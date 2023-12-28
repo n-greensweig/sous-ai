@@ -96,7 +96,7 @@ function UserPage() {
   const [message, setMessage] = useState(null);
   const [previousChats, setPreviousChats] = useState([]);
   const [currentTitle, setCurrentTitle] = useState(null);
-  const [newRecipe, setNewRecipe] = [{}];
+  const [newRecipe, setNewRecipe] = useState({});
 
   const dispatch = useDispatch(); // dispatch
 
@@ -145,28 +145,17 @@ function UserPage() {
     // Do this?
     e.preventDefault();
 
-    console.log(message.content.split('Ingredients:')[1]);
-
-    setNewRecipe({
+    const recipe = {
       title: capitalizeFirstLetter(message.content.slice(message.content.indexOf('delicious') + 10, message.content.indexOf('recipe') - 1)),
       instructions: message.content.split('Ingredients:')[1],
-    });
+    };
 
-    const action = { type: 'SAVE_RECIPE', payload: newRecipe };
+    setNewRecipe(recipe);
+
+    const action = { type: 'SAVE_RECIPE', payload: recipe };
     dispatch(action);
-    setNewRecipe({});
 
-    // axios.post('/api/recipe', {
-    //   title: capitalizeFirstLetter(message.content.slice(message.content.indexOf('delicious') + 10, message.content.indexOf('recipe') - 1)),
-    //   instructions: message.content.split('Ingredients:')[1],
-    // })
-    //   .then(response => {
-    //     // Do nothing
-    //   })
-    //   .catch(error => {
-    //     console.error('Error saving recipe', error);
-    //     alert('Something went wrong.');
-    //   });
+    setNewRecipe({});
 
   };
 
