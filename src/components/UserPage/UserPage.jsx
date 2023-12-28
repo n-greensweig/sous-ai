@@ -183,9 +183,13 @@ function UserPage() {
         </ul>
         <div className='bottom-section'>
           <div className="input-container">
-            <input value={value} onChange={e => setValue(e.target.value)}
-              placeholder='What would you like to cook today?' />
-            <div id="submit" onClick={getMessages}>➢</div>
+
+            <form onSubmit={getMessages}>
+              <input value={value} onChange={e => setValue(e.target.value)}
+                placeholder='What would you like to cook today?' />
+              <button id="submit">➢</button>
+            </form>
+
           </div>
           <p className="info">
             SousAI can make mistakes. Consider checking important information.
