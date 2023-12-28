@@ -141,10 +141,10 @@ function UserPage() {
     // Do this?
     e.preventDefault();
 
-    console.log(message.content.split('Ingredients:\n')[1]);
-    axios.post('/recipe', {
+    console.log(message.content.split('Ingredients:')[1]);
+    axios.post('/api/recipe', {
       title: capitalizeFirstLetter(message.content.slice(message.content.indexOf('delicious') + 10, message.content.indexOf('recipe') - 1)),
-      instructions: message.content.split('Ingredients: ')[1],
+      instructions: message.content.split('Ingredients:')[1],
     })
     .then(response => {
       // Do nothing
