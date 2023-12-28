@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
 
+// POST saved recipe to the server
 router.post('/', (req, res) => {
 
     let queryText = `

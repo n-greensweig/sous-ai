@@ -88,6 +88,7 @@
 import axios from 'axios';
 import './UserPage.css';
 import { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 
 function UserPage() {
 
@@ -95,6 +96,9 @@ function UserPage() {
   const [message, setMessage] = useState(null);
   const [previousChats, setPreviousChats] = useState([]);
   const [currentTitle, setCurrentTitle] = useState(null);
+  const [newRecipe, setNewRecipe] = [{}];
+
+  const dispatch = useDispatch(); // dispatch
 
   const createNewChat = () => {
     setMessage(null);
@@ -142,17 +146,27 @@ function UserPage() {
     e.preventDefault();
 
     console.log(message.content.split('Ingredients:')[1]);
-    axios.post('/api/recipe', {
+
+    setNewRecipe({
       title: capitalizeFirstLetter(message.content.slice(message.content.indexOf('delicious') + 10, message.content.indexOf('recipe') - 1)),
       instructions: message.content.split('Ingredients:')[1],
-    })
-    .then(response => {
-      // Do nothing
-    })
-    .catch(error => {
-      console.error('Error saving recipe', error);
-      alert('Something went wrong.');
     });
+
+    const action = { type: 'SAVE_RECIPE', payload: newRecipe };
+    dispatch(action);
+    setNewRecipe({});
+
+    // axios.post('/api/recipe', {
+    //   title: capitalizeFirstLetter(message.content.slice(message.content.indexOf('delicious') + 10, message.content.indexOf('recipe') - 1)),
+    //   instructions: message.content.split('Ingredients:')[1],
+    // })
+    //   .then(response => {
+    //     // Do nothing
+    //   })
+    //   .catch(error => {
+    //     console.error('Error saving recipe', error);
+    //     alert('Something went wrong.');
+    //   });
 
   };
 
