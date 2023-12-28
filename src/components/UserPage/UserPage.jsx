@@ -85,6 +85,7 @@
 // // this allows us to use <App /> in index.js
 // export default UserPage;
 
+import axios from 'axios';
 import './UserPage.css';
 import { useState, useEffect } from "react";
 
@@ -129,6 +130,32 @@ function UserPage() {
     }
 
   };
+
+  // Helper function to capitalize first letter of a string
+  const capitalizeFirstLetter = str => str.replace(str.charAt(0), str.charAt(0).toUpperCase());
+
+
+  // Save recipe onClick of 'Save recipe' button
+  const saveRecipe = e => {
+
+    // Do this?
+    e.preventDefault();
+
+    console.log(message.content.split('Ingredients:\n')[1]);
+    axios.post('/recipe', {
+      title: capitalizeFirstLetter(message.content.slice(message.content.indexOf('delicious') + 10, message.content.indexOf('recipe') - 1)),
+      instructions: message.content.split('Ingredients: ')[1],
+    })
+    .then(response => {
+      // Do nothing
+    })
+    .catch(error => {
+      console.error('Error saving recipe', error);
+      alert('Something went wrong.');
+    });
+
+  };
+
 
   useEffect(() => {
     if (!currentTitle && value && message) {
@@ -175,9 +202,9 @@ function UserPage() {
         {!currentTitle && <h1>SousAI</h1>}
         <ul className='feed'>
           {currentChat?.map((chatMessage, index) => <li key={index}>
-            <p className="role">{chatMessage.role.toUpperCase()}</p>
+            <p className="role">{capitalizeFirstLetter(chatMessage.role)}</p>
             <p>{chatMessage.content}</p>
-            {chatMessage.role === 'assistant' ? <button>Save recipe</button> : null}
+            {chatMessage.role === 'assistant' ? <button onClick={saveRecipe}>Save recipe</button> : null}
           </li>
           )}
         </ul>
