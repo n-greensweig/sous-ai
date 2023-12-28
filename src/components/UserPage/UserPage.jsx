@@ -182,7 +182,8 @@ function UserPage() {
         </ul>
         <div className='bottom-section'>
           <div className="input-container">
-            <input value={value} onChange={e => setValue(e.target.value)} />
+            <input value={value} onChange={e => setValue(e.target.value)}
+              placeholder='What would you like to cook today?' />
             <div id="submit" onClick={getMessages}>➢</div>
           </div>
           <p className="info">
