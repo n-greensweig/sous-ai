@@ -177,6 +177,7 @@ function UserPage() {
           {currentChat?.map((chatMessage, index) => <li key={index}>
             <p className="role">{chatMessage.role.toUpperCase()}</p>
             <p>{chatMessage.content}</p>
+            {chatMessage.role === 'assistant' ? <button>Save recipe</button> : null}
           </li>
           )}
         </ul>
