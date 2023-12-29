@@ -12,7 +12,6 @@ function* saveRecipe(action) {
 }
 
 function* getRecipes() {
-
     try {
         const response = yield axios.get('/api/recipe');
         const action = { type: 'GET_RECIPES', payload: response.data };
@@ -22,12 +21,26 @@ function* getRecipes() {
         alert('Something went wrong.');
         throw error;
     }
+}
 
+function* getRecipeDetails(action) {
+
+    const id = action.payload;
+
+    try {
+        const details = yield axios.get(`/api/recipe${id}`);
+        yield put({ type: 'GET_DETAILS', payload: details.data });
+    } catch (error) {
+        console.error('Error getting recipe details:', error);
+        alert('Something went wrong');
+        throw error;
+    }
 }
 
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE', saveRecipe);
     yield takeLatest('FETCH_RECIPES', getRecipes);
+    yield takeLatest('FETCH_DETAILS', getRecipes);
 }
 
 export default recipeSaga;
