@@ -16,7 +16,7 @@ function* getRecipes() {
     try {
         const response = yield axios.get('/api/recipe');
         const action = { type: 'GET_RECIPES', payload: response.data };
-        yield put(action.payload);
+        yield put(action);
     } catch (error) {
         console.error('Error fetching recipes:', error);
         alert('Something went wrong.');
