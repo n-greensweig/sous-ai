@@ -18,7 +18,7 @@ function RecipeItems() {
             <ul>
                 {recipes.map(recipe => (
                     <li key={recipe.id} style={{color: 'black'}}><img src={`images/${recipe.photo}`} width={100} height={100} /> 
-                    {recipe.title} {recipe.instructions}
+                    {recipe.title}
                     </li>
                 ))}
             </ul>
