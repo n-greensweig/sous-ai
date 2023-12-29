@@ -8,7 +8,6 @@ function RecipeItems() {
 
     // Get recipes from Redux store
     const recipes = useSelector(store => store.recipeReducer);
-    const title = recipes[0].title;
 
     useEffect(() => {
         dispatch({ type: 'FETCH_RECIPES' });
@@ -16,11 +15,12 @@ function RecipeItems() {
 
     return (
         <>
-            <h1>{title}</h1>
             <ul>
-                {recipes.map(recipe => {
-                    <li key={recipe.id}>{recipe.title}</li>
-                })}
+                {recipes.map(recipe => (
+                    <li key={recipe.id} style={{color: 'black'}}><img src={`images/${recipe.photo}`} width={100} height={100} /> 
+                    {recipe.title} {recipe.instructions}
+                    </li>
+                ))}
             </ul>
         </>
     )
