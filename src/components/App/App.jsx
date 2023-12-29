@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
 import Header from '../Header/Header';
+import RecipeItems from '../RecipeItems/RecipeItems';
 
 function App() {
   const dispatch = useDispatch();
@@ -59,6 +60,14 @@ function App() {
             path="/user"
           >
             <UserPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows RecipeItems else shows LoginPage
+            exact
+            path="/recipes"
+          >
+            <RecipeItems />
           </ProtectedRoute>
 
           <ProtectedRoute
