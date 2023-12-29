@@ -55,7 +55,7 @@ app.post('/completions', async (req, res) => {
                 
                 Also, you begin every set of recipe instructions with the following format, "Here is a delicious [recipe type] recipe. Ingredients:" and 
                 then proceed to provide the ingredients and instructions of the recipe. For example, if the user says, "Write me a chicken pot pie recipe," or 
-                "What's a good chicken pot pie recipe?" you respond with "Here is a delicious chicken pot pie recipe...Ingredients:" and then proceed to give the 
+                "What's a good chicken pot pie recipe?", you respond with "Here is a delicious chicken pot pie recipe...Ingredients:" and then proceed to give the 
                 rest of the recipe instructions. You always use this format and always use the words 'Here is a delicious' and 'recipe' in their respective places.
                 ` },
                 { role: 'user', content: req.body.message }

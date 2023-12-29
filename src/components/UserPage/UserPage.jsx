@@ -33,30 +33,33 @@
 //     // dispatch({ type: 'SET_OPENAI_API_RESPONSE', payload: response });
 
 //     try {
-//       // const chatResponse = await openai.chat.completions.create({
-//       //   model: 'gpt-4',
-//       //   messages: [
-//       //     {
-//       //       'role': 'system',
-//       //       'content': `You are a helpful assistant that provides recipes according to users' requests. 
-//       //       You politely direct all non-recipe related requests back to the topic of recipes. Under no circumstances 
-//       //       are you permitted to use an apostrophe in your response; instead, you should always change contractions to their fullest form 
-//       //       (e.g., writing out here is rather than saying here's). Additionally, your responses are formatted in a way such that they render 
-//       //       ordered or unordered lists when used in a React component. Users should see bullet points for the 
-//       //       ingredients and numbered lists for the recipe instructions.`,
-//       //     },
-//       //     {
-//       //       'role': 'user',
-//       //       'content': userInput,
-//       //     }],
-//       //   stream: true,
-//       // });
-//       const assistant = await openai.beta.assistants.create({
-//         name: "Math Tutor",
-//         instructions: "You are a personal math tutor. Write and run code to answer math questions.",
-//         tools: [{ type: "code_interpreter" }],
-//         model: "gpt-4-1106-preview"
+//       const chatResponse = await openai.chat.completions.create({
+//         model: 'gpt-4',
+//         messages: [
+//           {
+//             'role': 'system',
+//             'content': `You are a helpful assistant that generates recipes according to users requests.
+//                 You kindly redirect all non-cooking related questions or comments back to the topic of cooking. Under no circumstances 
+//                 are you allowed to use apostrophes. For example, you use phrases like "Here is your recipe." rather than "Here's your recipe."
+                
+//                 Also, you begin every set of recipe instructions with the following format, "Here is a delicious [recipe type] recipe. Ingredients:" and 
+//                 then proceed to provide the ingredients and instructions of the recipe. For example, if the user says, "Write me a chicken pot pie recipe," or 
+//                 "What's a good chicken pot pie recipe?", you respond with "Here is a delicious chicken pot pie recipe...Ingredients:" and then proceed to give the 
+//                 rest of the recipe instructions. You always use this format and always use the words 'Here is a delicious' and 'recipe' in their respective places.
+//                 `
+//           },
+//           {
+//             'role': 'user',
+//             'content': userInput,
+//           }],
+//         stream: true,
 //       });
+//       // const assistant = await openai.beta.assistants.create({
+//       //   name: "Math Tutor",
+//       //   instructions: "You are a personal math tutor. Write and run code to answer math questions.",
+//       //   tools: [{ type: "code_interpreter" }],
+//       //   model: "gpt-4-1106-preview"
+//       // });
 //       for await (const part of chatResponse) {
 //         setResponse(prevResponse => part.choices[0].delta.content ? prevResponse + part.choices[0].delta.content : prevResponse);
 //       }
@@ -85,7 +88,6 @@
 // // this allows us to use <App /> in index.js
 // export default UserPage;
 
-import axios from 'axios';
 import './UserPage.css';
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
@@ -125,7 +127,7 @@ function UserPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/completions', options);
+      const response = await fetch('http://localhost:5000/completions', options); // change upon deployment?
       const data = await response.json();
       console.log(data)
       setMessage(data.choices[0].message);
@@ -142,7 +144,6 @@ function UserPage() {
   // Save recipe onClick of 'Save recipe' button
   const saveRecipe = e => {
 
-    // Do this?
     e.preventDefault();
 
     const recipe = {
@@ -198,7 +199,7 @@ function UserPage() {
           {uniqueTitles?.map((uniqueTitle, index) => <li key={index} onClick={() => handleClick(uniqueTitle)}>{uniqueTitle}</li>)}
         </ul>
         <nav>
-          <p>Made by Noah</p>
+          <p>Made by Noah Greensweig</p>
         </nav>
       </section>
       <section className='main'>
