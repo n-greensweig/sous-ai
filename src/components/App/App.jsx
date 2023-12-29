@@ -23,6 +23,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import './App.css';
 import Header from '../Header/Header';
 import RecipeItems from '../RecipeItems/RecipeItems';
+import RecipeDetails from '../RecipeDetails/RecipeDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function App() {
   return (
     <Router>
       <div>
-      <Header />
+        <Header />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
@@ -68,6 +69,14 @@ function App() {
             path="/recipes"
           >
             <RecipeItems />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows RecipeDetails else shows LoginPage
+            exact
+            path="/recipes/:id"
+          >
+            <RecipeDetails />
           </ProtectedRoute>
 
           <ProtectedRoute

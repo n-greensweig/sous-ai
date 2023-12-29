@@ -28,7 +28,7 @@ function* getRecipeDetails(action) {
     const id = action.payload;
 
     try {
-        const details = yield axios.get(`/api/recipe${id}`);
+        const details = yield axios.get(`/api/recipe/${id}`);
         yield put({ type: 'GET_DETAILS', payload: details.data });
     } catch (error) {
         console.error('Error getting recipe details:', error);
@@ -40,7 +40,7 @@ function* getRecipeDetails(action) {
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE', saveRecipe);
     yield takeLatest('FETCH_RECIPES', getRecipes);
-    yield takeLatest('FETCH_DETAILS', getRecipes);
+    yield takeLatest('FETCH_DETAILS', getRecipeDetails);
 }
 
 export default recipeSaga;

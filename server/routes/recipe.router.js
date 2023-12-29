@@ -37,4 +37,21 @@ SELECT * FROM "recipe_item" WHERE "user_id" = $1;
 
 });
 
+// GET recipe details from the DB
+router.get('/:id', (req, res) => {
+
+    let queryText = `
+SELECT * FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
+`;
+    pool.query(queryText, [req.user.id, req.params.id])
+        .then(result => {
+            res.send(result.rows);
+        })
+        .catch(error => {
+            console.error('Error getting recipe details from DB:', error);
+            res.sendStatus(400);
+        });
+
+});
+
 module.exports = router;

@@ -12,6 +12,7 @@ function RecipeDetails() {
     const { id } = useParams();
 
     const details = useSelector(store => store.recipeDetailsReducer);
+    console.log(details);
 
     const title = details[0] ? details[0].title : '';
     const image = details[0] ? details[0].photo : '';
@@ -24,9 +25,9 @@ function RecipeDetails() {
 
     return (
         <>
-            <h1>{title}</h1>
+            <h1 style={{ color: "black" }}>{title}</h1>
             <img src={`images/${image}`} />
-            <p>{instructions}</p>
+            <p style={{ color: 'black' }}>{instructions}</p>
 
             <Button variant="outlined"
                 startIcon={<ArrowBackIcon />}
