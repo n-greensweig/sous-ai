@@ -1,5 +1,5 @@
 import axios from "axios"
-import { takeLatest } from "redux-saga/effects";
+import { put, takeLatest } from "redux-saga/effects";
 
 function* saveRecipe(action) {
     try {
@@ -9,6 +9,20 @@ function* saveRecipe(action) {
         alert('Something went wrong.');
         throw error;
     }
+}
+
+function* getRecipes(action) {
+
+    try {
+        const response = yield axios.get('/api/recipe');
+        const action = { type: 'GET_RECIPES', payload: response.data };
+        yield put(action);
+    } catch (error) {
+        console.error('Error fetching recipes:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+
 }
 
 function* recipeSaga() {
