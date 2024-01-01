@@ -21,7 +21,32 @@ function RecipeDetails() {
     const instructions = details[0] ? details[0].instructions : '';
 
     // Remove recipe from DB onClick of 'Delete Recipe' button
-    const removeRecipe = id => dispatch({ type: 'REMOVE_RECIPE', payload: id });
+    const removeRecipe = id => {
+
+        swal({
+            title: 'Are you sure',
+            text: 'Are you sure you want to delete this recipe from your recipe box?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    console.log(id);
+                    dispatch({ type: 'REMOVE_RECIPE', payload: id });
+                    swal({
+                        title: 'Deleted!',
+                        text: 'This recipe has been deleted',
+                        icon: 'success',
+                        timer: 1000,
+                    });
+                    setTimeout(() => {
+                    }, 1000);
+                    history.push('/recipes');
+                }
+            });
+
+    };
 
     // use Effect fetching recipe info
     useEffect(() => {

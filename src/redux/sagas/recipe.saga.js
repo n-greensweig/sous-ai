@@ -39,6 +39,7 @@ function* getRecipeDetails(action) {
 
 function* deleteRecipe(action) {
     const id = action.payload;
+    console.log('hello', id);
     try {
         yield axios.delete(`/api/recipe/${id}`);
     } catch (error) {

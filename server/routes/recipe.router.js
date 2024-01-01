@@ -39,7 +39,6 @@ SELECT * FROM "recipe_item" WHERE "user_id" = $1;
 
 // GET recipe details from the DB
 router.get('/:id', (req, res) => {
-
     let queryText = `
 SELECT * FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 `;
@@ -55,10 +54,9 @@ SELECT * FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 });
 
 // DELETE selected recipe from the DB
-router.get('/:id', (req, res) => {
-
+router.delete('/:id', (req, res) => {
     let queryText = `
-DELETE FROM "recipe_item" WHERE "user_id" = $1 AND "recipe_id" = $2;
+DELETE FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 `;
     pool.query(queryText, [req.user.id, req.params.id])
         .then(result => {
