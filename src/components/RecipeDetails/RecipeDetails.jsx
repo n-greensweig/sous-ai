@@ -1,8 +1,10 @@
 import { Button } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+// import swal from 'sweetalert';
 
 function RecipeDetails() {
 
@@ -25,8 +27,20 @@ function RecipeDetails() {
 
     return (
         <>
-            <h1 style={{ color: "black" }}>{title}</h1>
-            <img src={`images/${image}`} />
+            <div
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
+            >
+                <h1 style={{ color: "black" }}>{title}</h1>
+                <Button variant="outlined" startIcon={<DeleteIcon />} 
+                onClick={() => removeRecipe(id)} style={{ color: 'red' }}>
+                    Delete recipe
+                </Button>
+            </div>
+            <img src={`images/${image}`}
+                height={'100'}
+                width={'100'}
+                style={{ borderRadius: '75%' }}
+            />
             <p style={{ color: 'black' }}>{instructions}</p>
 
             <Button variant="outlined"
