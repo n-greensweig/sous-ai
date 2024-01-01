@@ -54,4 +54,21 @@ SELECT * FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 
 });
 
+// DELETE selected recipe from the DB
+router.get('/:id', (req, res) => {
+
+    let queryText = `
+DELETE FROM "recipe_item" WHERE "user_id" = $1 AND "recipe_id" = $2;
+`;
+    pool.query(queryText, [req.user.id, req.params.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.error('Error deleting recipe from DB:', error);
+            res.sendStatus(500);
+        });
+
+});
+
 module.exports = router;
