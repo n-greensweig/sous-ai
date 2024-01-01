@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
-// import swal from 'sweetalert';
+import swal from 'sweetalert';
 
 function RecipeDetails() {
 
@@ -20,6 +20,9 @@ function RecipeDetails() {
     const image = details[0] ? details[0].photo : '';
     const instructions = details[0] ? details[0].instructions : '';
 
+    // Remove recipe from DB onClick of 'Delete Recipe' button
+    const removeRecipe = id => dispatch({ type: 'REMOVE_RECIPE', payload: id });
+
     // use Effect fetching recipe info
     useEffect(() => {
         dispatch({ type: 'FETCH_DETAILS', payload: id });
@@ -31,8 +34,8 @@ function RecipeDetails() {
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
             >
                 <h1 style={{ color: "black" }}>{title}</h1>
-                <Button variant="outlined" startIcon={<DeleteIcon />} 
-                onClick={() => removeRecipe(id)} style={{ color: 'red' }}>
+                <Button variant="outlined" startIcon={<DeleteIcon />}
+                    onClick={() => removeRecipe(id)} style={{ color: 'red' }}>
                     Delete recipe
                 </Button>
             </div>

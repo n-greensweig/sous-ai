@@ -37,10 +37,22 @@ function* getRecipeDetails(action) {
     }
 }
 
+function* deleteRecipe(action) {
+    const id = action.payload;
+    try {
+        yield axios.delete(`/api/recipe/${id}`);
+    } catch (error) {
+        console.error('Error deleting recipe:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE', saveRecipe);
     yield takeLatest('FETCH_RECIPES', getRecipes);
     yield takeLatest('FETCH_DETAILS', getRecipeDetails);
+    yield takeLatest('REMOVE_RECIPE', deleteRecipe);
 }
 
 export default recipeSaga;
