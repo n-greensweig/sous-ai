@@ -13,20 +13,21 @@ function RecipeDetails() {
     const history = useHistory();
 
     const { id } = useParams();
-    console.log('id', id);
 
     const details = useSelector(store => store.recipeDetailsReducer);
     const [title, setTitle] = useState(details[0] ? details[0].title : '');
-    console.log(details);
 
-    const realTitle = details[0] ? details[0].title : '';
+    // const title = details[0] ? details[0].title : '';
     const image = details[0] ? details[0].photo : '';
     const instructions = details[0] ? details[0].instructions : '';
 
     const saveEditedTitle = (e, id) => {
         e.preventDefault();
-        const action = { type: 'UPDATE_TITLE', payload: { id: id, title: title } };
-        dispatch(action);
+        if (title !== details[0]?.title) {
+            const action = { type: 'UPDATE_TITLE', payload: { id: id, title: title } };
+            dispatch(action);
+        }
+        e.currentTarget.blur();
     };
 
 
@@ -42,7 +43,6 @@ function RecipeDetails() {
         })
             .then(willDelete => {
                 if (willDelete) {
-                    console.log(id);
                     dispatch({ type: 'REMOVE_RECIPE', payload: id });
                     swal({
                         title: 'Deleted!',
@@ -60,6 +60,13 @@ function RecipeDetails() {
 
     // use Effect fetching recipe info
     useEffect(() => {
+        if (details[0] && details[0].title) {
+            setTitle(details[0].title);
+        }
+    }, [details]);
+
+    // use Effect fetching recipe info
+    useEffect(() => {
         dispatch({ type: 'FETCH_DETAILS', payload: id });
     }, [id]);
 
@@ -68,14 +75,12 @@ function RecipeDetails() {
             <div
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
             >
-                <h1 style={{ color: "black" }}
+                <input style={{ color: "black" }}
                     contentEditable={true}
-                    suppressContentEditableWarning
-                    onInput={e => {
-                        if (e.currentTarget.textContent !== '') {
-                            setTitle(e.currentTarget.textContent);
-                        }
-                    }}
+                    suppressContentEditableWarning={true}
+                    defaultValue={title}
+                    // value={title}
+                    onChange={e => setTitle(e.target.value.trim())}
                     onBlur={e => saveEditedTitle(e, id)}
                     onKeyDown={e => {
                         if (e.key === 'Enter') {
@@ -83,7 +88,7 @@ function RecipeDetails() {
                             saveEditedTitle(e, id);
                         }
                     }}
-                >{title}</h1>
+                />
                 <Button variant="outlined" startIcon={<DeleteIcon />}
                     onClick={() => removeRecipe(id)} style={{ color: 'red' }}>
                     Delete recipe

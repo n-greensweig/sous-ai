@@ -76,7 +76,7 @@ router.put('/:id', (req, res) => {
     WHERE "user_id" = $2 AND "id" = $3;
     `;
     pool.query(queryText, [req.body.title, req.user.id, req.params.id])
-        .then(result => {
+    .then(result => {
             res.sendStatus(200);
         })
         .catch(error => {

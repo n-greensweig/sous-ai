@@ -39,7 +39,6 @@ function* getRecipeDetails(action) {
 
 function* deleteRecipe(action) {
     const id = action.payload;
-    console.log('hello', id);
     try {
         yield axios.delete(`/api/recipe/${id}`);
     } catch (error) {
@@ -53,7 +52,7 @@ function* editRecipeTitle(action) {
     const id = action.payload.id;
     const title = action.payload.title;
     try {
-        axios.put(`/api/recipe/${id}`, title);
+        axios.put(`/api/recipe/${id}`, {title});
     } catch (error) {
         console.error('Error updating recipe title:', error);
         alert('Something went wrong.');
