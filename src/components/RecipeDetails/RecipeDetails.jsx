@@ -58,7 +58,22 @@ function RecipeDetails() {
             <div
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
             >
-                <h1 style={{ color: "black" }}>{title}</h1>
+                <h1 style={{ color: "black" }}
+                    contentEditable={true}
+                    suppressContentEditableWarning
+                    onInput={e => {
+                        if (e.currentTarget.textContent !== '') {
+                            setTitle(e.currentTarget.textContent);
+                        }
+                    }}
+                    onBlur={e => saveEditedTitle(e, id)}
+                    onKeyDown={e => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            saveEditedTitle(e, id);
+                        }
+                    }}
+                >{title}</h1>
                 <Button variant="outlined" startIcon={<DeleteIcon />}
                     onClick={() => removeRecipe(id)} style={{ color: 'red' }}>
                     Delete recipe
