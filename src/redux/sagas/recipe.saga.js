@@ -49,11 +49,24 @@ function* deleteRecipe(action) {
     }
 }
 
+function* editRecipeTitle(action) {
+    const id = action.payload.id;
+    const title = action.payload.title;
+    try {
+        axios.put(`/api/recipe/${id}`, title);
+    } catch (error) {
+        console.error('Error updating recipe title:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE', saveRecipe);
     yield takeLatest('FETCH_RECIPES', getRecipes);
     yield takeLatest('FETCH_DETAILS', getRecipeDetails);
     yield takeLatest('REMOVE_RECIPE', deleteRecipe);
+    yield takeLatest('UPDATE_TITLE', editRecipeTitle);
 }
 
 export default recipeSaga;
