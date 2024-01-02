@@ -19,7 +19,7 @@ function RecipeDetails() {
     const [title, setTitle] = useState(details[0] ? details[0].title : '');
     console.log(details);
 
-    // const title = details[0] ? details[0].title : '';
+    const realTitle = details[0] ? details[0].title : '';
     const image = details[0] ? details[0].photo : '';
     const instructions = details[0] ? details[0].instructions : '';
 

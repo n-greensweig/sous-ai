@@ -69,4 +69,20 @@ DELETE FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 
 });
 
+// PUT request to update recipe title in the DB
+router.put('/:id', (req, res) => {
+    let queryText = `
+    UPDATE "recipe_item" SET "title" = $1
+    WHERE "user_id" = $2 AND "id" = $3;
+    `;
+    pool.query(queryText, [req.body.title, req.user.id, req.params.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.error(error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;
