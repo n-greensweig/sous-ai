@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import swal from 'sweetalert';
+import { useState } from "react";
 
 function RecipeDetails() {
 
@@ -12,13 +13,22 @@ function RecipeDetails() {
     const history = useHistory();
 
     const { id } = useParams();
+    console.log('id', id);
 
     const details = useSelector(store => store.recipeDetailsReducer);
+    const [title, setTitle] = useState(details[0] ? details[0].title : '');
     console.log(details);
 
-    const title = details[0] ? details[0].title : '';
+    // const title = details[0] ? details[0].title : '';
     const image = details[0] ? details[0].photo : '';
     const instructions = details[0] ? details[0].instructions : '';
+
+    const saveEditedTitle = (e, id) => {
+        e.preventDefault();
+        const action = { type: 'UPDATE_TITLE', payload: { id: id, title: title } };
+        dispatch(action);
+    };
+
 
     // Remove recipe from DB onClick of 'Delete Recipe' button
     const removeRecipe = id => {
