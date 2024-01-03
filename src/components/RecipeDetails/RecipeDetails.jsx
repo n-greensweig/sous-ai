@@ -16,10 +16,11 @@ function RecipeDetails() {
 
     const details = useSelector(store => store.recipeDetailsReducer);
     const comments = useSelector(store => store.commentsReducer);
+    // comments.map(comment)
     const [title, setTitle] = useState(details ? details.title : '');
 
     const image = details ? details.photo : '';
-    const comment = comments ? comments.comment : '';
+    // const comment = comments ? comments.comment : '';
     const instructions = details ? details.instructions : '';
 
     const saveEditedTitle = (e, id) => {
@@ -83,7 +84,6 @@ function RecipeDetails() {
                     contentEditable={true}
                     suppressContentEditableWarning={true}
                     defaultValue={title}
-                    // value={title}
                     onChange={e => setTitle(e.target.value.trim())}
                     onBlur={e => saveEditedTitle(e, id)}
                     onKeyDown={e => {
@@ -104,7 +104,8 @@ function RecipeDetails() {
                 style={{ borderRadius: '75%' }}
             />
             <p style={{ color: 'black' }}>{instructions}</p>
-            <p style={{ color: 'black' }}>{comment}</p>
+            {/* <p style={{ color: 'black' }}>{comments.map(comment => comment)}</p> */}
+            {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
         </>
 
     )

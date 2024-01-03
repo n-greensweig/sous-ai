@@ -53,17 +53,17 @@ SELECT * FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 
 });
 
-// GET recipe details from the DB
+// GET recipe comments from the DB
 router.get('/comments/:id', (req, res) => {
     let queryText = `
     SELECT * FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2;
 `;
     pool.query(queryText, [req.user.id, req.params.id])
         .then(result => {
-            res.send(result.rows.length > 0 ? result.rows[0] : {});
+            res.send(result.rows);
         })
         .catch(error => {
-            console.error('Error getting recipe details from DB:', error);
+            console.error('Error getting recipe comments from DB:', error);
             res.sendStatus(400);
         });
 
