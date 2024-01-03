@@ -15,15 +15,14 @@ function RecipeDetails() {
     const { id } = useParams();
 
     const details = useSelector(store => store.recipeDetailsReducer);
-    const [title, setTitle] = useState(details[0] ? details[0].title : '');
+    const [title, setTitle] = useState(details ? details.title : '');
 
-    // const title = details[0] ? details[0].title : '';
-    const image = details[0] ? details[0].photo : '';
-    const instructions = details[0] ? details[0].instructions : '';
+    const image = details ? details.photo : '';
+    const instructions = details ? details.instructions : '';
 
     const saveEditedTitle = (e, id) => {
         e.preventDefault();
-        if (title !== details[0]?.title) {
+        if (title !== details?.title) {
             const action = { type: 'UPDATE_TITLE', payload: { id: id, title: title } };
             dispatch(action);
         }
@@ -60,8 +59,8 @@ function RecipeDetails() {
 
     // use Effect fetching recipe info
     useEffect(() => {
-        if (details[0] && details[0].title) {
-            setTitle(details[0].title);
+        if (details && details.title) {
+            setTitle(details.title);
         }
     }, [details]);
 

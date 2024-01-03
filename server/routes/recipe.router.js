@@ -44,7 +44,7 @@ SELECT * FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 `;
     pool.query(queryText, [req.user.id, req.params.id])
         .then(result => {
-            res.send(result.rows);
+            res.send(result.rows.length > 0 ? result.rows[0] : {});
         })
         .catch(error => {
             console.error('Error getting recipe details from DB:', error);
