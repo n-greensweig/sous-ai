@@ -14,7 +14,7 @@ VALUES ($1, $2, $3);
             res.sendStatus(200);
         })
         .catch(error => {
-            console.error(error);
+            console.error('Error posting recipes to DB:', error);
             res.sendStatus(500);
         });
 
@@ -96,7 +96,7 @@ router.put('/:id', (req, res) => {
             res.sendStatus(200);
         })
         .catch(error => {
-            console.error(error);
+            console.error('Error updating recipe title in DB:', error);
             res.sendStatus(500);
         });
 });
