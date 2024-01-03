@@ -54,9 +54,21 @@ function* editRecipeTitle(action) {
     const id = action.payload.id;
     const title = action.payload.title;
     try {
-        axios.put(`/api/recipe/${id}`, {title});
+        axios.put(`/api/recipe/${id}`, { title });
     } catch (error) {
         console.error('Error updating recipe title:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
+function* postComment(action) {
+    const comment = action.payload.comment;
+    const id = action.payload.id;
+    try {
+        axios.post(`/api/recipe/comments/${id}`, { comment: comment, id: id });
+    } catch (error) {
+        console.error('Error posting comment:', error);
         alert('Something went wrong.');
         throw error;
     }
@@ -68,6 +80,7 @@ function* recipeSaga() {
     yield takeLatest('FETCH_DETAILS', getRecipeDetails);
     yield takeLatest('REMOVE_RECIPE', deleteRecipe);
     yield takeLatest('UPDATE_TITLE', editRecipeTitle);
+    yield takeLatest('ADD_COMMENT', postComment);
 }
 
 export default recipeSaga;
