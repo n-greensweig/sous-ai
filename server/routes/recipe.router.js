@@ -20,6 +20,26 @@ VALUES ($1, $2, $3);
 
 });
 
+// POST new comment to the DB
+// Needs more code to be able to include apostrophes in comments
+// Needs to also trigger a GET request to display new comment on the DOM
+router.post('/comments/:id', (req, res) => {
+
+    let queryText = `
+    INSERT INTO "comments" ("recipe_id", "user_id", "comment")
+    VALUES ($1, $2, $3);
+    `;
+    pool.query(queryText, [req.params.id, req.user.id, req.body.comment])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.error('Error posting comment to DB:', error);
+            res.sendStatus(500);
+        });
+
+});
+
 // GET all recipes from the DB
 router.get('/', (req, res) => {
 

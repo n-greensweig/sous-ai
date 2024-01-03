@@ -31,7 +31,7 @@ function RecipeDetails() {
     const saveEditedTitle = (e, id) => {
         e.preventDefault();
         if (title !== details?.title) {
-            const action = { type: 'UPDATE_TITLE', payload: { id: id, title: title } };
+            const action = { type: 'UPDATE_TITLE', payload: { id, title } };
             dispatch(action);
         }
         e.currentTarget.blur();

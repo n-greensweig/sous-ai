@@ -63,10 +63,9 @@ function* editRecipeTitle(action) {
 }
 
 function* postComment(action) {
-    const comment = action.payload.comment;
     const id = action.payload.id;
     try {
-        axios.post(`/api/recipe/comments/${id}`, { comment: comment, id: id });
+        axios.post(`/api/recipe/comments/${id}`, action.payload);
     } catch (error) {
         console.error('Error posting comment:', error);
         alert('Something went wrong.');
