@@ -18,6 +18,13 @@ function RecipeDetails() {
     const comments = useSelector(store => store.commentsReducer);
     const [title, setTitle] = useState(details ? details.title : '');
 
+    const [newComment, setNewComment] = useState([]);
+
+    const addComment = (comment, id) => {
+        dispatch({ type: 'ADD_COMMENT', payload: { comment: comment, id: id } });
+        setNewComment('');
+    };
+
     const image = details ? details.photo : '';
     const instructions = details ? details.instructions : '';
 
@@ -107,7 +114,7 @@ function RecipeDetails() {
             <div style={{ display: 'flex' }}>
                 <TextField label="Add a comment" variant="outlined" onChange={e => setNewComment(e.target.value)} />
                 <Button variant="outlined"
-                    onClick={() => addComment(newComent, id)}
+                    onClick={() => addComment(newComment, id)}
                     style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
                 >Save comment</Button>
             </div>
