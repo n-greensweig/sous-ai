@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect } from "react";
@@ -103,6 +103,14 @@ function RecipeDetails() {
             />
             <p style={{ color: 'black' }}>{instructions}</p>
             {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
+
+            <div style={{ display: 'flex' }}>
+                <TextField label="Add a comment" variant="outlined" onChange={e => setNewComment(e.target.value)} />
+                <Button variant="outlined"
+                    onClick={() => addComment(newComent, id)}
+                    style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
+                >Save comment</Button>
+            </div>
         </>
 
     )
