@@ -29,7 +29,9 @@ function* getRecipeDetails(action) {
 
     try {
         const details = yield axios.get(`/api/recipe/${id}`);
+        const comments = yield axios.get(`/api/recipe/comments/${id}`);
         yield put({ type: 'GET_DETAILS', payload: details.data });
+        yield put({ type: 'GET_COMMENTS', payload: comments.data });
     } catch (error) {
         console.error('Error getting recipe details:', error);
         alert('Something went wrong');

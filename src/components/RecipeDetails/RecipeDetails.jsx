@@ -15,9 +15,11 @@ function RecipeDetails() {
     const { id } = useParams();
 
     const details = useSelector(store => store.recipeDetailsReducer);
+    const comments = useSelector(store => store.commentsReducer);
     const [title, setTitle] = useState(details ? details.title : '');
 
     const image = details ? details.photo : '';
+    const comment = comments ? comments.comment : '';
     const instructions = details ? details.instructions : '';
 
     const saveEditedTitle = (e, id) => {
@@ -38,7 +40,7 @@ function RecipeDetails() {
             text: 'Are you sure you want to delete this recipe from your recipe box?',
             icon: 'warning',
             buttons: true,
-            dangerMode: true
+            dangerMode: true,
         })
             .then(willDelete => {
                 if (willDelete) {
@@ -74,6 +76,9 @@ function RecipeDetails() {
             <div
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
             >
+                <Button variant="outlined"
+                    startIcon={<ArrowBackIcon />}
+                    onClick={() => history.push('/recipes')} style={{ color: 'white', backgroundColor: 'orange', borderColor: 'white' }}>Back to recipes</Button>
                 <input style={{ color: "black" }}
                     contentEditable={true}
                     suppressContentEditableWarning={true}
@@ -89,7 +94,7 @@ function RecipeDetails() {
                     }}
                 />
                 <Button variant="outlined" startIcon={<DeleteIcon />}
-                    onClick={() => removeRecipe(id)} style={{ color: 'red' }}>
+                    onClick={() => removeRecipe(id)} style={{ color: 'white', backgroundColor: 'red', borderColor: 'white' }}>
                     Delete recipe
                 </Button>
             </div>
@@ -99,11 +104,9 @@ function RecipeDetails() {
                 style={{ borderRadius: '75%' }}
             />
             <p style={{ color: 'black' }}>{instructions}</p>
-
-            <Button variant="outlined"
-                startIcon={<ArrowBackIcon />}
-                onClick={() => history.push('/recipes')}>Back to recipes</Button>
+            <p style={{ color: 'black' }}>{comment}</p>
         </>
+
     )
 
 }
