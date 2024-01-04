@@ -25,7 +25,6 @@
 .navLink {
   display: inline-block;
   color: #f2f2f2;
-  /* background-color: #00acb0; original */
   background-color: orange;
   text-align: center;
   padding: 24px 10px;
@@ -39,6 +38,11 @@
   outline: 0;
 }
 
+.icon {
+  color: white !important;
+}
+
 .navLink:hover {
-  background-color: #008183;
+  background-color: rgb(246, 241, 241);
+  color: orange
 }

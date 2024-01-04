@@ -4,6 +4,9 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+
 function Nav() {
   const user = useSelector((store) => store.user);
 
@@ -22,20 +25,17 @@ function Nav() {
         {user.id && (
           <>
             <Link className="navLink" to="/user">
-              Home
+              <AutoFixHighIcon /> SousAI
             </Link>
 
-            <Link className="navLink" to="/info">
-              Info Page
+            <Link className="navLink" to="/recipes">
+              <MenuBookIcon className='icon' /> Saved Recipes
             </Link>
 
             <LogOutButton className="navLink" />
           </>
         )}
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
       </div>
     </div>
   );

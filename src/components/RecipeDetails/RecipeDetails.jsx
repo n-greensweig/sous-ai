@@ -84,7 +84,7 @@ function RecipeDetails() {
             >
                 <Button variant="outlined"
                     startIcon={<ArrowBackIcon />}
-                    onClick={() => history.push('/recipes')} style={{ color: 'white', backgroundColor: 'orange', borderColor: 'white' }}>Back to recipes</Button>
+                    onClick={() => history.push('/recipes')} style={{ color: 'white', backgroundColor: '#orange', borderColor: 'white' }}>Back to recipes</Button>
                 <input style={{ color: "black" }}
                     contentEditable={true}
                     suppressContentEditableWarning={true}
