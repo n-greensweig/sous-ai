@@ -21,8 +21,6 @@ VALUES ($1, $2, $3);
 });
 
 // POST new comment to the DB
-// Needs more code to be able to include apostrophes in comments
-// Needs to also trigger a GET request to display new comment on the DOM
 router.post('/comments/:id', (req, res) => {
 
     let queryText = `
@@ -91,17 +89,26 @@ router.get('/comments/:id', (req, res) => {
 
 // DELETE selected recipe from the DB
 router.delete('/:id', (req, res) => {
+
+    // Must first delete comments associated with the recipe
+    let firstQueryText = `
+DELETE FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2;
+`;
+
     let queryText = `
 DELETE FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 `;
-    pool.query(queryText, [req.user.id, req.params.id])
+
+    pool.query(firstQueryText, [req.user.id, req.params.id])
         .then(result => {
-            res.sendStatus(200);
+            // Next, delete recipe from DB
+            pool.query(queryText, [req.user.id, req.params.id]);
         })
         .catch(error => {
-            console.error('Error deleting recipe from DB:', error);
+            console.error('Error deleting comments from DB:', error);
             res.sendStatus(500);
         });
+
 
 });
 
