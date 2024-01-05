@@ -34,12 +34,11 @@ function UserPage() {
       headers: {
         'Content-type': 'application/json'
       }
-    }
+    };
 
     try {
       const response = await fetch('/completions', options); // change upon deployment?
       const data = await response.json();
-      console.log(data)
       setMessage(data.choices[0].message);
     } catch (error) {
       console.error(error);
@@ -95,10 +94,8 @@ function UserPage() {
 
   }, [message, currentTitle]);
 
-  console.log(previousChats);
   const currentChat = previousChats.filter(previousChat => previousChat.title === currentTitle);
   const uniqueTitles = Array.from(new Set(previousChats.map(previousChat => previousChat.title)));
-  console.log(uniqueTitles);
 
 
   return (
