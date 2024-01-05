@@ -22,6 +22,7 @@ function RecipeDetails() {
 
     const addComment = (comment, id) => {
         dispatch({ type: 'ADD_COMMENT', payload: { comment: comment, id: id } });
+        dispatch({ type: 'FETCH_DETAILS', payload: id });
         setNewComment('');
     };
 
@@ -84,7 +85,7 @@ function RecipeDetails() {
             >
                 <Button variant="outlined"
                     startIcon={<ArrowBackIcon />}
-                    onClick={() => history.push('/recipes')} style={{ color: 'white', backgroundColor: '#orange', borderColor: 'white' }}>Back to recipes</Button>
+                    onClick={() => history.push('/recipes')} style={{ color: 'white', backgroundColor: '#orange', borderColor: 'white' }}></Button>
                 <input style={{ color: "black" }}
                     contentEditable={true}
                     suppressContentEditableWarning={true}
@@ -112,11 +113,13 @@ function RecipeDetails() {
             {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
 
             <div style={{ display: 'flex' }}>
-                <TextField label="Add a comment" variant="outlined" onChange={e => setNewComment(e.target.value)} />
-                <Button variant="outlined"
-                    onClick={() => addComment(newComment, id)}
-                    style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
-                >Save comment</Button>
+                <form onSubmit={() => addComment(newComment, id)}>
+                    <TextField label="Add a comment" variant="outlined" value={newComment} onChange={e => setNewComment(e.target.value)} />
+                    <Button variant="outlined"
+                        type="submit"
+                        style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
+                    >Save comment</Button>
+                </form>
             </div>
         </>
 
