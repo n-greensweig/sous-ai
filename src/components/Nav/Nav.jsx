@@ -25,11 +25,11 @@ function Nav() {
         {user.id && (
           <>
             <Link className="navLink" to="/user">
-              <AutoFixHighIcon /> SousAI
+              <AutoFixHighIcon sx={{ fill: 'white' }} /> SousAI
             </Link>
 
             <Link className="navLink" to="/recipes">
-              <MenuBookIcon className='icon' /> Saved Recipes
+              <MenuBookIcon sx={{ fill: 'white' }} className='icon' /> Saved Recipes
             </Link>
 
             <LogOutButton className="navLink" />

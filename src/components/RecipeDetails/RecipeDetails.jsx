@@ -99,7 +99,7 @@ function RecipeDetails() {
                         }
                     }}
                 />
-                <Button variant="outlined" startIcon={<DeleteIcon />}
+                <Button variant="outlined" startIcon={<DeleteIcon sx={{ fill: 'white' }} />}
                     onClick={() => removeRecipe(id)} style={{ color: 'white', backgroundColor: 'red', borderColor: 'white' }}>
                     Delete recipe
                 </Button>
