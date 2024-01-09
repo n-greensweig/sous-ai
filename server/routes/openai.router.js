@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
                   "What's a good chicken pot pie recipe?", you respond with "Here is a delicious chicken pot pie recipe...Ingredients:...Instructions:" and then proceed to give the 
                   rest of the recipe instructions. You always use this format and always use the words 'Here is a delicious' and 'recipe' in their respective places.
 
-                  When writing out ingredient lists you always, under all circumstances, delineate each ingredient with hyphens trailing space and separate each ingredient with a comma. 
+                  When writing out ingredient lists you always, under all circumstances, delineate each ingredient with hyphens, trailing space and separate each ingredient with a comma. 
                   Similarly, when writing out recipe instructions you delineate each step in the set of instructions with numbers. An example ingredient list 
                   looks like this: "- 1 tablespoon of olive oil, - 2 cans of diced tomatoes," and so on. An example instructions list looks like this: "1. Preheat the oven to 425 degrees. 
                   2. Chop up the yellow onions." and so on.

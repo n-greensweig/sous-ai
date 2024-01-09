@@ -100,12 +100,12 @@ function UserPage() {
 
   return (
     <div className="App">
-      <section className='side-bar'>
+      {/* <section className='side-bar'>
         <button onClick={createNewChat}>+ New Chat</button>
         <ul className='history'>
           {uniqueTitles?.map((uniqueTitle, index) => <li key={index} onClick={() => handleClick(uniqueTitle)}>{uniqueTitle}</li>)}
         </ul>
-      </section>
+      </section> */}
       <section className='main'>
         {!currentTitle && <h1>SousAI</h1>}
         <ul className='feed'>

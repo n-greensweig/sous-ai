@@ -1,7 +1,7 @@
 .nav {
   /* flex box layout */
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 
   margin: 0 0 30px;
@@ -23,7 +23,9 @@
 }
 
 .navLink {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: #f2f2f2;
   background-color: orange;
   text-align: center;
@@ -36,10 +38,6 @@
   border: none;
   cursor: pointer;
   outline: 0;
-}
-
-.icon {
-  color: white !important;
 }
 
 .navLink:hover {

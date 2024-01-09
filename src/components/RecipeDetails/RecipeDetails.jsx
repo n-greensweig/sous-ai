@@ -28,10 +28,9 @@ function RecipeDetails() {
 
     const image = details ? details.photo : '';
     const instructions = details ? details.instructions : '';
-    const ingredients = instructions ? instructions.split('Instructions:')[0].replace(/[,.]/g, '').split('-') : '';
+    const ingredients = instructions ? instructions.split('Instructions:')[0].replace(/[,.]/g, '').split('-').filter(ingredient => ingredient.trim() !== '') : '';
 
     console.log(instructions ? ingredients[8].split('Instructions:')[0] : null);
-    // console.log(instructions ? includesInstructions : null);
 
     const recipeSteps = instructions ? instructions.split('Instructions:')[1].split(/\d+\./).filter(step => step.trim() !== '') : '';
 
