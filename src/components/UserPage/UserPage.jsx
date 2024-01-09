@@ -110,12 +110,15 @@ function UserPage() {
         </ul>
       </section> */}
       <section className='main'>
+        <h1>SousAI</h1>
         {!currentTitle && <h1>SousAI</h1>}
         <ul className='feed'>
           {currentChat?.map((chatMessage, index) => <li key={index}>
-            <p className="role">{capitalizeFirstLetter(chatMessage.role)}</p>
+            <p className="role">{capitalizeFirstLetter(chatMessage.role) === 'Assistant' ?
+              'SousAI' : capitalizeFirstLetter(chatMessage.role)
+            }</p>
             <p>{chatMessage.content}</p>
-            {chatMessage.role === 'assistant' ? <button onClick={saveRecipe}>Save recipe</button> : null}
+            {chatMessage.role === 'assistant' ? <button onClick={saveRecipe} id='save-recipe-button'>Save recipe</button> : null}
           </li>
           )}
         </ul>
@@ -125,8 +128,7 @@ function UserPage() {
             <form onSubmit={getMessages} id='sous-form'>
               <input value={value} onChange={e => setValue(e.target.value)}
                 placeholder='What would you like to cook today?' />
-              <Button startIcon={<ArrowUpwardIcon />} id='submit'></Button>
-              {/* <button id="submit">➢</button> */}
+              <Button startIcon={<ArrowUpwardIcon />} type='submit' id='submit'></Button>
             </form>
 
           </div>
