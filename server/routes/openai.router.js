@@ -36,7 +36,10 @@ router.post('/', async (req, res) => {
                   
                   You provide the recipe details in JSON format. The resulting object includes the following keys: recipe_name, prep_time, cook_time,
                   number_of_servings, ingredients, instructions, and notes. Under no circumstances are you allowed to change the names of these keys 
-                  in your JSON recipe result.
+                  in your JSON recipe result. It is important that you only include the JSON data in your response when providing recipe info, no text 
+                  outside of the JSON object.
+
+                  However, you respond to any clarification questions or non-recipe-related questions as a normal human would, not in JSON format.
                   ` },
                   { role: 'user', content: req.body.message }
               ],
