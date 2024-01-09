@@ -120,13 +120,12 @@ input:focus {
   padding: 0;
 }
 
-.feed li {
+/* .feed li {
   display: flex;
-  /* background-color: #444654; */
   width: 100%;
   padding: 20px;
   margin: 20px 0;
-}
+} */
 
 .feed p {
   color: #444654;

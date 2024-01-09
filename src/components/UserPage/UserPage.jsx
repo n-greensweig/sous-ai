@@ -109,10 +109,20 @@ function UserPage() {
   const currentChat = previousChats.filter(previousChat => previousChat.title === currentTitle);
   const uniqueTitles = Array.from(new Set(previousChats.map(previousChat => previousChat.title)));
 
-  const string = `
-  { "recipe_name": "Chicken Chili", "prep_time": "20 minutes", "cook_time": "45 minutes", "number_of_servings": "6", "ingredients": { "Chicken breasts": "2", "Olive oil": "2 tablespoons", "Onion": "1, chopped", "Garlic": "2 cloves, minced", "Red bell pepper": "1, chopped", "Green bell pepper": "1, chopped", "Chili powder": "2 tablespoons", "Cumin": "1 teaspoon", "Oregano": "1 teaspoon", "Canned diced tomatoes": "1 can (14 ounces)", "Canned kidney beans": "1 can (14 ounces), drained and rinsed", "Chicken broth": "2 cups", "Salt": "1 teaspoon", "Black pepper": "1/2 teaspoon", "Cheddar cheese": "1 cup, shredded", "Sour cream": "for topping", "Fresh cilantro": "for topping" }, "instructions": { "step1": "Heat the oil in a large pot over medium heat.", "step2": "Add the chicken breasts and cook until no longer pink in the center, about 5-7 minutes. Remove from the pot and shred.", "step3": "In the same pot, add the onion, garlic, and bell peppers, and cook until softened.", "step4": "Add the chili powder, cumin, and oregano to the pot. Stir to combine.", "step5": "Return the shredded chicken to the pot. Add the diced tomatoes, kidney beans, chicken broth, salt, and pepper. Stir to combine.", "step6": "Bring the mixture to a boil. Reduce heat to low and simmer for 30 minutes, stirring occasionally.", "step7": "Serve the chili hot, topped with shredded cheese, a dollop of sour cream, and a sprinkling of fresh cilantro." }, "notes": "Feel free to adjust the spices to your liking. For a spicy version, add a chopped jalapeno pepper or some hot sauce. You can also use ground chicken instead of chicken breasts." }`;
-  const object = JSON.parse(string);
-  console.log(object);
+  // const string = `
+  // As an AI, I don't have personal opinions or tastes. However, I can help you find a recipe based on your preferences or dietary needs. What type of recipe are you interested in?`;
+  // const object = JSON.parse(string);
+  // console.log(object);
+
+  const isJSON = str => {
+    try {
+      JSON.parse(str);
+      console.log('hey', JSON.parse(str).ingredients);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
 
 
   return (
@@ -131,17 +141,80 @@ function UserPage() {
             <p className="role">{capitalizeFirstLetter(chatMessage.role) === 'Assistant' ?
               'SousAI' : capitalizeFirstLetter(chatMessage.role)
             }</p>
-            <p>{chatMessage.content}</p>
-            {/* <p>
+            {/* <p>{chatMessage.content}</p> */}
+            <p>
               {
                 chatMessage.role === 'user' ? chatMessage.content :
-                  JSON.parse(chatMessage.content).recipe_name ? JSON.parse(chatMessage.content).recipe_name : chatMessage.content
+                  isJSON(chatMessage.content) ? 'Title: ' + JSON.parse(chatMessage.content).recipe_name : chatMessage.content
               }
-            </p> */}
-            {chatMessage.role === 'assistant' ? <button onClick={saveRecipe} id='save-recipe-button'>Save recipe</button> : null}
+
+              <br></br>
+              <br></br>
+
+              {/* Time and notes */}
+              {
+                chatMessage.role === 'user'
+                  ? null
+                  : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).prep_time
+                    ? (
+                      <div>
+                        <strong>Prep Time: </strong>
+                        {JSON.parse(chatMessage.content).prep_time}<br></br><br></br>
+                        <strong>Cook Time: </strong>
+                        {JSON.parse(chatMessage.content).cook_time}<br></br><br></br>
+                        <strong>Number of servings: </strong>
+                        {JSON.parse(chatMessage.content).number_of_servings}<br></br><br></br>
+                        <strong>Recipe notes: </strong>
+                        {JSON.parse(chatMessage.content).notes}
+                      </div>
+                    )
+                    : null
+              }
+
+              <br></br>
+              <br></br>
+
+              {/* Ingredients list */}
+              {
+                chatMessage.role === 'user'
+                  ? null
+                  : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).ingredients
+                    ? (
+                      <div>
+                        <strong>Ingredients:</strong>
+                        <ul>
+                          {JSON.parse(chatMessage.content).ingredients.map((ingredient, index) => (
+                            <li key={index} color='black'>{ingredient}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )
+                    : null
+              }
+
+              {/* Instructions */}
+              {
+                chatMessage.role === 'user'
+                  ? null
+                  : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).instructions
+                    ? (
+                      <div>
+                        <strong>Instructions:</strong>
+                        <ol>
+                          {JSON.parse(chatMessage.content).instructions.map((instruction, index) => (
+                            <li key={index} color='black'>{instruction}</li>
+                          ))}
+                        </ol>
+                      </div>
+                    )
+                    : null
+              }
+            </p>
+            {chatMessage.role === 'assistant' && isJSON(chatMessage.content) ? <button onClick={saveRecipe} id='save-recipe-button'>Save recipe</button> : null}
           </li>
           )}
         </ul>
+
         <div className='bottom-section'>
           <div className="input-container">
 
