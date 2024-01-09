@@ -2,6 +2,9 @@ import './UserPage.css';
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 
+import { Button } from '@mui/material';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+
 function UserPage() {
 
   const [value, setValue] = useState(null);
@@ -119,10 +122,11 @@ function UserPage() {
         <div className='bottom-section'>
           <div className="input-container">
 
-            <form onSubmit={getMessages}>
+            <form onSubmit={getMessages} id='sous-form'>
               <input value={value} onChange={e => setValue(e.target.value)}
                 placeholder='What would you like to cook today?' />
-              <button id="submit">➢</button>
+              <Button startIcon={<ArrowUpwardIcon />} id='submit'></Button>
+              {/* <button id="submit">➢</button> */}
             </form>
 
           </div>

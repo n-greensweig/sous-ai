@@ -24,15 +24,15 @@ body {
   justify-content: space-between;
 }
 
-button {
-  border: solid .5px #CCCCCC;
+#submit {
+  /* border: solid .5px #CCCCCC; */
   background-color: transparent;
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
 }
 
-button:hover {
+#submit:hover {
   cursor: pointer;
   color: #F5F5F5;
   background-color: #444654;
@@ -103,10 +103,15 @@ input:focus {
 }
 
 #submit {
-  position: absolute;
-  bottom: 15px;
+  /* position: absolute; */
+  /* bottom: 10px; */
   right: 0;
   cursor: pointer;
+}
+
+#sous-form {
+  display: flex;
+  flex-direction: row;
 }
 
 .feed {
