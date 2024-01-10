@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 import swal from 'sweetalert';
+import { RampRight } from '@mui/icons-material';
 
 function UserPage() {
 
@@ -60,9 +61,10 @@ function UserPage() {
 
     e.preventDefault();
 
+    console.log(JSON.parse(message.content).recipe_name);
+
     const recipe = {
-      title: capitalizeFirstLetter(message.content.slice(message.content.indexOf('delicious') + 10, message.content.indexOf('recipe') - 1)),
-      instructions: message.content.split('Ingredients:')[1],
+      message: message.content,
     };
 
     setNewRecipe(recipe);
@@ -139,7 +141,15 @@ function UserPage() {
         <ul className='feed'>
           {currentChat?.map((chatMessage, index) => <li key={index}>
             <p className="role">{capitalizeFirstLetter(chatMessage.role) === 'Assistant' ?
-              'SousAI' : capitalizeFirstLetter(chatMessage.role)
+              <div id='name-pic' style={{ display: 'flex', flexDirection: 'row' }}>
+                <img src={`images/sous.png`}
+                  height={'30'}
+                  width={'30'}
+                  style={{ borderRadius: '75%', marginRight: '15px' }}
+                />
+                <span>SousAI</span>
+              </div>
+              : capitalizeFirstLetter(chatMessage.role)
             }</p>
             {/* <p>{chatMessage.content}</p> */}
             <p>
@@ -191,6 +201,9 @@ function UserPage() {
                     )
                     : null
               }
+
+              <br></br>
+              <br></br>
 
               {/* Instructions */}
               {
