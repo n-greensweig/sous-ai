@@ -138,8 +138,9 @@ function RecipeDetails() {
                 {/* {instructions ? instructions.map(step => step.length > 2 ? <li style={{ color: "black" }}>{step.replace(/"|\\n/g, '').trim()}</li> : '') : null} */}
             </ol>
 
-            <p style={{ color: 'black' }}>Notes: {notes}</p>
+            <p style={{ color: 'black' }}>{notes}</p>
 
+            <p style={{ color: 'black' }}>Comments:</p>
             {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
 
             <div style={{ display: 'flex' }}>
