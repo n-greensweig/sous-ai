@@ -32,12 +32,6 @@ body {
   margin: 10px;
 }
 
-#submit:hover {
-  cursor: pointer;
-  color: #F5F5F5;
-  background-color: #444654;
-}
-
 .history {
   padding: 10px;
   margin: 10px;
@@ -103,10 +97,19 @@ input:focus {
 }
 
 #submit {
-  /* position: absolute; */
-  /* bottom: 10px; */
   right: 0;
   cursor: pointer;
+}
+
+#submit:hover {
+  cursor: pointer;
+  color: #F5F5F5;
+  background-color: #444654;
+  fill: #F5F5F5;
+}
+
+#submit:hover .up-icon {
+  fill: #F5F5F5;
 }
 
 #sous-form {
