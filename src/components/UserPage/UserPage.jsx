@@ -8,7 +8,6 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { PacmanLoader } from 'react-spinners';
 
 import swal from 'sweetalert';
-import { RampRight } from '@mui/icons-material';
 
 function UserPage() {
 

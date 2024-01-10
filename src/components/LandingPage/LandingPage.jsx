@@ -4,10 +4,20 @@ import './LandingPage.css';
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
+import TypewriterText from '../TypewriterText/TypewriterText';
 
 function LandingPage() {
   const [heading, setHeading] = useState('Welcome');
   const history = useHistory();
+
+  const firstParagraphText = `Introducing SousAI, your culinary companion in the digital age! 
+  Welcome to a world where creativity meets convenience, and every meal becomes a masterpiece. 
+  With SousAI, you're granted exclusive access to the culinary wonders of artificial intelligence. 
+  Imagine a kitchen assistant that crafts delicious recipes tailored to your taste buds, 
+  effortlessly generating a world of gastronomic possibilities. 
+  Beyond its recipe-generating prowess, SousAI offers you the unique ability to curate your own culinary journey. 
+  Save your favorite recipes to your personalized recipe box and unlock the power to leave your mark on each dish. 
+  Dive into the world of SousAI, where cooking evolves, and flavor knows no bounds. Join us in embracing the future of cooking!`;
 
   const onLogin = (event) => {
     history.push('/login');
@@ -15,13 +25,11 @@ function LandingPage() {
 
   return (
     <div className="container" style={{ backgroundColor: '#333', color: '' }}>
-      <h2>{heading}</h2>
+      <h2 style={{color: '#f6f1eb'}}>{heading}</h2>
 
       <div className="grid">
         <div className="grid-col grid-col_8">
-          <p style={{ color: '#f6f1eb' }}>
-            SousAI is a recipe app allows users to save AI-generated recipes to their recipe box.
-          </p>
+          <TypewriterText text={firstParagraphText} />
         </div>
         <div className="grid-col grid-col_4">
           <RegisterForm />
