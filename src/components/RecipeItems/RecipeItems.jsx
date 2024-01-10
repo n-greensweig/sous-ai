@@ -34,9 +34,10 @@ function RecipeItems() {
             >
 
                 {recipes.map(recipe => (
-                        <Grid item className='card' xs={10} md={3} onClick={() => handleClick(recipe.id)} 
+                        <Grid item className='card' xs={5} md={3} onClick={() => handleClick(recipe.id)} 
                         style={{
-                            padding: '0px'
+                            padding: '0px',
+                            margin: '4px'
                         }} 
                         >
                             <Paper elevation={5}>
@@ -49,15 +50,16 @@ function RecipeItems() {
                                                 image={`images/${recipe.photo}`}
                                                 alt={`${recipe.title} dish`}
                                             />
-                                            <CardContent>
+                                            <CardContent className="card-content" style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
 
-                                                <Typography style={{
+                                                <Typography className="title" style={{
                                                     alignItems: 'center',
                                                     justifyContent: 'center',
                                                     height: '100%',
                                                     fontFamily: 'inter',
                                                     color: 'black',
-                                                    fontSize: '20px'
+                                                    fontSize: '18px',
+                                                    margin: '0px'
                                                 }}
                                                     variant="h4"
                                                     component="div"
@@ -66,13 +68,14 @@ function RecipeItems() {
                                                         mb: 2
                                                     }}>{recipe.title}</Typography>
                                                 
-                                                <Typography style={{
-                                                    alignItems: 'center',
+                                                <Typography className="notes" style={{
+                                                    alignItems: 'baseline',
                                                     justifyContent: 'center',
                                                     height: '100%',
                                                     fontFamily: 'inter',
                                                     color: 'black',
-                                                    fontSize: '13px'
+                                                    fontSize: '13px',
+                                                    marginTop: '5px',
                                                 }}
                                                     variant="h4"
                                                     component="div"

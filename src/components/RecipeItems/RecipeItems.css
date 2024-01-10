@@ -4,12 +4,25 @@
 
 .card:hover {
     box-shadow: rgba(255, 165, 0, .15) 0 54px 55px,
-    rgba(255, 165, 0, .15) 0 -12px 30px,
-    rgba(255, 165, 0, .15) 0 4px 6px,
-    rgba(255, 165, 0, .15) 0 12px 3px,
-    rgba(255, 165, 0, .15) 0 -3px 5px;
+        rgba(255, 165, 0, .15) 0 -12px 30px,
+        rgba(255, 165, 0, .15) 0 4px 6px,
+        rgba(255, 165, 0, .15) 0 12px 3px,
+        rgba(255, 165, 0, .15) 0 -3px 5px;
 }
 
-.container {
+/* .container {
     border: 2px solid red;
+} */
+
+/* .card-content {
+    border: 2px solid yellowgreen;
+    margin: 0px;
+} */
+
+/* .title {
+    border: 2px solid purple;
 }
+
+.notes {
+    border: 2px solid green;
+} */
