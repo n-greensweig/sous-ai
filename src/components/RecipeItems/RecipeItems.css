@@ -14,10 +14,12 @@
     border: 2px solid red;
 } */
 
-/* .card-content {
-    border: 2px solid yellowgreen;
+.card-content {
+    /* border: 2px solid yellowgreen; */
     margin: 0px;
-} */
+    height: 90px;
+    overflow: auto;
+}
 
 /* .title {
     border: 2px solid purple;

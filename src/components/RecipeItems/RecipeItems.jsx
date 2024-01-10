@@ -28,65 +28,74 @@ function RecipeItems() {
         <>
             <Grid container spacing={2} minHeight={'5vh'} className="container"
                 style={{
-                    display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly',
-                    alignItems: 'center', marginTop: '0px'
+                    marginTop: '0px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '16px',
+                    maxWidth: '1400px',
+                    margin: '0 auto',
+                    padding: '20px 10px',
                 }}
             >
 
                 {recipes.map(recipe => (
-                        <Grid item className='card' xs={5} md={3} onClick={() => handleClick(recipe.id)} 
+                    <Grid item className='card' xs={5} md={3} onClick={() => handleClick(recipe.id)}
                         style={{
                             padding: '0px',
-                            margin: '4px'
-                        }} 
-                        >
-                            <Paper elevation={5}>
-                                <Card>
-                                    <div key={recipe.id}>
-                                        <CardActionArea>
-                                            <CardMedia
-                                                component={'img'}
-                                                height={'194'}
-                                                image={`images/${recipe.photo}`}
-                                                alt={`${recipe.title} dish`}
-                                            />
-                                            <CardContent className="card-content" style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
+                            margin: '4px',
+                        }}
+                    >
+                        <Paper elevation={5}>
+                            <Card>
+                                <div key={recipe.id}>
+                                    <CardActionArea>
+                                        <CardMedia
+                                            component={'img'}
+                                            height={'194'}
+                                            image={`images/${recipe.photo}`}
+                                            alt={`${recipe.title} dish`}
+                                        />
+                                        <CardContent className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
 
-                                                <Typography className="title" style={{
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    height: '100%',
-                                                    fontFamily: 'inter',
-                                                    color: 'black',
-                                                    fontSize: '18px',
-                                                    margin: '0px'
-                                                }}
-                                                    variant="h4"
-                                                    component="div"
-                                                    sx={{
-                                                        fontWeight: 'bold',
-                                                        mb: 2
-                                                    }}>{recipe.title}</Typography>
-                                                
-                                                <Typography className="notes" style={{
-                                                    alignItems: 'baseline',
-                                                    justifyContent: 'center',
-                                                    height: '100%',
-                                                    fontFamily: 'inter',
-                                                    color: 'black',
-                                                    fontSize: '13px',
-                                                    marginTop: '5px',
-                                                }}
-                                                    variant="h4"
-                                                    component="div"
-                                                    >{recipe.notes}</Typography>
+                                            <Typography className="title" style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'flex-start',
+                                                fontFamily: 'inter',
+                                                color: 'black',
+                                                fontSize: '18px',
+                                                margin: '0px',
+                                                paddingTop: '0px',
+                                            }}
+                                                variant="h4"
+                                                component="div"
+                                                sx={{
+                                                    fontWeight: 'bold',
+                                                    mb: 2
+                                                }}>{recipe.title}</Typography>
 
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </div>
-                                </Card>
-                            </Paper>
-                        </Grid>
+                                            <Typography className="notes" style={{
+                                                alignItems: 'baseline',
+                                                justifyContent: 'center',
+                                                fontFamily: 'inter',
+                                                color: 'black',
+                                                fontSize: '13px',
+                                                marginTop: '5px',
+                                                overflow: 'auto'
+                                            }}
+                                                variant="h4"
+                                                component="div"
+                                            >{recipe.notes}</Typography>
+
+                                        </CardContent>
+                                    </CardActionArea>
+                                </div>
+                            </Card>
+                        </Paper>
+                    </Grid>
                 ))}
 
             </Grid>

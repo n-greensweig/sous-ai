@@ -27,12 +27,12 @@ function Nav() {
         <>
           <div id='sous-footer'>
             <Link className="navLink" to="/user">
-              <AutoFixHighIcon sx={{ fill: 'white', marginBottom: '7px'  }} /> SousAI
+              <AutoFixHighIcon sx={{ fill: 'white', marginBottom: '7px'  }} className='icon' /> SousAI
             </Link>
           </div>
 
           <div id='saved-footer'>
-            <Link className="navLink" to="/recipes">
+            <Link className='navLink' to="/recipes">
               <MenuBookIcon sx={{ fill: 'white', marginBottom: '7px' }} className='icon' /> Saved Recipes
             </Link>
           </div>
