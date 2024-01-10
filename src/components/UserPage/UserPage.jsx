@@ -111,11 +111,6 @@ function UserPage() {
   const currentChat = previousChats.filter(previousChat => previousChat.title === currentTitle);
   const uniqueTitles = Array.from(new Set(previousChats.map(previousChat => previousChat.title)));
 
-  // const string = `
-  // As an AI, I don't have personal opinions or tastes. However, I can help you find a recipe based on your preferences or dietary needs. What type of recipe are you interested in?`;
-  // const object = JSON.parse(string);
-  // console.log(object);
-
   const isJSON = str => {
     try {
       JSON.parse(str);

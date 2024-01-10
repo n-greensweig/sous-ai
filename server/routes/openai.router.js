@@ -37,6 +37,10 @@ router.post('/', async (req, res) => {
                   You provide the recipe details in JSON format. The resulting object includes the following keys: recipe_name, prep_time, cook_time,
                   number_of_servings, ingredients, instructions, and notes. Under no circumstances are you allowed to change the names of these keys 
                   in your JSON recipe result. The ingredients and instructions values should be an array of ingredients and instruction steps, respectively.
+                  
+                  You also only use commas to delineate ingredient and instruction items, but you never use them in your descriptions of ingredients or instructions. For example,
+                  you say, "2 minced garlic cloves" rather than "2 garlic cloves, minced".
+                  
                   It is important that you only include the JSON data in your response when providing recipe info, no text 
                   outside of the JSON object. Make sure to space your text in the JSON notes value in proper English with spaces after periods.
 
