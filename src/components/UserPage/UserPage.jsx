@@ -5,16 +5,19 @@ import { useDispatch } from 'react-redux';
 import { Button } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
+import { PacmanLoader } from 'react-spinners';
+
 import swal from 'sweetalert';
 import { RampRight } from '@mui/icons-material';
 
 function UserPage() {
 
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
   const [message, setMessage] = useState(null);
   const [previousChats, setPreviousChats] = useState([]);
   const [currentTitle, setCurrentTitle] = useState(null);
   const [newRecipe, setNewRecipe] = useState({});
+  const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch(); // dispatch
 
@@ -30,7 +33,11 @@ function UserPage() {
     setValue('');
   };
 
-  const getMessages = async () => {
+  const getMessages = async (e) => {
+
+    e.preventDefault();
+
+    setLoading(true);
 
     const options = {
       method: 'POST',
@@ -50,6 +57,10 @@ function UserPage() {
       console.error(error);
     }
 
+    finally {
+      setLoading(false);
+    }
+
   };
 
   // Helper function to capitalize first letter of a string
@@ -60,8 +71,6 @@ function UserPage() {
   const saveRecipe = e => {
 
     e.preventDefault();
-
-    console.log(JSON.parse(message.content).recipe_name);
 
     const recipe = {
       message: message.content,
@@ -132,7 +141,6 @@ function UserPage() {
       </section> */}
       <section className='main'>
         <h1>SousAI</h1>
-        {/* {!currentTitle && <h1>SousAI</h1>} */}
         <ul className='feed'>
           {currentChat?.map((chatMessage, index) => <li key={index}>
             <p className="role">{capitalizeFirstLetter(chatMessage.role) === 'Assistant' ?
@@ -146,7 +154,7 @@ function UserPage() {
               </div>
               : capitalizeFirstLetter(chatMessage.role)
             }</p>
-            {/* <p>{chatMessage.content}</p> */}
+
             <p>
               {
                 chatMessage.role === 'user' ? chatMessage.content :
@@ -223,6 +231,11 @@ function UserPage() {
           )}
         </ul>
 
+        {loading && <div id='pacman'>
+          Cooking up delicious recipe...<PacmanLoader color='#FFA500' size={20} />
+        </div>
+        }
+
         <div className='bottom-section'>
           <div className="input-container">
 
@@ -231,7 +244,6 @@ function UserPage() {
                 placeholder='What would you like to cook today?' />
               <Button startIcon={<ArrowUpwardIcon />} type='submit' id='submit'></Button>
             </form>
-
           </div>
           <p className="info">
             SousAI can make mistakes. Consider checking important information.
