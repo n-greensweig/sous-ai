@@ -17,6 +17,8 @@ function RecipeDetails() {
     const details = useSelector(store => store.recipeDetailsReducer);
     const comments = useSelector(store => store.commentsReducer);
     const [title, setTitle] = useState(details ? details.title : '');
+    const [ingredients, setIngredients] = useState(details ? details.ingredients : []);
+    const [instructions, setInstructions] = useState(details ? details.instructions : []);
 
     const [newComment, setNewComment] = useState([]);
 
@@ -26,13 +28,13 @@ function RecipeDetails() {
         setNewComment('');
     };
 
-    const image = details ? details.photo : '';
-    const instructions = details ? details.instructions : '';
-    const ingredients = instructions ? instructions.split('Instructions:')[0].replace(/[,.]/g, '').split('-').filter(ingredient => ingredient.trim() !== '') : '';
+    // const image = details ? details.photo : '';
+    // const instructions = details ? details.instructions : '';
+    // const ingredients = instructions ? instructions.split('Instructions:')[0].replace(/[,.]/g, '').split('-').filter(ingredient => ingredient.trim() !== '') : '';
 
-    console.log(instructions ? ingredients[8].split('Instructions:')[0] : null);
+    // console.log(instructions ? ingredients[8].split('Instructions:')[0] : null);
 
-    const recipeSteps = instructions ? instructions.split('Instructions:')[1].split(/\d+\./).filter(step => step.trim() !== '') : '';
+    // const recipeSteps = instructions ? instructions.split('Instructions:')[1].split(/\d+\./).filter(step => step.trim() !== '') : '';
 
     const saveEditedTitle = (e, id) => {
         e.preventDefault();
@@ -75,8 +77,10 @@ function RecipeDetails() {
     useEffect(() => {
         if (details && details.title) {
             setTitle(details.title);
+            setIngredients(details.ingredients.slice(1, -1).split(','));
+            setInstructions(details.instructions.slice(1, -1).split(','));
         }
-    }, [details, instructions]);
+    }, [details]);
 
     // use Effect fetching recipe info
     useEffect(() => {
@@ -109,19 +113,19 @@ function RecipeDetails() {
                     Delete recipe
                 </Button>
             </div>
-            <img src={`images/${image}`}
+            {/* <img src={`images/${image}`}
                 height={'100'}
                 width={'100'}
                 style={{ borderRadius: '75%' }}
-            />
+            /> */}
             <p style={{ color: 'black' }}>Ingredients:</p>
             <ul>
-                {instructions ? ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{ingredient.replace(' \n', '').trim()}</li> : '') : null}
+                {ingredients ? ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{ingredient.replace(/"|\\n/g, '').trim()}</li> : '') : null}
             </ul>
 
             <p style={{ color: 'black' }}>Instructions:</p>
             <ol>
-                {instructions ? recipeSteps.map(step => step.length > 2 ? <li style={{ color: "black" }}>{step}</li> : '') : null}
+                {instructions ? instructions.map(step => step.length > 2 ? <li style={{ color: "black" }}>{step.replace(/"|\\n/g, '').trim()}</li> : '') : null}
             </ol>
 
             {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
