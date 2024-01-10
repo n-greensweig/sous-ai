@@ -37,6 +37,11 @@ function Nav() {
             </Link>
           </div>
 
+          <div id='about-footer'>
+            <Link className='navLink' to="/about">About
+            </Link>
+          </div>
+
           <div id='log-out-footer'>
             <LogOutButton className="navLink" />
           </div>
