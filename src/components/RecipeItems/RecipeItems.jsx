@@ -28,8 +28,8 @@ function RecipeItems() {
 
     return (
 
-        <>
-        <Header text={'Saved Recipes'} />
+        <div style={{ paddingBottom: '8%', marginTop: '5%' }}>
+            <Header text={'Saved Recipes'} />
             <Grid container spacing={2} minHeight={'5vh'} className="container"
                 style={{
                     marginTop: '0px',
@@ -103,7 +103,7 @@ function RecipeItems() {
                 ))}
 
             </Grid>
-        </>
+        </div>
 
     )
 

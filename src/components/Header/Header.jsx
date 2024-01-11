@@ -4,13 +4,17 @@ import { Link } from 'react-router-dom';
 function Header(props) {
     return (
         // <Link to="/home">
-            <header style={{
-                 background: 'radial-gradient(circle, #F5F5F5, #DAA520)',
-                color: '#333333',
-                borderColor: 'white',
-                textAlign: 'center',
-                padding: '24px',
-            }}>{props.text}</header>
+        <header style={{
+            background: 'radial-gradient(circle, #F5F5F5, #DAA520)',
+            position: 'fixed',
+            width: '100%',
+            color: '#333333',
+            borderColor: 'white',
+            textAlign: 'center',
+            padding: '24px',
+            zIndex: 1000,
+            top: 0,
+        }}>{props.text}</header>
         // </Link>
     )
 }

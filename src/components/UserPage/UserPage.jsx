@@ -238,7 +238,7 @@ function UserPage() {
         </div>
         }
 
-        <div className='bottom-section'>
+        <div className='bottom-section' style={{marginBottom: '7%'}}>
           <div className="input-container">
 
             <form onSubmit={getMessages} id='sous-form'>

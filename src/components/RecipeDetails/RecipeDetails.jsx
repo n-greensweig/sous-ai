@@ -95,7 +95,7 @@ function RecipeDetails() {
     const replaceWithCommas = str => str.replace(/@/g, ',');
 
     return (
-        <>
+        <div style={{ paddingBottom: '8%', marginTop: '5%' }}>
 
             <Header text={title ? title : ''} />
             <div
@@ -158,7 +158,7 @@ function RecipeDetails() {
                     >Save comment</Button>
                 </form>
             </div>
-        </>
+        </div>
 
     )
 
