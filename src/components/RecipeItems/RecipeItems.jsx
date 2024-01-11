@@ -23,6 +23,8 @@ function RecipeItems() {
         dispatch({ type: 'FETCH_RECIPES' });
     }, []);
 
+    const replaceWithCommas = str => str.replace(/@/g, ',');
+
     return (
 
         <>
@@ -88,7 +90,7 @@ function RecipeItems() {
                                             }}
                                                 variant="h4"
                                                 component="div"
-                                            >{recipe.notes}</Typography>
+                                            >{replaceWithCommas(recipe.notes)}</Typography>
 
                                         </CardContent>
                                     </CardActionArea>
