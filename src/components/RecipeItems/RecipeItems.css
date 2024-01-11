@@ -3,11 +3,11 @@
 } */
 
 .card:hover {
-    box-shadow: rgba(255, 165, 0, .15) 0 54px 55px,
-        rgba(255, 165, 0, .15) 0 -12px 30px,
-        rgba(255, 165, 0, .15) 0 4px 6px,
-        rgba(255, 165, 0, .15) 0 12px 3px,
-        rgba(255, 165, 0, .15) 0 -3px 5px;
+    box-shadow: rgba(218, 165, 32, .15) 0 54px 55px,
+        rgba(218, 165, 32, .15) 0 -12px 30px,
+        rgba(218, 165, 32, .15) 0 4px 6px,
+        rgba(218, 165, 32, .15) 0 12px 3px,
+        rgba(218, 165, 32, .15) 0 -3px 5px;
 }
 
 /* .container {

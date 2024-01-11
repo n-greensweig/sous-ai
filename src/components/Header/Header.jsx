@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header(props) {
     return (
-        <Link to="/home">
+        // <Link to="/home">
             <header style={{
-                backgroundColor: '#FFA500',
-                color: 'white',
+                 background: 'radial-gradient(circle, #F5F5F5, #DAA520)',
+                color: '#333333',
                 borderColor: 'white',
                 textAlign: 'center',
                 padding: '24px',
-            }}>SousAI</header>
-        </Link>
+            }}>{props.text}</header>
+        // </Link>
     )
 }
 

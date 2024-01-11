@@ -4,6 +4,7 @@ import './RecipeItems.css';
 
 import { Grid, Paper, Card, CardContent, CardMedia, CardActionArea, Typography } from "@mui/material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import Header from '../Header/Header';
 
 function RecipeItems() {
 
@@ -28,6 +29,7 @@ function RecipeItems() {
     return (
 
         <>
+        <Header text={'Saved Recipes'} />
             <Grid container spacing={2} minHeight={'5vh'} className="container"
                 style={{
                     marginTop: '0px',

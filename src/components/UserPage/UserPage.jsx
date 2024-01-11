@@ -234,7 +234,7 @@ function UserPage() {
         </ul>
 
         {loading && <div id='pacman'>
-          Cooking up delicious recipe...<PacmanLoader color='#FFA500' size={20} />
+          Cooking up delicious recipe...<PacmanLoader color='#DAA520' size={20} />
         </div>
         }
 

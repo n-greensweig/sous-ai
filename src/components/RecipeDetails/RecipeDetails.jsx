@@ -7,6 +7,8 @@ import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min
 import swal from 'sweetalert';
 import { useState } from "react";
 
+import Header from "../Header/Header";
+
 function RecipeDetails() {
 
     const dispatch = useDispatch();
@@ -94,6 +96,8 @@ function RecipeDetails() {
 
     return (
         <>
+
+            <Header text={title ? title : ''} />
             <div
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
             >
