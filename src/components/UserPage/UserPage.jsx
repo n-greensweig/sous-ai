@@ -244,7 +244,10 @@ function UserPage() {
             <form onSubmit={getMessages} id='sous-form'>
               <input value={loading ? '' : value} onChange={e => setValue(e.target.value)}
                 placeholder='What would you like to cook today?' required />
-              <Button startIcon={<ArrowUpwardIcon className='up-icon' />} type='submit' id='submit'></Button>
+              {value ?
+                <Button startIcon={<ArrowUpwardIcon className='up-icon' />} type='submit' id='submit'></Button> :
+                <Button disabled startIcon={<ArrowUpwardIcon className='up-icon' />} type='submit' id='submit'></Button>
+              }
             </form>
           </div>
           <p className="info">
