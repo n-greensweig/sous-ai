@@ -6,7 +6,7 @@
 
   margin: 0 0 30px;
   /* background-color: #00acb0; original */
-  background-color: orange;
+  background-color: #333333;
   overflow: hidden;
 }
 
@@ -26,12 +26,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #f2f2f2;
-  background-color: orange;
+  color: #FFFFFF;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
   font-size: 15px;
+  background-color: inherit;
 
   /* these last two make the logout button in
   the nav bar look like another link */
@@ -41,11 +41,10 @@
 }
 
 .navLink:hover {
-  background-color: rgb(246, 241, 241);
-  color: orange;
-  fill: orange;
+  color: #DAA520;
+  fill: #DAA520;
 }
 
 .navLink:hover .icon {
-  fill: orange;
+  fill: #DAA520;
 }
