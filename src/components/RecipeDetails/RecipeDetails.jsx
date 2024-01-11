@@ -103,7 +103,7 @@ function RecipeDetails() {
                 <input style={{ color: "black" }}
                     contentEditable={true}
                     suppressContentEditableWarning={true}
-                    defaultValue={title}
+                    value={title}
                     onChange={e => setTitle(e.target.value.trim())}
                     onBlur={e => saveEditedTitle(e, id)}
                     onKeyDown={e => {
