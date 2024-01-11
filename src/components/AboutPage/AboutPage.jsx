@@ -8,7 +8,7 @@ import Header from '../Header/Header';
 
 function AboutPage() {
   return (
-    <>
+    <div style={{ marginTop: '5%' }}>
       <Header text='About' />
       <div className="container">
         <div>
@@ -22,7 +22,7 @@ function AboutPage() {
             Dive into the world of SousAI, where cooking evolves, and flavor knows no bounds. Join us in embracing the future of cooking!</p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

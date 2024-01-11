@@ -8,7 +8,7 @@ function Header(props) {
             background: 'radial-gradient(circle, #F5F5F5, #DAA520)',
             position: 'fixed',
             width: '100%',
-            color: '#333333',
+            color: '#000000',
             borderColor: 'white',
             textAlign: 'center',
             padding: '24px',

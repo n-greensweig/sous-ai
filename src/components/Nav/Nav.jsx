@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
@@ -9,7 +9,11 @@ import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 function Nav() {
+
   const user = useSelector((store) => store.user);
+  const location = useLocation();
+
+  const isActive = route => location.pathname === route ? 'navLink active' : 'navLink';
 
   return (
     <div className="nav">
@@ -26,29 +30,23 @@ function Nav() {
       {user.id && (
         <>
           <div id='sous-footer'>
-            <Link className="navLink" to="/user">
-              <AutoFixHighIcon sx={{ fill: '#FFFFFF', marginBottom: '7px'  }} className='icon' /> SousAI
+            <Link className={isActive('/user')} to="/user">
+              <AutoFixHighIcon className='icon' /> SousAI
             </Link>
           </div>
-
           <div id='saved-footer'>
-            <Link className='navLink' to="/recipes">
-              <MenuBookIcon sx={{ fill: '#FFFFFF', marginBottom: '7px' }} className='icon' /> Saved Recipes
+            <Link className={isActive('/recipes')} to="/recipes">
+              <MenuBookIcon className='icon' /> Saved Recipes
             </Link>
           </div>
-
           <div id='about-footer'>
-            <Link className='navLink' to="/about">About
-            </Link>
+            <Link className={isActive('/about')} to="/about">About</Link>
           </div>
-
           <div id='log-out-footer'>
-            <LogOutButton className="navLink" />
+            <LogOutButton className={isActive('/logout')} />
           </div>
         </>
       )}
-
-      {/* </div> */}
     </div>
   );
 }

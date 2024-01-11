@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
+
   margin: 0 0 0;
   position: fixed;
   bottom: 0;
@@ -43,11 +43,21 @@
   outline: 0;
 }
 
+.icon {
+  fill: #FFFFFF !important;
+}
+
 .navLink:hover {
-  color: #DAA520;
-  fill: #DAA520;
+  color: #888888;
+  fill: #888888;
 }
 
 .navLink:hover .icon {
-  fill: #DAA520;
+  fill: #888888 !important;
+}
+
+.navLink.active,
+.navLink.active .icon {
+  color: #DAA520 !important;
+  fill: #DAA520 !important;
 }
