@@ -90,6 +90,8 @@ function RecipeDetails() {
         dispatch({ type: 'FETCH_DETAILS', payload: id });
     }, [id]);
 
+    const replaceWithCommas = str => str.replace(/@/g, ',');
+
     return (
         <>
             <div
@@ -123,22 +125,22 @@ function RecipeDetails() {
                 style={{ borderRadius: '75%' }}
             />
 
-            <p style={{ color: 'black' }}>Prep Time: {prepTime}</p>
-            <p style={{ color: 'black' }}>Cook Time: {cookTime}</p>
+            <p style={{ color: 'black' }}>Prep Time: {prepTime ? replaceWithCommas(prepTime) : ''}</p>
+            <p style={{ color: 'black' }}>Cook Time: {cookTime ? replaceWithCommas(cookTime) : ''}</p>
 
             <p style={{ color: 'black' }}>Ingredients:</p>
             <ul>
-                {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{ingredient.replace(/"|\\n/g, '').trim()}</li> : '')}
+                {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
                 {/* {ingredients ? ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{ingredient.replace(/"|\\n/g, '').trim()}</li> : '') : null} */}
             </ul>
 
             <p style={{ color: 'black' }}>Instructions:</p>
             <ol>
-                {Array.isArray(instructions) && instructions.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{ingredient.replace(/"|\\n/g, '').trim()}</li> : '')}
+                {Array.isArray(instructions) && instructions.map(instruction => instruction.length > 2 ? <li style={{ color: "black" }}>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</li> : '')}
                 {/* {instructions ? instructions.map(step => step.length > 2 ? <li style={{ color: "black" }}>{step.replace(/"|\\n/g, '').trim()}</li> : '') : null} */}
             </ol>
 
-            <p style={{ color: 'black' }}>{notes}</p>
+            <p style={{ color: 'black' }}>{notes ? replaceWithCommas(notes) : ''}</p>
 
             <p style={{ color: 'black' }}>Comments:</p>
             {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}

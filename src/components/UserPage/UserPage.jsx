@@ -122,12 +122,13 @@ function UserPage() {
   const isJSON = str => {
     try {
       JSON.parse(str);
-      console.log('hey', JSON.parse(str).ingredients);
       return true;
     } catch (error) {
       return false;
     }
   };
+
+  const replaceWithCommas = str => str.replace(/@/g, ',');
 
 
   return (
@@ -157,7 +158,7 @@ function UserPage() {
             <p>
               {
                 chatMessage.role === 'user' ? chatMessage.content :
-                  isJSON(chatMessage.content) ? 'Title: ' + JSON.parse(chatMessage.content).recipe_name : chatMessage.content
+                  isJSON(chatMessage.content) ? 'Title: ' + replaceWithCommas(JSON.parse(chatMessage.content).recipe_name) : chatMessage.content
               }
 
               <br></br>
@@ -167,17 +168,17 @@ function UserPage() {
               {
                 chatMessage.role === 'user'
                   ? null
-                  : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).prep_time
+                  : isJSON(chatMessage.content) && replaceWithCommas(JSON.parse(chatMessage.content).prep_time)
                     ? (
                       <div>
                         <strong>Prep Time: </strong>
-                        {JSON.parse(chatMessage.content).prep_time}<br></br><br></br>
+                        {replaceWithCommas(JSON.parse(chatMessage.content).prep_time)}<br></br><br></br>
                         <strong>Cook Time: </strong>
-                        {JSON.parse(chatMessage.content).cook_time}<br></br><br></br>
+                        {replaceWithCommas(JSON.parse(chatMessage.content).cook_time)}<br></br><br></br>
                         <strong>Number of servings: </strong>
-                        {JSON.parse(chatMessage.content).number_of_servings}<br></br><br></br>
+                        {replaceWithCommas(JSON.parse(chatMessage.content).number_of_servings)}<br></br><br></br>
                         <strong>Recipe notes: </strong>
-                        {JSON.parse(chatMessage.content).notes}
+                        {replaceWithCommas(JSON.parse(chatMessage.content).notes)}
                       </div>
                     )
                     : null
@@ -196,7 +197,7 @@ function UserPage() {
                         <strong>Ingredients:</strong>
                         <ul>
                           {JSON.parse(chatMessage.content).ingredients.map((ingredient, index) => (
-                            <li key={index} color='black'>{ingredient}</li>
+                            <li key={index} color='black'>{replaceWithCommas(ingredient)}</li>
                           ))}
                         </ul>
                       </div>
@@ -217,7 +218,7 @@ function UserPage() {
                         <strong>Instructions:</strong>
                         <ol>
                           {JSON.parse(chatMessage.content).instructions.map((instruction, index) => (
-                            <li key={index} color='black'>{instruction}</li>
+                            <li key={index} color='black'>{replaceWithCommas(instruction)}</li>
                           ))}
                         </ol>
                       </div>
@@ -240,7 +241,7 @@ function UserPage() {
 
             <form onSubmit={getMessages} id='sous-form'>
               <input value={value} onChange={e => setValue(e.target.value)}
-                placeholder='What would you like to cook today?' />
+                placeholder='What would you like to cook today?' required />
               <Button startIcon={<ArrowUpwardIcon className='up-icon' />} type='submit' id='submit'></Button>
             </form>
           </div>
