@@ -16,7 +16,8 @@ function UserPage() {
   const [previousChats, setPreviousChats] = useState([]);
   const [currentTitle, setCurrentTitle] = useState(null);
   const [newRecipe, setNewRecipe] = useState({});
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [responseComplete, setResponseComplete] = useState(true);
 
   const dispatch = useDispatch(); // dispatch
 
@@ -37,6 +38,7 @@ function UserPage() {
     e.preventDefault();
 
     setLoading(true);
+    setResponseComplete(false);
 
     const options = {
       method: 'POST',
@@ -54,10 +56,9 @@ function UserPage() {
       setMessage(data.choices[0].message);
     } catch (error) {
       console.error(error);
-    }
-
-    finally {
+    } finally {
       setLoading(false);
+      setResponseComplete(true);
     }
 
   };
@@ -75,7 +76,7 @@ function UserPage() {
       message: message.content,
     };
 
-    setNewRecipe(recipe);
+    // setNewRecipe(recipe);
 
     const action = { type: 'SAVE_RECIPE', payload: recipe };
     dispatch(action);
@@ -111,7 +112,8 @@ function UserPage() {
           content: message.content
         }
         ]
-      ))
+      ));
+      setValue('');
     }
 
   }, [message, currentTitle]);
@@ -240,7 +242,7 @@ function UserPage() {
           <div className="input-container">
 
             <form onSubmit={getMessages} id='sous-form'>
-              <input value={value} onChange={e => setValue(e.target.value)}
+              <input value={loading ? '' : value} onChange={e => setValue(e.target.value)}
                 placeholder='What would you like to cook today?' required />
               <Button startIcon={<ArrowUpwardIcon className='up-icon' />} type='submit' id='submit'></Button>
             </form>
@@ -250,8 +252,8 @@ function UserPage() {
           </p>
 
         </div>
-      </section>
-    </div>
+      </section >
+    </div >
   );
 }
 
