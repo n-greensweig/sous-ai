@@ -7,9 +7,18 @@ import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min
 import swal from 'sweetalert';
 import { useState } from "react";
 
+import axios from "axios";
+
 import Header from "../Header/Header";
 
 function RecipeDetails() {
+
+    const [imagePath, setImagePath] = useState('');
+
+    const [imageList, setImageList] = useState([]);
+
+    // const preset = process.env.REACT_APP_PRESET;
+    // const cloudName = process.env.REACT_APP_CLOUD_NAME;
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -17,8 +26,6 @@ function RecipeDetails() {
     const { id } = useParams();
 
     const details = useSelector(store => store.recipeDetailsReducer);
-
-    // const isDetailsAvailable = !!details;
 
     const comments = useSelector(store => store.commentsReducer);
     const [title, setTitle] = useState(details ? details.title : '');
@@ -29,6 +36,61 @@ function RecipeDetails() {
     const [notes, setNotes] = useState(details ? details.notes : '');
 
     const [newComment, setNewComment] = useState([]);
+
+    const onFileChange = async (event) => {
+        // Access the selected file
+        const fileToUpload = event.target.files[0];
+
+        // Limit to specific file types.
+        const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+
+        // Check if the file is one of the allowed types.
+        if (acceptedImageTypes.includes(fileToUpload.type)) {
+            const formData = new FormData();
+            formData.append('file', fileToUpload);
+            formData.append('upload_preset', process.env.REACT_APP_PRESET);
+            console.log(process.env);
+            let postUrl = `https://api.cloudinary.com/v1_1/` + process.env.REACT_APP_CLOUD_NAME + `/image/upload`;
+            axios.post(postUrl, formData).then(response => {
+                console.log('Success!', response);
+                setImagePath(response.data.url);
+            }).catch(error => {
+                console.error('error', error);
+                alert('Something went wrong.');
+            });
+        } else {
+            alert('Please select an image');
+        }
+    };
+
+
+    const sendPhotoToServer = e => {
+
+        e.preventDefault();
+
+        // Send image path to server
+        axios.post('/photos', { recipeID: id, path: imagePath })
+            .then(response => {
+                setImagePath('');
+                getImageList();
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Something went wrong.');
+            });
+
+    };
+
+    const getImageList = () => {
+        axios.get('/photos')
+            .then(response => {
+                setImageList(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Something went wrong.');
+            });
+    };
 
     const addComment = (comment, id) => {
         dispatch({ type: 'ADD_COMMENT', payload: { comment: comment, id: id } });
@@ -90,6 +152,7 @@ function RecipeDetails() {
     // useEffect fetching recipe info
     useEffect(() => {
         dispatch({ type: 'FETCH_DETAILS', payload: id });
+        getImageList();
     }, [id]);
 
     const replaceWithCommas = str => str.replace(/@/g, ',');
@@ -104,6 +167,48 @@ function RecipeDetails() {
                 <Button variant="outlined"
                     startIcon={<ArrowBackIcon />}
                     onClick={() => history.push('/recipes')} style={{ color: 'white', backgroundColor: '#orange', borderColor: 'white' }}></Button>
+
+                <h2>Upload Image</h2>
+                <form onSubmit={sendPhotoToServer} style={{ marginTop: '50px' }}>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={onFileChange}
+                    />
+                    <br />
+                    {
+                        // Image preview
+                        imagePath === '' ? (
+                            <p>Please select an image</p>
+                        ) : (
+                            <img style={{ maxWidth: '150px' }} src={imagePath} />
+                        )
+                    }
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
+
+                <h2>Images</h2>
+                {
+                    imageList.length > 0 ? (
+                        imageList.map(image => (
+                            <img style={{
+                                margin: '10px',
+                                width: '200px',
+                                height: '200px',
+                                objectFit: 'cover',
+                                border: '5px solid rgb(42, 42, 42)'
+
+                            }}
+                                key={image.id} className="gallery-image" src={image.path} alt='Recipe photo' />
+                        ))
+                    ) : (
+                        <p>No images!</p>
+                    )
+
+                }
+
+
                 <input style={{ color: "black" }}
                     contentEditable={true}
                     suppressContentEditableWarning={true}
