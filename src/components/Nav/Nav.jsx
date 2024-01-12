@@ -13,7 +13,7 @@ function Nav() {
   const user = useSelector((store) => store.user);
   const location = useLocation();
 
-  const isActive = route => location.pathname === route ? 'navLink active' : 'navLink';
+  const isActive = route => location.pathname.startsWith(route) ? 'navLink active' : 'navLink';
 
   return (
     <div className="nav">

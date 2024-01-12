@@ -17,9 +17,6 @@ function RecipeDetails() {
 
     const [imageList, setImageList] = useState([]);
 
-    // const preset = process.env.REACT_APP_PRESET;
-    // const cloudName = process.env.REACT_APP_CLOUD_NAME;
-
     const dispatch = useDispatch();
     const history = useHistory();
 
