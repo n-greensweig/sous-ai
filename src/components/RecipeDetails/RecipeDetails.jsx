@@ -1,5 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,6 +34,7 @@ function RecipeDetails() {
     const [notes, setNotes] = useState(details ? details.notes : '');
 
     const [newComment, setNewComment] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
 
     const onFileChange = async (event) => {
         // Access the selected file
@@ -106,6 +108,7 @@ function RecipeDetails() {
         e.currentTarget.blur();
     };
 
+    const toggleHeader = () => isEditing ? setIsEditing(false) : setIsEditing(true);
 
     // Remove recipe from DB onClick of 'Delete Recipe' button
     const removeRecipe = id => {
@@ -157,7 +160,21 @@ function RecipeDetails() {
     return (
         <div style={{ paddingBottom: '8%', marginTop: '5%' }}>
 
-            <Header text={title ? title : ''} />
+            {isEditing ?
+                <input style={{ color: "black" }}
+                    contentEditable={true}
+                    suppressContentEditableWarning={true}
+                    value={title}
+                    onChange={e => setTitle(e.target.value.trim())}
+                    onBlur={e => saveEditedTitle(e, id)}
+                    onKeyDown={e => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            saveEditedTitle(e, id);
+                        }
+                    }} /> :
+                <Header text={title ? title : ''} />
+            }
             <div
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
             >
@@ -165,7 +182,7 @@ function RecipeDetails() {
                     startIcon={<ArrowBackIcon />}
                     onClick={() => history.push('/recipes')} style={{ color: 'white', backgroundColor: '#orange', borderColor: 'white' }}></Button>
 
-                <h2>Upload Image</h2>
+                {/* <h2>Upload Image</h2>
                 <form onSubmit={sendPhotoToServer} style={{ marginTop: '50px' }}>
                     <input
                         type="file"
@@ -203,10 +220,10 @@ function RecipeDetails() {
                         <p>No images!</p>
                     )
 
-                }
+                } */}
 
 
-                <input style={{ color: "black" }}
+                {/* <input style={{ color: "black" }}
                     contentEditable={true}
                     suppressContentEditableWarning={true}
                     value={title}
@@ -218,10 +235,12 @@ function RecipeDetails() {
                             saveEditedTitle(e, id);
                         }
                     }}
-                />
-                <Button variant="outlined" startIcon={<DeleteIcon sx={{ fill: 'white' }} />}
-                    onClick={() => removeRecipe(id)} style={{ color: 'white', backgroundColor: 'red', borderColor: 'white' }}>
-                    Delete recipe
+                /> */}
+                <Button variant="text"
+                    startIcon={isEditing ? null : <EditIcon />} onClick={toggleHeader}
+                    style={{ borderColor: 'white' }}>{isEditing ? 'Save' : null}</Button>
+                <Button variant="outlined" startIcon={<DeleteIcon sx={{ fill: 'red' }} />}
+                    onClick={() => removeRecipe(id)} style={{ color: 'white', borderColor: 'white' }}>
                 </Button>
             </div>
 

@@ -14,7 +14,7 @@ function Header(props) {
             padding: '24px',
             zIndex: 1000,
             top: 0,
-        }}>{props.text}</header>
+        }}><strong>{props.text}</strong></header>
         // </Link>
     )
 }
