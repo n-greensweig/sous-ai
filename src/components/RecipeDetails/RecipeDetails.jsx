@@ -2,6 +2,7 @@ import { Button, TextField } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CheckIcon from '@mui/icons-material/Check';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -108,7 +109,14 @@ function RecipeDetails() {
         e.currentTarget.blur();
     };
 
-    const toggleHeader = () => isEditing ? setIsEditing(false) : setIsEditing(true);
+    const toggleHeader = e => {
+        if (isEditing) {
+            sendPhotoToServer(e);
+            setIsEditing(false);
+        } else {
+            setIsEditing(true);
+        }
+    };
 
     // Remove recipe from DB onClick of 'Delete Recipe' button
     const removeRecipe = id => {
@@ -158,21 +166,24 @@ function RecipeDetails() {
     const replaceWithCommas = str => str.replace(/@/g, ',');
 
     return (
-        <div style={{ paddingBottom: '8%', marginTop: '5%' }}>
+        <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
 
             {isEditing ?
-                <input style={{ color: "black" }}
-                    contentEditable={true}
-                    suppressContentEditableWarning={true}
-                    value={title}
-                    onChange={e => setTitle(e.target.value.trim())}
-                    onBlur={e => saveEditedTitle(e, id)}
-                    onKeyDown={e => {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            saveEditedTitle(e, id);
-                        }
-                    }} /> :
+                <div>
+                    <p>Recipe title:</p>
+                    <input style={{ color: "black", width: '50%' }}
+                        contentEditable={true}
+                        suppressContentEditableWarning={true}
+                        value={title}
+                        onChange={e => setTitle(e.target.value.trim())}
+                        onBlur={e => saveEditedTitle(e, id)}
+                        onKeyDown={e => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                saveEditedTitle(e, id);
+                            }
+                        }} />
+                </div> :
                 <Header text={title ? title : ''} />
             }
             <div
@@ -182,26 +193,31 @@ function RecipeDetails() {
                     startIcon={<ArrowBackIcon />}
                     onClick={() => history.push('/recipes')} style={{ color: 'white', backgroundColor: '#orange', borderColor: 'white' }}></Button>
 
-                {/* <h2>Upload Image</h2>
-                <form onSubmit={sendPhotoToServer} style={{ marginTop: '50px' }}>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={onFileChange}
-                    />
-                    <br />
-                    {
-                        // Image preview
-                        imagePath === '' ? (
-                            <p>Please select an image</p>
-                        ) : (
-                            <img style={{ maxWidth: '150px' }} src={imagePath} />
-                        )
-                    }
-                    <br />
-                    <button type="submit">Submit</button>
-                </form>
+                {isEditing ?
+                    <div>
+                        <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
+                        <form style={{ marginTop: 0 }}>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={onFileChange}
+                            />
+                            <br />
+                            {
+                                // Image preview
+                                imagePath === '' ? (
+                                    null
+                                ) : (
+                                    <img style={{ maxWidth: '150px' }} src={imagePath} />
+                                )
+                            }
+                            <br />
+                        </form>
+                    </div>
+                    : null
 
+                }
+                {/* 
                 <h2>Images</h2>
                 {
                     imageList.length > 0 ? (
@@ -237,11 +253,14 @@ function RecipeDetails() {
                     }}
                 /> */}
                 <Button variant="text"
-                    startIcon={isEditing ? null : <EditIcon />} onClick={toggleHeader}
-                    style={{ borderColor: 'white' }}>{isEditing ? 'Save' : null}</Button>
-                <Button variant="outlined" startIcon={<DeleteIcon sx={{ fill: 'red' }} />}
-                    onClick={() => removeRecipe(id)} style={{ color: 'white', borderColor: 'white' }}>
-                </Button>
+                    startIcon={isEditing ? <CheckIcon style={{fill: '#DAA520'}} /> : <EditIcon />} onClick={e => toggleHeader(e)}
+                    style={{ borderColor: 'white' }}></Button>
+
+                {isEditing ? null :
+                    <Button variant="outlined" startIcon={<DeleteIcon />}
+                        onClick={() => removeRecipe(id)} style={{ color: 'white', borderColor: 'white' }}>
+                    </Button>
+                }
             </div>
 
             <img src={`images/${image}`}
