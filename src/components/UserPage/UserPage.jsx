@@ -174,7 +174,7 @@ function UserPage() {
                   : isJSON(chatMessage.content) && replaceWithCommas(JSON.parse(chatMessage.content).prep_time)
                     ? (
                       <div className='black'>
-                        <strong>Title: </strong>
+                        <strong>Recipe Name: </strong>
                         {replaceWithCommas(JSON.parse(chatMessage.content).recipe_name)}<br></br><br></br>
                         <strong>Prep Time: </strong>
                         {replaceWithCommas(JSON.parse(chatMessage.content).prep_time)}<br></br><br></br>
@@ -189,16 +189,13 @@ function UserPage() {
                     : chatMessage.content
               }
 
-              <br></br>
-              <br></br>
-
               {/* Ingredients list */}
               {
                 chatMessage.role === 'user'
                   ? null
                   : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).ingredients
                     ? (
-                      <div>
+                      <div style={{ margin: '15px 0' }}>
                         <strong>Ingredients:</strong>
                         <ul>
                           {JSON.parse(chatMessage.content).ingredients.map((ingredient, index) => (
@@ -209,9 +206,6 @@ function UserPage() {
                     )
                     : null
               }
-
-              <br></br>
-              <br></br>
 
               {/* Instructions */}
               {
@@ -245,12 +239,17 @@ function UserPage() {
           <div className="input-container">
 
             <form onSubmit={getMessages} id='sous-form'>
-              <input value={loading ? '' : value} onChange={e => setValue(e.target.value)}
+
+              <input value={loading ? '' : value} disabled={loading ? true : false} onChange={e => setValue(e.target.value)}
                 placeholder='What would you like to cook today?' required />
-              {value.trim() !== '' || loading ?
-                <Button style={{ backgroundColor: '#444654' }} startIcon={<ArrowUpwardIcon className='up-icon'
-                  style={{ fill: '#F5F5F5' }} />} type='submit' id='submit'></Button> :
-                <Button disabled startIcon={<ArrowUpwardIcon className='up-icon' />} type='submit' id='submit'></Button>
+
+              {value.trim() && !loading ?
+                <Button style={{ backgroundColor: '#333333' }} type='submit' id='submit'><ArrowUpwardIcon className='up-icon'
+                  style={{ fill: '#F5F5F5', justifyContent: 'center' }} /></Button> :
+                <Button disabled type='submit' id='submit'>
+                  <ArrowUpwardIcon className='up-icon'
+                    style={{ justifyContent: 'center' }} />
+                </Button>
               }
             </form>
           </div>

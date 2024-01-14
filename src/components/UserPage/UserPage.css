@@ -24,14 +24,6 @@ body {
   justify-content: space-between;
 }
 
-#submit {
-  /* border: solid .5px #CCCCCC; */
-  background-color: transparent;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-}
-
 .history {
   padding: 10px;
   margin: 10px;
@@ -102,7 +94,7 @@ input {
   input {
     font-size: 16px;
     padding: 10px 15px;
-    }
+  }
 
 }
 
@@ -111,19 +103,28 @@ input:focus {
 }
 
 #submit {
-  right: 0;
+  background-color: transparent;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  height: 35px;
+  width: 10px;
+  padding: 0px;
+  align-self: center;
+  margin-left: -75px;
   cursor: pointer;
 }
 
 #submit:hover {
   cursor: pointer;
   color: #F5F5F5;
-  background-color: #444654;
+  background-color: #333333E6 !important;
   fill: #F5F5F5;
 }
 
 #submit:hover .up-icon {
   fill: #F5F5F5;
+  padding: 0px;
+  margin: 0px;
 }
 
 #sous-form {
@@ -135,7 +136,6 @@ input:focus {
   overflow: scroll;
   width: 100%;
   padding: 0;
-  border: 2px solid blue;
 }
 
 /* .feed li {
@@ -173,14 +173,8 @@ span {
 .role {
   /* padding: 0% 25% !important; */
   margin-left: -52px;
-  border: 2px solid black;
 }
 
 .response {
   padding: 0 25%;
-  border: 2px solid purple;
-}
-
-.avi {
-  border: 2px solid red;
 }
