@@ -141,7 +141,7 @@ function UserPage() {
           {uniqueTitles?.map((uniqueTitle, index) => <li key={index} onClick={() => handleClick(uniqueTitle)}>{uniqueTitle}</li>)}
         </ul>
       </section> */}
-      <section className='main'>
+      <section className='main' style={{ color: '#374151' }}>
         <h1>SousAI</h1>
         <ul className='feed'>
           {currentChat?.map((chatMessage, index) => <li key={index}>
@@ -158,21 +158,16 @@ function UserPage() {
             }</p>
 
             <p>
-              {
-                chatMessage.role === 'user' ? chatMessage.content :
-                  isJSON(chatMessage.content) ? 'Title: ' + replaceWithCommas(JSON.parse(chatMessage.content).recipe_name) : chatMessage.content
-              }
 
-              <br></br>
-              <br></br>
-
-              {/* Time and notes */}
+              {/* Title, time, and notes */}
               {
                 chatMessage.role === 'user'
-                  ? null
+                  ? chatMessage.content
                   : isJSON(chatMessage.content) && replaceWithCommas(JSON.parse(chatMessage.content).prep_time)
                     ? (
-                      <div>
+                      <div className='black'>
+                        <strong>Title: </strong>
+                        {replaceWithCommas(JSON.parse(chatMessage.content).recipe_name)}<br></br><br></br>
                         <strong>Prep Time: </strong>
                         {replaceWithCommas(JSON.parse(chatMessage.content).prep_time)}<br></br><br></br>
                         <strong>Cook Time: </strong>
@@ -199,7 +194,7 @@ function UserPage() {
                         <strong>Ingredients:</strong>
                         <ul>
                           {JSON.parse(chatMessage.content).ingredients.map((ingredient, index) => (
-                            <li key={index} color='black'>{replaceWithCommas(ingredient)}</li>
+                            <li key={index}>{replaceWithCommas(ingredient)}</li>
                           ))}
                         </ul>
                       </div>
@@ -238,7 +233,7 @@ function UserPage() {
         </div>
         }
 
-        <div className='bottom-section' style={{marginBottom: '7%'}}>
+        <div className='bottom-section' style={{ marginBottom: '7%' }}>
           <div className="input-container">
 
             <form onSubmit={getMessages} id='sous-form'>

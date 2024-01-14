@@ -131,7 +131,6 @@ input:focus {
 } */
 
 .feed p {
-  color: #444654;
   font-size: 14px;
   text-align: left;
 }
@@ -142,4 +141,8 @@ input:focus {
 
 #save-recipe-button:hover {
   cursor: pointer;
+}
+
+p, li, .black, strong, span {
+  color: #333333;
 }
