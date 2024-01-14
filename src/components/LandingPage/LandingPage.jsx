@@ -24,7 +24,7 @@ function LandingPage() {
   };
 
   return (
-    <div className="container" style={{ backgroundColor: '#333', color: '' }}>
+    <div className="container" style={{ backgroundColor: '#333' }}>
       <h2 style={{color: '#f6f1eb'}}>{heading}</h2>
 
       <div className="grid">
@@ -35,7 +35,7 @@ function LandingPage() {
           <RegisterForm />
 
           <center>
-            <h4>Already a Member?</h4>
+            <h4 style={{color: '#f6f1eb'}}>Already a Member?</h4>
             <button className="btn btn_sizeSm" onClick={onLogin}>
               Login
             </button>

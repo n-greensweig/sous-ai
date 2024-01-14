@@ -16,7 +16,7 @@ function Nav() {
   const isActive = route => location.pathname.startsWith(route) ? 'navLink active' : 'navLink';
 
   return (
-    <div className="nav">
+    <div className="nav" style={{ border: '2px solid red' }}>
       {/* <div> */}
       {/* If no user is logged in, show these links */}
       {!user.id && (

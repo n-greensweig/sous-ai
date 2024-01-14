@@ -32,7 +32,7 @@ Button
   border-color: #f8f8f8;
   border-width: 1px 1px 3px;
   border-radius: 4px;
-  background-color: orange;
+  background-color: #DAA520;
   color: #f8f8f8;
   font-size: 1.1rem;
   outline: 0;
@@ -47,6 +47,8 @@ Button
 .btn_sizeSm {
   padding: 10px 15px;
   font-size: 0.8rem;
+  background-color: #f6f1eb;
+  color: #DAA520;
 }
 
 .btn_sizeFull {
@@ -56,7 +58,14 @@ Button
 
 .btn:hover {
   background-color: rgb(246, 241, 241);
-  color: orange;
+  color: #DAA520;
+  text-decoration: none;
+}
+
+.btn_sizeSm:hover {
+  background-color: #CCCCCC;
+  color: #DAA520;
+  font-weight: bold;
   text-decoration: none;
 }
 
@@ -102,7 +111,6 @@ Form Treatment
   max-width: 100%;
   padding: 25px;
   margin: 0 auto 20px;
-  color: #333;
   /* background-color: rgb(246, 241, 241); */
   border-radius: 3px;
   /* box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4); */

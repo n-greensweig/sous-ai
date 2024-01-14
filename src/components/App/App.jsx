@@ -36,7 +36,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div style={{ border: '2px solid green' }}>
         {/* <Header /> */}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
