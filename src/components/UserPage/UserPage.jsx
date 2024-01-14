@@ -154,7 +154,15 @@ function UserPage() {
                 />
                 <strong>SousAI</strong>
               </div>
-              : <strong>You</strong>
+              :
+              <div id='name-pic' style={{ display: 'flex', flexDirection: 'row' }}>
+                <img src={`images/user-avatar-two.png`}
+                  height={'30'}
+                  width={'30'}
+                  style={{ borderRadius: '75%', marginRight: '15px' }}
+                />
+                <strong>You</strong>
+              </div>
             }</p>
 
             <p>

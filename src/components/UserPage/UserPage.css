@@ -70,22 +70,19 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
 }
 
 .input-container {
   position: relative;
   width: 100%;
   min-width: 350px;
-  max-width: 1250px;
-  border: 2px solid green;
+  max-width: 812px;
 }
 
 input {
   width: 100%;
-  /* min-width: 50px; */
-  border: 2ox solid red;
   font-size: 20px;
+  border: none;
   background-color: rgba(255, 255, 255, .05);
   padding: 12px 15px;
   border-radius: 5px;
@@ -98,13 +95,15 @@ input {
 
 @media (max-width: 768px) {
   .input-container {
-    max-width: 95%; /* Reduce the max-width for better mobile responsiveness */
+    max-width: 95%;
+    /* Reduce the max-width for better mobile responsiveness */
   }
-  
+
   input {
     font-size: 16px;
     padding: 10px 15px;
-  }
+    }
+
 }
 
 input:focus {
@@ -158,6 +157,18 @@ input:focus {
   cursor: pointer;
 }
 
-p, li, .black, strong, span {
+p,
+li,
+.black,
+strong,
+span {
   color: #333333;
+}
+
+p {
+  padding: 0% 25%;
+}
+
+.role {
+  padding: 0% 25% !important;
 }
