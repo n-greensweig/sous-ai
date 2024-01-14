@@ -144,10 +144,10 @@ function UserPage() {
       <section className='main' style={{ color: '#374151' }}>
         <h1>SousAI</h1>
         <ul className='feed'>
-          {currentChat?.map((chatMessage, index) => <li key={index}>
+          {currentChat?.map((chatMessage, index) => <li className='response' key={index}>
             <p className="role">{capitalizeFirstLetter(chatMessage.role) === 'Assistant' ?
-              <div id='name-pic' style={{ display: 'flex', flexDirection: 'row' }}>
-                <img src={`images/sous.png`}
+              <div id='name-pic' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <img className='avi' src={`images/sous.png`}
                   height={'30'}
                   width={'30'}
                   style={{ borderRadius: '75%', marginRight: '15px' }}
@@ -155,8 +155,8 @@ function UserPage() {
                 <strong>SousAI</strong>
               </div>
               :
-              <div id='name-pic' style={{ display: 'flex', flexDirection: 'row' }}>
-                <img src={`images/user-avatar-two.png`}
+              <div id='name-pic' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <img className='avi' src={`images/user-avatar.png`}
                   height={'30'}
                   width={'30'}
                   style={{ borderRadius: '75%', marginRight: '15px' }}
@@ -247,7 +247,7 @@ function UserPage() {
             <form onSubmit={getMessages} id='sous-form'>
               <input value={loading ? '' : value} onChange={e => setValue(e.target.value)}
                 placeholder='What would you like to cook today?' required />
-              {value.trim() !== '' ?
+              {value.trim() !== '' || loading ?
                 <Button style={{ backgroundColor: '#444654' }} startIcon={<ArrowUpwardIcon className='up-icon'
                   style={{ fill: '#F5F5F5' }} />} type='submit' id='submit'></Button> :
                 <Button disabled startIcon={<ArrowUpwardIcon className='up-icon' />} type='submit' id='submit'></Button>
