@@ -61,6 +61,7 @@ function UserPage() {
       setResponseComplete(true);
     }
 
+
   };
 
   // Helper function to capitalize first letter of a string
