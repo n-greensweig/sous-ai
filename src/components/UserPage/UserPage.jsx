@@ -2,7 +2,7 @@ import './UserPage.css';
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 
-import { Button } from '@mui/material';
+import { Button, FormControl } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 import { PacmanLoader } from 'react-spinners';

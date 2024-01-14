@@ -70,19 +70,21 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 2px solid black;
 }
 
 .input-container {
   position: relative;
   width: 100%;
   min-width: 350px;
-  max-width: 750px;
+  max-width: 1250px;
+  border: 2px solid green;
 }
 
 input {
   width: 100%;
-  min-width: 0px;
-  border: none;
+  /* min-width: 50px; */
+  border: 2ox solid red;
   font-size: 20px;
   background-color: rgba(255, 255, 255, .05);
   padding: 12px 15px;
@@ -98,12 +100,11 @@ input {
   .input-container {
     max-width: 95%; /* Reduce the max-width for better mobile responsiveness */
   }
-  /*
+  
   input {
     font-size: 16px;
     padding: 10px 15px;
   }
-  */
 }
 
 input:focus {
