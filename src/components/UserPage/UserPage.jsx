@@ -152,9 +152,9 @@ function UserPage() {
                   width={'30'}
                   style={{ borderRadius: '75%', marginRight: '15px' }}
                 />
-                <span>SousAI</span>
+                <strong>SousAI</strong>
               </div>
-              : capitalizeFirstLetter(chatMessage.role)
+              : <strong>You</strong>
             }</p>
 
             <p>
@@ -178,7 +178,7 @@ function UserPage() {
                         {replaceWithCommas(JSON.parse(chatMessage.content).notes)}
                       </div>
                     )
-                    : null
+                    : chatMessage.content
               }
 
               <br></br>
@@ -239,8 +239,9 @@ function UserPage() {
             <form onSubmit={getMessages} id='sous-form'>
               <input value={loading ? '' : value} onChange={e => setValue(e.target.value)}
                 placeholder='What would you like to cook today?' required />
-              {value ?
-                <Button startIcon={<ArrowUpwardIcon className='up-icon' />} type='submit' id='submit'></Button> :
+              {value.trim() !== '' ?
+                <Button style={{ backgroundColor: '#444654' }} startIcon={<ArrowUpwardIcon className='up-icon'
+                  style={{ fill: '#F5F5F5' }} />} type='submit' id='submit'></Button> :
                 <Button disabled startIcon={<ArrowUpwardIcon className='up-icon' />} type='submit' id='submit'></Button>
               }
             </form>
