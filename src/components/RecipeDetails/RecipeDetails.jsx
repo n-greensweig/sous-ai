@@ -237,73 +237,6 @@ function RecipeDetails() {
                     )
 
                 } */}
-
-                <Button variant="text" onClick={e => toggleEditing(e)} startIcon={isEditing ? null : <EditIcon />}
-                    style={{ borderColor: 'white', color: "gray" }}>Edit recipe</Button>
-
-                <Dialog open={isEditing}
-                    onClose={e => toggleEditing(e)}
-                    PaperProps={{
-                        component: 'form',
-                        onSubmit: (event) => {
-                            event.preventDefault();
-                            saveEditedTitle(event, id);
-                            toggleEditing(event);
-                        },
-                    }}>
-                    <DialogTitle>Set recipe title</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            New recipe title
-                        </DialogContentText>
-                        <TextField autoFocus
-                            margin="dense"
-                            id="title"
-                            name="title"
-                            fullWidth
-                            variant="standard"
-                            defaultValue={title}
-                            onChange={e => setTitle(e.target.value)}
-                            style={{ padding: '1px' }} />
-
-                        <div>
-                            <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
-                            <form style={{ marginTop: 0 }}>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={onFileChange}
-                                />
-                                <br />
-                                {
-                                    // Image preview
-                                    imagePath === '' ? (
-                                        null
-                                    ) : (
-                                        <img style={{ maxWidth: '150px' }} src={imagePath} />
-                                    )
-                                }
-                                <br />
-                            </form>
-                        </div>
-
-                    </DialogContent>
-                    <DialogActions>
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <div className="first-row">
-                                <Button onClick={e => toggleEditing(e)}>Cancel</Button>
-                                <Button type="submit">Save edited recipe</Button>
-                            </div>
-                            <div className="second-row">
-                                <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: 'red' }} />}
-                                    onClick={() => removeRecipe(id)} style={{ color: 'red', borderColor: 'red', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
-                                    Delete Recipe
-                                </Button>
-                            </div>
-                        </div>
-                    </DialogActions>
-                </Dialog>
-
             </div>
 
 
@@ -313,22 +246,93 @@ function RecipeDetails() {
                         display: 'flex', flexDirection: 'row', alignItems: 'center',
                         flexWrap: 'wrap', justifyContent: 'space-between'
                     }}>
-                        <p style={{
-                            color: 'black', fontWeight: 'bold', fontSize: '54px',
-                        }}> {title ? title : ''}</p>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <p style={{
+                                color: 'black', fontWeight: 'bold', fontSize: '54px',
+                            }}> {title ? title : ''}</p>
+                            <Button variant="text" onClick={e => toggleEditing(e)} startIcon={isEditing ? null : <EditIcon />}
+                                style={{ borderColor: 'white', color: "gray" }}>{isEditing ? null : 'Edit recipe'}</Button>
+                        </div>
 
-                        <img src={`images/${image}`}
-                            style={{
-                                maxWidth: '30%',
-                                height: 'auto',
-                                marginRight: '10%'
-                            }}
-                        />
+                        <Dialog open={isEditing}
+                            onClose={e => toggleEditing(e)}
+                            PaperProps={{
+                                component: 'form',
+                                onSubmit: (event) => {
+                                    event.preventDefault();
+                                    saveEditedTitle(event, id);
+                                    toggleEditing(event);
+                                },
+                            }}>
+                            <DialogTitle>Set recipe title</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    New recipe title
+                                </DialogContentText>
+                                <TextField autoFocus
+                                    margin="dense"
+                                    id="title"
+                                    name="title"
+                                    fullWidth
+                                    variant="standard"
+                                    defaultValue={title}
+                                    onChange={e => setTitle(e.target.value)}
+                                    style={{ padding: '1px' }} />
+
+                                <div>
+                                    <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
+                                    <form style={{ marginTop: 0 }}>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={onFileChange}
+                                        />
+                                        <br />
+                                        {
+                                            // Image preview
+                                            imagePath === '' ? (
+                                                null
+                                            ) : (
+                                                <img style={{ maxWidth: '150px' }} src={imagePath} />
+                                            )
+                                        }
+                                        <br />
+                                    </form>
+                                </div>
+
+                            </DialogContent>
+                            <DialogActions>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                    <div className="first-row">
+                                        <Button onClick={e => toggleEditing(e)}>Cancel</Button>
+                                        <Button type="submit">Save edited recipe</Button>
+                                    </div>
+                                    <div className="second-row">
+                                        <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: 'red' }} />}
+                                            onClick={() => removeRecipe(id)} style={{ color: 'red', borderColor: 'red', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
+                                            Delete Recipe
+                                        </Button>
+                                    </div>
+                                </div>
+                            </DialogActions>
+                        </Dialog>
+
+                        <div style={{
+                            display: 'flex', flexDirection: 'column', maxWidth: '30%',
+                            height: 'auto',
+                            marginRight: '10%'
+                        }}>
+                            <img src={`images/${image}`}
+                            />
+                            <div className="notes">
+                                <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}>{notes ? replaceWithCommas(notes) : ''}</p>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="lower-section">
 
-                        <div className="time-notes" style={{
+                        <div className="time" style={{
                             display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
                         }}>
                             <div className="time" style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
@@ -346,12 +350,6 @@ function RecipeDetails() {
                                         <FaArrowTurnDown style={{ marginLeft: '3px', fill: "black", textDecoration: 'underline', }} />
                                     </div>
                                 </p>
-                            </div>
-                            <div className="notes" style={{
-                                marginRight: '10%', maxWidth: '30%',
-                                paddingTop: '10px'
-                            }}>
-                                <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}>{notes ? replaceWithCommas(notes) : ''}</p>
                             </div>
                         </div>
 
@@ -402,10 +400,10 @@ function RecipeDetails() {
                                     display: 'flex',
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
-                                    alignItems: 'center'
+                                    alignItems: 'flex-start',
                                 }}>
-                                    <span>{comment.comment}</span>
-                                    <span style={{ fontSize: '.8rem' }}><i>Commented at {formatDate(comment.commented_at)}</i></span>
+                                    <span style={{ width: '70%' }}>{comment.comment}</span>
+                                    <span style={{ fontSize: '.8rem', }}><i>Commented on {formatDate(comment.commented_at)}</i></span>
                                 </p>)}
                             </div>
 
@@ -414,10 +412,10 @@ function RecipeDetails() {
                             }}>
                                 <form style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} onSubmit={() => addComment(newComment, id)}>
 
-                                    {/* <TextField label="Add a comment" variant="outlined"
+                                    <TextField label="Add a recipe note" variant="outlined"
                                         style={{ width: '70%' }}
                                         value={newComment}
-                                        onChange={e => newComment ? setNewComment(e.target.value) : null} /> */}
+                                        onChange={e => newComment ? setNewComment(e.target.value) : null} />
 
                                     <Button variant="outlined"
                                         type="submit"
