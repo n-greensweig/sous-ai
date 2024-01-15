@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, useTheme, useMediaQuery } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -171,34 +171,17 @@ function RecipeDetails() {
 
     const replaceWithCommas = str => str.replace(/@/g, ',');
 
+    // Check the screen size for responsive design
+    const theme = useTheme();
+    const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
+    const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
-
-            {/* {isEditing ?
-                <div>
-                    <p>Recipe title:</p>
-                    <input style={{ color: "black", width: '50%' }}
-                        contentEditable={true}
-                        suppressContentEditableWarning={true}
-                        value={title}
-                        onChange={e => setTitle(e.target.value.trim())}
-                        onBlur={e => saveEditedTitle(e, id)}
-                        onKeyDown={e => {
-                            if (e.key === 'Enter') {
-                                e.preventDefault();
-                                saveEditedTitle(e, id);
-                            }
-                        }} />
-                </div> :
-                <Header text={title ? title : ''} />
-            } */}
             <Header text={title ? title : ''} />
             <div
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
             >
-                <Button variant="outlined"
-                    startIcon={<ArrowBackIcon />}
-                    onClick={() => history.push('/recipes')} style={{ color: 'white', backgroundColor: '#orange', borderColor: 'white' }}></Button>
 
                 {/* {isEditing ?
                     <div>
@@ -245,23 +228,6 @@ function RecipeDetails() {
 
                 } */}
 
-
-                {/* <input style={{ color: "black" }}
-                    contentEditable={true}
-                    suppressContentEditableWarning={true}
-                    value={title}
-                    onChange={e => setTitle(e.target.value.trim())}
-                    onBlur={e => saveEditedTitle(e, id)}
-                    onKeyDown={e => {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            saveEditedTitle(e, id);
-                        }
-                    }}
-                /> */}
-                {/* <Button variant="text"
-                    startIcon={isEditing ? <CheckIcon style={{fill: '#DAA520'}} /> : <EditIcon />} onClick={e => toggleHeader(e)}
-                    style={{ borderColor: 'white' }}></Button> */}
                 <Button variant="text" onClick={e => toggleEditing(e)} startIcon={isEditing ? null : <EditIcon />}
                     style={{ borderColor: 'white', color: "gray" }}>Edit recipe</Button>
 
@@ -271,9 +237,6 @@ function RecipeDetails() {
                         component: 'form',
                         onSubmit: (event) => {
                             event.preventDefault();
-                            const formData = new FormData(event.currentTarget);
-                            const formJson = Object.fromEntries(formData.entries());
-                            const newTitle = formJson.title;
                             saveEditedTitle(event, id);
                             toggleEditing(event);
                         },
@@ -290,60 +253,103 @@ function RecipeDetails() {
                             fullWidth
                             variant="standard"
                             defaultValue={title}
-                            onChange={e => setTitle(e.target.value)} />
+                            onChange={e => setTitle(e.target.value)}
+                            style={{ padding: '1px' }} />
+
+                        <div>
+                            <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
+                            <form style={{ marginTop: 0 }}>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={onFileChange}
+                                />
+                                <br />
+                                {
+                                    // Image preview
+                                    imagePath === '' ? (
+                                        null
+                                    ) : (
+                                        <img style={{ maxWidth: '150px' }} src={imagePath} />
+                                    )
+                                }
+                                <br />
+                            </form>
+                        </div>
+
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={e => toggleEditing(e)}>Cancel</Button>
-                        <Button type="submit">Save edited recipe</Button>
-                        <Button variant="outlined" startIcon={<DeleteIcon />}
-                            onClick={() => removeRecipe(id)} style={{ color: 'white', borderColor: 'white' }}>
-                        </Button>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <div className="first-row">
+                                <Button onClick={e => toggleEditing(e)}>Cancel</Button>
+                                <Button type="submit">Save edited recipe</Button>
+                            </div>
+                            <div className="second-row">
+                                <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: 'red' }} />}
+                                    onClick={() => removeRecipe(id)} style={{ color: 'red', borderColor: 'red', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
+                                    Delete Recipe
+                                </Button>
+                            </div>
+                        </div>
                     </DialogActions>
                 </Dialog>
 
-                {isEditing ? null :
-                    <Button variant="outlined" startIcon={<DeleteIcon />}
-                        onClick={() => removeRecipe(id)} style={{ color: 'white', borderColor: 'white' }}>
-                    </Button>
-                }
             </div>
 
-            <img src={`images/${image}`}
-                height={'100'}
-                width={'100'}
-                style={{ borderRadius: '75%' }}
-            />
 
-            <p style={{ color: 'black' }}><strong>Prep Time:</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
-            <p style={{ color: 'black' }}><strong>Cook Time:</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
+            <div className="body" style={{display: 'flex'}}>
+                <div className="upper-section" style={{
+                    border: '2px solid red', display: 'flex', flexDirection: 'row', alignItems: 'center',
+                    justifyContent: 'space-around', flexWrap: 'wrap'
+                }}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <p style={{
+                            color: 'black', fontWeight: 'bold', fontSize: '54px',
+                            paddingBottom: '0px',
+                        }}> {title ? title : ''}</p>
+                        {isXsScreen || isSmScreen ? null : <div style={{ borderBottom: '2px solid #888' }}></div>}
+                    </div>
 
-            <p style={{ color: 'black' }}><strong>Ingredients:</strong></p>
-            <ul>
-                {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
-                {/* {ingredients ? ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{ingredient.replace(/"|\\n/g, '').trim()}</li> : '') : null} */}
-            </ul>
+                    <img src={`images/${image}`}
+                        style={{
+                            maxWidth: '30%',
+                            height: 'auto',
+                        }}
+                    />
+                </div>
 
-            <p style={{ color: 'black' }}><strong>Instructions:</strong></p>
-            <ol>
-                {Array.isArray(instructions) && instructions.map(instruction => instruction.length > 2 ? <li style={{ color: "black" }}>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</li> : '')}
-                {/* {instructions ? instructions.map(step => step.length > 2 ? <li style={{ color: "black" }}>{step.replace(/"|\\n/g, '').trim()}</li> : '') : null} */}
-            </ol>
+                <div className="lower-section" style={{border: '2px solid purple'}}>
+                    <p style={{ color: 'black' }}><strong>Prep Time:</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
+                    <p style={{ color: 'black' }}><strong>Cook Time:</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
 
-            <p style={{ color: 'black' }}>{notes ? replaceWithCommas(notes) : ''}</p>
 
-            <p style={{ color: 'black' }}>Comments:</p>
-            {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
+                    <p style={{ color: 'black' }}><strong>Ingredients:</strong></p>
+                    <ul>
+                        {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
+                    </ul>
 
-            <div style={{ display: 'flex' }}>
-                <form onSubmit={() => addComment(newComment, id)}>
-                    <TextField label="Add a comment" variant="outlined" value={newComment} onChange={e => setNewComment(e.target.value)} />
-                    <Button variant="outlined"
-                        type="submit"
-                        style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
-                    >Save comment</Button>
-                </form>
+                    <p style={{ color: 'black' }}><strong>Instructions:</strong></p>
+                    <ol>
+                        {Array.isArray(instructions) && instructions.map(instruction => instruction.length > 2 ? <li style={{ color: "black" }}>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</li> : '')}
+                    </ol>
+
+                    <p style={{ color: 'black' }}>{notes ? replaceWithCommas(notes) : ''}</p>
+
+                    <p style={{ color: 'black' }}>Comments:</p>
+                    {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
+
+                    <div style={{ display: 'flex' }}>
+                        <form onSubmit={() => addComment(newComment, id)}>
+                            <TextField label="Add a comment" variant="outlined" value={newComment} onChange={e => setNewComment(e.target.value)} />
+                            <Button variant="outlined"
+                                type="submit"
+                                style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
+                            >Save comment</Button>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div >
 
     )
 
