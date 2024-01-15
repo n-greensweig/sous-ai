@@ -39,6 +39,7 @@ function RecipeDetails() {
     const [prepTime, setPrepTime] = useState(details ? details.prep_time : '');
     const [cookTime, setCookTime] = useState(details ? details.cook_time : '');
     const [notes, setNotes] = useState(details ? details.notes : '');
+    const [servings, setServings] = useState(details ? details.number_of_servings : '');
 
     const [newComment, setNewComment] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
@@ -297,55 +298,70 @@ function RecipeDetails() {
             </div>
 
 
-            <div className="body" style={{display: 'flex'}}>
-                <div className="upper-section" style={{
-                    border: '2px solid red', display: 'flex', flexDirection: 'row', alignItems: 'center',
-                    justifyContent: 'space-around', flexWrap: 'wrap'
-                }}>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <p style={{
-                            color: 'black', fontWeight: 'bold', fontSize: '54px',
-                            paddingBottom: '0px',
-                        }}> {title ? title : ''}</p>
-                        {isXsScreen || isSmScreen ? null : <div style={{ borderBottom: '2px solid #888' }}></div>}
+            <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: '10%' }}>
+                <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div className="upper-section" style={{
+                        display: 'flex', flexDirection: 'row', alignItems: 'center',
+                        flexWrap: 'wrap', justifyContent: 'space-between'
+                    }}>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <p style={{
+                                color: 'black', fontWeight: 'bold', fontSize: '54px',
+                            }}> {title ? title : ''}</p>
+                            {isXsScreen || isSmScreen ? null : <div style={{
+                                border: '1px solid #888'
+                            }}></div>}
+                        </div>
+
+                        <img src={`images/${image}`}
+                            style={{
+                                maxWidth: '30%',
+                                height: 'auto',
+                                marginRight: '10%'
+                            }}
+                        />
                     </div>
 
-                    <img src={`images/${image}`}
-                        style={{
-                            maxWidth: '30%',
-                            height: 'auto',
-                        }}
-                    />
-                </div>
+                    <div className="lower-section" style={{ border: '2px solid purple' }}>
 
-                <div className="lower-section" style={{border: '2px solid purple'}}>
-                    <p style={{ color: 'black' }}><strong>Prep Time:</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
-                    <p style={{ color: 'black' }}><strong>Cook Time:</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
+                        <p style={{ color: 'black' }}><strong>Prep Time:</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
+                        <p style={{ color: 'black' }}><strong>Cook Time:</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
 
+                        <div className="ingredients-instructions" style={{ display: 'flex', flexDirection: 'row' }}>
+                            <div className="ingredients" style={{ marginRight: '20px' }}>
+                                <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black' }}>INGREDIENTS</span></p>
+                                <p style={{ color: 'black' }}><strong>Yield:</strong> {servings ? servings : ''}</p>
+                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                    {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
+                                </ul>
+                            </div>
+                            <div className="instructions">
+                                <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black' }}>INSTRUCTIONS</span></p>
+                                <ol style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                    {Array.isArray(instructions) && instructions.map((instruction, index) => instruction.length > 2 ?
+                                        <li key={index} style={{ color: "black", display: 'flex', flexDirection: 'column', marginBottom: '1rem' }}>
+                                            <span style={{ color: 'black', fontWeight: 'bold' }}>
+                                                Step {index + 1}
+                                            </span>
+                                            {<span>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</span>}</li> : '')}
+                                </ol>
+                            </div>
+                        </div>
 
-                    <p style={{ color: 'black' }}><strong>Ingredients:</strong></p>
-                    <ul>
-                        {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
-                    </ul>
+                        <p style={{ color: 'black' }}>{notes ? replaceWithCommas(notes) : ''}</p>
 
-                    <p style={{ color: 'black' }}><strong>Instructions:</strong></p>
-                    <ol>
-                        {Array.isArray(instructions) && instructions.map(instruction => instruction.length > 2 ? <li style={{ color: "black" }}>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</li> : '')}
-                    </ol>
+                        <p style={{ color: 'black' }}>Comments:</p>
+                        {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
 
-                    <p style={{ color: 'black' }}>{notes ? replaceWithCommas(notes) : ''}</p>
-
-                    <p style={{ color: 'black' }}>Comments:</p>
-                    {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
-
-                    <div style={{ display: 'flex' }}>
-                        <form onSubmit={() => addComment(newComment, id)}>
-                            <TextField label="Add a comment" variant="outlined" value={newComment} onChange={e => setNewComment(e.target.value)} />
-                            <Button variant="outlined"
-                                type="submit"
-                                style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
-                            >Save comment</Button>
-                        </form>
+                        <div style={{ display: 'flex' }}>
+                            <form onSubmit={() => addComment(newComment, id)}>
+                                <TextField label="Add a comment" variant="outlined" value={newComment} onChange={e => setNewComment(e.target.value)} />
+                                <Button variant="outlined"
+                                    type="submit"
+                                    style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
+                                >Save comment</Button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
