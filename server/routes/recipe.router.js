@@ -102,12 +102,19 @@ router.delete('/:id', (req, res) => {
 DELETE FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2;
 `;
 
+    // Must then delete images associated with the recipe
+    let secondQueryText = `
+DELETE FROM "images" WHERE "user_id" = $1 AND "recipe_id" = $2;
+`;
+
     let queryText = `
 DELETE FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 `;
 
     pool.query(firstQueryText, [req.user.id, req.params.id])
         .then(result => {
+            // Next, delete recipe images from DB
+            pool.query(secondQueryText, [req.user.id, req.params.id]);
             // Next, delete recipe from DB
             pool.query(queryText, [req.user.id, req.params.id]);
         })

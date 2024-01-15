@@ -295,6 +295,9 @@ function RecipeDetails() {
                     <DialogActions>
                         <Button onClick={e => toggleEditing(e)}>Cancel</Button>
                         <Button type="submit">Save edited recipe</Button>
+                        <Button variant="outlined" startIcon={<DeleteIcon />}
+                            onClick={() => removeRecipe(id)} style={{ color: 'white', borderColor: 'white' }}>
+                        </Button>
                     </DialogActions>
                 </Dialog>
 
