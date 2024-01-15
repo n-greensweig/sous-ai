@@ -8,6 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { FaArrowTurnDown } from "react-icons/fa6";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -304,14 +305,9 @@ function RecipeDetails() {
                         display: 'flex', flexDirection: 'row', alignItems: 'center',
                         flexWrap: 'wrap', justifyContent: 'space-between'
                     }}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <p style={{
-                                color: 'black', fontWeight: 'bold', fontSize: '54px',
-                            }}> {title ? title : ''}</p>
-                            {isXsScreen || isSmScreen ? null : <div style={{
-                                border: '1px solid #888'
-                            }}></div>}
-                        </div>
+                        <p style={{
+                            color: 'black', fontWeight: 'bold', fontSize: '54px',
+                        }}> {title ? title : ''}</p>
 
                         <img src={`images/${image}`}
                             style={{
@@ -322,45 +318,73 @@ function RecipeDetails() {
                         />
                     </div>
 
-                    <div className="lower-section" style={{ border: '2px solid purple' }}>
+                    <div className="lower-section">
 
-                        <p style={{ color: 'black' }}><strong>Prep Time:</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
-                        <p style={{ color: 'black' }}><strong>Cook Time:</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
+                        <div className="time-notes" style={{
+                            display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+                        }}>
+                            <div className="time" style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
+                                <p style={{ color: 'black', marginBottom: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Prep Time</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
+                                <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Cook Time</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
+                                <p style={{
+                                    color: 'black', marginTop: '0px', fontSize: '.9rem',
+                                    textDecoration: 'underline',
+                                    cursor: 'pointer'
+                                }}
+                                    onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
+                                >
+                                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                        <strong>Read recipe notes</strong>
+                                        <FaArrowTurnDown style={{ marginLeft: '3px', fill: "black", textDecoration: 'underline', }} />
+                                    </div>
+                                </p>
+                            </div>
+                            <div className="notes" style={{
+                                marginRight: '10%', maxWidth: '30%',
+                                paddingTop: '10px'
+                            }}>
+                                <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}>{notes ? replaceWithCommas(notes) : ''}</p>
+                            </div>
+                        </div>
 
                         <div className="ingredients-instructions" style={{ display: 'flex', flexDirection: 'row' }}>
-                            <div className="ingredients" style={{ marginRight: '20px' }}>
-                                <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black' }}>INGREDIENTS</span></p>
-                                <p style={{ color: 'black' }}><strong>Yield:</strong> {servings ? servings : ''}</p>
+                            <div className="ingredients" style={{ marginRight: '10%' }}>
+                                <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black', fontSize: '1.1rem' }}>INGREDIENTS</span></p>
+
+                                <p style={{ color: 'black' }}><strong>Yield:</strong> {!servings ? '' : isNaN(servings) ? servings : <span>{servings} servings</span>}</p>
+
                                 <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                                     {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
                                 </ul>
                             </div>
                             <div className="instructions">
-                                <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black' }}>INSTRUCTIONS</span></p>
-                                <ol style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black', fontSize: '1.1rem' }}>INSTRUCTIONS</span></p>
+                                <ol style={{ listStyleType: 'none', paddingLeft: '0px', marginRight: '10%' }}>
                                     {Array.isArray(instructions) && instructions.map((instruction, index) => instruction.length > 2 ?
                                         <li key={index} style={{ color: "black", display: 'flex', flexDirection: 'column', marginBottom: '1rem' }}>
                                             <span style={{ color: 'black', fontWeight: 'bold' }}>
                                                 Step {index + 1}
                                             </span>
-                                            {<span>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</span>}</li> : '')}
+                                            {<span>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}.</span>}
+                                        </li> : '')}
                                 </ol>
                             </div>
                         </div>
 
-                        <p style={{ color: 'black' }}>{notes ? replaceWithCommas(notes) : ''}</p>
+                        <div className="recipe-notes" style={{ display: 'flex', flexDirection: 'row' }}>
 
-                        <p style={{ color: 'black' }}>Comments:</p>
-                        {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
+                            <p style={{ color: 'black', border: '2px solid green' }}>Recipe notes:</p>
+                            {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
 
-                        <div style={{ display: 'flex' }}>
-                            <form onSubmit={() => addComment(newComment, id)}>
-                                <TextField label="Add a comment" variant="outlined" value={newComment} onChange={e => setNewComment(e.target.value)} />
-                                <Button variant="outlined"
-                                    type="submit"
-                                    style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
-                                >Save comment</Button>
-                            </form>
+                            <div style={{ display: 'flex', border: '2px solid green' }}>
+                                <form onSubmit={() => addComment(newComment, id)}>
+                                    <TextField label="Add a comment" variant="outlined" value={newComment} onChange={e => setNewComment(e.target.value)} />
+                                    <Button variant="outlined"
+                                        type="submit"
+                                        style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
+                                    >Save comment</Button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
