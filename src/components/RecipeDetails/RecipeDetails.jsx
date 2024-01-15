@@ -174,7 +174,7 @@ function RecipeDetails() {
     return (
         <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
 
-            {isEditing ?
+            {/* {isEditing ?
                 <div>
                     <p>Recipe title:</p>
                     <input style={{ color: "black", width: '50%' }}
@@ -191,7 +191,8 @@ function RecipeDetails() {
                         }} />
                 </div> :
                 <Header text={title ? title : ''} />
-            }
+            } */}
+            <Header text={title ? title : ''} />
             <div
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
             >
@@ -199,7 +200,7 @@ function RecipeDetails() {
                     startIcon={<ArrowBackIcon />}
                     onClick={() => history.push('/recipes')} style={{ color: 'white', backgroundColor: '#orange', borderColor: 'white' }}></Button>
 
-                {isEditing ?
+                {/* {isEditing ?
                     <div>
                         <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
                         <form style={{ marginTop: 0 }}>
@@ -222,7 +223,7 @@ function RecipeDetails() {
                     </div>
                     : null
 
-                }
+                } */}
                 {/* 
                 <h2>Images</h2>
                 {
@@ -262,13 +263,46 @@ function RecipeDetails() {
                     startIcon={isEditing ? <CheckIcon style={{fill: '#DAA520'}} /> : <EditIcon />} onClick={e => toggleHeader(e)}
                     style={{ borderColor: 'white' }}></Button> */}
                 <Button variant="text" onClick={e => toggleEditing(e)} startIcon={isEditing ? null : <EditIcon />}
-                    style={{ borderColor: 'white' }}>Edit recipe title</Button>
+                    style={{ borderColor: 'white', color: "gray" }}>Edit recipe</Button>
 
-                    {isEditing ? null :
-                        <Button variant="outlined" startIcon={<DeleteIcon />}
-                            onClick={() => removeRecipe(id)} style={{ color: 'white', borderColor: 'white' }}>
-                        </Button>
-                    }
+                <Dialog open={isEditing}
+                    onClose={e => toggleEditing(e)}
+                    PaperProps={{
+                        component: 'form',
+                        onSubmit: (event) => {
+                            event.preventDefault();
+                            const formData = new FormData(event.currentTarget);
+                            const formJson = Object.fromEntries(formData.entries());
+                            const newTitle = formJson.title;
+                            saveEditedTitle(event, id);
+                            toggleEditing(event);
+                        },
+                    }}>
+                    <DialogTitle>Set recipe title</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            New recipe title
+                        </DialogContentText>
+                        <TextField autoFocus
+                            margin="dense"
+                            id="title"
+                            name="title"
+                            fullWidth
+                            variant="standard"
+                            defaultValue={title}
+                            onChange={e => setTitle(e.target.value)} />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={e => toggleEditing(e)}>Cancel</Button>
+                        <Button type="submit">Save edited recipe</Button>
+                    </DialogActions>
+                </Dialog>
+
+                {isEditing ? null :
+                    <Button variant="outlined" startIcon={<DeleteIcon />}
+                        onClick={() => removeRecipe(id)} style={{ color: 'white', borderColor: 'white' }}>
+                    </Button>
+                }
             </div>
 
             <img src={`images/${image}`}
