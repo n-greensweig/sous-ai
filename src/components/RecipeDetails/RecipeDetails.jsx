@@ -173,6 +173,14 @@ function RecipeDetails() {
 
     const replaceWithCommas = str => str.replace(/@/g, ',');
 
+    const formatDate = date => {
+        const newDate = new Date(date);
+        const m = newDate.getMonth() + 1;
+        const d = newDate.getDate();
+        const y = newDate.getFullYear();
+        return `${m}/${d}/${y}`;
+    };
+
     // Check the screen size for responsive design
     const theme = useTheme();
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
@@ -365,24 +373,56 @@ function RecipeDetails() {
                                             <span style={{ color: 'black', fontWeight: 'bold' }}>
                                                 Step {index + 1}
                                             </span>
-                                            {<span>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}.</span>}
+                                            {<span>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</span>}
                                         </li> : '')}
                                 </ol>
                             </div>
                         </div>
 
-                        <div className="recipe-notes" style={{ display: 'flex', flexDirection: 'row' }}>
+                        <div className="recipe-notes" style={{
+                            display: 'flex', flexDirection: 'column',
+                            marginTop: '30px',
+                            justifyContent: 'space-between',
+                            alignItems: 'flex-start'
+                        }}>
 
-                            <p style={{ color: 'black', border: '2px solid green' }}>Recipe notes:</p>
-                            {comments.map(comment => <p style={{ color: 'black' }}>{comment.comment}</p>)}
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
+                                <p style={{
+                                    color: 'black', marginTop: '0px',
+                                    paddingBottom: '0px',
+                                    fontWeight: 'bold',
+                                    borderTop: '2px solid black'
+                                }}>RECIPE NOTES</p>
+                                {comments.map(comment => <p style={{
+                                    color: 'black',
+                                    marginTop: '0px',
+                                    paddingTop: '0px',
+                                    padding: '10px 0px',
+                                    borderBottom: '1px solid lightgray',
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}>
+                                    <span>{comment.comment}</span>
+                                    <span style={{ fontSize: '.8rem' }}><i>Commented at {formatDate(comment.commented_at)}</i></span>
+                                </p>)}
+                            </div>
 
-                            <div style={{ display: 'flex', border: '2px solid green' }}>
-                                <form onSubmit={() => addComment(newComment, id)}>
-                                    <TextField label="Add a comment" variant="outlined" value={newComment} onChange={e => setNewComment(e.target.value)} />
+                            <div style={{
+                                display: 'flex', flexDirection: 'row', width: '50%',
+                            }}>
+                                <form style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} onSubmit={() => addComment(newComment, id)}>
+
+                                    {/* <TextField label="Add a comment" variant="outlined"
+                                        style={{ width: '70%' }}
+                                        value={newComment}
+                                        onChange={e => newComment ? setNewComment(e.target.value) : null} /> */}
+
                                     <Button variant="outlined"
                                         type="submit"
-                                        style={{ color: 'orange', backgroundColor: 'lightgray', borderColor: 'white' }}
-                                    >Save comment</Button>
+                                        style={{ color: '#DAA520', border: '1px solid #DAA520', borderColor: 'white' }}
+                                    >Save note</Button>
                                 </form>
                             </div>
                         </div>
