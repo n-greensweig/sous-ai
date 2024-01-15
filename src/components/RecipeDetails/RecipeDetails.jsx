@@ -3,6 +3,12 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -109,7 +115,7 @@ function RecipeDetails() {
         e.currentTarget.blur();
     };
 
-    const toggleHeader = e => {
+    const toggleEditing = e => {
         if (isEditing) {
             sendPhotoToServer(e);
             setIsEditing(false);
@@ -252,15 +258,17 @@ function RecipeDetails() {
                         }
                     }}
                 /> */}
-                <Button variant="text"
+                {/* <Button variant="text"
                     startIcon={isEditing ? <CheckIcon style={{fill: '#DAA520'}} /> : <EditIcon />} onClick={e => toggleHeader(e)}
-                    style={{ borderColor: 'white' }}></Button>
+                    style={{ borderColor: 'white' }}></Button> */}
+                <Button variant="text" onClick={e => toggleEditing(e)} startIcon={isEditing ? null : <EditIcon />}
+                    style={{ borderColor: 'white' }}>Edit recipe title</Button>
 
-                {isEditing ? null :
-                    <Button variant="outlined" startIcon={<DeleteIcon />}
-                        onClick={() => removeRecipe(id)} style={{ color: 'white', borderColor: 'white' }}>
-                    </Button>
-                }
+                    {isEditing ? null :
+                        <Button variant="outlined" startIcon={<DeleteIcon />}
+                            onClick={() => removeRecipe(id)} style={{ color: 'white', borderColor: 'white' }}>
+                        </Button>
+                    }
             </div>
 
             <img src={`images/${image}`}
@@ -269,16 +277,16 @@ function RecipeDetails() {
                 style={{ borderRadius: '75%' }}
             />
 
-            <p style={{ color: 'black' }}>Prep Time: {prepTime ? replaceWithCommas(prepTime) : ''}</p>
-            <p style={{ color: 'black' }}>Cook Time: {cookTime ? replaceWithCommas(cookTime) : ''}</p>
+            <p style={{ color: 'black' }}><strong>Prep Time:</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
+            <p style={{ color: 'black' }}><strong>Cook Time:</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
 
-            <p style={{ color: 'black' }}>Ingredients:</p>
+            <p style={{ color: 'black' }}><strong>Ingredients:</strong></p>
             <ul>
                 {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
                 {/* {ingredients ? ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black" }}>{ingredient.replace(/"|\\n/g, '').trim()}</li> : '') : null} */}
             </ul>
 
-            <p style={{ color: 'black' }}>Instructions:</p>
+            <p style={{ color: 'black' }}><strong>Instructions:</strong></p>
             <ol>
                 {Array.isArray(instructions) && instructions.map(instruction => instruction.length > 2 ? <li style={{ color: "black" }}>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</li> : '')}
                 {/* {instructions ? instructions.map(step => step.length > 2 ? <li style={{ color: "black" }}>{step.replace(/"|\\n/g, '').trim()}</li> : '') : null} */}
