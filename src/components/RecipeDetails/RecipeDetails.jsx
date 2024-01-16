@@ -8,7 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { FaArrowTurnDown } from "react-icons/fa6";
+import { FaArrowTurnDown, FaArrowTurnUp, FaTurnUp } from "react-icons/fa6";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,7 +90,7 @@ function RecipeDetails() {
     };
 
     const getImageList = () => {
-        axios.get('/photos')
+        axios.get(`/photos/${id}`)
             .then(response => {
                 setImageList(response.data);
             })
@@ -101,9 +101,11 @@ function RecipeDetails() {
     };
 
     const addComment = (comment, id) => {
-        dispatch({ type: 'ADD_COMMENT', payload: { comment: comment, id: id } });
-        dispatch({ type: 'FETCH_DETAILS', payload: id });
-        setNewComment('');
+        if (comment.trim()) {
+            dispatch({ type: 'ADD_COMMENT', payload: { comment: comment, id: id } });
+            dispatch({ type: 'FETCH_DETAILS', payload: id });
+            setNewComment('');
+        }
     };
 
     const image = details ? details.photo : '';
@@ -215,7 +217,7 @@ function RecipeDetails() {
 
     return (
         <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
-            <Header text={title ? title : ''} />
+            <Header text={title ? 'Saved Recipes' : ''} to={'/recipes'} />
             <div
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
             >
@@ -351,7 +353,7 @@ function RecipeDetails() {
                         }}>
                             <img src={`images/${image}`} />
                             <div className="notes">
-                                <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}>{notes ? replaceWithCommas(notes) : ''}</p>
+                                <p style={{ color: 'black', marginTop: '10px', fontSize: '.9rem' }}>{notes ? replaceWithCommas(notes) : ''}</p>
                             </div>
                         </div>
                     </div>
@@ -373,7 +375,7 @@ function RecipeDetails() {
                                 >
                                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                         <strong>Read recipe notes</strong>
-                                        <FaArrowTurnDown style={{ marginLeft: '3px', fill: "black", textDecoration: 'underline', }} />
+                                        <FaArrowTurnDown style={{ marginLeft: '3px', fill: "black", }} />
                                     </div>
                                 </p>
                             </div>
@@ -406,41 +408,69 @@ function RecipeDetails() {
                         <div className="recipe-notes" style={{
                             display: 'flex', flexDirection: 'column',
                             marginTop: '30px',
-                            justifyContent: 'space-between',
-                            alignItems: 'flex-start'
+                            alignItems: 'flex-start',
                         }}>
+                            <div id="notes-photo-container" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                <div id="recipe-notes" style={{ flex: '1', flexDirection: 'column', width: '50%' }}>
+                                    <p style={{
+                                        color: 'black', marginTop: '0px',
+                                        paddingBottom: '0px',
+                                        fontWeight: 'bold',
+                                        borderTop: '2px solid black'
+                                    }}>RECIPE NOTES</p>
+                                    {comments.map(comment => <p
+                                        id={comment.id}
+                                        style={{
+                                            color: 'black',
+                                            borderBottom: '1px solid lightgray',
+                                            marginTop: '0px',
+                                            paddingTop: '0px',
+                                            padding: '10px 0px',
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'flex-start',
+                                        }}>
+                                        <span style={{ width: '65%' }}>{comment.comment}</span>
+                                        <span style={{ fontSize: '.8rem', }}><i>Commented on {formatDate(comment.commented_at)}</i></span>
+                                        <Button style={{
+                                            padding: '0px', alignSelf: 'flex-start',
+                                            display: 'flex', flexDirection: 'row', justifyContent: 'end'
+                                        }}
+                                            onClick={() => removeComment(comment.id, id)}
+                                        >
+                                            <DeleteIcon style={{ fontSize: '', padding: '0px' }} />
+                                        </Button>
+                                    </p>)}
+                                </div>
 
-                            <div style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
-                                <p style={{
-                                    color: 'black', marginTop: '0px',
-                                    paddingBottom: '0px',
-                                    fontWeight: 'bold',
-                                    borderTop: '2px solid black'
-                                }}>RECIPE NOTES</p>
-                                {comments.map(comment => <p
-                                    id={comment.id}
-                                    style={{
-                                        color: 'black',
-                                        borderBottom: '1px solid lightgray',
-                                        marginTop: '0px',
-                                        paddingTop: '0px',
-                                        padding: '10px 0px',
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'flex-start',
-                                    }}>
-                                    <span style={{ width: '65%' }}>{comment.comment}</span>
-                                    <span style={{ fontSize: '.8rem', }}><i>Commented on {formatDate(comment.commented_at)}</i></span>
-                                    <Button style={{
-                                        padding: '0px', alignSelf: 'flex-start',
-                                        display: 'flex', flexDirection: 'row', justifyContent: 'end'
-                                    }}
-                                        onClick={() => removeComment(comment.id, id)}
-                                    >
-                                        <DeleteIcon style={{ fontSize: '', padding: '0px' }} />
-                                    </Button>
-                                </p>)}
+                                <div id="recipe-photos" style={{
+                                    display: 'flex',
+                                    flex: '1',
+                                    flexDirection: 'column', width: '50%', justifyContent: 'flex-end', alignSelf: 'flex-start'
+                                }}>
+                                    <p style={{
+                                        color: 'black', marginTop: '0px',
+                                        paddingBottom: '0px',
+                                        fontWeight: 'bold',
+                                        borderTop: '2px solid black'
+                                    }}>RECIPE PHOTOS</p>
+                                    {imageList.length > 0 ? (
+                                        imageList.map(image => (
+                                            <img style={{
+                                                margin: '10px',
+                                                width: '200px',
+                                                height: '200px',
+                                                objectFit: 'cover',
+                                                border: '5px solid rgb(42, 42, 42)'
+
+                                            }}
+                                                key={image.id} className="gallery-image" src={image.path} alt='Recipe photo' />
+                                        ))
+                                    ) : (
+                                        <p>No images!</p>
+                                    )}
+                                </div>
                             </div>
 
                             <div style={{
@@ -459,6 +489,19 @@ function RecipeDetails() {
                                     >Save note</Button>
                                 </form>
                             </div>
+                            <p style={{
+                                color: 'black', margin: '10px 0px', fontSize: '.9rem',
+                                textDecoration: 'underline',
+                                cursor: 'pointer',
+                                alignSelf: 'center'
+                            }}
+                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                            >
+                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                    <span>Back to top</span>
+                                    <FaTurnUp style={{ marginLeft: '3px', fill: "black", }} />
+                                </div>
+                            </p>
                         </div>
                     </div>
                 </div>

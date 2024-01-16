@@ -3,11 +3,13 @@ const router = express.Router();
 const pool = require('../modules/pool.js');
 
 // Setup a GET route to get all the creatures from the database
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
     // When you fetch all things in these GET routes, strongly encourage ORDER BY
     // so that things always come back in a consistent order 
-    const queryText = `SELECT * FROM "images" ORDER BY "path" DESC;`;
-    pool.query(queryText)
+    const queryText = `SELECT * FROM "images" WHERE
+    "user_id" = $1 and "recipe_id" = $2 ORDER BY "path" DESC;
+    ;`;
+    pool.query(queryText, [req.user.id, req.params.id])
         .then((result) => {
             res.send(result.rows);
         })

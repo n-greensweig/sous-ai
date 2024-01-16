@@ -9,7 +9,7 @@ import Header from '../Header/Header';
 function AboutPage() {
   return (
     <div style={{ marginTop: '5%' }}>
-      <Header text='About' />
+      <Header text='About' to={'/about'} />
       <div className="container">
         <div>
           <p>Introducing SousAI, your culinary companion in the digital age!
