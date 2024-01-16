@@ -351,7 +351,11 @@ function RecipeDetails() {
                             height: 'auto',
                             marginRight: '10%'
                         }}>
-                            <img src={`images/${image}`} />
+
+                            {imageList.length > 0 ? <img key={imageList[0].id} className="gallery-image" src={imageList[0].path} alt='Recipe photo' />
+                                :
+                                <img className="profile-photo" src={`images/${image}`} />
+                            }
                             <div className="notes">
                                 <p style={{ color: 'black', marginTop: '10px', fontSize: '.9rem' }}>{notes ? replaceWithCommas(notes) : ''}</p>
                             </div>
@@ -368,13 +372,12 @@ function RecipeDetails() {
                                 <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Cook Time</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
                                 <p style={{
                                     color: 'black', marginTop: '0px', fontSize: '.9rem',
-                                    textDecoration: 'underline',
                                     cursor: 'pointer'
                                 }}
                                     onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                                 >
                                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                        <strong>Read recipe notes</strong>
+                                        <strong><span style={{ marginRight: '5px' }}>Notes</span> <span style={{ textDecoration: 'underline' }}>Read recipe notes</span></strong>
                                         <FaArrowTurnDown style={{ marginLeft: '3px', fill: "black", }} />
                                     </div>
                                 </p>
@@ -411,7 +414,7 @@ function RecipeDetails() {
                             alignItems: 'flex-start',
                         }}>
                             <div id="notes-photo-container" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                                <div id="recipe-notes" style={{ flex: '1', flexDirection: 'column', width: '50%' }}>
+                                <div id="recipe-notes" style={{ flex: '1', flexDirection: 'column', width: '50%', marginRight: '50px' }}>
                                     <p style={{
                                         color: 'black', marginTop: '0px',
                                         paddingBottom: '0px',
