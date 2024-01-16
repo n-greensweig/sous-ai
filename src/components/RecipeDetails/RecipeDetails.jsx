@@ -360,7 +360,10 @@ function RecipeDetails() {
                                         {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
                                     </ul>
                                 </div>
-                                <div className="instructions" style={{ border: '2px solid red' }}>
+                                <div className="instructions" style={{
+                                    textAlign: isSmScreen || isXsScreen ? 'left' : null,
+                                    padding: '0 10%'
+                                }}>
                                     <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black', fontSize: '1.1rem' }}>INSTRUCTIONS</span></p>
                                     <ol style={{ listStyleType: 'none', paddingLeft: '0px', marginRight: isSmScreen || isXsScreen ? null : '10%' }}>
                                         {Array.isArray(instructions) && instructions.map((instruction, index) => instruction.length > 2 ?
@@ -378,7 +381,6 @@ function RecipeDetails() {
                                 display: 'flex', flexDirection: 'column',
                                 marginTop: '30px',
                                 alignItems: 'flex-start',
-                                border: '2px solid green'
                             }}>
                                 <div id="notes-photo-container" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                                     <div id="recipe-notes" style={{ flex: '1', flexDirection: 'column', width: '50%', marginRight: '50px' }}>
