@@ -450,29 +450,43 @@ function RecipeDetails() {
                                 <div id="recipe-photos" style={{
                                     display: 'flex',
                                     flex: '1',
-                                    flexDirection: 'column', width: '50%', justifyContent: 'flex-end', alignSelf: 'flex-start'
-                                }}>
+                                    flexDirection: 'column',
+                                    marginRight: '10%',
+                                    justifyContent: 'flex-end', alignSelf: 'flex-start',
+                                }}
+                                >
                                     <p style={{
                                         color: 'black', marginTop: '0px',
                                         paddingBottom: '0px',
                                         fontWeight: 'bold',
                                         borderTop: '2px solid black'
                                     }}>RECIPE PHOTOS</p>
-                                    {imageList.length > 0 ? (
-                                        imageList.map(image => (
-                                            <img style={{
-                                                margin: '10px',
-                                                width: '200px',
-                                                height: '200px',
-                                                objectFit: 'cover',
-                                                border: '5px solid rgb(42, 42, 42)'
+                                    <div className="user-photos"
+                                        style={{
+                                            marginTop: '0px',
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            flexWrap: 'wrap',
+                                            alignItems: 'center',
+                                            gap: '16px',
+                                            maxWidth: '1400px',
+                                            justifyContent: 'space-around'
+                                        }}
+                                    >
+                                        {imageList.length > 0 ? (
+                                            imageList.map(image => (
+                                                <img style={{
+                                                    width: '250px',
+                                                    height: '250px',
+                                                    objectFit: 'cover',
 
-                                            }}
-                                                key={image.id} className="gallery-image" src={image.path} alt='Recipe photo' />
-                                        ))
-                                    ) : (
-                                        <p>No images!</p>
-                                    )}
+                                                }}
+                                                    key={image.id} className="gallery-image" src={image.path} alt='Recipe photo' />
+                                            ))
+                                        ) : (
+                                            <p>No images!</p>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 
