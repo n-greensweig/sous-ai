@@ -62,7 +62,7 @@ function RecipeItems() {
                                             image={`images/${recipe.photo}`}
                                             alt={`${recipe.title} dish`}
                                         />
-                                        <CardContent className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                        <CardContent className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
 
                                             <Typography className="title" style={{
                                                 display: 'flex',

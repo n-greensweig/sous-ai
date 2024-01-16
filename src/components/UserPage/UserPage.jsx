@@ -2,7 +2,7 @@ import './UserPage.css';
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 
-import { Button, FormControl } from '@mui/material';
+import { Button } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 import { PacmanLoader } from 'react-spinners';
@@ -12,12 +12,11 @@ import swal from 'sweetalert';
 function UserPage() {
 
   const [value, setValue] = useState('');
-  const [message, setMessage] = useState(null);
   const [previousChats, setPreviousChats] = useState([]);
   const [currentTitle, setCurrentTitle] = useState(null);
-  const [newRecipe, setNewRecipe] = useState({});
+  const [message, setMessage] = useState(null);
+  const [createdRecipes, setCreatedRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [responseComplete, setResponseComplete] = useState(true);
 
   const dispatch = useDispatch(); // dispatch
 
@@ -38,7 +37,6 @@ function UserPage() {
     e.preventDefault();
 
     setLoading(true);
-    setResponseComplete(false);
 
     const options = {
       method: 'POST',
@@ -54,11 +52,12 @@ function UserPage() {
       const response = await fetch('/completions', options); // change upon deployment?
       const data = await response.json();
       setMessage(data.choices[0].message);
+      setCreatedRecipes(prevRecipes => [...prevRecipes, data.choices[0].message]);
+      console.log('hello', createdRecipes);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
-      setResponseComplete(true);
     }
 
 
@@ -77,12 +76,10 @@ function UserPage() {
       message: message.content,
     };
 
-    // setNewRecipe(recipe);
-
     const action = { type: 'SAVE_RECIPE', payload: recipe };
     dispatch(action);
 
-    setNewRecipe({});
+    // setNewRecipe({});
 
     swal({
       title: 'Saved!',
@@ -131,10 +128,7 @@ function UserPage() {
     }
   };
 
-  const replaceWithCommas = str => {
-    console.log(str);
-    return str.replace(/@/g, ',');
-  };
+  const replaceWithCommas = str => str.replace(/@/g, ',');
 
 
   return (
