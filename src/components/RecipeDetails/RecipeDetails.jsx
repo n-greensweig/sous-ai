@@ -222,50 +222,6 @@ function RecipeDetails() {
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
             >
 
-                {/* {isEditing ?
-                    <div>
-                        <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
-                        <form style={{ marginTop: 0 }}>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={onFileChange}
-                            />
-                            <br />
-                            {
-                                // Image preview
-                                imagePath === '' ? (
-                                    null
-                                ) : (
-                                    <img style={{ maxWidth: '150px' }} src={imagePath} />
-                                )
-                            }
-                            <br />
-                        </form>
-                    </div>
-                    : null
-
-                } */}
-                {/* 
-                <h2>Images</h2>
-                {
-                    imageList.length > 0 ? (
-                        imageList.map(image => (
-                            <img style={{
-                                margin: '10px',
-                                width: '200px',
-                                height: '200px',
-                                objectFit: 'cover',
-                                border: '5px solid rgb(42, 42, 42)'
-
-                            }}
-                                key={image.id} className="gallery-image" src={image.path} alt='Recipe photo' />
-                        ))
-                    ) : (
-                        <p>No images!</p>
-                    )
-
-                } */}
             </div>
 
 
@@ -421,30 +377,33 @@ function RecipeDetails() {
                                         fontWeight: 'bold',
                                         borderTop: '2px solid black'
                                     }}>RECIPE NOTES</p>
-                                    {comments.map(comment => <p
-                                        id={comment.id}
-                                        style={{
-                                            color: 'black',
-                                            borderBottom: '1px solid lightgray',
-                                            marginTop: '0px',
-                                            paddingTop: '0px',
-                                            padding: '10px 0px',
-                                            display: 'flex',
-                                            flexDirection: 'row',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'flex-start',
-                                        }}>
-                                        <span style={{ width: '65%' }}>{comment.comment}</span>
-                                        <span style={{ fontSize: '.8rem', }}><i>Commented on {formatDate(comment.commented_at)}</i></span>
-                                        <Button style={{
-                                            padding: '0px', alignSelf: 'flex-start',
-                                            display: 'flex', flexDirection: 'row', justifyContent: 'end'
-                                        }}
-                                            onClick={() => removeComment(comment.id, id)}
-                                        >
-                                            <DeleteIcon style={{ fontSize: '', padding: '0px' }} />
-                                        </Button>
-                                    </p>)}
+
+                                    {
+                                            comments.map(comment => <p
+                                                id={comment.id}
+                                                style={{
+                                                    color: 'black',
+                                                    borderBottom: '1px solid lightgray',
+                                                    marginTop: '0px',
+                                                    paddingTop: '0px',
+                                                    padding: '10px 0px',
+                                                    display: 'flex',
+                                                    flexDirection: 'row',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'flex-start',
+                                                }}>
+                                                <span style={{ width: '65%' }}>{comment.comment}</span>
+                                                <span style={{ fontSize: '.8rem', }}><i>Commented on {formatDate(comment.commented_at)}</i></span>
+                                                <Button style={{
+                                                    padding: '0px', alignSelf: 'flex-start',
+                                                    display: 'flex', flexDirection: 'row', justifyContent: 'end'
+                                                }}
+                                                    onClick={() => removeComment(comment.id, id)}
+                                                >
+                                                    <DeleteIcon style={{ fontSize: '', padding: '0px' }} />
+                                                </Button>
+                                            </p>)
+                                        }
                                 </div>
 
                                 <div id="recipe-photos" style={{
@@ -463,14 +422,13 @@ function RecipeDetails() {
                                     }}>RECIPE PHOTOS</p>
                                     <div className="user-photos"
                                         style={{
-                                            marginTop: '0px',
                                             display: 'flex',
                                             flexDirection: 'row',
                                             flexWrap: 'wrap',
                                             alignItems: 'center',
                                             gap: '16px',
                                             maxWidth: '1400px',
-                                            justifyContent: 'space-around'
+                                            justifyContent: 'flex-start'
                                         }}
                                     >
                                         {imageList.length > 0 ? (
@@ -484,19 +442,19 @@ function RecipeDetails() {
                                                     key={image.id} className="gallery-image" src={image.path} alt='Recipe photo' />
                                             ))
                                         ) : (
-                                            <p>No images!</p>
+                                            <p style={{ color: '#888' }}>No images yet</p>
                                         )}
                                     </div>
                                 </div>
                             </div>
 
                             <div style={{
-                                display: 'flex', flexDirection: 'row', width: '50%',
+                                display: 'flex', flexDirection: 'row', width: '40%'
                             }}>
                                 <form style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} onSubmit={() => addComment(newComment, id)}>
 
                                     <TextField label="Add a recipe note" variant="outlined"
-                                        style={{ width: '70%' }}
+                                        style={{ width: '90%' }}
                                         value={newComment}
                                         onChange={e => setNewComment(e.target.value)} />
 
@@ -515,7 +473,7 @@ function RecipeDetails() {
                                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                             >
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                    <span>Back to top</span>
+                                    <span>Back to recipe</span>
                                     <FaTurnUp style={{ marginLeft: '3px', fill: "black", }} />
                                 </div>
                             </p>

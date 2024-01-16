@@ -131,7 +131,10 @@ function UserPage() {
     }
   };
 
-  const replaceWithCommas = str => str.replace(/@/g, ',');
+  const replaceWithCommas = str => {
+    console.log(str);
+    return str.replace(/@/g, ',');
+  };
 
 
   return (
@@ -172,7 +175,7 @@ function UserPage() {
               {
                 chatMessage.role === 'user'
                   ? chatMessage.content
-                  : isJSON(chatMessage.content) && replaceWithCommas(JSON.parse(chatMessage.content).prep_time)
+                  : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).prep_time
                     ? (
                       <div className='black'>
                         <strong>Recipe Name: </strong>
