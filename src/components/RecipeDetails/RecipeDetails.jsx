@@ -231,7 +231,7 @@ function RecipeDetails() {
                         display: 'flex', flexDirection: 'row', alignItems: 'center',
                         flexWrap: 'wrap', justifyContent: 'space-between'
                     }}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}> 
                             <p style={{
                                 color: 'black', fontWeight: 'bold', fontSize: '54px',
                             }}> {title ? title : ''}</p>
