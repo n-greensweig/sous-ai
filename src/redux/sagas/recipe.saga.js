@@ -50,6 +50,20 @@ function* deleteRecipe(action) {
     }
 }
 
+function* deleteComment(action) {
+    const id = action.payload.id;
+    const recipeId = action.payload.recipeId;
+    console.log(`/api/recipe/${id}/comment/${recipeId}`);
+    try {
+        console.log('heya!', id, recipeId);
+        yield axios.delete(`/api/recipe/${id}/comment/${recipeId}`);
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
 function* editRecipeTitle(action) {
     const id = action.payload.id;
     const title = action.payload.title;
@@ -80,6 +94,7 @@ function* recipeSaga() {
     yield takeLatest('REMOVE_RECIPE', deleteRecipe);
     yield takeLatest('UPDATE_TITLE', editRecipeTitle);
     yield takeLatest('ADD_COMMENT', postComment);
+    yield takeLatest('REMOVE_COMMENT', deleteComment);
 }
 
 export default recipeSaga;

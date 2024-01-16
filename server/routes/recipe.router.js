@@ -68,7 +68,6 @@ SELECT * FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 `;
     pool.query(queryText, [req.user.id, req.params.id])
         .then(result => {
-            console.log(result.rows[0]);
             res.send(result.rows.length > 0 ? result.rows[0] : {});
         })
         .catch(error => {
@@ -117,9 +116,30 @@ DELETE FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
             pool.query(secondQueryText, [req.user.id, req.params.id]);
             // Next, delete recipe from DB
             pool.query(queryText, [req.user.id, req.params.id]);
+            res.sendStatus(201);
         })
         .catch(error => {
-            console.error('Error deleting comments from DB:', error);
+            console.error('Error deleting recipe from DB:', error);
+            res.sendStatus(500);
+        });
+
+
+});
+
+// DELETE selected comment from the DB
+router.delete('/:id/comment/:recipeId', (req, res) => {
+
+    // Must first delete comments associated with the recipe
+    let firstQueryText = `
+DELETE FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2 AND "id" = $3;
+`;
+
+    pool.query(firstQueryText, [req.user.id, req.params.id, req.params.recipeId])
+        .then(result => {
+            res.sendStatus(201);
+        })
+        .catch(error => {
+            console.error('Error deleting comment from DB:', error);
             res.sendStatus(500);
         });
 

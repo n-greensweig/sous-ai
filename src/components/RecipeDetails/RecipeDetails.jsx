@@ -153,6 +153,33 @@ function RecipeDetails() {
 
     };
 
+    // Remove comment from DB onClick of button
+    const removeComment = (recipeId, id) => {
+
+        swal({
+            title: 'Are you sure',
+            text: 'Are you sure you want to delete this comment from your recipe?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    dispatch({ type: 'REMOVE_COMMENT', payload: { recipeId: recipeId, id } });
+                    swal({
+                        title: 'Deleted!',
+                        text: 'This comment has been deleted',
+                        icon: 'success',
+                        timer: 1000,
+                    });
+                    setTimeout(() => {
+                    }, 1000);
+                    dispatch({ type: 'FETCH_DETAILS', payload: id });
+                }
+            });
+
+    };
+
     // useEffect fetching recipe info
     useEffect(() => {
         if (details && details.title && details.ingredients) {
@@ -322,8 +349,7 @@ function RecipeDetails() {
                             height: 'auto',
                             marginRight: '10%'
                         }}>
-                            <img src={`images/${image}`}
-                            />
+                            <img src={`images/${image}`} />
                             <div className="notes">
                                 <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}>{notes ? replaceWithCommas(notes) : ''}</p>
                             </div>
@@ -391,19 +417,29 @@ function RecipeDetails() {
                                     fontWeight: 'bold',
                                     borderTop: '2px solid black'
                                 }}>RECIPE NOTES</p>
-                                {comments.map(comment => <p style={{
-                                    color: 'black',
-                                    marginTop: '0px',
-                                    paddingTop: '0px',
-                                    padding: '10px 0px',
-                                    borderBottom: '1px solid lightgray',
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'flex-start',
-                                }}>
-                                    <span style={{ width: '70%' }}>{comment.comment}</span>
+                                {comments.map(comment => <p
+                                    id={comment.id}
+                                    style={{
+                                        color: 'black',
+                                        borderBottom: '1px solid lightgray',
+                                        marginTop: '0px',
+                                        paddingTop: '0px',
+                                        padding: '10px 0px',
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'flex-start',
+                                    }}>
+                                    <span style={{ width: '65%' }}>{comment.comment}</span>
                                     <span style={{ fontSize: '.8rem', }}><i>Commented on {formatDate(comment.commented_at)}</i></span>
+                                    <Button style={{
+                                        padding: '0px', alignSelf: 'flex-start',
+                                        display: 'flex', flexDirection: 'row', justifyContent: 'end'
+                                    }}
+                                        onClick={() => removeComment(comment.id, id)}
+                                    >
+                                        <DeleteIcon style={{ fontSize: '', padding: '0px' }} />
+                                    </Button>
                                 </p>)}
                             </div>
 
@@ -415,7 +451,7 @@ function RecipeDetails() {
                                     <TextField label="Add a recipe note" variant="outlined"
                                         style={{ width: '70%' }}
                                         value={newComment}
-                                        onChange={e => newComment ? setNewComment(e.target.value) : null} />
+                                        onChange={e => setNewComment(e.target.value)} />
 
                                     <Button variant="outlined"
                                         type="submit"
