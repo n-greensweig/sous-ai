@@ -19,6 +19,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import Header from "../Header/Header";
+import styled from "@emotion/styled";
 
 function RecipeDetails() {
 
@@ -216,169 +217,179 @@ function RecipeDetails() {
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
+        <div>
             <Header text={title ? 'Saved Recipes' : ''} to={'/recipes'} />
-            <div
-                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}
-            >
-
-            </div>
+            <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
 
 
-            <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: '10%' }}>
-                <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div className="upper-section" style={{
-                        display: 'flex', flexDirection: 'row', alignItems: 'center',
-                        flexWrap: 'wrap', justifyContent: 'space-between'
-                    }}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}> 
-                            <p style={{
-                                color: 'black', fontWeight: 'bold', fontSize: '54px',
-                            }}> {title ? title : ''}</p>
-                            <Button variant="text" onClick={e => toggleEditing(e)} startIcon={isEditing ? null : <EditIcon />}
-                                style={{ borderColor: 'white', color: "gray" }}>{isEditing ? null : 'Edit recipe'}</Button>
-                        </div>
-
-                        <Dialog open={isEditing}
-                            onClose={e => toggleEditing(e)}
-                            PaperProps={{
-                                component: 'form',
-                                onSubmit: (event) => {
-                                    event.preventDefault();
-                                    saveEditedTitle(event, id);
-                                    toggleEditing(event);
-                                },
-                            }}>
-                            <DialogTitle>Set recipe title</DialogTitle>
-                            <DialogContent>
-                                <DialogContentText>
-                                    New recipe title
-                                </DialogContentText>
-                                <TextField autoFocus
-                                    margin="dense"
-                                    id="title"
-                                    name="title"
-                                    fullWidth
-                                    variant="standard"
-                                    defaultValue={title}
-                                    onChange={e => setTitle(e.target.value)}
-                                    style={{ padding: '1px' }} />
-
-                                <div>
-                                    <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
-                                    <form style={{ marginTop: 0 }}>
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={onFileChange}
-                                        />
-                                        <br />
-                                        {
-                                            // Image preview
-                                            imagePath === '' ? (
-                                                null
-                                            ) : (
-                                                <img style={{ maxWidth: '150px' }} src={imagePath} />
-                                            )
-                                        }
-                                        <br />
-                                    </form>
-                                </div>
-
-                            </DialogContent>
-                            <DialogActions>
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                    <div className="first-row">
-                                        <Button onClick={e => toggleEditing(e)}>Cancel</Button>
-                                        <Button type="submit">Save edited recipe</Button>
-                                    </div>
-                                    <div className="second-row">
-                                        <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: 'red' }} />}
-                                            onClick={() => removeRecipe(id)} style={{ color: 'red', borderColor: 'red', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
-                                            Delete Recipe
-                                        </Button>
-                                    </div>
-                                </div>
-                            </DialogActions>
-                        </Dialog>
-
-                        <div style={{
-                            display: 'flex', flexDirection: 'column', maxWidth: '30%',
-                            height: 'auto',
-                            marginRight: '10%'
+                <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
+                    <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div className="upper-section" style={{
+                            display: 'flex', flexDirection: 'row', alignItems: 'center',
+                            flexWrap: 'wrap', justifyContent: isSmScreen || isXsScreen ? 'center' : 'space-between'
                         }}>
-
-                            {imageList.length > 0 ? <img key={imageList[0].id} className="gallery-image" src={imageList[0].path} alt='Recipe photo' />
-                                :
-                                <img className="profile-photo" src={`images/${image}`} />
-                            }
-                            <div className="notes">
-                                <p style={{ color: 'black', marginTop: '10px', fontSize: '.9rem' }}>{notes ? replaceWithCommas(notes) : ''}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="lower-section">
-
-                        <div className="time" style={{
-                            display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-                        }}>
-                            <div className="time" style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
-                                <p style={{ color: 'black', marginBottom: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Prep Time</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
-                                <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Cook Time</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 <p style={{
-                                    color: 'black', marginTop: '0px', fontSize: '.9rem',
-                                    cursor: 'pointer'
-                                }}
-                                    onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
-                                >
-                                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                        <strong><span style={{ marginRight: '5px' }}>Notes</span> <span style={{ textDecoration: 'underline' }}>Read recipe notes</span></strong>
-                                        <FaArrowTurnDown style={{ marginLeft: '3px', fill: "black", }} />
+                                    color: 'black', fontWeight: 'bold', fontSize: '54px',
+                                    textAlign: 'center', marginBottom: isSmScreen || isXsScreen ? '10px' : '5px'
+                                }}> {title ? title : ''}</p>
+                                <Button variant="text" onClick={e => toggleEditing(e)} startIcon={isEditing ? null : <EditIcon />}
+                                    style={{
+                                        borderColor: 'white', color: "gray",
+                                        marginBottom: isSmScreen || isXsScreen ? '5%' : null,
+                                        border: '2px solid green'
+                                    }}>{isEditing ? null : 'Edit recipe'}</Button>
+                            </div>
+
+                            <Dialog open={isEditing}
+                                onClose={e => toggleEditing(e)}
+                                PaperProps={{
+                                    component: 'form',
+                                    onSubmit: (event) => {
+                                        event.preventDefault();
+                                        saveEditedTitle(event, id);
+                                        toggleEditing(event);
+                                    },
+                                }}>
+                                <DialogTitle>Set recipe title</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText>
+                                        New recipe title
+                                    </DialogContentText>
+                                    <TextField autoFocus
+                                        margin="dense"
+                                        id="title"
+                                        name="title"
+                                        fullWidth
+                                        variant="standard"
+                                        defaultValue={title}
+                                        onChange={e => setTitle(e.target.value)}
+                                        style={{ padding: '1px' }} />
+
+                                    <div>
+                                        <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
+                                        <form style={{ marginTop: 0 }}>
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={onFileChange}
+                                            />
+                                            <br />
+                                            {
+                                                // Image preview
+                                                imagePath === '' ? (
+                                                    null
+                                                ) : (
+                                                    <img style={{ maxWidth: '150px' }} src={imagePath} />
+                                                )
+                                            }
+                                            <br />
+                                        </form>
                                     </div>
-                                </p>
-                            </div>
-                        </div>
 
-                        <div className="ingredients-instructions" style={{ display: 'flex', flexDirection: 'row' }}>
-                            <div className="ingredients" style={{ marginRight: '10%' }}>
-                                <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black', fontSize: '1.1rem' }}>INGREDIENTS</span></p>
+                                </DialogContent>
+                                <DialogActions>
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                        <div className="first-row">
+                                            <Button onClick={e => toggleEditing(e)}>Cancel</Button>
+                                            <Button type="submit">Save edited recipe</Button>
+                                        </div>
+                                        <div className="second-row">
+                                            <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: 'red' }} />}
+                                                onClick={() => removeRecipe(id)} style={{ color: 'red', borderColor: 'red', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
+                                                Delete Recipe
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </DialogActions>
+                            </Dialog>
 
-                                <p style={{ color: 'black' }}><strong>Yield:</strong> {!servings ? '' : isNaN(servings) ? servings : <span>{servings} servings</span>}</p>
+                            <div style={{
+                                display: 'flex', flexDirection: 'column', maxWidth: isSmScreen || isXsScreen ? '100%' : '30%',
+                                height: 'auto',
+                                marginRight: isSmScreen || isXsScreen ? null : '10%'
+                            }}>
 
-                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                    {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
-                                </ul>
-                            </div>
-                            <div className="instructions">
-                                <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black', fontSize: '1.1rem' }}>INSTRUCTIONS</span></p>
-                                <ol style={{ listStyleType: 'none', paddingLeft: '0px', marginRight: '10%' }}>
-                                    {Array.isArray(instructions) && instructions.map((instruction, index) => instruction.length > 2 ?
-                                        <li key={index} style={{ color: "black", display: 'flex', flexDirection: 'column', marginBottom: '1rem' }}>
-                                            <span style={{ color: 'black', fontWeight: 'bold' }}>
-                                                Step {index + 1}
-                                            </span>
-                                            {<span>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</span>}
-                                        </li> : '')}
-                                </ol>
-                            </div>
-                        </div>
-
-                        <div className="recipe-notes" style={{
-                            display: 'flex', flexDirection: 'column',
-                            marginTop: '30px',
-                            alignItems: 'flex-start',
-                        }}>
-                            <div id="notes-photo-container" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                                <div id="recipe-notes" style={{ flex: '1', flexDirection: 'column', width: '50%', marginRight: '50px' }}>
+                                <img
+                                    key={imageList.length > 0 ? imageList[0].id : null} className="profile-photo"
+                                    src={imageList.length > 0 ? imageList[0].path : `images/${image}`
+                                    } alt='Recipe photo' />
+                                <div className="notes">
                                     <p style={{
-                                        color: 'black', marginTop: '0px',
-                                        paddingBottom: '0px',
-                                        fontWeight: 'bold',
-                                        borderTop: '2px solid black'
-                                    }}>RECIPE NOTES</p>
+                                        color: 'black', marginTop: '10px', fontSize: '.9rem',
+                                        margin: isSmScreen || isXsScreen ? '20px' : null,
+                                        justifyContent: 'space-evenly'
+                                    }}>{notes ? replaceWithCommas(notes) : ''}</p>
+                                </div>
+                            </div>
+                        </div>
 
-                                    {
+                        <div className="lower-section">
+
+                            <div className="time" style={{
+                                display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: isXsScreen || isSmScreen ? 'center' : 'space-between',
+                            }}>
+                                <div className="time" style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
+                                    <p style={{ color: 'black', marginBottom: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Prep Time</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
+                                    <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Cook Time</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
+                                    <p style={{
+                                        color: 'black', marginTop: '0px', fontSize: '.9rem',
+                                        cursor: 'pointer'
+                                    }}
+                                        onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
+                                    >
+                                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                            <strong><span style={{ marginRight: '5px' }}>Notes</span> <span style={{ textDecoration: 'underline' }}>Read recipe notes</span></strong>
+                                            <FaArrowTurnDown style={{ marginLeft: '3px', fill: "black", }} />
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="ingredients-instructions" style={{
+                                display: 'flex',
+                                flexDirection: isSmScreen || isXsScreen ? 'column' : 'row',
+                                textAlign: isSmScreen || isXsScreen ? 'center' : null
+                            }}>
+                                <div className="ingredients" style={{ marginRight: isSmScreen || isXsScreen ? null : '10%', alignSelf: isSmScreen || isXsScreen ? 'center' : null }}>
+                                    <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black', fontSize: '1.1rem' }}>INGREDIENTS</span></p>
+
+                                    <p style={{ color: 'black' }}><strong>Yield:</strong> {!servings ? '' : isNaN(servings) ? servings : <span>{servings} servings</span>}</p>
+
+                                    <ul style={{ listStyleType: 'none', paddingLeft: '0px', textAlign: isSmScreen || isXsScreen ? 'left' : null }}>
+                                        {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
+                                    </ul>
+                                </div>
+                                <div className="instructions" style={{ border: '2px solid red' }}>
+                                    <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black', fontSize: '1.1rem' }}>INSTRUCTIONS</span></p>
+                                    <ol style={{ listStyleType: 'none', paddingLeft: '0px', marginRight: isSmScreen || isXsScreen ? null : '10%' }}>
+                                        {Array.isArray(instructions) && instructions.map((instruction, index) => instruction.length > 2 ?
+                                            <li key={index} style={{ color: "black", display: 'flex', flexDirection: 'column', marginBottom: '1rem' }}>
+                                                <span style={{ color: 'black', fontWeight: 'bold' }}>
+                                                    Step {index + 1}
+                                                </span>
+                                                {<span>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</span>}
+                                            </li> : '')}
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <div className="recipe-notes" style={{
+                                display: 'flex', flexDirection: 'column',
+                                marginTop: '30px',
+                                alignItems: 'flex-start',
+                                border: '2px solid green'
+                            }}>
+                                <div id="notes-photo-container" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                    <div id="recipe-notes" style={{ flex: '1', flexDirection: 'column', width: '50%', marginRight: '50px' }}>
+                                        <p style={{
+                                            color: 'black', marginTop: '0px',
+                                            paddingBottom: '0px',
+                                            fontWeight: 'bold',
+                                            borderTop: '2px solid black'
+                                        }}>RECIPE NOTES</p>
+
+                                        {
                                             comments.map(comment => <p
                                                 id={comment.id}
                                                 style={{
@@ -404,85 +415,85 @@ function RecipeDetails() {
                                                 </Button>
                                             </p>)
                                         }
-                                </div>
+                                    </div>
 
-                                <div id="recipe-photos" style={{
-                                    display: 'flex',
-                                    flex: '1',
-                                    flexDirection: 'column',
-                                    marginRight: '10%',
-                                    justifyContent: 'flex-end', alignSelf: 'flex-start',
-                                }}
-                                >
-                                    <p style={{
-                                        color: 'black', marginTop: '0px',
-                                        paddingBottom: '0px',
-                                        fontWeight: 'bold',
-                                        borderTop: '2px solid black'
-                                    }}>RECIPE PHOTOS</p>
-                                    <div className="user-photos"
-                                        style={{
-                                            display: 'flex',
-                                            flexDirection: 'row',
-                                            flexWrap: 'wrap',
-                                            alignItems: 'center',
-                                            gap: '16px',
-                                            maxWidth: '1400px',
-                                            justifyContent: 'flex-start'
-                                        }}
+                                    <div id="recipe-photos" style={{
+                                        display: 'flex',
+                                        flex: '1',
+                                        flexDirection: 'column',
+                                        marginRight: '10%',
+                                        justifyContent: 'flex-end', alignSelf: 'flex-start',
+                                    }}
                                     >
-                                        {imageList.length > 0 ? (
-                                            imageList.map(image => (
-                                                <img style={{
-                                                    width: '250px',
-                                                    height: '250px',
-                                                    objectFit: 'cover',
+                                        <p style={{
+                                            color: 'black', marginTop: '0px',
+                                            paddingBottom: '0px',
+                                            fontWeight: 'bold',
+                                            borderTop: '2px solid black'
+                                        }}>RECIPE PHOTOS</p>
+                                        <div className="user-photos"
+                                            style={{
+                                                display: 'flex',
+                                                flexDirection: 'row',
+                                                flexWrap: 'wrap',
+                                                alignItems: 'center',
+                                                gap: '16px',
+                                                maxWidth: '1400px',
+                                                justifyContent: 'flex-start'
+                                            }}
+                                        >
+                                            {imageList.length > 0 ? (
+                                                imageList.map(image => (
+                                                    <img style={{
+                                                        width: '250px',
+                                                        height: '250px',
+                                                        objectFit: 'cover',
 
-                                                }}
-                                                    key={image.id} className="gallery-image" src={image.path} alt='Recipe photo' />
-                                            ))
-                                        ) : (
-                                            <p style={{ color: '#888' }}>No images yet</p>
-                                        )}
+                                                    }}
+                                                        key={image.id} className="gallery-image" src={image.path} alt='Recipe photo' />
+                                                ))
+                                            ) : (
+                                                <p style={{ color: '#888' }}>No images yet</p>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div style={{
-                                display: 'flex', flexDirection: 'row', width: '40%'
-                            }}>
-                                <form style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} onSubmit={() => addComment(newComment, id)}>
+                                <div style={{
+                                    display: 'flex', flexDirection: 'row', width: '40%'
+                                }}>
+                                    <form style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} onSubmit={() => addComment(newComment, id)}>
 
-                                    <TextField label="Add a recipe note" variant="outlined"
-                                        style={{ width: '90%' }}
-                                        value={newComment}
-                                        onChange={e => setNewComment(e.target.value)} />
+                                        <TextField label="Add a recipe note" variant="outlined"
+                                            style={{ width: '90%' }}
+                                            value={newComment}
+                                            onChange={e => setNewComment(e.target.value)} />
 
-                                    <Button variant="outlined"
-                                        type="submit"
-                                        style={{ color: '#DAA520', border: '1px solid #DAA520', borderColor: 'white' }}
-                                    >Save note</Button>
-                                </form>
-                            </div>
-                            <p style={{
-                                color: 'black', margin: '10px 0px', fontSize: '.9rem',
-                                textDecoration: 'underline',
-                                cursor: 'pointer',
-                                alignSelf: 'center'
-                            }}
-                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                            >
-                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                    <span>Back to recipe</span>
-                                    <FaTurnUp style={{ marginLeft: '3px', fill: "black", }} />
+                                        <Button variant="outlined"
+                                            type="submit"
+                                            style={{ color: '#DAA520', border: '1px solid #DAA520', borderColor: 'white' }}
+                                        >Save note</Button>
+                                    </form>
                                 </div>
-                            </p>
+                                <p style={{
+                                    color: 'black', margin: '10px 0px', fontSize: '.9rem',
+                                    textDecoration: 'underline',
+                                    cursor: 'pointer',
+                                    alignSelf: 'center'
+                                }}
+                                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                                >
+                                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                        <span>Back to recipe</span>
+                                        <FaTurnUp style={{ marginLeft: '3px', fill: "black", }} />
+                                    </div>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </div >
-
     )
 
 }
