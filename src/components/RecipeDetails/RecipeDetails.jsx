@@ -58,7 +58,7 @@ function RecipeDetails() {
             const formData = new FormData();
             formData.append('file', fileToUpload);
             formData.append('upload_preset', process.env.REACT_APP_PRESET);
-            console.log(process.env);
+
             let postUrl = `https://api.cloudinary.com/v1_1/` + process.env.REACT_APP_CLOUD_NAME + `/image/upload`;
             axios.post(postUrl, formData).then(response => {
                 console.log('Success!', response);
@@ -77,16 +77,18 @@ function RecipeDetails() {
 
         e.preventDefault();
 
-        // Send image path to server
-        axios.post('/photos', { recipeID: id, path: imagePath })
-            .then(response => {
-                setImagePath('');
-                getImageList();
-            })
-            .catch(error => {
-                console.error(error);
-                alert('Something went wrong.');
-            });
+        if (imagePath) {
+            // Send image path to server
+            axios.post('/photos', { recipeID: id, path: imagePath })
+                .then(response => {
+                    setImagePath('');
+                    getImageList();
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Something went wrong.');
+                });
+        }
 
     };
 
@@ -288,14 +290,14 @@ function RecipeDetails() {
 
                                 </DialogContent>
                                 <DialogActions>
-                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                        <div className="first-row">
-                                            <Button onClick={e => toggleEditing(e)}>Cancel</Button>
-                                            <Button type="submit">Save edited recipe</Button>
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                                        <div className="first-row" style={{ width: '100%' }}>
+                                            <Button style={{ width: '50%', color: 'gray' }} onClick={e => toggleEditing(e)}>Cancel</Button>
+                                            <Button type="submit" style={{ width: '50%', color: '#DAA520' }}>Save edited recipe</Button>
                                         </div>
-                                        <div className="second-row">
+                                        <div className="second-row" style={{ width: '100%' }}>
                                             <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: 'red' }} />}
-                                                onClick={() => removeRecipe(id)} style={{ color: 'red', borderColor: 'red', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
+                                                onClick={() => removeRecipe(id)} style={{ color: 'red', borderColor: '#888', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
                                                 Delete Recipe
                                             </Button>
                                         </div>
@@ -451,7 +453,7 @@ function RecipeDetails() {
                                     margin: isSmScreen || isXsScreen ? '0 10%' : null,
                                     marginRight: '50px',
                                     justifyContent: 'flex-end', alignSelf: 'flex-start',
-                                    // marginBottom: isSmScreen || isXsScreen ? '10%' : null,
+                                    width: isSmScreen || isXsScreen ? '80%' : null,
                                 }}>
                                     <p style={{
                                         color: 'black', marginTop: isSmScreen || isXsScreen ? '30px' : '0px',
