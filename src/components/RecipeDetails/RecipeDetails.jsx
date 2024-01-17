@@ -351,8 +351,14 @@ function RecipeDetails() {
                                 flexDirection: isSmScreen || isXsScreen ? 'column' : 'row',
                                 textAlign: isSmScreen || isXsScreen ? 'center' : null
                             }}>
-                                <div className="ingredients" style={{ marginRight: isSmScreen || isXsScreen ? null : '10%', alignSelf: isSmScreen || isXsScreen ? 'center' : null }}>
-                                    <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black', fontSize: '1.1rem' }}>INGREDIENTS</span></p>
+                                <div className="ingredients" style={{
+                                    borderTop: isSmScreen || isXsScreen ? '2px solid black' : null,
+                                    marginRight: isSmScreen || isXsScreen ? null : '10%', alignSelf: isSmScreen || isXsScreen ? 'center' : null
+                                }}>
+                                    <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{
+                                        borderTop: isSmScreen || isXsScreen ? null : '2px solid black',
+                                        fontSize: '1.1rem'
+                                    }}>INGREDIENTS</span></p>
 
                                     <p style={{ color: 'black' }}><strong>Yield:</strong> {!servings ? '' : isNaN(servings) ? servings : <span>{servings} servings</span>}</p>
 
@@ -364,7 +370,11 @@ function RecipeDetails() {
                                     textAlign: isSmScreen || isXsScreen ? 'left' : null,
                                     padding: '0 10%'
                                 }}>
-                                    <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{ borderTop: '2px solid black', fontSize: '1.1rem' }}>INSTRUCTIONS</span></p>
+                                    <p style={{
+                                        borderTop: isSmScreen || isXsScreen ? '2px solid black' : null,
+                                        textAlign: isSmScreen || isXsScreen ? 'center' : null,
+                                        color: 'black', fontWeight: 'bold',
+                                    }}><span style={{ borderTop: isSmScreen || isXsScreen ? null : '2px solid black', fontSize: '1.1rem' }}>INSTRUCTIONS</span></p>
                                     <ol style={{ listStyleType: 'none', paddingLeft: '0px', marginRight: isSmScreen || isXsScreen ? null : '10%' }}>
                                         {Array.isArray(instructions) && instructions.map((instruction, index) => instruction.length > 2 ?
                                             <li key={index} style={{ color: "black", display: 'flex', flexDirection: 'column', marginBottom: '1rem' }}>
@@ -383,15 +393,16 @@ function RecipeDetails() {
                                 alignItems: 'flex-start',
                             }}> */}
                             <div id="notes-photo-container" style={{
-                                display: 'flex', flexDirection: 'column',
+                                display: 'flex', flexDirection: isSmScreen || isXsScreen ? 'column' : 'row',
                                 marginTop: '30px',
-                                alignItems: 'flex-start', justifyContent: 'space-between', width: '100%'
+                                alignItems: 'flex-start', justifyContent: 'space-between', width: '100%',
                             }}>
                                 <div id="recipe-photos" style={{
                                     display: 'flex',
                                     flex: '1',
                                     flexDirection: 'column',
-                                    marginRight: '10%',
+                                    margin: isSmScreen || isXsScreen ? '0 10%' : null,
+                                    marginRight: '50px',
                                     justifyContent: 'flex-end', alignSelf: 'flex-start',
                                 }}
                                 >
@@ -415,8 +426,8 @@ function RecipeDetails() {
                                         {imageList.length > 0 ? (
                                             imageList.map(image => (
                                                 <img style={{
-                                                    width: '250px',
-                                                    height: '250px',
+                                                    width: isXsScreen || isSmScreen ? '150px' : '250px',
+                                                    height: isXsScreen || isSmScreen ? '150px' : '250px',
                                                     objectFit: 'cover',
 
                                                 }}
@@ -427,9 +438,16 @@ function RecipeDetails() {
                                         )}
                                     </div>
                                 </div>
-                                <div id="recipe-notes" style={{ flex: '1', flexDirection: 'column', width: '50%', marginRight: '50px' }}>
+                                <div id="recipe-notes" style={{
+                                    display: 'flex',
+                                    flex: '1',
+                                    flexDirection: 'column',
+                                    margin: isSmScreen || isXsScreen ? '0 10%' : null,
+                                    marginRight: '50px',
+                                    justifyContent: 'flex-end', alignSelf: 'flex-start'
+                                }}>
                                     <p style={{
-                                        color: 'black', marginTop: '0px',
+                                        color: 'black', marginTop: isSmScreen || isXsScreen ? '30px' : '0px',
                                         paddingBottom: '0px',
                                         fontWeight: 'bold',
                                         borderTop: '2px solid black'
@@ -479,20 +497,20 @@ function RecipeDetails() {
                                     </div>
                                 </div>
                             </div>
-                            <p style={{
-                                color: 'black', margin: '10px 0px', fontSize: '.9rem',
-                                textDecoration: 'underline',
-                                cursor: 'pointer',
-                                alignSelf: 'center'
-                            }}
-                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                            >
-                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                    <span>Back to recipe</span>
-                                    <FaTurnUp style={{ marginLeft: '3px', fill: "black", }} />
-                                </div>
-                            </p>
                         </div>
+                        <p style={{
+                            color: 'black', margin: '10px 0px', fontSize: '.9rem',
+                            textDecoration: 'underline',
+                            cursor: 'pointer',
+                            alignSelf: 'center'
+                        }}
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        >
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                <span>Back to recipe</span>
+                                <FaTurnUp style={{ marginLeft: '3px', fill: "black", }} />
+                            </div>
+                        </p>
                     </div>
                     {/* </div> */}
                 </div>
