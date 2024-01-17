@@ -237,7 +237,6 @@ function RecipeDetails() {
                                     style={{
                                         borderColor: 'white', color: "gray",
                                         marginBottom: isSmScreen || isXsScreen ? '5%' : null,
-                                        border: '2px solid green'
                                     }}>{isEditing ? null : 'Edit recipe'}</Button>
                             </div>
 
@@ -349,18 +348,22 @@ function RecipeDetails() {
                             <div className="ingredients-instructions" style={{
                                 display: 'flex',
                                 flexDirection: isSmScreen || isXsScreen ? 'column' : 'row',
-                                textAlign: isSmScreen || isXsScreen ? 'center' : null
+                                textAlign: isSmScreen || isXsScreen ? 'center' : null,
                             }}>
                                 <div className="ingredients" style={{
                                     borderTop: isSmScreen || isXsScreen ? '2px solid black' : null,
-                                    marginRight: isSmScreen || isXsScreen ? null : '10%', alignSelf: isSmScreen || isXsScreen ? 'center' : null
+                                    marginRight: isSmScreen || isXsScreen ? null : '10%', alignSelf: isSmScreen || isXsScreen ? 'center' : null,
+                                    width: isSmScreen || isXsScreen ? '80%' : null
                                 }}>
-                                    <p style={{ color: 'black', fontWeight: 'bold' }}><span style={{
+                                    <p style={{
+                                        color: 'black', fontWeight: 'bold', marginTop: isSmScreen || isXsScreen ? '10px' : null,
+                                        textAlign: isSmScreen || isXsScreen ? 'left' : null, marginTop: isSmScreen || isXsScreen ? '0px' : null
+                                    }}><span style={{
                                         borderTop: isSmScreen || isXsScreen ? null : '2px solid black',
                                         fontSize: '1.1rem'
                                     }}>INGREDIENTS</span></p>
 
-                                    <p style={{ color: 'black' }}><strong>Yield:</strong> {!servings ? '' : isNaN(servings) ? servings : <span>{servings} servings</span>}</p>
+                                    <p style={{ color: 'black', textAlign: isSmScreen || isXsScreen ? 'left' : null }}><strong>Yield:</strong> {!servings ? '' : isNaN(servings) ? servings : <span>{servings} servings</span>}</p>
 
                                     <ul style={{ listStyleType: 'none', paddingLeft: '0px', textAlign: isSmScreen || isXsScreen ? 'left' : null }}>
                                         {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
@@ -368,12 +371,12 @@ function RecipeDetails() {
                                 </div>
                                 <div className="instructions" style={{
                                     textAlign: isSmScreen || isXsScreen ? 'left' : null,
-                                    padding: '0 10%'
+                                    padding: '0 10%', marginTop: isSmScreen || isXsScreen ? '10px' : null
                                 }}>
                                     <p style={{
                                         borderTop: isSmScreen || isXsScreen ? '2px solid black' : null,
-                                        textAlign: isSmScreen || isXsScreen ? 'center' : null,
                                         color: 'black', fontWeight: 'bold',
+                                        textAlign: isSmScreen || isXsScreen ? 'left' : null, marginTop: isSmScreen || isXsScreen ? '0px' : null
                                     }}><span style={{ borderTop: isSmScreen || isXsScreen ? null : '2px solid black', fontSize: '1.1rem' }}>INSTRUCTIONS</span></p>
                                     <ol style={{ listStyleType: 'none', paddingLeft: '0px', marginRight: isSmScreen || isXsScreen ? null : '10%' }}>
                                         {Array.isArray(instructions) && instructions.map((instruction, index) => instruction.length > 2 ?
@@ -402,16 +405,18 @@ function RecipeDetails() {
                                     flex: '1',
                                     flexDirection: 'column',
                                     margin: isSmScreen || isXsScreen ? '0 10%' : null,
-                                    marginRight: '50px',
+                                    marginLeft: isSmScreen || isXsScreen ? '0 10%' : null,
+                                    marginRight: '10%',
                                     justifyContent: 'flex-end', alignSelf: 'flex-start',
+                                    width: isSmScreen || isXsScreen ? '80%' : null,
+                                    borderTop: '2px solid black',
                                 }}
                                 >
                                     <p style={{
                                         color: 'black', marginTop: '0px',
                                         paddingBottom: '0px',
                                         fontWeight: 'bold',
-                                        borderTop: '2px solid black',
-                                        textAlign: isSmScreen || isXsScreen ? 'center' : null
+                                        textAlign: isSmScreen || isXsScreen ? 'left' : null
                                     }}>RECIPE PHOTOS</p>
                                     <div className="user-photos"
                                         style={{
@@ -446,15 +451,14 @@ function RecipeDetails() {
                                     margin: isSmScreen || isXsScreen ? '0 10%' : null,
                                     marginRight: '50px',
                                     justifyContent: 'flex-end', alignSelf: 'flex-start',
-                                    border: '2px solid red',
-                                    marginBottom: isSmScreen || isXsScreen ? '10%' : null,
+                                    // marginBottom: isSmScreen || isXsScreen ? '10%' : null,
                                 }}>
                                     <p style={{
                                         color: 'black', marginTop: isSmScreen || isXsScreen ? '30px' : '0px',
                                         paddingBottom: '0px',
                                         fontWeight: 'bold',
                                         borderTop: '2px solid black',
-                                        textAlign: isSmScreen || isXsScreen ? 'center' : null
+                                        textAlign: isSmScreen || isXsScreen ? 'left' : null
                                     }}>RECIPE NOTES</p>
 
                                     {
@@ -506,7 +510,8 @@ function RecipeDetails() {
                             color: 'black', margin: '10px 0px', fontSize: '.9rem',
                             textDecoration: 'underline',
                             cursor: 'pointer',
-                            alignSelf: 'center'
+                            alignSelf: 'center',
+                            paddingBottom: isSmScreen || isXsScreen ? '17%' : null,
                         }}
                             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                         >
