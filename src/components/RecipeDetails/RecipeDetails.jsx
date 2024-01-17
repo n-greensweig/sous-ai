@@ -410,7 +410,8 @@ function RecipeDetails() {
                                         color: 'black', marginTop: '0px',
                                         paddingBottom: '0px',
                                         fontWeight: 'bold',
-                                        borderTop: '2px solid black'
+                                        borderTop: '2px solid black',
+                                        textAlign: isSmScreen || isXsScreen ? 'center' : null
                                     }}>RECIPE PHOTOS</p>
                                     <div className="user-photos"
                                         style={{
@@ -444,13 +445,16 @@ function RecipeDetails() {
                                     flexDirection: 'column',
                                     margin: isSmScreen || isXsScreen ? '0 10%' : null,
                                     marginRight: '50px',
-                                    justifyContent: 'flex-end', alignSelf: 'flex-start'
+                                    justifyContent: 'flex-end', alignSelf: 'flex-start',
+                                    border: '2px solid red',
+                                    marginBottom: isSmScreen || isXsScreen ? '10%' : null,
                                 }}>
                                     <p style={{
                                         color: 'black', marginTop: isSmScreen || isXsScreen ? '30px' : '0px',
                                         paddingBottom: '0px',
                                         fontWeight: 'bold',
-                                        borderTop: '2px solid black'
+                                        borderTop: '2px solid black',
+                                        textAlign: isSmScreen || isXsScreen ? 'center' : null
                                     }}>RECIPE NOTES</p>
 
                                     {
