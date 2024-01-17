@@ -232,7 +232,7 @@ function RecipeDetails() {
                         }}>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 <p style={{
-                                    color: 'black', fontWeight: 'bold', fontSize: '54px',
+                                    color: 'black', fontWeight: 'bold', fontSize: isSmScreen || isXsScreen ? '44px' : '54px',
                                     textAlign: 'center', marginBottom: isSmScreen || isXsScreen ? '10px' : '5px'
                                 }}> {title ? title : ''}</p>
                                 <Button variant="text" onClick={e => toggleEditing(e)} startIcon={isEditing ? null : <EditIcon />}
@@ -267,7 +267,7 @@ function RecipeDetails() {
                                         onChange={e => setTitle(e.target.value)}
                                         style={{ padding: '1px' }} />
 
-                                    <div>
+                                    <div style={{ margin: '10px' }}>
                                         <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
                                         <form style={{ marginTop: 0 }}>
                                             <input
@@ -291,13 +291,13 @@ function RecipeDetails() {
                                 </DialogContent>
                                 <DialogActions>
                                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                                        <div className="first-row" style={{ width: '100%' }}>
+                                        <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
                                             <Button style={{ width: '50%', color: 'gray' }} onClick={e => toggleEditing(e)}>Cancel</Button>
-                                            <Button type="submit" style={{ width: '50%', color: '#DAA520' }}>Save edited recipe</Button>
+                                            <Button variant="outlined" type="submit" style={{ width: '50%', color: '#DAA520', borderColor: '#DAA520' }}>Save</Button>
                                         </div>
                                         <div className="second-row" style={{ width: '100%' }}>
-                                            <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: 'red' }} />}
-                                                onClick={() => removeRecipe(id)} style={{ color: 'red', borderColor: '#888', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
+                                            <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: '#DC143C' }} />}
+                                                onClick={() => removeRecipe(id)} style={{ color: '#DC143C', borderColor: '#DC143C', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
                                                 Delete Recipe
                                             </Button>
                                         </div>
