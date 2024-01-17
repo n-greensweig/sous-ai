@@ -2,7 +2,7 @@ import './UserPage.css';
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 
-import { Button } from '@mui/material';
+import { Button, useTheme, useMediaQuery } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 import { PacmanLoader } from 'react-spinners';
@@ -19,6 +19,10 @@ function UserPage() {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch(); // dispatch
+
+  const today = new Date();
+  const month = today.toLocaleString('default', { month: 'long' });
+  const year = today.getFullYear();
 
   const createNewChat = () => {
     setMessage(null);
@@ -115,6 +119,11 @@ function UserPage() {
     }
 
   }, [message, currentTitle]);
+
+  // Check the screen size for responsive design
+  const theme = useTheme();
+  const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const currentChat = previousChats.filter(previousChat => previousChat.title === currentTitle);
   const uniqueTitles = Array.from(new Set(previousChats.map(previousChat => previousChat.title)));
@@ -233,10 +242,10 @@ function UserPage() {
         </div>
         }
 
-        <div className='bottom-section' style={{ marginBottom: '7%' }}>
+        <div className='bottom-section' style={{ marginBottom: '7%', margin: '0 10px 7% 10px' }}>
           <div className="input-container">
 
-            <form onSubmit={getMessages} id='sous-form'>
+            <form onSubmit={getMessages} id='sous-form' style={{ marginBottom: '0px' }}>
 
               <input value={loading ? '' : value} disabled={loading ? true : false} onChange={e => setValue(e.target.value)}
                 placeholder='What would you like to cook today?' required />
@@ -251,8 +260,9 @@ function UserPage() {
               }
             </form>
           </div>
-          <p className="info">
-            SousAI can make mistakes. Consider checking important information.
+          <p className="info" style={{ margin: isSmScreen || isXsScreen ? '17% 0' : null }}>
+            As of {month} {year}, SousAI operates on a message-by-message basis.<br></br>
+            Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
           </p>
 
         </div>

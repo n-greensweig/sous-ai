@@ -8,7 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { FaArrowTurnDown, FaArrowTurnUp, FaTurnUp } from "react-icons/fa6";
+import { FaArrowTurnDown, FaTurnUp } from "react-icons/fa6";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
