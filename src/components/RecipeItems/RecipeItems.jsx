@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import './RecipeItems.css';
 
-import { Grid, Paper, Card, CardContent, CardMedia, CardActionArea, Typography } from "@mui/material";
+import { Grid, Paper, Card, CardContent, CardMedia, CardActionArea, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Header from '../Header/Header';
 
@@ -26,9 +26,14 @@ function RecipeItems() {
 
     const replaceWithCommas = str => str.replace(/@/g, ',');
 
+    // Check the screen size for responsive design
+    const theme = useTheme();
+    const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
+    const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
 
-        <div style={{ paddingBottom: '8%', marginTop: '5%' }}>
+        <div style={{ paddingBottom: '8%', marginTop: isSmScreen || isXsScreen ? '15%' : '5%' }}>
             <Header text={'Saved Recipes'} />
             <Grid container spacing={2} minHeight={'5vh'} className="container"
                 style={{
