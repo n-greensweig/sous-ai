@@ -89,7 +89,8 @@ function UserPage() {
       title: 'Saved!',
       text: '1 recipe saved',
       icon: 'success',
-      timer: 2000,
+      timer: 1000,
+      buttons: false
     });
 
   };

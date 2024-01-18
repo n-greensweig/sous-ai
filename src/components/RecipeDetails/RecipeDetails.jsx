@@ -148,11 +148,12 @@ function RecipeDetails() {
                         title: 'Deleted!',
                         text: 'This recipe has been deleted',
                         icon: 'success',
+                        buttons: false,
                         timer: 1000,
                     });
                     setTimeout(() => {
+                        history.push('/recipes');
                     }, 1000);
-                    history.push('/recipes');
                 }
             });
 
