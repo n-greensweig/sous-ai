@@ -10,6 +10,48 @@ router.post('/', (req, res) => {
 
     if (recipeJSON.recipe_name.includes('Smoothie')) {
         recipePhoto = `smoothie.png`;
+    } else if (recipeJSON.recipe_name.includes('Pizza')) {
+        recipePhoto = `pizza.png`;
+    } else if (recipeJSON.recipe_name.includes('Salad')) {
+        recipePhoto = `salad.png`;
+    } else if (recipeJSON.recipe_name.includes('Soup')) {
+        recipePhoto = `soup.png`;
+    } else if (recipeJSON.recipe_name.includes('Stew')) {
+        recipePhoto = `stew.png`;
+    } else if (recipeJSON.recipe_name.includes('Cake')) {
+        recipePhoto = `cake.png`;
+    } else if (recipeJSON.recipe_name.includes('Pie')) {
+        recipePhoto = `pie.png`;
+    } else if (recipeJSON.recipe_name.includes('Taco')) {
+        recipePhoto = `tacos.png`;
+    } else if (recipeJSON.recipe_name.includes('Barbecue') || recipeJSON.recipe_name.includes('BBQ')) {
+        recipePhoto = `barbecue.png`;
+    } else if (recipeJSON.recipe_name.includes('Chicken')) {
+        recipePhoto = `chicken.png`;
+    } else if (recipeJSON.recipe_name.includes('Steak')) {
+        recipePhoto = `steak.png`;
+    } else if (recipeJSON.recipe_name.includes('Cheeseburger') || recipeJSON.recipe_name.includes('Burger')) {
+        recipePhoto = `burger.png`;
+    } else if (recipeJSON.recipe_name.includes('Pork')) {
+        recipePhoto = `pork-chop.png`;
+    } else if (recipeJSON.recipe_name.includes('Bread')) {
+        recipePhoto = `bread.png`;
+    } else if (recipeJSON.recipe_name.includes('Sandwich')) {
+        recipePhoto = `sandwich.png`;
+    } else if (recipeJSON.recipe_name.includes('Eggs')) {
+        recipePhoto = `eggs.png`;
+    } else if (recipeJSON.recipe_name.includes('Oatmeal')) {
+        recipePhoto = `oatmeal.png`;
+    } else if (recipeJSON.recipe_name.includes('Rice')) {
+        recipePhoto = `rice.png`;
+    } else if (recipeJSON.recipe_name.includes('Chili')) {
+        recipePhoto = `chili.png`;
+    } else if (recipeJSON.recipe_name.includes('Salmon')) {
+        recipePhoto = `salmon.png`;
+    } else if (recipeJSON.recipe_name.includes('Seafood')) {
+        recipePhoto = `seafood.png`;
+    } else if (recipeJSON.recipe_name.includes('Charcuterie')) {
+        recipePhoto = `charcuterie.png`;
     } else {
         recipePhoto = 'generic-food.png';
     }
