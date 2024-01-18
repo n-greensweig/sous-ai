@@ -6,15 +6,22 @@ const pool = require('../modules/pool');
 router.post('/', (req, res) => {
 
     let recipeJSON = JSON.parse(req.body.message);
+    let recipePhoto;
+
+    if (recipeJSON.recipe_name.includes('Smoothie')) {
+        recipePhoto = `smoothie.png`;
+    } else {
+        recipePhoto = 'generic-food.png';
+    }
 
     let queryText = `
 INSERT INTO "recipe_item" ("user_id", "title", "prep_time", "cook_time",
- "number_of_servings", "ingredients", "instructions", "notes")
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+ "number_of_servings", "photo", "ingredients", "instructions", "notes")
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
 `;
     pool.query(queryText, [
         req.user.id, recipeJSON.recipe_name, recipeJSON.prep_time, recipeJSON.cook_time,
-        recipeJSON.number_of_servings, recipeJSON.ingredients, recipeJSON.instructions, recipeJSON.notes
+        recipeJSON.number_of_servings, recipePhoto, recipeJSON.ingredients, recipeJSON.instructions, recipeJSON.notes
     ])
         .then(result => {
             res.sendStatus(200);
