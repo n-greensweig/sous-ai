@@ -97,7 +97,7 @@ router.post('/comments/:id', (req, res) => {
 router.get('/', (req, res) => {
 
     let queryText = `
-SELECT * FROM "recipe_item" WHERE "user_id" = $1;
+SELECT * FROM "recipe_item" WHERE "user_id" = $1 ORDER BY "id" DESC;
 `;
     pool.query(queryText, [req.user.id])
         .then(result => {
