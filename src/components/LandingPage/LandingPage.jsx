@@ -12,7 +12,6 @@ function LandingPage() {
   const [heading, setHeading] = useState('Welcome');
   const history = useHistory();
 
-  const firstParagraphText = `Welcome to SousAI. Let's get cooking!`;
 
   const onLogin = (event) => {
     history.push('/login');
@@ -23,6 +22,13 @@ function LandingPage() {
   const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
   const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const firstParagraphText = isXsScreen || isSmScreen ? `Welcome to SousAI! Let's get cooking.` :
+    `Welcome to SousAI, your partner in the kitchen for real, everyday cooking. 
+  We understand that life can be busy, and sometimes all you need is a simple, tasty meal to bring a little comfort to your day. 
+  Our app is here to help, offering personalized recipe suggestions that fit your lifestyle and preferences. 
+  Whether you're cooking for one or for a crowd, we're here to guide you with practical, approachable advice. 
+  Let's make cooking less about perfection and more about the joy of creating something nourishing and delicious. Grab your ingredients, and let's get started! 🍲👩‍🍳👨‍🍳`;
+
   return (
     <div className="container" style={{
       backgroundColor: '#F5F5F5',
@@ -31,7 +37,8 @@ function LandingPage() {
       alignItems: isXsScreen || isSmScreen ? 'center' : null,
     }}>
       <h2 style={{
-        color: '#333', paddingLeft: isXsScreen || isSmScreen ? null : '10px'
+        color: '#333', paddingLeft: isXsScreen || isSmScreen ? null : '10px',
+        fontSize: isXsScreen || isSmScreen ? null : '54px',
       }}>{heading}</h2>
 
       <div className="grid" style={{
