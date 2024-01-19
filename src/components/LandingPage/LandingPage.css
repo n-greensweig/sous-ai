@@ -36,7 +36,7 @@ Grid
 
 .grid-col_4 {
   flex-basis: 33.33333333%;
-  max-width: 33.33333333%;
+  max-width: 66.66666667%
 }
 
 .grid-col_5 {

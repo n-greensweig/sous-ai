@@ -26,32 +26,21 @@ function LandingPage() {
   return (
     <div className="container" style={{
       backgroundColor: '#F5F5F5',
-      border: '2px solid red',
       display: isXsScreen || isSmScreen ? 'flex' : null,
       flexDirection: isXsScreen || isSmScreen ? 'column' : null,
       alignItems: isXsScreen || isSmScreen ? 'center' : null,
     }}>
-      <h2 style={{ color: '#333' }}>{heading}</h2>
+      <h2 style={{
+        color: '#333', paddingLeft: isXsScreen || isSmScreen ? null : '10px'
+      }}>{heading}</h2>
 
       <div className="grid" style={{
-        border: '2px solid purple',
         display: isXsScreen || isSmScreen ? 'flex' : null,
         flexDirection: isXsScreen || isSmScreen ? 'column' : null,
         alignItems: isXsScreen || isSmScreen ? 'center' : null,
       }}>
         <div className="grid-col grid-col_8">
-          {isXsScreen || isSmScreen ? 
-          <div className="grid-col grid-col_4">
-          <RegisterForm />
-
-          <center>
-            <h4 style={{ color: '#f6f1eb' }}>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
-            </button>
-          </center>
-        </div> :
-          <TypewriterText text={firstParagraphText} />}
+          <TypewriterText text={firstParagraphText} />
         </div>
         <div className="grid-col grid-col_4">
           <RegisterForm />
@@ -64,7 +53,7 @@ function LandingPage() {
           </center>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
