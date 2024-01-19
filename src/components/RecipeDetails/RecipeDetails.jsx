@@ -1,8 +1,6 @@
 import { Button, TextField, useTheme, useMediaQuery } from "@mui/material";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import CheckIcon from '@mui/icons-material/Check';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -17,15 +15,16 @@ import swal from 'sweetalert';
 import { useState } from "react";
 
 import axios from "axios";
+import { BarLoader } from 'react-spinners';
 
 import Header from "../Header/Header";
-import styled from "@emotion/styled";
 
 function RecipeDetails() {
 
     const [imagePath, setImagePath] = useState('');
 
     const [imageList, setImageList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -55,6 +54,7 @@ function RecipeDetails() {
 
         // Check if the file is one of the allowed types.
         if (acceptedImageTypes.includes(fileToUpload.type)) {
+            setIsLoading(true); // Start loading
             const formData = new FormData();
             formData.append('file', fileToUpload);
             formData.append('upload_preset', process.env.REACT_APP_PRESET);
@@ -66,7 +66,10 @@ function RecipeDetails() {
             }).catch(error => {
                 console.error('error', error);
                 alert('Something went wrong.');
-            });
+            })
+                .finally(() => {
+                    setIsLoading(false); // End loading
+                });
         } else {
             alert('Please select an image');
         }
@@ -176,6 +179,7 @@ function RecipeDetails() {
                         title: 'Deleted!',
                         text: 'This comment has been deleted',
                         icon: 'success',
+                        buttons: false,
                         timer: 1000,
                     });
                     setTimeout(() => {
@@ -276,6 +280,7 @@ function RecipeDetails() {
                                                 accept="image/*"
                                                 onChange={onFileChange}
                                             />
+                                            {isLoading && <BarLoader color="#DAA520" />}
                                             <br />
                                             {
                                                 // Image preview
@@ -291,9 +296,9 @@ function RecipeDetails() {
 
                                 </DialogContent>
                                 <DialogActions>
-                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                                    {!isLoading && <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                                         <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
-                                            <Button style={{ width: '50%', color: 'gray' }} onClick={e => toggleEditing(e)}>Cancel</Button>
+                                            <Button style={{ width: '50%', color: 'gray' }} onClick={() => setIsEditing(false)}>Cancel</Button>
                                             <Button variant="outlined" type="submit" style={{ width: '50%', color: '#DAA520', borderColor: '#DAA520' }}>Save</Button>
                                         </div>
                                         <div className="second-row" style={{ width: '100%' }}>
@@ -302,7 +307,7 @@ function RecipeDetails() {
                                                 Delete Recipe
                                             </Button>
                                         </div>
-                                    </div>
+                                    </div>}
                                 </DialogActions>
                             </Dialog>
 

@@ -6,7 +6,11 @@ function LoginPage() {
   const history = useHistory();
 
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+    }}>
       <LoginForm />
 
       <center>

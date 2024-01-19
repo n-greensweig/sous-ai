@@ -19,7 +19,7 @@ function TypewriterText({ text }) {
     };
   }, [text, currentIndex]);
 
-  return <p style={{color: '#f6f1eb'}}>{displayText}</p>;
+  return <p style={{color: '#333'}}>{displayText}</p>;
 }
 
 export default TypewriterText;
