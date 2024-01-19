@@ -9,51 +9,51 @@ router.post('/', (req, res) => {
     let recipePhoto;
 
     if (recipeJSON.recipe_name.includes('Smoothie')) {
-        recipePhoto = `smoothie.png`;
+        recipePhoto = `images/smoothie.png`;
     } else if (recipeJSON.recipe_name.includes('Pizza')) {
-        recipePhoto = `pizza.png`;
+        recipePhoto = `images/pizza.png`;
     } else if (recipeJSON.recipe_name.includes('Salad')) {
-        recipePhoto = `salad.png`;
+        recipePhoto = `images/salad.png`;
     } else if (recipeJSON.recipe_name.includes('Soup')) {
-        recipePhoto = `soup.png`;
+        recipePhoto = `images/soup.png`;
     } else if (recipeJSON.recipe_name.includes('Stew')) {
-        recipePhoto = `stew.png`;
+        recipePhoto = `images/stew.png`;
     } else if (recipeJSON.recipe_name.includes('Cake')) {
-        recipePhoto = `cake.png`;
+        recipePhoto = `images/cake.png`;
     } else if (recipeJSON.recipe_name.includes('Pie')) {
-        recipePhoto = `pie.png`;
+        recipePhoto = `images/pie.png`;
     } else if (recipeJSON.recipe_name.includes('Taco')) {
-        recipePhoto = `tacos.png`;
+        recipePhoto = `images/tacos.png`;
     } else if (recipeJSON.recipe_name.includes('Barbecue') || recipeJSON.recipe_name.includes('BBQ')) {
-        recipePhoto = `barbecue.png`;
+        recipePhoto = `images/barbecue.png`;
     } else if (recipeJSON.recipe_name.includes('Chicken')) {
-        recipePhoto = `chicken.png`;
+        recipePhoto = `images/chicken.png`;
     } else if (recipeJSON.recipe_name.includes('Steak')) {
-        recipePhoto = `steak.png`;
+        recipePhoto = `images/steak.png`;
     } else if (recipeJSON.recipe_name.includes('Cheeseburger') || recipeJSON.recipe_name.includes('Burger')) {
-        recipePhoto = `burger.png`;
+        recipePhoto = `images/burger.png`;
     } else if (recipeJSON.recipe_name.includes('Pork')) {
-        recipePhoto = `pork-chop.png`;
+        recipePhoto = `images/pork-chop.png`;
     } else if (recipeJSON.recipe_name.includes('Bread')) {
-        recipePhoto = `bread.png`;
+        recipePhoto = `images/bread.png`;
     } else if (recipeJSON.recipe_name.includes('Sandwich')) {
-        recipePhoto = `sandwich.png`;
+        recipePhoto = `images/sandwich.png`;
     } else if (recipeJSON.recipe_name.includes('Eggs')) {
-        recipePhoto = `eggs.png`;
+        recipePhoto = `images/eggs.png`;
     } else if (recipeJSON.recipe_name.includes('Oatmeal')) {
-        recipePhoto = `oatmeal.png`;
+        recipePhoto = `images/oatmeal.png`;
     } else if (recipeJSON.recipe_name.includes('Rice')) {
-        recipePhoto = `rice.png`;
+        recipePhoto = `images/rice.png`;
     } else if (recipeJSON.recipe_name.includes('Chili')) {
-        recipePhoto = `chili.png`;
+        recipePhoto = `images/chili.png`;
     } else if (recipeJSON.recipe_name.includes('Salmon')) {
-        recipePhoto = `salmon.png`;
+        recipePhoto = `images/salmon.png`;
     } else if (recipeJSON.recipe_name.includes('Seafood')) {
-        recipePhoto = `seafood.png`;
+        recipePhoto = `images/seafood.png`;
     } else if (recipeJSON.recipe_name.includes('Charcuterie')) {
-        recipePhoto = `charcuterie.png`;
+        recipePhoto = `images/charcuterie.png`;
     } else {
-        recipePhoto = 'generic-plate.png';
+        recipePhoto = `images/generic-plate.png`;
     }
 
     let queryText = `
@@ -97,8 +97,22 @@ router.post('/comments/:id', (req, res) => {
 router.get('/', (req, res) => {
 
     let queryText = `
-SELECT * FROM "recipe_item" WHERE "user_id" = $1 ORDER BY "id" DESC;
-`;
+SELECT 
+    "recipe_item".*,
+    COALESCE(
+        (SELECT "images"."path"
+         FROM "images"
+         WHERE "images"."recipe_id" = "recipe_item"."id"
+         ORDER BY "images"."created_at" DESC
+         LIMIT 1),
+        "recipe_item"."photo"
+    ) AS "display_photo"
+FROM 
+    "recipe_item"
+WHERE
+    "recipe_item"."user_id" = $1
+ORDER BY 
+    "recipe_item"."id" DESC;`;
     pool.query(queryText, [req.user.id])
         .then(result => {
             res.send(result.rows);

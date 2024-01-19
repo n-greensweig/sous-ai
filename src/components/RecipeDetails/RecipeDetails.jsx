@@ -319,7 +319,7 @@ function RecipeDetails() {
 
                                 <img
                                     key={imageList.length > 0 ? imageList[0].id : null} className="profile-photo"
-                                    src={imageList.length > 0 ? imageList[0].path : `images/${image}`
+                                    src={imageList.length > 0 ? imageList[0].path : `${image}`
                                     } alt='Recipe photo' />
                                 <div className="notes">
                                     <p style={{

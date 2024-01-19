@@ -64,7 +64,7 @@ function RecipeItems() {
                                         <CardMedia
                                             component={'img'}
                                             height={'194'}
-                                            image={`images/${recipe.photo}`}
+                                            image={`${recipe.display_photo}`}
                                             alt={`${recipe.title} dish`}
                                         />
                                         <CardContent className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
