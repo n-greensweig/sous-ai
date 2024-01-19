@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
     } else if (recipeJSON.recipe_name.includes('Charcuterie')) {
         recipePhoto = `charcuterie.png`;
     } else {
-        recipePhoto = 'generic-food.png';
+        recipePhoto = 'generic-plate.png';
     }
 
     let queryText = `
