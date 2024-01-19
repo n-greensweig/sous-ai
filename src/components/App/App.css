@@ -2,6 +2,7 @@ html,
 body,
 #react-root {
   height: 100%;
+  /* background-color: #333; */
 }
 
 body {
@@ -73,11 +74,11 @@ Button
 .btn_asLink {
   padding: 0;
   border-width: 0;
-  border-bottom: 1px solid navy;
+  border-bottom: 1px solid #333;
   border-radius: 0;
   background: none;
   font: inherit;
-  color: navy;
+  color: #333;
 }
 
 .btn_asLink:hover {
