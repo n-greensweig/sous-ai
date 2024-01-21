@@ -35,7 +35,7 @@ function AboutPage() {
           <h3>Our Vision</h3>
           <p>We envision a world where meals are an opportunity to connect, learn, and create joy. SousAI is aim to facilitate the warmth and love that comes from shared meals and conversations.</p>
           <h3>Contact Us</h3>
-          <p>We love hearing from our users! For support, feedback, or sharing your SousAI stories, contact us at support@sousai.com.</p>
+          <p>For support, feedback, or sharing your SousAI stories, contact us at ngreensweig@gmail.com.</p>
 
           <p style={{paddingBottom: '8%'}}>Cook, Connect, Cherish - with SousAI.</p>
 
