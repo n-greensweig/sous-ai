@@ -24,6 +24,8 @@ router.post('/', (req, res) => {
         recipePhoto = `images/pie.png`;
     } else if (recipeJSON.recipe_name.includes('Taco')) {
         recipePhoto = `images/tacos.png`;
+    } else if (recipeJSON.recipe_name.includes('Pasta') || recipeJSON.recipe_name.includes('Noodles')) {
+        recipePhoto = `images/pasta.png`;
     } else if (recipeJSON.recipe_name.includes('Barbecue') || recipeJSON.recipe_name.includes('BBQ')) {
         recipePhoto = `images/barbecue.png`;
     } else if (recipeJSON.recipe_name.includes('Chicken')) {
