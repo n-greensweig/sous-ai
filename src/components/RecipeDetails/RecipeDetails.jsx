@@ -237,7 +237,7 @@ function RecipeDetails() {
                         }}>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 <p style={{
-                                    color: 'black', fontWeight: 'bold', fontSize: isSmScreen || isXsScreen ? '44px' : '54px',
+                                    color: 'black', fontWeight: 'bold', fontSize: isSmScreen || isXsScreen ? '44px' : '40px',
                                     textAlign: 'center', marginBottom: isSmScreen || isXsScreen ? '10px' : '5px'
                                 }}> {title ? title : ''}</p>
                                 <Button variant="text" onClick={e => toggleEditing(e)} startIcon={isEditing ? null : <EditIcon />}
