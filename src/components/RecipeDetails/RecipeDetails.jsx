@@ -507,7 +507,7 @@ function RecipeDetails() {
 
                                             <Button variant="outlined"
                                                 type="submit"
-                                                style={{ color: '#DAA520', border: '1px solid #DAA520', borderColor: 'white' }}
+                                                style={{ color: '#DAA520', border: '1px solid #DAA520', borderColor: '#DAA520' }}
                                             >Save note</Button>
                                         </form>
                                     </div>
