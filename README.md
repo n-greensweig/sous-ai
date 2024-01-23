@@ -47,3 +47,4 @@ Contributions are welcome. Please follow these steps to contribute:
 
 ## Acknowledgments
 Thank you to the mentors and colleagues who have contributed to the success of this project. You know who you are. Thank you also to OpenAI for making your API available to build with.
+
