@@ -53,7 +53,7 @@ function LandingPage() {
           <RegisterForm />
 
           <center>
-            <h4 style={{ color: '#f6f1eb' }}>Already a Member?</h4>
+            <h4 style={{ color: '#333' }}>Already a Member?</h4>
             <button className="btn btn_sizeSm" onClick={onLogin}>
               Login
             </button>
