@@ -33,7 +33,7 @@ function RecipeItems() {
 
     return (
 
-        <div style={{ paddingBottom: '8%', marginTop: isSmScreen || isXsScreen ? '15%' : '5%' }}>
+        <div style={{ paddingBottom: isSmScreen || isXsScreen ? '28%' : '8%', marginTop: isSmScreen || isXsScreen ? '7%' : '5%' }}>
             <Header text={'Saved Recipes'} />
             <Grid container spacing={2} minHeight={'5vh'} className="container"
                 style={{

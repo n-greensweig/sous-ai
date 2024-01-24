@@ -35,6 +35,7 @@ function LandingPage() {
       display: isXsScreen || isSmScreen ? 'flex' : null,
       flexDirection: isXsScreen || isSmScreen ? 'column' : null,
       alignItems: isXsScreen || isSmScreen ? 'center' : null,
+      paddingBottom: isXsScreen || isSmScreen ? '20%' : null,
     }}>
       <h2 style={{
         color: '#333', paddingLeft: isXsScreen || isSmScreen ? null : '10px',
