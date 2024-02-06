@@ -261,7 +261,7 @@ function UserPage() {
               }
             </form>
           </div>
-          <p className="info" style={{ marginBottom: isSmScreen || isXsScreen ? '17%' : null }}>
+          <p className="info" style={{ marginBottom: isSmScreen || isXsScreen ? '10%' : null }}>
             As of {month} {year}, SousAI operates on a message-by-message basis.<br></br>
             Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
           </p>

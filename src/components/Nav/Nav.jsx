@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
+import { useTheme, useMediaQuery } from "@mui/material";
 
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
@@ -15,8 +16,13 @@ function Nav() {
 
   const isActive = route => location.pathname.startsWith(route) ? 'navLink active' : 'navLink';
 
+  // Check the screen size for responsive design
+  const theme = useTheme();
+  const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
-    <div className="nav">
+    <div className="nav" style={{ height: isXsScreen || isSmScreen ? '50px' : null }}>
       {/* <div> */}
       {/* If no user is logged in, show these links */}
       {!user.id && (
@@ -39,9 +45,9 @@ function Nav() {
               <MenuBookIcon className='icon' /> Saved Recipes
             </Link>
           </div>
-          <div id='about-footer'>
+          {/* <div id='about-footer'>
             <Link className={isActive('/about')} to="/about">About</Link>
-          </div>
+          </div> */}
           <div id='log-out-footer'>
             <LogOutButton className={isActive('/logout')} />
           </div>
