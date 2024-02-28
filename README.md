@@ -12,7 +12,6 @@
 SousAI is a recipe app that includes a recipe-generating AI assistant and a saved recipe box. SousAI is hosted [https://www.sousai.io/](https://www.sousai.io/) using AWS and Heroku. The app is built with React, Redux, Node.js, PostgreSQL, and OpenAI's API. Users create recipes using Sous, the AI-backed recipe assistant. Users can save recipes to their recipe box and add either notes or photos to their saved recipes to revisit when cooking the recipe again in the future.
 
 ## Installation
-
 1. Create a database named ```sous_ai```
 2. Fork and clone this repository
 3. The queries in the database.sql file are set up to create all necessary tables and populate the needed data to allow the app to run correctly. The project is built on PostgreSQL, so you will need to have PostgreSQL installed for the app to work. We recommend using Postico to run those queries as that was used to create the queries.
