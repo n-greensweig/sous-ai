@@ -51,7 +51,7 @@ function RecipeItems() {
             >
 
                 {recipes.map(recipe => (
-                    <Grid item className='card' xs={5} md={3} onClick={() => handleClick(recipe.id)}
+                    <Grid item className='card' xs={11} md={3} onClick={() => handleClick(recipe.id)}
                         style={{
                             padding: '0px',
                             margin: '4px',
@@ -91,7 +91,7 @@ function RecipeItems() {
                                                 justifyContent: 'center',
                                                 fontFamily: 'inter',
                                                 color: 'black',
-                                                fontSize: '13px',
+                                                fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
                                                 marginTop: '5px',
                                                 overflow: 'auto'
                                             }}

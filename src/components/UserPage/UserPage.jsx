@@ -248,8 +248,10 @@ function UserPage() {
 
             <form onSubmit={getMessages} id='sous-form' style={{ marginBottom: '0px' }}>
 
-              <input value={loading ? '' : value} disabled={loading ? true : false} onChange={e => setValue(e.target.value)}
-                placeholder='What would you like to cook today?' required />
+              <textarea value={loading ? '' : value} disabled={loading ? true : false} onChange={e => setValue(e.target.value)}
+                placeholder='What would you like to cook today?' required
+                style={{ height: 'auto', minHeight: '30px', }}
+              />
 
               {value.trim() && !loading ?
                 <Button style={{ backgroundColor: '#333333' }} type='submit' id='submit'><ArrowUpwardIcon className='up-icon'
