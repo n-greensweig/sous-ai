@@ -4,6 +4,7 @@
 - [Description](#Description)
 - [Installation](#Installation)
 - [Usage](#Usage)
+- [Screenshots](#Screenshots)
 - [Built With](#Built-With)
 - [Contributing](#Contributing)
 - [Acknowledgments](#Acknowledgments)
@@ -27,6 +28,9 @@ After starting the application:
 3. Request a recipe of your choice using the input field at the bottom of the SousAI page
 4. Save a recipe that appeals to you using the button at the bottom of the recipe
 5. Navigate into the 'Saved recipes' page to view your saved recipes
+
+## Screenshots
+![SousAI User Page](/images/readme-screenshots/user-page-1.png?raw=true "User Recipe Query")
 
 ## Built With
 1. React.js - Frontend framework.
