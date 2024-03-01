@@ -30,7 +30,7 @@ After starting the application:
 5. Navigate into the 'Saved recipes' page to view your saved recipes
 
 ## Screenshots
-![SousAI User Page](/readme-screenshots/user-page-1.png?raw=true "User Recipe Query")
+<img width="1440" alt="user-page-1" src="https://github.com/n-greensweig/sous-ai/assets/129970968/6a977cef-412d-4768-92f9-dbb879711dc4">
 
 ## Built With
 1. React.js - Frontend framework.
