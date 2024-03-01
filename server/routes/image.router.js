@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool.js');
+const {
+    rejectUnauthenticated,
+  } = require('../modules/authentication-middleware');
 
-// Setup a GET route to get all the creatures from the database
-router.get('/:id', (req, res) => {
-    // When you fetch all things in these GET routes, strongly encourage ORDER BY
-    // so that things always come back in a consistent order 
+// GET route to get all the images from the database
+router.get('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "images" WHERE
     "user_id" = $1 and "recipe_id" = $2 ORDER BY "path" DESC;
     ;`;
@@ -20,15 +21,13 @@ router.get('/:id', (req, res) => {
 });
 
 
-// Setup a POST route to add a new creature to the database
-router.post('/', (req, res) => {
+// Setup a POST route to add a new image to the database
+router.post('/', rejectUnauthenticated, (req, res) => {
     const path = req.body.path;
     const recipeID = req.body.recipeID;
     const userID = req.user.id;
     const queryText = `INSERT INTO "images" ("recipe_id", "user_id", "path")
                      VALUES ($1, $2, $3);`;
-    // Let sql sanitize your inputs (NO Bobby Drop Tables here!)
-    // the $1, $2, etc get substituted with the values from the array below
     pool.query(queryText, [recipeID, userID, path])
         .then((result) => {
             console.log(`Added image to the database`, path);

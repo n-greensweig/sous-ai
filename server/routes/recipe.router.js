@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // POST saved recipe to the DB
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
 
     let recipeJSON = JSON.parse(req.body.message);
     let recipePhoto;
@@ -78,7 +79,7 @@ VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
 });
 
 // POST new comment to the DB
-router.post('/comments/:id', (req, res) => {
+router.post('/comments/:id', rejectUnauthenticated, (req, res) => {
 
     let queryText = `
     INSERT INTO "comments" ("recipe_id", "user_id", "comment")
@@ -96,7 +97,7 @@ router.post('/comments/:id', (req, res) => {
 });
 
 // GET all recipes from the DB
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
 
     let queryText = `
 SELECT 
@@ -127,7 +128,7 @@ ORDER BY
 });
 
 // GET recipe details from the DB
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
     let queryText = `
 SELECT * FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 `;
@@ -143,7 +144,7 @@ SELECT * FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 });
 
 // GET recipe comments from the DB
-router.get('/comments/:id', (req, res) => {
+router.get('/comments/:id', rejectUnauthenticated, (req, res) => {
     let queryText = `
     SELECT * FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2;
 `;
@@ -159,7 +160,7 @@ router.get('/comments/:id', (req, res) => {
 });
 
 // DELETE selected recipe from the DB
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
     // Must first delete comments associated with the recipe
     let firstQueryText = `
@@ -192,7 +193,7 @@ DELETE FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 });
 
 // DELETE selected comment from the DB
-router.delete('/:id/comment/:recipeId', (req, res) => {
+router.delete('/:id/comment/:recipeId', rejectUnauthenticated, (req, res) => {
 
     // Must first delete comments associated with the recipe
     let firstQueryText = `
@@ -212,7 +213,7 @@ DELETE FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2 AND "id" = $3;
 });
 
 // PUT request to update recipe title in the DB
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
     let queryText = `
     UPDATE "recipe_item" SET "title" = $1
     WHERE "user_id" = $2 AND "id" = $3;
