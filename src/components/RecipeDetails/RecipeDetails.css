@@ -1,0 +1,7 @@
+.custom-textfield .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: inherit; /* Replace 'yourDesiredColor' with the color you want */
+}
+
+.custom-textfield .MuiInputLabel-outlined.Mui-focused {
+    color: inherit; /* Replace 'yourDesiredColor' with the color you want */
+}

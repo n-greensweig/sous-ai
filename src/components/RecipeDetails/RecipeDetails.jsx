@@ -19,6 +19,7 @@ import axios from "axios";
 import { BarLoader } from 'react-spinners';
 
 import Header from "../Header/Header";
+import './RecipeDetails.css';
 
 function RecipeDetails() {
 
@@ -227,7 +228,7 @@ function RecipeDetails() {
 
     return (
         <div>
-                <Header text={title ? 'Saved Recipes' : ''} to='/recipes' />
+            <Header text={title ? 'Saved Recipes' : ''} to='/recipes' />
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
 
 
@@ -503,7 +504,8 @@ function RecipeDetails() {
                                         <form style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} onSubmit={() => addComment(newComment, id)}>
 
                                             <TextField label="Add a recipe note" variant="outlined"
-                                                style={{ width: '90%' }}
+                                                className="custom-textfield"
+                                                style={{ width: '90%', }}
                                                 value={newComment}
                                                 onChange={e => setNewComment(e.target.value)} />
 

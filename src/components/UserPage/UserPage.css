@@ -11,7 +11,7 @@ body {
 }
 
 .App {
-  background-color: #F5F5F5;
+  background-color: #FFF;
   display: flex;
 }
 
@@ -116,13 +116,13 @@ textarea:focus {
 
 #submit:hover {
   cursor: pointer;
-  color: #F5F5F5;
+  color: #FFF;
   background-color: #333333E6 !important;
-  fill: #F5F5F5;
+  fill: #FFF;
 }
 
 #submit:hover .up-icon {
-  fill: #F5F5F5;
+  fill: #FFF;
   padding: 0px;
   margin: 0px;
 }
