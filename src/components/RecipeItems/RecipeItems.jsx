@@ -26,6 +26,8 @@ function RecipeItems() {
 
     const replaceWithCommas = str => str.replace(/@/g, ',');
 
+    document.title = 'Saved Recipes';
+
     // Check the screen size for responsive design
     const theme = useTheme();
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));

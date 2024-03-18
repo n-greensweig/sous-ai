@@ -75,6 +75,7 @@ function RecipeDetails() {
         }
     };
 
+    document.title = title ? `${title} Recipe` : 'Saved Recipes';
 
     const sendPhotoToServer = e => {
 
