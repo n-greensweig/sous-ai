@@ -54,12 +54,13 @@ function RecipeItems() {
                 }}
             >
 
-                {recipes.map(recipe => (
+                {recipes.map((recipe, index) => (
                     <Grid item className='card' xs={11} md={3} onClick={() => handleClick(recipe.id)}
                         style={{
                             padding: '0px',
                             margin: '4px',
                         }}
+                        id={recipe.id} key={index}
                     >
                         <Paper elevation={5}>
                             <Card>
