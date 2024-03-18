@@ -5,6 +5,7 @@ import './RecipeItems.css';
 import { Grid, Paper, Card, CardContent, CardMedia, CardActionArea, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Header from '../Header/Header';
+import NewRecipeList from "../NewRecipeList/NewRecipeList";
 
 function RecipeItems() {
 
@@ -37,6 +38,7 @@ function RecipeItems() {
 
         <div style={{ paddingBottom: isSmScreen || isXsScreen ? '28%' : '8%', marginTop: isSmScreen || isXsScreen ? '7%' : '5%' }}>
             <Header text={'Saved Recipes'} />
+            <NewRecipeList />
             <Grid container spacing={2} minHeight={'5vh'} className="container"
                 style={{
                     marginTop: '0px',

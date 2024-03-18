@@ -11,6 +11,7 @@ import { FaArrowTurnDown, FaTurnUp } from "react-icons/fa6";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 import swal from 'sweetalert';
 import { useState } from "react";
 
@@ -226,7 +227,7 @@ function RecipeDetails() {
 
     return (
         <div>
-            <Header text={title ? 'Saved Recipes' : ''} to={'/recipes'} />
+                <Header text={title ? 'Saved Recipes' : ''} to='/recipes' />
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
 
 
