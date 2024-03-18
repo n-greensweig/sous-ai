@@ -42,6 +42,8 @@ function RecipeDetails() {
     const [prepTime, setPrepTime] = useState(details ? details.prep_time : '');
     const [cookTime, setCookTime] = useState(details ? details.cook_time : '');
     const [notes, setNotes] = useState(details ? details.notes : '');
+    const [isCooked, setIsCooked] = useState(details?.is_cooked ?? '');
+    const [rating, setRating] = useState(details ? details.rating : '');
     const [servings, setServings] = useState(details ? details.number_of_servings : '');
 
     const [newComment, setNewComment] = useState([]);
@@ -202,6 +204,8 @@ function RecipeDetails() {
             setPrepTime(details.prep_time);
             setCookTime(details.cook_time);
             setNotes(details.notes);
+            setIsCooked(details.is_cooked);
+            setRating(details.rating);
         }
     }, [details]);
 
@@ -348,6 +352,8 @@ function RecipeDetails() {
                                     }}
                                         onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                                     >
+                                        <p>{isCooked === false ? 'Mark as cooked' : 'Cooked'}</p>
+                                        <p>{rating === null ? 'Blank stars' : 'Full stars'}</p>
                                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                             <strong><span style={{ marginRight: '5px' }}>Notes</span> <span style={{ textDecoration: 'underline' }}>Read recipe notes</span></strong>
                                             <FaArrowTurnDown style={{ marginLeft: '3px', fill: "black", }} />
