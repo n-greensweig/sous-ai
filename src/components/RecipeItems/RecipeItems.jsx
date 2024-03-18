@@ -22,6 +22,7 @@ function RecipeItems() {
     };
 
     useEffect(() => {
+        console.log('NewRecipeList mounted');
         dispatch({ type: 'FETCH_RECIPES' });
     }, []);
 

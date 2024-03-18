@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -9,32 +10,30 @@ import { Button, TextField } from '@mui/material';
 
 function NewRecipeList() {
 
+    const dispatch = useDispatch();
+
     const [isCreating, setIsCreating] = useState(false);
     const [listName, setListName] = useState('');
 
-    const saveRecipeList = (e, listName) => {
-        e.preventDefault();
-        console.log('Saving new recipe list:', listName);
-        toggleEditing();
+    const saveRecipeList = listName => {
+        dispatch({ type: 'SAVE_RECIPE_LIST', payload: { listName } });
+        toggleCreating();
+        setListName('');
     };
 
-    const toggleEditing = () => isCreating ? setIsCreating(false) : setIsCreating(true);
-
-    useEffect(() => {
-        console.log('NewRecipeList mounted');
-    }, []);
+    const toggleCreating = () => isCreating ? setIsCreating(false) : setIsCreating(true);
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '10px 0px' }}>
-            <Button style={{ marginTop: '10%' }} onClick={e => toggleEditing(e)} className="new-recipe-button">New Recipe List</Button>
+            <Button style={{ marginTop: '10%' }} onClick={e => toggleCreating(e)} className="new-recipe-button">New Recipe List</Button>
             <Dialog open={isCreating}
-                onClose={e => toggleEditing(e)}
+                onClose={e => toggleCreating(e)}
                 PaperProps={{
                     component: 'form',
                     onSubmit: (event) => {
                         event.preventDefault();
                         saveRecipeList(listName);
-                        toggleEditing(event);
+                        toggleCreating(event);
                     },
                 }}>
                 <DialogTitle>Create new recipe list</DialogTitle>
@@ -47,10 +46,7 @@ function NewRecipeList() {
                         fullWidth
                         variant="standard"
                         defaultValue={listName}
-                        onChange={e => {
-                            console.log('List name:', e.target.value);
-                            setListName(e.target.value);
-                        }}
+                        onChange={e => setListName(e.target.value)}
                         style={{ padding: '1px' }} />
 
                 </DialogContent>

@@ -3,6 +3,23 @@ const router = express.Router();
 const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
+// POST saved recipe list to the DB
+router.post('/list', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+INSERT INTO "recipe_list" ("user_id", "list_name")
+VALUES ($1, $2);
+`;
+    pool.query(queryText, [req.user.id, req.body.listName])
+        .then(result => {
+            console.log('POST successful!');
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.error('Error posting recipe list to DB:', error);
+            res.sendStatus(500);
+        });
+});
+
 // POST saved recipe to the DB
 router.post('/', rejectUnauthenticated, (req, res) => {
 

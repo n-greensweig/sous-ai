@@ -1,6 +1,16 @@
 import axios from "axios"
 import { put, takeLatest } from "redux-saga/effects";
 
+function* saveRecipeList(action) {
+    try {
+        yield axios.post('/api/recipe/list', action.payload);
+    } catch (error) {
+        console.error('Error posting recipe list', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
 function* saveRecipe(action) {
     try {
         yield axios.post('/api/recipe', action.payload);
@@ -88,6 +98,7 @@ function* postComment(action) {
 }
 
 function* recipeSaga() {
+    yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
     yield takeLatest('SAVE_RECIPE', saveRecipe);
     yield takeLatest('FETCH_RECIPES', getRecipes);
     yield takeLatest('FETCH_DETAILS', getRecipeDetails);
