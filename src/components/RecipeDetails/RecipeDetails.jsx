@@ -7,11 +7,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { FaArrowTurnDown, FaTurnUp } from "react-icons/fa6";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { Link } from "react-router-dom";
 import swal from 'sweetalert';
 import { useState } from "react";
 
@@ -23,18 +26,13 @@ import './RecipeDetails.css';
 
 function RecipeDetails() {
 
-    const [imagePath, setImagePath] = useState('');
-
-    const [imageList, setImageList] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const [imagePath, setImagePath] = useState('');
+    const [imageList, setImageList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const { id } = useParams();
-
     const details = useSelector(store => store.recipeDetailsReducer);
-
     const comments = useSelector(store => store.commentsReducer);
     const [title, setTitle] = useState(details ? details.title : '');
     const [ingredients, setIngredients] = useState(details?.ingredients ?? []);
@@ -45,16 +43,14 @@ function RecipeDetails() {
     const [isCooked, setIsCooked] = useState(details?.is_cooked ?? '');
     const [rating, setRating] = useState(details ? details.rating : '');
     const [servings, setServings] = useState(details ? details.number_of_servings : '');
-
     const [newComment, setNewComment] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
+    document.title = title ? `${title} Recipe` : 'Saved Recipes';
 
     const onFileChange = async (event) => {
-        // Access the selected file
-        const fileToUpload = event.target.files[0];
 
-        // Limit to specific file types.
-        const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+        const fileToUpload = event.target.files[0]; // Access the selected file
+        const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png']; // Limit to specific file types.
 
         // Check if the file is one of the allowed types.
         if (acceptedImageTypes.includes(fileToUpload.type)) {
@@ -79,12 +75,8 @@ function RecipeDetails() {
         }
     };
 
-    document.title = title ? `${title} Recipe` : 'Saved Recipes';
-
     const sendPhotoToServer = e => {
-
         e.preventDefault();
-
         if (imagePath) {
             // Send image path to server
             axios.post('/photos', { recipeID: id, path: imagePath })
@@ -97,8 +89,15 @@ function RecipeDetails() {
                     alert('Something went wrong.');
                 });
         }
-
     };
+
+    const updateRating = (e, num) => {
+        e.preventDefault();
+        const action = { type: 'UPDATE_RATING', payload: { id, rating: num } };
+        dispatch(action);
+        dispatch({ type: 'FETCH_DETAILS', payload: id });
+    };
+
 
     const getImageList = () => {
         axios.get(`/photos/${id}`)
@@ -141,7 +140,6 @@ function RecipeDetails() {
 
     // Remove recipe from DB onClick of 'Delete Recipe' button
     const removeRecipe = id => {
-
         swal({
             title: 'Are you sure',
             text: 'Are you sure you want to delete this recipe from your recipe box?',
@@ -164,12 +162,10 @@ function RecipeDetails() {
                     }, 1000);
                 }
             });
-
     };
 
     // Remove comment from DB onClick of button
     const removeComment = (recipeId, id) => {
-
         swal({
             title: 'Are you sure',
             text: 'Are you sure you want to delete this comment from your recipe?',
@@ -192,7 +188,6 @@ function RecipeDetails() {
                     dispatch({ type: 'FETCH_DETAILS', payload: id });
                 }
             });
-
     };
 
     // useEffect fetching recipe info
@@ -346,18 +341,25 @@ function RecipeDetails() {
                                 <div className="time" style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
                                     <p style={{ color: 'black', marginBottom: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Prep Time</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
                                     <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Cook Time</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
+                                        <p>{isCooked === false ? <span style={{ verticalAlign: 'middle' }}><CheckCircleOutlineIcon /> Mark as cooked</span> : <CheckCircleIcon />}</p>
+                                        <p style={{cursor: 'pointer'}}>{rating === null ? <span><StarBorderIcon onClick={e => updateRating(e, 1)} /><StarBorderIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} />
+                                        <StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> : 
+                                        rating === 1 ? <span><StarIcon onClick={e => updateRating(e, 1)} /><StarBorderIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} /><StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
+                                        rating === 2 ? <span><StarIcon onClick={e => updateRating(e, 1)} /><StarIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} /><StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
+                                        rating === 3 ? <span><StarIcon onClick={e => updateRating(e, 1)} /><StarIcon onClick={e => updateRating(e, 2)} /><StarIcon onClick={e => updateRating(e, 3)} /><StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
+                                        rating === 4 ? <span><StarIcon onClick={e => updateRating(e, 1)} /><StarIcon onClick={e => updateRating(e, 2)} /><StarIcon onClick={e => updateRating(e, 3)} /><StarIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
+                                        <span><StarIcon onClick={e => updateRating(e, 1)} /><StarIcon onClick={e => updateRating(e, 2)} /><StarIcon onClick={e => updateRating(e, 3)} /><StarIcon onClick={e => updateRating(e, 4)} /><StarIcon onClick={e => updateRating(e, 5)} /></span>}
+                                        </p>
                                     <p style={{
                                         color: 'black', marginTop: '0px', fontSize: '.9rem',
                                         cursor: 'pointer'
                                     }}
                                         onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                                     >
-                                        <p>{isCooked === false ? 'Mark as cooked' : 'Cooked'}</p>
-                                        <p>{rating === null ? 'Blank stars' : 'Full stars'}</p>
-                                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                        <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                             <strong><span style={{ marginRight: '5px' }}>Notes</span> <span style={{ textDecoration: 'underline' }}>Read recipe notes</span></strong>
                                             <FaArrowTurnDown style={{ marginLeft: '3px', fill: "black", }} />
-                                        </div>
+                                        </span>
                                     </p>
                                 </div>
                             </div>
@@ -383,7 +385,7 @@ function RecipeDetails() {
                                     <p style={{ color: 'black', textAlign: isSmScreen || isXsScreen ? 'left' : null }}><strong>Yield:</strong> {!servings ? '' : isNaN(servings) ? servings : <span>{servings} servings</span>}</p>
 
                                     <ul style={{ listStyleType: 'none', paddingLeft: '0px', textAlign: isSmScreen || isXsScreen ? 'left' : null }}>
-                                        {Array.isArray(ingredients) && ingredients.map(ingredient => ingredient.length > 2 ? <li style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
+                                        {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
                                     </ul>
                                 </div>
                                 <div className="instructions" style={{
@@ -533,10 +535,10 @@ function RecipeDetails() {
                         }}
                             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                         >
-                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                            <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                 <span>Back to recipe</span>
                                 <FaTurnUp style={{ marginLeft: '3px', fill: "black", }} />
-                            </div>
+                            </span>
                         </p>
                     </div>
                     {/* </div> */}

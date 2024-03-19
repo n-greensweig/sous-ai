@@ -63,9 +63,7 @@ function* deleteRecipe(action) {
 function* deleteComment(action) {
     const id = action.payload.id;
     const recipeId = action.payload.recipeId;
-    console.log(`/api/recipe/${id}/comment/${recipeId}`);
     try {
-        console.log('heya!', id, recipeId);
         yield axios.delete(`/api/recipe/${id}/comment/${recipeId}`);
     } catch (error) {
         console.error('Error deleting comment:', error);
@@ -73,6 +71,7 @@ function* deleteComment(action) {
         throw error;
     }
 }
+
 
 function* editRecipeTitle(action) {
     const id = action.payload.id;
@@ -97,6 +96,19 @@ function* postComment(action) {
     }
 }
 
+function* changeRating(action) {
+    const id = action.payload.id;
+    const rating = action.payload.rating;
+    console.log('rating:', rating, id);
+    try {
+        axios.put(`/api/recipe/rating/${id}`, { rating });
+    } catch (error) {
+        console.error('Error updating recipe rating:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
     yield takeLatest('SAVE_RECIPE', saveRecipe);
@@ -106,6 +118,7 @@ function* recipeSaga() {
     yield takeLatest('UPDATE_TITLE', editRecipeTitle);
     yield takeLatest('ADD_COMMENT', postComment);
     yield takeLatest('REMOVE_COMMENT', deleteComment);
+    yield takeLatest('UPDATE_RATING', changeRating);
 }
 
 export default recipeSaga;

@@ -245,4 +245,20 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// PUT request to update recipe rating in the DB
+router.put('/rating/:id', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    UPDATE "recipe_item" SET "rating" = $1
+    WHERE "user_id" = $2 AND "id" = $3;
+    `;
+    pool.query(queryText, [req.body.rating, req.user.id, req.params.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.error('Error updating recipe rating in DB:', error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;
