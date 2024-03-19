@@ -109,6 +109,18 @@ function* changeRating(action) {
     }
 }
 
+function* changeCooked(action) {
+    const id = action.payload.id;
+    const isCooked = action.payload.isCooked;
+    try {
+        axios.put(`/api/recipe/cooked/${id}`, { isCooked });
+    } catch (error) {
+        console.error('Error updating recipe cooked:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
     yield takeLatest('SAVE_RECIPE', saveRecipe);
@@ -119,6 +131,7 @@ function* recipeSaga() {
     yield takeLatest('ADD_COMMENT', postComment);
     yield takeLatest('REMOVE_COMMENT', deleteComment);
     yield takeLatest('UPDATE_RATING', changeRating);
+    yield takeLatest('UPDATE_COOKED', changeCooked);
 }
 
 export default recipeSaga;

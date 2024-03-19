@@ -261,4 +261,20 @@ router.put('/rating/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// PUT request to update recipe is_cooked value in the DB
+router.put('/cooked/:id', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    UPDATE "recipe_item" SET "is_cooked" = $1
+    WHERE "user_id" = $2 AND "id" = $3;
+    `;
+    pool.query(queryText, [req.body.isCooked, req.user.id, req.params.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.error('Error updating recipe is_cooked in DB:', error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;

@@ -95,9 +95,16 @@ function RecipeDetails() {
         e.preventDefault();
         const action = { type: 'UPDATE_RATING', payload: { id, rating: num } };
         dispatch(action);
-        dispatch({ type: 'FETCH_DETAILS', payload: id });
+        setRating(num);
     };
 
+    const toggleCooked = (e, cooked) => {
+        e.preventDefault();
+        setIsCooked(cooked);
+        // Now use the new value directly in your action payload
+        const action = { type: 'UPDATE_COOKED', payload: { id, isCooked: cooked } };
+        dispatch(action);
+    };
 
     const getImageList = () => {
         axios.get(`/photos/${id}`)
@@ -202,7 +209,7 @@ function RecipeDetails() {
             setIsCooked(details.is_cooked);
             setRating(details.rating);
         }
-    }, [details]);
+    }, [details]); 
 
     // useEffect fetching recipe info
     useEffect(() => {
@@ -227,6 +234,7 @@ function RecipeDetails() {
 
     return (
         <div>
+            <p>{isCooked ? 'hi' : null}</p>
             <Header text={title ? 'Saved Recipes' : ''} to='/recipes' />
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
 
@@ -341,8 +349,8 @@ function RecipeDetails() {
                                 <div className="time" style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
                                     <p style={{ color: 'black', marginBottom: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Prep Time</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
                                     <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Cook Time</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
-                                        <p>{isCooked === false ? <span style={{ verticalAlign: 'middle' }}><CheckCircleOutlineIcon /> Mark as cooked</span> : <CheckCircleIcon />}</p>
-                                        <p style={{cursor: 'pointer'}}>{rating === null ? <span><StarBorderIcon onClick={e => updateRating(e, 1)} /><StarBorderIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} />
+                                        <p>{!isCooked ? <span style={{ verticalAlign: 'middle' }}><CheckCircleOutlineIcon onClick={e => toggleCooked(e, true)} /> Mark as cooked</span> : <CheckCircleIcon onClick={e => toggleCooked(e, false)} />}</p>
+                                        <p style={{cursor: 'pointer'}}>{!rating ? <span><StarBorderIcon onClick={e => updateRating(e, 1)} /><StarBorderIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} />
                                         <StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> : 
                                         rating === 1 ? <span><StarIcon onClick={e => updateRating(e, 1)} /><StarBorderIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} /><StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
                                         rating === 2 ? <span><StarIcon onClick={e => updateRating(e, 1)} /><StarIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} /><StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
