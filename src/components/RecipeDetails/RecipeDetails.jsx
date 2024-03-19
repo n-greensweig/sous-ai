@@ -234,7 +234,6 @@ function RecipeDetails() {
 
     return (
         <div>
-            <p>{isCooked ? 'hi' : null}</p>
             <Header text={title ? 'Saved Recipes' : ''} to='/recipes' />
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
 
@@ -361,17 +360,18 @@ function RecipeDetails() {
                                             </span>
                                         )}
                                     </p>
-                                    <div style={{ display: 'flex', flexDirection: 'row', }}>
-                                        <p style={{ cursor: 'pointer' }}>{!rating ? <span><StarBorderIcon onClick={e => updateRating(e, 1)} /><StarBorderIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} />
-                                            <StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
-                                            rating === 1 ? <span><StarIcon onClick={e => updateRating(e, 1)} /><StarBorderIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} /><StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
-                                                rating === 2 ? <span><StarIcon onClick={e => updateRating(e, 1)} /><StarIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} /><StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
-                                                    rating === 3 ? <span><StarIcon onClick={e => updateRating(e, 1)} /><StarIcon onClick={e => updateRating(e, 2)} /><StarIcon onClick={e => updateRating(e, 3)} /><StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
-                                                        rating === 4 ? <span><StarIcon onClick={e => updateRating(e, 1)} /><StarIcon onClick={e => updateRating(e, 2)} /><StarIcon onClick={e => updateRating(e, 3)} /><StarIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
-                                                            <span><StarIcon onClick={e => updateRating(e, 1)} /><StarIcon onClick={e => updateRating(e, 2)} /><StarIcon onClick={e => updateRating(e, 3)} /><StarIcon onClick={e => updateRating(e, 4)} /><StarIcon onClick={e => updateRating(e, 5)} /></span>}
-                                        </p>
+                                    <div style={{ display: 'flex', flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 0, }}>
+                                        <p>Your rating</p>
                                         <span style={{ cursor: 'pointer', color: '#DAA520', textDecoration: 'underline', }} onClick={e => updateRating(e, 0)}>Clear</span>
                                     </div>
+                                    <p style={{ cursor: 'pointer', marginTop: 0, }}>{!rating ? <span><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 1)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 2)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 3)} />
+                                        <StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 4)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 5)} /></span> :
+                                        rating === 1 ? <span><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 1)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 2)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 3)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 4)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 5)} /></span> :
+                                            rating === 2 ? <span><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 1)} /><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 2)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 3)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 4)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 5)} /></span> :
+                                                rating === 3 ? <span><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 1)} /><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 2)} /><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 3)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 4)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 5)} /></span> :
+                                                    rating === 4 ? <span><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 1)} /><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 2)} /><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 3)} /><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 4)} /><StarBorderIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 5)} /></span> :
+                                                        <span><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 1)} /><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 2)} /><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 3)} /><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 4)} /><StarIcon style={{ fill: 'black', }} onClick={e => updateRating(e, 5)} /></span>}
+                                    </p>
                                     <p style={{
                                         color: 'black', marginTop: '0px', fontSize: '.9rem',
                                         cursor: 'pointer'

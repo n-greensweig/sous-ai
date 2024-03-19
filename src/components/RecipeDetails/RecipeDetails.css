@@ -5,3 +5,8 @@
 .custom-textfield .MuiInputLabel-outlined.Mui-focused {
     color: inherit; /* Replace 'yourDesiredColor' with the color you want */
 }
+
+.star__black {
+    fill: black;
+    color: black;
+}
