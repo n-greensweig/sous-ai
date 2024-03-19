@@ -121,6 +121,20 @@ function* changeCooked(action) {
     }
 }
 
+function* fetchRecipeLists() {
+    console.log('fetching recipe lists');
+    try {
+        const response = yield axios.get('/api/recipe/list/recipes');
+        console.log(response.data);
+        const action = { type: 'GET_RECIPE_LISTS', payload: response.data };
+        yield put(action);
+    } catch (error) {
+        console.error('Error fetching recipe lists:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
     yield takeLatest('SAVE_RECIPE', saveRecipe);
@@ -132,6 +146,7 @@ function* recipeSaga() {
     yield takeLatest('REMOVE_COMMENT', deleteComment);
     yield takeLatest('UPDATE_RATING', changeRating);
     yield takeLatest('UPDATE_COOKED', changeCooked);
+    yield takeLatest('FETCH_RECIPE_LISTS', fetchRecipeLists);
 }
 
 export default recipeSaga;

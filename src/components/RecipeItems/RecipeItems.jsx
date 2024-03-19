@@ -12,8 +12,8 @@ function RecipeItems() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // Get recipes from Redux store
-    const recipes = useSelector(store => store.recipeReducer);
+    const recipes = useSelector(store => store.recipeReducer); // Get recipes from Redux store
+    document.title = 'Saved Recipes';
 
     const handleClick = id => {
         dispatch({ type: 'SET_SELECTED_RECIPE_ID', payload: id });
@@ -26,7 +26,6 @@ function RecipeItems() {
 
     const replaceWithCommas = str => str.replace(/@/g, ',');
 
-    document.title = 'Saved Recipes';
 
     // Check the screen size for responsive design
     const theme = useTheme();
@@ -34,7 +33,6 @@ function RecipeItems() {
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-
         <div style={{ paddingBottom: isSmScreen || isXsScreen ? '28%' : '8%', marginTop: isSmScreen || isXsScreen ? '7%' : '5%' }}>
             <Header text={'Saved Recipes'} />
             <NewRecipeList />
@@ -52,7 +50,6 @@ function RecipeItems() {
                     padding: '20px 10px',
                 }}
             >
-
                 {recipes.map((recipe, index) => (
                     <Grid item className='card' xs={11} md={3} onClick={() => handleClick(recipe.id)}
                         style={{
