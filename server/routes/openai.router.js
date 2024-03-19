@@ -13,7 +13,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
               'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-              model: 'gpt-4-0125-preview', // potentially upgrade to gpt-4-1106-preview model
+              model: 'gpt-4', // upgrade as needed
               messages: [
                   { role: 'system', content: `You are a helpful assistant named Sous that generates recipes according to users' requests.
                   You kindly redirect all non-cooking related questions or comments back to the topic of cooking. Under no circumstances 

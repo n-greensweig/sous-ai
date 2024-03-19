@@ -16,13 +16,11 @@ function RecipeItems() {
     const recipes = useSelector(store => store.recipeReducer);
 
     const handleClick = id => {
-        console.log('hi', id);
         dispatch({ type: 'SET_SELECTED_RECIPE_ID', payload: id });
         history.push(`/recipes/${id}`);
     };
 
     useEffect(() => {
-        console.log('NewRecipeList mounted');
         dispatch({ type: 'FETCH_RECIPES' });
     }, []);
 

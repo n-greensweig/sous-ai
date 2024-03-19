@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { Button, useTheme, useMediaQuery } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 import { PacmanLoader } from 'react-spinners';
 
@@ -11,15 +12,13 @@ import swal from 'sweetalert';
 
 function UserPage() {
 
+  const dispatch = useDispatch(); // dispatch
   const [value, setValue] = useState('');
   const [previousChats, setPreviousChats] = useState([]);
   const [currentTitle, setCurrentTitle] = useState(null);
   const [message, setMessage] = useState(null);
   const [createdRecipes, setCreatedRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const dispatch = useDispatch(); // dispatch
-
   const today = new Date();
   const month = today.toLocaleString('default', { month: 'long' });
   const year = today.getFullYear();
@@ -39,9 +38,7 @@ function UserPage() {
   const getMessages = async (e) => {
 
     e.preventDefault();
-
     setLoading(true);
-
     const options = {
       method: 'POST',
       body: JSON.stringify({
@@ -63,28 +60,20 @@ function UserPage() {
     } finally {
       setLoading(false);
     }
-
-
   };
 
   // Helper function to capitalize first letter of a string
   const capitalizeFirstLetter = str => str.replace(str.charAt(0), str.charAt(0).toUpperCase());
 
-
   // Save recipe onClick of 'Save recipe' button
   const saveRecipe = e => {
-
     e.preventDefault();
-
     const recipe = {
       message: message.content,
     };
-
     const action = { type: 'SAVE_RECIPE', payload: recipe };
     dispatch(action);
-
     // setNewRecipe({});
-
     swal({
       title: 'Saved!',
       text: '1 recipe saved',
@@ -92,7 +81,6 @@ function UserPage() {
       timer: 1000,
       buttons: false
     });
-
   };
 
 
@@ -100,7 +88,6 @@ function UserPage() {
     if (!currentTitle && value && message) {
       setCurrentTitle(value);
     }
-
     if (currentTitle && value && message) {
       setPreviousChats(previousChats => (
         [...previousChats,
@@ -118,7 +105,6 @@ function UserPage() {
       ));
       setValue('');
     }
-
   }, [message, currentTitle]);
 
   // Check the screen size for responsive design
@@ -139,7 +125,6 @@ function UserPage() {
   };
 
   const replaceWithCommas = str => str.replace(/@/g, ',');
-
 
   return (
     <div className="App">
@@ -255,7 +240,7 @@ function UserPage() {
 
               {value.trim() && !loading ?
                 <Button style={{ backgroundColor: '#333333' }} type='submit' id='submit'><ArrowUpwardIcon className='up-icon'
-                  style={{ fill: '#F5F5F5', justifyContent: 'center' }} /></Button> :
+                  style={{ fill: '#FFF', justifyContent: 'center' }} /></Button> :
                 <Button disabled type='submit' id='submit'>
                   <ArrowUpwardIcon className='up-icon'
                     style={{ justifyContent: 'center' }} />
