@@ -350,7 +350,17 @@ function RecipeDetails() {
                                     <p style={{ color: 'black', marginBottom: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Prep Time</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
                                     <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Cook Time</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
                                     <strong>Have you cooked this?</strong>
-                                    <p style={{ cursor: 'pointer' }}>{!isCooked ? <span style={{ verticalAlign: 'middle' }}><CheckCircleOutlineIcon onClick={e => toggleCooked(e, true)} /> Mark as cooked</span> : <span><CheckCircleIcon onClick={e => toggleCooked(e, false)} /> Yes I have</span>}</p>
+                                    <p style={{ cursor: 'pointer' }}>
+                                        {!isCooked ? (
+                                            <span onClick={e => toggleCooked(e, true)} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                <CheckCircleOutlineIcon style={{ fontSize: '200%', fill: 'black' }} /> Mark as cooked
+                                            </span>
+                                        ) : (
+                                            <span onClick={e => toggleCooked(e, false)} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                <CheckCircleIcon style={{ fontSize: '200%', fill: 'black' }} /> Yes I have
+                                            </span>
+                                        )}
+                                    </p>
                                     <div style={{ display: 'flex', flexDirection: 'row', }}>
                                         <p style={{ cursor: 'pointer' }}>{!rating ? <span><StarBorderIcon onClick={e => updateRating(e, 1)} /><StarBorderIcon onClick={e => updateRating(e, 2)} /><StarBorderIcon onClick={e => updateRating(e, 3)} />
                                             <StarBorderIcon onClick={e => updateRating(e, 4)} /><StarBorderIcon onClick={e => updateRating(e, 5)} /></span> :
