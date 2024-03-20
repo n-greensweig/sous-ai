@@ -178,3 +178,6 @@ span {
 .response {
   padding: 0 25%;
 }
+.MuiAlert-message {
+  color: white;
+}

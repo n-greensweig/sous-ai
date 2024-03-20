@@ -1,14 +1,17 @@
 import './UserPage.css';
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
-
 import { Button, useTheme, useMediaQuery } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Fade from '@mui/material/Fade';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import { PacmanLoader } from 'react-spinners';
-
-import swal from 'sweetalert';
+import SnackbarComponent from '../Snackbar/Snackbar';
 
 function UserPage() {
 
@@ -29,14 +32,25 @@ function UserPage() {
     setCurrentTitle(null);
   };
 
-  const handleClick = uniqueTitle => {
-    setCurrentTitle(uniqueTitle);
-    setMessage(null);
-    setValue('');
+  // const handleClick = uniqueTitle => {
+  //   setCurrentTitle(uniqueTitle);
+  //   setMessage(null);
+  //   setValue('');
+  // };
+
+  const [state, setState] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+    autoHideDuration: 1000,
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
   };
 
   const getMessages = async (e) => {
-
     e.preventDefault();
     setLoading(true);
     const options = {
@@ -48,7 +62,6 @@ function UserPage() {
         'Content-type': 'application/json'
       }
     };
-
     try {
       const response = await fetch('/completions', options); // change upon deployment?
       const data = await response.json();
@@ -73,16 +86,8 @@ function UserPage() {
     };
     const action = { type: 'SAVE_RECIPE', payload: recipe };
     dispatch(action);
-    // setNewRecipe({});
-    swal({
-      title: 'Saved!',
-      text: '1 recipe saved',
-      icon: 'success',
-      timer: 1000,
-      buttons: false
-    });
+    setState({ ...state, open: true, vertical: 'top', horizontal: 'center' });
   };
-
 
   useEffect(() => {
     if (!currentTitle && value && message) {
@@ -134,6 +139,36 @@ function UserPage() {
           {uniqueTitles?.map((uniqueTitle, index) => <li key={index} onClick={() => handleClick(uniqueTitle)}>{uniqueTitle}</li>)}
         </ul>
       </section> */}
+
+      {/* ! Snackbar component to be moved into its own component ! */}
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={1500} // Adjusted to 1 second for demonstration
+        TransitionComponent={Fade} // Using Fade transition
+        key={vertical + horizontal}
+      >
+        <Alert
+          icon={<CheckCircleOutlineIcon style={{ fill: 'white' }} />}
+          action={
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon style={{ fill: 'white' }} />
+            </IconButton>
+          }
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+        >
+          Recipe saved!
+        </Alert>
+      </Snackbar>
+
       <section className='main' style={{ color: '#374151' }}>
         <h1>SousAI</h1>
         <ul className='feed'>
