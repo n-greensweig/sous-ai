@@ -4,6 +4,7 @@ import { put, takeLatest } from "redux-saga/effects";
 function* saveRecipeList(action) {
     try {
         yield axios.post('/api/recipe/list', action.payload);
+        yield put({ type: 'FETCH_RECIPE_LISTS' });
     } catch (error) {
         console.error('Error posting recipe list', error);
         alert('Something went wrong.');

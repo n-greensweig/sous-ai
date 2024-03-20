@@ -11,7 +11,6 @@ VALUES ($1, $2);
 `;
     pool.query(queryText, [req.user.id, req.body.listName])
         .then(result => {
-            console.log('POST successful!');
             res.sendStatus(200);
         })
         .catch(error => {
