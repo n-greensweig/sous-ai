@@ -11,7 +11,11 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
-
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Fade from '@mui/material/Fade';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -61,7 +65,6 @@ function RecipeDetails() {
 
             let postUrl = `https://api.cloudinary.com/v1_1/` + process.env.REACT_APP_CLOUD_NAME + `/image/upload`;
             axios.post(postUrl, formData).then(response => {
-                console.log('Success!', response);
                 setImagePath(response.data.url);
             }).catch(error => {
                 console.error('error', error);
@@ -157,18 +160,24 @@ function RecipeDetails() {
             .then(willDelete => {
                 if (willDelete) {
                     dispatch({ type: 'REMOVE_RECIPE', payload: id });
-                    swal({
-                        title: 'Deleted!',
-                        text: 'This recipe has been deleted',
-                        icon: 'success',
-                        buttons: false,
-                        timer: 1000,
-                    });
+                    setState({ ...state, open: true, vertical: 'top', horizontal: 'center' });
                     setTimeout(() => {
                         history.push('/recipes');
                     }, 1000);
                 }
             });
+    };
+
+    const [state, setState] = useState({
+        open: false,
+        vertical: 'top',
+        horizontal: 'center',
+        autoHideDuration: 1000,
+    });
+    const { vertical, horizontal, open } = state;
+
+    const handleClose = () => {
+        setState({ ...state, open: false });
     };
 
     // Remove comment from DB onClick of button
@@ -183,15 +192,6 @@ function RecipeDetails() {
             .then(willDelete => {
                 if (willDelete) {
                     dispatch({ type: 'REMOVE_COMMENT', payload: { recipeId: recipeId, id } });
-                    swal({
-                        title: 'Deleted!',
-                        text: 'This comment has been deleted',
-                        icon: 'success',
-                        buttons: false,
-                        timer: 1000,
-                    });
-                    setTimeout(() => {
-                    }, 1000);
                     dispatch({ type: 'FETCH_DETAILS', payload: id });
                 }
             });
@@ -234,6 +234,34 @@ function RecipeDetails() {
 
     return (
         <div>
+            {/* ! Snackbar component to be moved into its own component ! */}
+            <Snackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={open}
+                onClose={handleClose}
+                autoHideDuration={1500} // Adjusted to 1 second for demonstration
+                TransitionComponent={Fade} // Using Fade transition
+                key={vertical + horizontal}
+            >
+                <Alert
+                    icon={<CheckCircleOutlineIcon style={{ fill: 'white' }} />}
+                    action={
+                        <IconButton
+                            size="small"
+                            aria-label="close"
+                            color="inherit"
+                            onClick={handleClose}
+                        >
+                            <CloseIcon style={{ fill: 'white' }} />
+                        </IconButton>
+                    }
+                    onClose={handleClose}
+                    severity="error"
+                    variant="filled"
+                >
+                    Recipe deleted!
+                </Alert>
+            </Snackbar>
             <Header text={title ? 'Saved Recipes' : ''} to='/recipes' />
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
                 <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
