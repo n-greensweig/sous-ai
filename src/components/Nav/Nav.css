@@ -1,3 +1,4 @@
+/* Styles for the navigation bar */
 .nav {
   /* flex box layout */
   display: flex;
@@ -7,15 +8,16 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  /* background-color: #00acb0; original */
   background-color: #333333;
   overflow: hidden;
 }
 
+/* Styles for navigation links */
 .nav a {
   text-decoration: none;
 }
 
+/* Styles for the navigation title */
 .nav-title {
   font-size: 24px;
   font-weight: 700;
@@ -24,6 +26,7 @@
   margin: 0;
 }
 
+/* Styles for individual navigation links */
 .navLink {
   display: flex;
   flex-direction: column;
@@ -35,26 +38,29 @@
   font-size: 15px;
   background-color: inherit;
 
-  /* these last two make the logout button in
-  the nav bar look like another link */
+  /* Styles to make the logout button in the nav bar look like another link */
   border: none;
   cursor: pointer;
   outline: 0;
 }
 
+/* Styles for icons within navigation links */
 .icon {
   fill: #FFFFFF !important;
 }
 
+/* Styles for hover effect on navigation links */
 .navLink:hover {
   color: #888888;
   fill: #888888;
 }
 
+/* Styles for hover effect on icons within navigation links */
 .navLink:hover .icon {
   fill: #888888 !important;
 }
 
+/* Styles for active navigation link */
 .navLink.active,
 .navLink.active .icon {
   color: #DAA520 !important;
