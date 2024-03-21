@@ -1,20 +1,25 @@
+/* Import Open Sans font from Google Fonts for a modern, clean look */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
+/* Global styles setting default font color and family */
 * {
   color: #7F7F7F;
   font-family: 'Open Sans', sans-serif;
 }
 
+/* Remove default margin and padding from the body to allow full control over spacing */
 body {
   margin: 0;
   padding: 0;
 }
 
+/* Main app container styled to fill available space and use a flex layout */
 .App {
   background-color: #FFF;
   display: flex;
 }
 
+/* Side bar styling with a defined width, making it full height and with a light background */
 .side-bar {
   background-color: #F5F5F5;
   height: 100vh;
@@ -24,22 +29,26 @@ body {
   justify-content: space-between;
 }
 
+/* Styling for navigation or historical items list, with padding and full height */
 .history {
   padding: 10px;
   margin: 10px;
   height: 100%;
 }
 
+/* Removes list style and adds pointer cursor for list items to indicate clickability */
 .history li {
   list-style-type: none;
   padding: 15px 0;
   cursor: pointer;
 }
 
+/* Highlight list items on hover for visual feedback */
 .history li:hover {
   background-color: #E0E0E0;
 }
 
+/* Main content area styling, centered with flexible layout */
 .main {
   height: 100vh;
   width: 100%;
@@ -50,12 +59,14 @@ body {
   text-align: center;
 }
 
+/* Small text section, likely for captions or disclaimers, with smaller font size */
 .info {
   color: #7F7F7F;
   font-size: 11px;
   padding: 10px;
 }
 
+/* Bottom section for additional content or actions, centered */
 .bottom-section {
   width: 100%;
   display: flex;
@@ -64,6 +75,7 @@ body {
   align-items: center;
 }
 
+/* Container for input elements, ensuring they stay within a certain width range */
 .input-container {
   position: relative;
   width: 100%;
@@ -71,6 +83,7 @@ body {
   max-width: 812px;
 }
 
+/* Styling for text area inputs with subtle background, no border, and shadow for depth */
 textarea {
   width: 100%;
   font-size: 20px;
@@ -85,23 +98,26 @@ textarea {
     rgba(0, 0, 0, .05) 0 -3px 5px;
 }
 
+/* Adjust input container and textarea styles for better usability on mobile devices */
 @media (max-width: 768px) {
   .input-container {
     max-width: 95%;
-    /* Reduce the max-width for better mobile responsiveness */
+    /* Enhance responsiveness by reducing max-width */
   }
 
   textarea {
     font-size: 16px;
+    /* Adjust font size for smaller screens */
     padding: 10px 15px;
   }
-
 }
 
+/* Remove the outline on focus for textareas to maintain a clean design */
 textarea:focus {
   outline: none;
 }
 
+/* Submit button styling, transparent with custom sizing and cursor change on hover */
 #submit {
   background-color: transparent;
   border-radius: 5px;
@@ -114,50 +130,48 @@ textarea:focus {
   cursor: pointer;
 }
 
+/* Changes submit button appearance on hover to indicate interactivity */
 #submit:hover {
-  cursor: pointer;
   color: #FFF;
   background-color: #333333E6 !important;
   fill: #FFF;
 }
 
+/* Ensures the submit button icon changes color appropriately on hover */
 #submit:hover .up-icon {
   fill: #FFF;
-  padding: 0px;
-  margin: 0px;
 }
 
+/* Layout styling for forms, aligning items in a row for a horizontal layout */
 #sous-form {
   display: flex;
   flex-direction: row;
 }
 
+/* Styling for the feed container to allow scrolling of content */
 .feed {
   overflow: scroll;
   width: 100%;
   padding: 0;
 }
 
-/* .feed li {
-  display: flex;
-  width: 100%;
-  padding: 20px;
-  margin: 20px 0;
-} */
-
+/* Styles paragraphs within the feed for readability, aligning text to the left */
 .feed p {
   font-size: 14px;
   text-align: left;
 }
 
+/* Ensures a minimum width for elements showing roles, providing layout consistency */
 .feed p.role {
   min-width: 100px;
 }
 
+/* Visual cue for interactivity on the save recipe button */
 #save-recipe-button:hover {
   cursor: pointer;
 }
 
+/* Ensures consistent text color across various text elements for readability */
 p,
 li,
 .black,
@@ -166,18 +180,17 @@ span {
   color: #333333;
 }
 
-/* p {
-  padding: 0% 25%;
-} */
-
+/* Specific styling for role designation in messages, adjusting margin for alignment */
 .role {
-  /* padding: 0% 25% !important; */
   margin-left: -52px;
 }
 
+/* Padding for message responses to ensure proper spacing within the feed */
 .response {
   padding: 0 25%;
 }
+
+/* Styles the message within MUI Alert components for contrast and readability */
 .MuiAlert-message {
   color: white;
 }
