@@ -1,3 +1,4 @@
+// Import necessary components and libraries
 import { Button, TextField, useTheme, useMediaQuery } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -21,13 +22,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import swal from 'sweetalert';
 import { useState } from "react";
-
 import axios from "axios";
 import { BarLoader } from 'react-spinners';
-
 import Header from "../Header/Header";
 import './RecipeDetails.css';
 
+// Function component for RecipeDetails
 function RecipeDetails() {
 
     const dispatch = useDispatch();
@@ -51,12 +51,12 @@ function RecipeDetails() {
     const [isEditing, setIsEditing] = useState(false);
     document.title = title ? `${title} Recipe` : 'Saved Recipes';
 
+    // Function to handle file change
     const onFileChange = async (event) => {
-
         const fileToUpload = event.target.files[0]; // Access the selected file
-        const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png']; // Limit to specific file types.
+        const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png']; // Limit to specific file types
 
-        // Check if the file is one of the allowed types.
+        // Check if the file is one of the allowed types
         if (acceptedImageTypes.includes(fileToUpload.type)) {
             setIsLoading(true); // Start loading
             const formData = new FormData();
@@ -64,12 +64,14 @@ function RecipeDetails() {
             formData.append('upload_preset', process.env.REACT_APP_PRESET);
 
             let postUrl = `https://api.cloudinary.com/v1_1/` + process.env.REACT_APP_CLOUD_NAME + `/image/upload`;
-            axios.post(postUrl, formData).then(response => {
-                setImagePath(response.data.url);
-            }).catch(error => {
-                console.error('error', error);
-                alert('Something went wrong.');
-            })
+            axios.post(postUrl, formData)
+                .then(response => {
+                    setImagePath(response.data.url);
+                })
+                .catch(error => {
+                    console.error('error', error);
+                    alert('Something went wrong.');
+                })
                 .finally(() => {
                     setIsLoading(false); // End loading
                 });
@@ -78,6 +80,7 @@ function RecipeDetails() {
         }
     };
 
+    // Function to send photo to server
     const sendPhotoToServer = e => {
         e.preventDefault();
         if (imagePath) {
@@ -94,6 +97,7 @@ function RecipeDetails() {
         }
     };
 
+    // Function to update rating
     const updateRating = (e, num) => {
         e.preventDefault();
         const action = { type: 'UPDATE_RATING', payload: { id, rating: num } };
@@ -101,14 +105,15 @@ function RecipeDetails() {
         setRating(num);
     };
 
+    // Function to toggle the cooked state of the recipe
     const toggleCooked = (e, cooked) => {
         e.preventDefault();
         setIsCooked(cooked);
-        // Now use the new value directly in your action payload
         const action = { type: 'UPDATE_COOKED', payload: { id, isCooked: cooked } };
         dispatch(action);
     };
 
+    // Function to fetch image list
     const getImageList = () => {
         axios.get(`/photos/${id}`)
             .then(response => {
@@ -120,6 +125,7 @@ function RecipeDetails() {
             });
     };
 
+    // Function to add a comment to a recipe
     const addComment = (comment, id) => {
         if (comment.trim()) {
             dispatch({ type: 'ADD_COMMENT', payload: { comment: comment, id: id } });
@@ -128,8 +134,9 @@ function RecipeDetails() {
         }
     };
 
-    const image = details ? details.photo : '';
+    const image = details ? details.photo : ''; // The image of the recipe
 
+    // Function to save the edited title of a recipe
     const saveEditedTitle = (e, id) => {
         e.preventDefault();
         if (title !== details?.title) {
@@ -139,6 +146,7 @@ function RecipeDetails() {
         e.currentTarget.blur();
     };
 
+    // Function to toggle the editing mode for the recipe details
     const toggleEditing = e => {
         if (isEditing) {
             sendPhotoToServer(e);
@@ -168,17 +176,25 @@ function RecipeDetails() {
             });
     };
 
+    // Function to handle the state of the snackbar
     const [state, setState] = useState({
-        open: false,
-        vertical: 'top',
-        horizontal: 'center',
-        autoHideDuration: 1000,
+        open: false, // Whether the snackbar is open or not
+        vertical: 'top', // The vertical position of the snackbar
+        horizontal: 'center', // The horizontal position of the snackbar
+        autoHideDuration: 1000, // The duration for which the snackbar is displayed
     });
+    
+    /**
+     * Represents the state object.
+     * @typedef {Object} State
+     * @property {string} vertical - The vertical position of the Snackbar.
+     * @property {string} horizontal - The horizontal position of the Snackbar.
+     * @property {boolean} open - Indicates whether the Snackbar is open or not.
+     */
     const { vertical, horizontal, open } = state;
 
-    const handleClose = () => {
-        setState({ ...state, open: false });
-    };
+    // Function to handle the close event of the snackbar
+    const handleClose = () => setState({ ...state, open: false });
 
     // Remove comment from DB onClick of button
     const removeComment = (recipeId, id) => {
@@ -217,8 +233,10 @@ function RecipeDetails() {
         getImageList();
     }, [id]);
 
+    // Replaces all occurrences of '@' with commas in a given string.
     const replaceWithCommas = str => str.replace(/@/g, ',');
 
+    // Format date in M/D/YYYY format
     const formatDate = date => {
         const newDate = new Date(date);
         const m = newDate.getMonth() + 1;
@@ -239,7 +257,7 @@ function RecipeDetails() {
                 anchorOrigin={{ vertical, horizontal }}
                 open={open}
                 onClose={handleClose}
-                autoHideDuration={1500} // Adjusted to 1 second for demonstration
+                autoHideDuration={1500}
                 TransitionComponent={Fade} // Using Fade transition
                 key={vertical + horizontal}
             >
@@ -262,6 +280,7 @@ function RecipeDetails() {
                     Recipe deleted!
                 </Alert>
             </Snackbar>
+            
             <Header text={title ? 'Saved Recipes' : ''} to='/recipes' />
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
                 <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
