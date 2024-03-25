@@ -1,11 +1,20 @@
-.card:hover {
+/* Enhances the visual feedback on hover for elements with the 'card' class by applying a complex box-shadow effect. 
+   The box-shadow property is crafted to create a layered shadow effect with various offsets and blur radii, 
+   using a semi-transparent golden color (RGBA 218, 165, 32, 0.15). 
+   This creates a distinct and visually appealing elevation effect, suggesting interactivity and depth. */
+   .card:hover {
     box-shadow: rgba(218, 165, 32, .15) 0 54px 55px,
-        rgba(218, 165, 32, .15) 0 -12px 30px,
-        rgba(218, 165, 32, .15) 0 4px 6px,
-        rgba(218, 165, 32, .15) 0 12px 3px,
-        rgba(218, 165, 32, .15) 0 -3px 5px;
+                rgba(218, 165, 32, .15) 0 -12px 30px,
+                rgba(218, 165, 32, .15) 0 4px 6px,
+                rgba(218, 165, 32, .15) 0 12px 3px,
+                rgba(218, 165, 32, .15) 0 -3px 5px;
 }
 
+/* Defines the style for the '.card-content' class, typically used within '.card' for content area. 
+   It sets the margin to 0px to ensure the content area aligns neatly within the card.
+   The height is explicitly set to 90px to standardize the size of the content area across cards, 
+   maintaining a uniform appearance. The 'overflow: auto' property ensures that any content exceeding 
+   the height limit is accessible through scrolling, making this setup flexible for varying amounts of content. */
 .card-content {
     margin: 0px;
     height: 90px;
