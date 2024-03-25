@@ -24,53 +24,53 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     let recipeJSON = JSON.parse(req.body.message);
     let recipePhoto;
     if (recipeJSON.recipe_name.includes('Smoothie')) {
-        recipePhoto = `images/smoothie.png`;
+        recipePhoto = `images/food/smoothie.png`;
     } else if (recipeJSON.recipe_name.includes('Pizza')) {
-        recipePhoto = `images/pizza.png`;
+        recipePhoto = `images/food/pizza.png`;
     } else if (recipeJSON.recipe_name.includes('Salad')) {
-        recipePhoto = `images/salad.png`;
+        recipePhoto = `images/food/salad.png`;
     } else if (recipeJSON.recipe_name.includes('Soup')) {
-        recipePhoto = `images/soup.png`;
+        recipePhoto = `images/food/soup.png`;
     } else if (recipeJSON.recipe_name.includes('Stew')) {
-        recipePhoto = `images/stew.png`;
+        recipePhoto = `images/food/stew.png`;
     } else if (recipeJSON.recipe_name.includes('Cake')) {
-        recipePhoto = `images/cake.png`;
+        recipePhoto = `images/food/cake.png`;
     } else if (recipeJSON.recipe_name.includes('Pie')) {
-        recipePhoto = `images/pie.png`;
+        recipePhoto = `images/food/pie.png`;
     } else if (recipeJSON.recipe_name.includes('Taco')) {
-        recipePhoto = `images/tacos.png`;
+        recipePhoto = `images/food/tacos.png`;
     } else if (recipeJSON.recipe_name.includes('Pasta') || recipeJSON.recipe_name.includes('Noodles')) {
-        recipePhoto = `images/pasta.png`;
+        recipePhoto = `images/food/pasta.png`;
     } else if (recipeJSON.recipe_name.includes('Barbecue') || recipeJSON.recipe_name.includes('BBQ')) {
-        recipePhoto = `images/barbecue.png`;
+        recipePhoto = `images/food/barbecue.png`;
     } else if (recipeJSON.recipe_name.includes('Chicken')) {
-        recipePhoto = `images/chicken.png`;
+        recipePhoto = `images/food/chicken.png`;
     } else if (recipeJSON.recipe_name.includes('Steak')) {
-        recipePhoto = `images/steak.png`;
+        recipePhoto = `images/food/steak.png`;
     } else if (recipeJSON.recipe_name.includes('Cheeseburger') || recipeJSON.recipe_name.includes('Burger')) {
-        recipePhoto = `images/burger.png`;
+        recipePhoto = `images/food/burger.png`;
     } else if (recipeJSON.recipe_name.includes('Pork')) {
-        recipePhoto = `images/pork-chop.png`;
+        recipePhoto = `images/food/pork-chop.png`;
     } else if (recipeJSON.recipe_name.includes('Bread')) {
-        recipePhoto = `images/bread.png`;
+        recipePhoto = `images/food/bread.png`;
     } else if (recipeJSON.recipe_name.includes('Sandwich')) {
-        recipePhoto = `images/sandwich.png`;
+        recipePhoto = `images/food/sandwich.png`;
     } else if (recipeJSON.recipe_name.includes('Eggs')) {
-        recipePhoto = `images/eggs.png`;
+        recipePhoto = `images/food/eggs.png`;
     } else if (recipeJSON.recipe_name.includes('Oatmeal')) {
-        recipePhoto = `images/oatmeal.png`;
+        recipePhoto = `images/food/oatmeal.png`;
     } else if (recipeJSON.recipe_name.includes('Rice')) {
-        recipePhoto = `images/rice.png`;
+        recipePhoto = `images/food/rice.png`;
     } else if (recipeJSON.recipe_name.includes('Chili')) {
-        recipePhoto = `images/chili.png`;
+        recipePhoto = `images/food/chili.png`;
     } else if (recipeJSON.recipe_name.includes('Salmon')) {
-        recipePhoto = `images/salmon.png`;
+        recipePhoto = `images/food/salmon.png`;
     } else if (recipeJSON.recipe_name.includes('Seafood')) {
-        recipePhoto = `images/seafood.png`;
+        recipePhoto = `images/food/seafood.png`;
     } else if (recipeJSON.recipe_name.includes('Charcuterie')) {
-        recipePhoto = `images/charcuterie.png`;
+        recipePhoto = `images/food/charcuterie.png`;
     } else {
-        recipePhoto = `images/generic-plate.png`;
+        recipePhoto = `images/food/generic-plate.png`;
     }
     let queryText = `
 INSERT INTO "recipe_item" ("user_id", "title", "prep_time", "cook_time",
