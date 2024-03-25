@@ -17,7 +17,7 @@ import { useInView } from 'react-intersection-observer'; // Import the hook
 function FadeIn({ children }) {
     const { ref, inView } = useInView({
         triggerOnce: true, // Trigger animation only once
-        threshold: 0.5,    // Trigger when 50% of the element is in the viewport
+        threshold: 0.48,    // Trigger when 48% of the element is in the viewport
     });
 
     return (
