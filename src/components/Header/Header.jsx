@@ -2,6 +2,7 @@ import { useTheme, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom'; // Note: This import is unused and could be removed.
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import './Header.css';
 
 /**
  * Renders a header component that is responsive and navigates to a specified route when clicked.
@@ -36,12 +37,20 @@ function Header(props) {
                 top: 0,
                 cursor: 'pointer',
             }}
-            // Navigates to the path specified in 'props.to' when the header is clicked
-            onClick={() => history.push(props.to)}
+                // Navigates to the path specified in 'props.to' when the header is clicked
+                onClick={() => history.push(props.to)}
             >
-            {/* Displays the header text passed through props, emphasized with <strong> */}
-            <strong>{props.text}</strong></header>
-    )
+                {/* Displays the header text passed through props, emphasized with <strong> */}
+                <strong>{props.text}</strong>
+            </header>
+
+            // <header>
+            //     <img src="images/avatars/sous.png" className="header__icon" alt="SousAI"
+            //     onClick={() => history.push('/')}
+            //     />
+            //     <input type="text" placeholder="Search recipes" className="header__searchBar" />
+            // </header>
+    );
 }
 
 export default Header;
