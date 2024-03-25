@@ -11,6 +11,25 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Header from '../Header/Header';
 import NewRecipeList from "../NewRecipeList/NewRecipeList";
 
+import { useInView } from 'react-intersection-observer'; // Import the hook
+
+// Define a functional component for an individual recipe card that fades in
+function FadeIn({ children }) {
+    const { ref, inView } = useInView({
+        triggerOnce: true, // Trigger animation only once
+        threshold: 0.5,    // Trigger when 50% of the element is in the viewport
+    });
+
+    return (
+        <div
+            ref={ref}
+            style={{ opacity: inView ? 1 : 0, transition: 'opacity 0.5s ease-in' }}
+        >
+            {children}
+        </div>
+    );
+}
+
 function RecipeItems() {
     // Initialize dispatch and history for Redux actions and navigation.
     const dispatch = useDispatch();
@@ -70,52 +89,54 @@ function RecipeItems() {
                         }}
                         id={recipe.id} key={index}
                     >
-                        <Paper elevation={5}>
-                            <Card>
-                                <div key={recipe.id}>
-                                    <CardActionArea>
-                                        <CardMedia
-                                            component={'img'}
-                                            height={'194'}
-                                            image={`${recipe.display_photo}`}
-                                            alt={`${recipe.title} dish`}
-                                        />
-                                        <CardContent className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-                                            {/* Typography for recipe title with responsive font size. */}
-                                            <Typography className="title" style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'flex-start',
-                                                fontFamily: 'inter',
-                                                color: 'black',
-                                                fontSize: '18px',
-                                                margin: '0px',
-                                                paddingTop: '0px',
-                                            }}
-                                                variant="h4"
-                                                component="div"
-                                                sx={{
-                                                    fontWeight: 'bold',
-                                                    mb: 2
-                                                }}>{recipe.title}</Typography>
-                                            {/* Typography for recipe notes with dynamic font size based on screen size. */}
-                                            <Typography className="notes" style={{
-                                                alignItems: 'baseline',
-                                                justifyContent: 'center',
-                                                fontFamily: 'inter',
-                                                color: 'black',
-                                                fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
-                                                marginTop: '5px',
-                                                overflow: 'auto'
-                                            }}
-                                                variant="h4"
-                                                component="div"
-                                            >{replaceWithCommas(recipe.notes)}</Typography>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </div>
-                            </Card>
-                        </Paper>
+                        <FadeIn>
+                            <Paper elevation={5}>
+                                <Card>
+                                    <div key={recipe.id}>
+                                        <CardActionArea>
+                                            <CardMedia
+                                                component={'img'}
+                                                height={'194'}
+                                                image={`${recipe.display_photo}`}
+                                                alt={`${recipe.title} dish`}
+                                            />
+                                            <CardContent className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+                                                {/* Typography for recipe title with responsive font size. */}
+                                                <Typography className="title" style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'flex-start',
+                                                    fontFamily: 'inter',
+                                                    color: 'black',
+                                                    fontSize: '18px',
+                                                    margin: '0px',
+                                                    paddingTop: '0px',
+                                                }}
+                                                    variant="h4"
+                                                    component="div"
+                                                    sx={{
+                                                        fontWeight: 'bold',
+                                                        mb: 2
+                                                    }}>{recipe.title}</Typography>
+                                                {/* Typography for recipe notes with dynamic font size based on screen size. */}
+                                                <Typography className="notes" style={{
+                                                    alignItems: 'baseline',
+                                                    justifyContent: 'center',
+                                                    fontFamily: 'inter',
+                                                    color: 'black',
+                                                    fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
+                                                    marginTop: '5px',
+                                                    overflow: 'auto'
+                                                }}
+                                                    variant="h4"
+                                                    component="div"
+                                                >{replaceWithCommas(recipe.notes)}</Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </div>
+                                </Card>
+                            </Paper>
+                        </FadeIn>
                     </Grid>
                 ))}
             </Grid>
