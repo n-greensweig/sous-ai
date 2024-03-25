@@ -1,11 +1,21 @@
-.custom-textfield .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: inherit; /* Replace 'yourDesiredColor' with the color you want */
+/* Targets the border of the input field within a custom TextField component when it is focused. 
+   This rule ensures that the border color remains consistent with the surrounding elements or the theme's default, 
+   by inheriting the border-color property from its parent. This helps maintain visual consistency across the form. */
+   .custom-textfield .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: inherit;
 }
 
+/* Applies to the label of the custom TextField component when it is focused. 
+   This rule sets the color of the label to inherit from its parent elements, ensuring that the label's color 
+   aligns with the overall design or theme of the application. It enhances the focus effect by keeping the color consistent. */
 .custom-textfield .MuiInputLabel-outlined.Mui-focused {
-    color: inherit; /* Replace 'yourDesiredColor' with the color you want */
+    color: inherit; 
 }
 
+/* Defines the style for elements with the class 'star__black'. 
+   It sets both the 'fill' and 'color' properties to black. This class is typically used for SVG icons or elements 
+   that require a black fill color, ensuring they are visibly consistent with the design specifications 
+   or theme where a black star icon is needed. */
 .star__black {
     fill: black;
     color: black;
