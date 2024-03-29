@@ -26,6 +26,7 @@ import axios from "axios";
 import { BarLoader } from 'react-spinners';
 import Header from "../Header/Header";
 import './RecipeDetails.css';
+import RecipeInstructions from "./RecipeInstructions/RecipeInstructions";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -454,25 +455,7 @@ function RecipeDetails() {
                                         {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
                                     </ul>
                                 </div>
-                                <div className="instructions" style={{
-                                    textAlign: isSmScreen || isXsScreen ? 'left' : null,
-                                    padding: '0 10%', marginTop: isSmScreen || isXsScreen ? '10px' : null
-                                }}>
-                                    <p style={{
-                                        borderTop: isSmScreen || isXsScreen ? '2px solid black' : null,
-                                        color: 'black', fontWeight: 'bold',
-                                        textAlign: isSmScreen || isXsScreen ? 'left' : null, marginTop: isSmScreen || isXsScreen ? '0px' : null
-                                    }}><span style={{ borderTop: isSmScreen || isXsScreen ? null : '2px solid black', fontSize: '1.1rem' }}>INSTRUCTIONS</span></p>
-                                    <ol style={{ listStyleType: 'none', paddingLeft: '0px', marginRight: isSmScreen || isXsScreen ? null : '10%' }}>
-                                        {Array.isArray(instructions) && instructions.map((instruction, index) => instruction.length > 2 ?
-                                            <li key={index} style={{ color: "black", display: 'flex', flexDirection: 'column', marginBottom: '1rem' }}>
-                                                <span style={{ color: 'black', fontWeight: 'bold' }}>
-                                                    Step {index + 1}
-                                                </span>
-                                                {<span>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</span>}
-                                            </li> : '')}
-                                    </ol>
-                                </div>
+                                <RecipeInstructions instructions={instructions} />
                             </div>
 
                             {/* <div className="recipe-notes" style={{
