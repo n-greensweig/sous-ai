@@ -31,13 +31,13 @@ import RecipeIngredients from "./RecipeIngredients/RecipeIngredients";
 import RecipePhotos from "./RecipePhotos/RecipePhotos";
 import RecipeNotes from "./RecipeNotes/RecipeNotes";
 import RecipeRating from "./RecipeRating/RecipeRating";
+import DialogComponent from "../DialogComponent/DialogComponent";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const [imagePath, setImagePath] = useState('');
     const [imageList, setImageList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const { id } = useParams();
@@ -53,6 +53,7 @@ function RecipeDetails() {
     const [rating, setRating] = useState(details ? details.rating : '');
     const [servings, setServings] = useState(details ? details.number_of_servings : '');
     const [isEditing, setIsEditing] = useState(false);
+    const [imagePath, setImagePath] = useState('');
     document.title = title ? `${title} Recipe` : 'Saved Recipes';
 
     // Function to handle file change
@@ -178,7 +179,7 @@ function RecipeDetails() {
         horizontal: 'center', // The horizontal position of the snackbar
         autoHideDuration: 1000, // The duration for which the snackbar is displayed
     });
-    
+
     /**
      * Represents the state object.
      * @typedef {Object} State
@@ -249,7 +250,7 @@ function RecipeDetails() {
                     Recipe deleted!
                 </Alert>
             </Snackbar>
-            
+
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
                 <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
                     <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
@@ -268,70 +269,9 @@ function RecipeDetails() {
                                         marginBottom: isSmScreen || isXsScreen ? '5%' : null,
                                     }}>{isEditing ? null : 'Edit recipe'}</Button>
                             </div>
-
-                            <Dialog open={isEditing}
-                                onClose={e => toggleEditing(e)}
-                                PaperProps={{
-                                    component: 'form',
-                                    onSubmit: (event) => {
-                                        event.preventDefault();
-                                        saveEditedTitle(event, id);
-                                        toggleEditing(event);
-                                    },
-                                }}>
-                                <DialogTitle>Set recipe title</DialogTitle>
-                                <DialogContent>
-                                    <DialogContentText>
-                                        New recipe title
-                                    </DialogContentText>
-                                    <TextField autoFocus
-                                        margin="dense"
-                                        id="title"
-                                        name="title"
-                                        fullWidth
-                                        variant="standard"
-                                        defaultValue={title}
-                                        onChange={e => setTitle(e.target.value)}
-                                        style={{ padding: '1px' }} />
-
-                                    <div style={{ margin: '10px' }}>
-                                        <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
-                                        <form style={{ marginTop: 0 }}>
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                onChange={onFileChange}
-                                            />
-                                            {isLoading && <BarLoader color="#DAA520" />}
-                                            <br />
-                                            {
-                                                // Image preview
-                                                imagePath === '' ? (
-                                                    null
-                                                ) : (
-                                                    <img style={{ maxWidth: '150px' }} src={imagePath} />
-                                                )
-                                            }
-                                            <br />
-                                        </form>
-                                    </div>
-
-                                </DialogContent>
-                                <DialogActions>
-                                    {!isLoading && <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                                        <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
-                                            <Button style={{ width: '50%', color: 'gray' }} onClick={() => setIsEditing(false)}>Cancel</Button>
-                                            <Button variant="outlined" type="submit" style={{ width: '50%', color: '#DAA520', borderColor: '#DAA520' }}>Save</Button>
-                                        </div>
-                                        <div className="second-row" style={{ width: '100%' }}>
-                                            <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: '#DC143C' }} />}
-                                                onClick={() => removeRecipe(id)} style={{ color: '#DC143C', borderColor: '#DC143C', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
-                                                Delete Recipe
-                                            </Button>
-                                        </div>
-                                    </div>}
-                                </DialogActions>
-                            </Dialog>
+                            <DialogComponent isEditing={isEditing} setIsEditing={setIsEditing} toggleEditing={toggleEditing} 
+                            isLoading={isLoading} onFileChange={onFileChange} imagePath={imagePath} title={title} 
+                            setTitle={setTitle} id={id} saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} />
 
                             <div style={{
                                 display: 'flex', flexDirection: 'column', maxWidth: isSmScreen || isXsScreen ? '100%' : '30%',
@@ -375,9 +315,7 @@ function RecipeDetails() {
                                     </p>
                                     <RecipeRating rating={rating} updateRating={updateRating} />
                                     <p style={{
-                                        color: 'black', marginTop: '0px', fontSize: '.9rem',
-                                        cursor: 'pointer'
-                                    }}
+                                        color: 'black', marginTop: '0px', fontSize: '.9rem', cursor: 'pointer', }}
                                         onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                                     >
                                         <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
