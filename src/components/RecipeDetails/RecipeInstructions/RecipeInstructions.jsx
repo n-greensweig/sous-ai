@@ -1,5 +1,3 @@
-import { useTheme, useMediaQuery } from "@mui/material";
-
 function RecipeInstructions({ instructions, isXsScreen, isSmScreen, replaceWithCommas }) {
 
     return (
