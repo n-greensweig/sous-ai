@@ -24,6 +24,7 @@ import RecipeNotes from "./RecipeNotes/RecipeNotes";
 import RecipeRating from "./RecipeRating/RecipeRating";
 import DialogComponent from "../DialogComponent/DialogComponent";
 import SnackbarComponent from "../SnackbarComponent/SnackbarComponent";
+import RecipeProfilePhotoAndNotes from "./RecipeProfilePhotoAndNotes/RecipeProfilePhotoAndNotes";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -234,28 +235,13 @@ function RecipeDetails() {
                                         marginBottom: isSmScreen || isXsScreen ? '5%' : null,
                                     }}>{isEditing ? null : 'Edit recipe'}</Button>
                             </div>
+
+                            
                             <DialogComponent isEditing={isEditing} setIsEditing={setIsEditing} toggleEditing={toggleEditing} 
                             isLoading={isLoading} onFileChange={onFileChange} imagePath={imagePath} title={title} 
                             setTitle={setTitle} id={id} saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} />
-
-                            <div style={{
-                                display: 'flex', flexDirection: 'column', maxWidth: isSmScreen || isXsScreen ? '100%' : '30%',
-                                height: 'auto',
-                                marginRight: isSmScreen || isXsScreen ? null : '10%'
-                            }}>
-
-                                <img
-                                    key={imageList.length > 0 ? imageList[0].id : null} className="profile-photo"
-                                    src={imageList.length > 0 ? imageList[0].path : `${image}`
-                                    } alt='Recipe photo' />
-                                <div className="notes">
-                                    <p style={{
-                                        color: 'black', marginTop: '10px', fontSize: '.9rem',
-                                        margin: isSmScreen || isXsScreen ? '20px' : null,
-                                        justifyContent: 'space-evenly'
-                                    }}>{notes ? replaceWithCommas(notes) : ''}</p>
-                                </div>
-                            </div>
+                            <RecipeProfilePhotoAndNotes isXsScreen={isXsScreen} isSmScreen={isSmScreen} imageList={imageList} image={image} notes={notes} replaceWithCommas={replaceWithCommas} />
+                            
                         </div>
 
                         <div className="lower-section">

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
@@ -6,10 +5,6 @@ import Fade from '@mui/material/Fade';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
-/**
- * Finish editing the Snackbar component
- * @returns Snackbar component
- */
 function SnackbarComponent({ open, handleClose, vertical, horizontal }) {
     return (
         <Snackbar
