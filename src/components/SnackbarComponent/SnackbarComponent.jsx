@@ -10,26 +10,13 @@ import Alert from '@mui/material/Alert';
  * Finish editing the Snackbar component
  * @returns Snackbar component
  */
-function SnackbarComponent() {
-
-    const [state, setState] = useState({
-        open: false,
-        vertical: 'top',
-        horizontal: 'center',
-        autoHideDuration: 1000,
-    });
-    const { vertical, horizontal, open } = state;
-
-    const handleClose = () => {
-        setState({ ...state, open: false });
-    };
-
+function SnackbarComponent({ open, handleClose, vertical, horizontal }) {
     return (
         <Snackbar
             anchorOrigin={{ vertical, horizontal }}
             open={open}
             onClose={handleClose}
-            autoHideDuration={1500} // Adjusted to 1 second for demonstration
+            autoHideDuration={1500}
             TransitionComponent={Fade} // Using Fade transition
             key={vertical + horizontal}
         >
@@ -46,10 +33,10 @@ function SnackbarComponent() {
                     </IconButton>
                 }
                 onClose={handleClose}
-                severity="success"
+                severity="error"
                 variant="filled"
             >
-                Recipe saved!
+                Recipe deleted!
             </Alert>
         </Snackbar>
     )

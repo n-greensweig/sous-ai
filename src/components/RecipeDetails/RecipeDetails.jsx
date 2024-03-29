@@ -1,17 +1,9 @@
 // Import necessary components and libraries
-import { Button, TextField, useTheme, useMediaQuery } from "@mui/material";
+import { Button, useTheme, useMediaQuery } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import { FaArrowTurnDown, FaTurnUp } from "react-icons/fa6";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import StarIcon from '@mui/icons-material/Star';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Fade from '@mui/material/Fade';
@@ -23,7 +15,6 @@ import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min
 import swal from 'sweetalert';
 import { useState } from "react";
 import axios from "axios";
-import { BarLoader } from 'react-spinners';
 import Header from "../Header/Header";
 import './RecipeDetails.css';
 import RecipeInstructions from "./RecipeInstructions/RecipeInstructions";
@@ -32,6 +23,7 @@ import RecipePhotos from "./RecipePhotos/RecipePhotos";
 import RecipeNotes from "./RecipeNotes/RecipeNotes";
 import RecipeRating from "./RecipeRating/RecipeRating";
 import DialogComponent from "../DialogComponent/DialogComponent";
+import SnackbarComponent from "../SnackbarComponent/SnackbarComponent";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -222,34 +214,7 @@ function RecipeDetails() {
 
     return (
         <div>
-            {/* ! Snackbar component to be moved into its own component ! */}
-            <Snackbar
-                anchorOrigin={{ vertical, horizontal }}
-                open={open}
-                onClose={handleClose}
-                autoHideDuration={1500}
-                TransitionComponent={Fade} // Using Fade transition
-                key={vertical + horizontal}
-            >
-                <Alert
-                    icon={<CheckCircleOutlineIcon style={{ fill: 'white' }} />}
-                    action={
-                        <IconButton
-                            size="small"
-                            aria-label="close"
-                            color="inherit"
-                            onClick={handleClose}
-                        >
-                            <CloseIcon style={{ fill: 'white' }} />
-                        </IconButton>
-                    }
-                    onClose={handleClose}
-                    severity="error"
-                    variant="filled"
-                >
-                    Recipe deleted!
-                </Alert>
-            </Snackbar>
+            <SnackbarComponent open={open} handleClose={handleClose} vertical={vertical} horizontal={horizontal} />
 
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
                 <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
@@ -362,8 +327,7 @@ function RecipeDetails() {
                 </div>
             </div >
         </div >
-    )
-
+    );
 }
 
 export default RecipeDetails;

@@ -21,8 +21,6 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 // Loader component for indicating loading state
 import { PacmanLoader } from 'react-spinners';
-// Custom Snackbar component (not used, consider removing)
-import SnackbarComponent from '../Snackbar/Snackbar';
 
 function UserPage() {
   // Redux hook for dispatching actions
