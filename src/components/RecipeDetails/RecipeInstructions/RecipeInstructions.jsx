@@ -1,14 +1,6 @@
 import { useTheme, useMediaQuery } from "@mui/material";
 
-function RecipeInstructions({ instructions }) {
-    
-     // Check the screen size for responsive design
-     const theme = useTheme();
-     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
-     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-     // Replaces all occurrences of '@' with commas in a given string.
-    const replaceWithCommas = str => str.replace(/@/g, ',');
+function RecipeInstructions({ instructions, isXsScreen, isSmScreen, replaceWithCommas }) {
 
     return (
         <div className="instructions" style={{

@@ -455,7 +455,7 @@ function RecipeDetails() {
                                         {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
                                     </ul>
                                 </div>
-                                <RecipeInstructions instructions={instructions} />
+                                <RecipeInstructions instructions={instructions} isXsScreen={isXsScreen} isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} />
                             </div>
 
                             {/* <div className="recipe-notes" style={{
