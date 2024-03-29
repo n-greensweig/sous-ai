@@ -1,5 +1,4 @@
 function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, replaceWithCommas }) {
-
     return (
         <div className="ingredients" style={{
             borderTop: isSmScreen || isXsScreen ? '2px solid black' : null,

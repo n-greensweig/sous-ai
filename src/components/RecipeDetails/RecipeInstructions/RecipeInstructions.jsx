@@ -1,5 +1,4 @@
 function RecipeInstructions({ instructions, isXsScreen, isSmScreen, replaceWithCommas }) {
-
     return (
         <div className="instructions" style={{
             textAlign: isSmScreen || isXsScreen ? 'left' : null,
