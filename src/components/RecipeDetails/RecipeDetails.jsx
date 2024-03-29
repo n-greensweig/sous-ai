@@ -29,6 +29,7 @@ import './RecipeDetails.css';
 import RecipeInstructions from "./RecipeInstructions/RecipeInstructions";
 import RecipeIngredients from "./RecipeIngredients/RecipeIngredients";
 import RecipePhotos from "./RecipePhotos/RecipePhotos";
+import RecipeNotes from "./RecipeNotes/RecipeNotes";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -50,7 +51,6 @@ function RecipeDetails() {
     const [isCooked, setIsCooked] = useState(details?.is_cooked ?? '');
     const [rating, setRating] = useState(details ? details.rating : '');
     const [servings, setServings] = useState(details ? details.number_of_servings : '');
-    const [newComment, setNewComment] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     document.title = title ? `${title} Recipe` : 'Saved Recipes';
 
@@ -128,15 +128,6 @@ function RecipeDetails() {
             });
     };
 
-    // Function to add a comment to a recipe
-    const addComment = (comment, id) => {
-        if (comment.trim()) {
-            dispatch({ type: 'ADD_COMMENT', payload: { comment: comment, id: id } });
-            dispatch({ type: 'FETCH_DETAILS', payload: id });
-            setNewComment('');
-        }
-    };
-
     const image = details ? details.photo : ''; // The image of the recipe
 
     // Function to save the edited title of a recipe
@@ -199,23 +190,6 @@ function RecipeDetails() {
     // Function to handle the close event of the snackbar
     const handleClose = () => setState({ ...state, open: false });
 
-    // Remove comment from DB onClick of button
-    const removeComment = (recipeId, id) => {
-        swal({
-            title: 'Are you sure',
-            text: 'Are you sure you want to delete this comment from your recipe?',
-            icon: 'warning',
-            buttons: true,
-            dangerMode: true,
-        })
-            .then(willDelete => {
-                if (willDelete) {
-                    dispatch({ type: 'REMOVE_COMMENT', payload: { recipeId: recipeId, id } });
-                    dispatch({ type: 'FETCH_DETAILS', payload: id });
-                }
-            });
-    };
-
     // useEffect fetching recipe info
     useEffect(() => {
         if (details && details.title && details.ingredients) {
@@ -238,15 +212,6 @@ function RecipeDetails() {
 
     // Replaces all occurrences of '@' with commas in a given string.
     const replaceWithCommas = str => str.replace(/@/g, ',');
-
-    // Format date in M/D/YYYY format
-    const formatDate = date => {
-        const newDate = new Date(date);
-        const m = newDate.getMonth() + 1;
-        const d = newDate.getDate();
-        const y = newDate.getFullYear();
-        return `${m}/${d}/${y}`;
-    };
 
     // Check the screen size for responsive design
     const theme = useTheme();
@@ -448,67 +413,7 @@ function RecipeDetails() {
                                 alignItems: 'flex-start', justifyContent: 'space-between', width: '100%',
                             }}>
                                 <RecipePhotos imageList={imageList} isXsScreen={isXsScreen} isSmScreen={isSmScreen} />
-                                <div id="recipe-notes" style={{
-                                    display: 'flex',
-                                    flex: '1',
-                                    flexDirection: 'column',
-                                    margin: isSmScreen || isXsScreen ? '0 10%' : null,
-                                    marginRight: '50px',
-                                    justifyContent: 'flex-end', alignSelf: 'flex-start',
-                                    width: isSmScreen || isXsScreen ? '80%' : null,
-                                }}>
-                                    <p style={{
-                                        color: 'black', marginTop: isSmScreen || isXsScreen ? '30px' : '0px',
-                                        paddingBottom: '0px',
-                                        fontWeight: 'bold',
-                                        borderTop: '2px solid black',
-                                        textAlign: isSmScreen || isXsScreen ? 'left' : null
-                                    }}>RECIPE NOTES</p>
-
-                                    {
-                                        comments.map(comment => <p
-                                            id={comment.id}
-                                            style={{
-                                                color: 'black',
-                                                borderBottom: '1px solid lightgray',
-                                                marginTop: '0px',
-                                                paddingTop: '0px',
-                                                padding: '10px 0px',
-                                                display: 'flex',
-                                                flexDirection: 'row',
-                                                justifyContent: 'space-between',
-                                                alignItems: 'flex-start',
-                                            }}>
-                                            <span style={{ width: '65%' }}>{comment.comment}</span>
-                                            <span style={{ fontSize: '.8rem', }}><i>Commented on {formatDate(comment.commented_at)}</i></span>
-                                            <Button style={{
-                                                padding: '0px', alignSelf: 'flex-start',
-                                                display: 'flex', flexDirection: 'row', justifyContent: 'end'
-                                            }}
-                                                onClick={() => removeComment(comment.id, id)}
-                                            >
-                                                <DeleteIcon style={{ fontSize: '', padding: '0px' }} />
-                                            </Button>
-                                        </p>)
-                                    }
-                                    <div style={{
-                                        display: 'flex', flexDirection: 'row', width: '100%'
-                                    }}>
-                                        <form style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} onSubmit={() => addComment(newComment, id)}>
-
-                                            <TextField label="Add a recipe note" variant="outlined"
-                                                className="custom-textfield"
-                                                style={{ width: '90%', }}
-                                                value={newComment}
-                                                onChange={e => setNewComment(e.target.value)} />
-
-                                            <Button variant="outlined"
-                                                type="submit"
-                                                style={{ color: '#DAA520', border: '1px solid #DAA520', borderColor: '#DAA520' }}
-                                            >Save note</Button>
-                                        </form>
-                                    </div>
-                                </div>
+                                <RecipeNotes isXsScreen={isXsScreen} isSmScreen={isSmScreen} comments={comments} dispatch={dispatch} id={id} />
                             </div>
                         </div>
                         <p style={{
