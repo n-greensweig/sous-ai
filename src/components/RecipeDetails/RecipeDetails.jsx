@@ -210,7 +210,6 @@ function RecipeDetails() {
     return (
         <div>
             <SnackbarComponent open={open} handleClose={handleClose} vertical={vertical} horizontal={horizontal} />
-
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
                 <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
                     <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
@@ -229,17 +228,13 @@ function RecipeDetails() {
                                         marginBottom: isSmScreen || isXsScreen ? '5%' : null,
                                     }}>{isEditing ? null : 'Edit recipe'}</Button>
                             </div>
-
-                            
                             <DialogComponent isEditing={isEditing} setIsEditing={setIsEditing} toggleEditing={toggleEditing} 
                             isLoading={isLoading} onFileChange={onFileChange} imagePath={imagePath} title={title} 
                             setTitle={setTitle} id={id} saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} />
                             <RecipeProfilePhotoAndNotes isXsScreen={isXsScreen} isSmScreen={isSmScreen} imageList={imageList} image={image} notes={notes} replaceWithCommas={replaceWithCommas} />
-                            
                         </div>
 
                         <div className="lower-section">
-
                             <div className="time" style={{
                                 display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: isXsScreen || isSmScreen ? 'center' : 'space-between',
                             }}>
