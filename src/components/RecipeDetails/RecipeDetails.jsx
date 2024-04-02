@@ -19,6 +19,7 @@ import SnackbarComponent from "../SnackbarComponent/SnackbarComponent";
 import RecipeProfilePhotoAndNotes from "./RecipeProfilePhotoAndNotes/RecipeProfilePhotoAndNotes";
 import RecipePrepAndCookTime from "./RecipePrepAndCookTime/RecipePrepAndCookTime";
 import RecipeCooked from "./RecipeCooked/RecipeCooked";
+import RecipeIngredientsAndInstructions from "./RecipeIngredientsAndInstructions/RecipeIngredientsAndInstructions";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -239,14 +240,7 @@ function RecipeDetails() {
                                 </div>
                             </div>
 
-                            <div className="ingredients-instructions" style={{
-                                display: 'flex',
-                                flexDirection: isSmScreen || isXsScreen ? 'column' : 'row',
-                                textAlign: isSmScreen || isXsScreen ? 'center' : null,
-                            }}>
-                                <RecipeIngredients ingredients={ingredients} servings={servings} isXsScreen={isXsScreen} isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} />
-                                <RecipeInstructions instructions={instructions} isXsScreen={isXsScreen} isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} />
-                            </div>
+                            <RecipeIngredientsAndInstructions ingredients={ingredients} instructions={instructions} servings={servings} isXsScreen={isXsScreen} isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} />
 
                             <div id="notes-photo-container" style={{
                                 display: 'flex', flexDirection: isSmScreen || isXsScreen ? 'column' : 'row',
