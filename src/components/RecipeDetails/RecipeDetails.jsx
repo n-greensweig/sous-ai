@@ -2,8 +2,6 @@
 import { Button, useTheme, useMediaQuery } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import { FaArrowTurnDown, FaTurnUp } from "react-icons/fa6";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -20,6 +18,7 @@ import DialogComponent from "../DialogComponent/DialogComponent";
 import SnackbarComponent from "../SnackbarComponent/SnackbarComponent";
 import RecipeProfilePhotoAndNotes from "./RecipeProfilePhotoAndNotes/RecipeProfilePhotoAndNotes";
 import RecipePrepAndCookTime from "./RecipePrepAndCookTime/RecipePrepAndCookTime";
+import RecipeCooked from "./RecipeCooked/RecipeCooked";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -242,18 +241,7 @@ function RecipeDetails() {
                                 <div className="time" style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
                                     <RecipePrepAndCookTime prepTime={prepTime} replaceWithCommas={replaceWithCommas} />
                                     <RecipePrepAndCookTime cookTime={cookTime} replaceWithCommas={replaceWithCommas} />
-                                    <strong>Have you cooked this?</strong>
-                                    <p style={{ cursor: 'pointer' }}>
-                                        {!isCooked ? (
-                                            <span onClick={e => toggleCooked(e, true)} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                <CheckCircleOutlineIcon style={{ fontSize: '200%', fill: 'black' }} /> Mark as cooked
-                                            </span>
-                                        ) : (
-                                            <span onClick={e => toggleCooked(e, false)} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                <CheckCircleIcon style={{ fontSize: '200%', fill: '#DAA520' }} /> Yes I have
-                                            </span>
-                                        )}
-                                    </p>
+                                    <RecipeCooked isCooked={isCooked} toggleCooked={toggleCooked} />
                                     <RecipeRating rating={rating} updateRating={updateRating} />
                                     <p style={{
                                         color: 'black', marginTop: '0px', fontSize: '.9rem', cursor: 'pointer', }}
