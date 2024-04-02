@@ -21,6 +21,7 @@ import RecipeTitle from "./RecipeTitleAndEditButton/RecipeTitle/RecipeTitle";
 import RecipeEditButton from "./RecipeTitleAndEditButton/RecipeEditButton/RecipeEditButton";
 import RecipeTitleAndEditButton from "./RecipeTitleAndEditButton/RecipeTitleAndEditButton";
 import UpperSection from "./UpperSection/UpperSection";
+import AutoScroll from "../AutoScroll/AutoScroll";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -199,6 +200,7 @@ function RecipeDetails() {
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
                 <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
                     <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
+
                         <UpperSection title={title} isEditing={isEditing} toggleEditing={toggleEditing}
                             isSmScreen={isSmScreen} isXsScreen={isXsScreen} isLoading={isLoading}
                             onFileChange={onFileChange} imagePath={imagePath} setTitle={setTitle} id={id}
@@ -214,16 +216,7 @@ function RecipeDetails() {
                                     <RecipePrepAndCookTime cookTime={cookTime} replaceWithCommas={replaceWithCommas} />
                                     <RecipeCooked isCooked={isCooked} setIsCooked={setIsCooked} id={id} dispatch={dispatch} />
                                     <RecipeRating rating={rating} setRating={setRating} id={id} dispatch={dispatch} />
-                                    <p style={{
-                                        color: 'black', marginTop: '0px', fontSize: '.9rem', cursor: 'pointer',
-                                    }}
-                                        onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
-                                    >
-                                        <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                            <strong><span style={{ textDecoration: 'underline' }}>Read recipe notes</span></strong>
-                                            <FaArrowTurnDown style={{ marginLeft: '3px', fill: 'black', }} />
-                                        </span>
-                                    </p>
+                                    <AutoScroll isSmScreen={isSmScreen} isXsScreen={isXsScreen} type={'scroll-down'} />
                                 </div>
                             </div>
 
@@ -232,20 +225,7 @@ function RecipeDetails() {
                             <RecipeNotesAndPhoto imageList={imageList} isXsScreen={isXsScreen} isSmScreen={isSmScreen} comments={comments} dispatch={dispatch} id={id} />
 
                         </div>
-                        <p style={{
-                            color: 'black', margin: '10px 0px', fontSize: '.9rem',
-                            textDecoration: 'underline',
-                            cursor: 'pointer',
-                            alignSelf: 'center',
-                            paddingBottom: isSmScreen || isXsScreen ? '17%' : null,
-                        }}
-                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        >
-                            <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                <span>Back to recipe</span>
-                                <FaTurnUp style={{ marginLeft: '3px', fill: "black", }} />
-                            </span>
-                        </p>
+                        <AutoScroll isSmScreen={isSmScreen} isXsScreen={isXsScreen} type={'scroll-up'} />
                     </div>
                 </div>
             </div>
