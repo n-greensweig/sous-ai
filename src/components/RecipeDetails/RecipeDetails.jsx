@@ -89,14 +89,6 @@ function RecipeDetails() {
         }
     };
 
-    // Function to update rating
-    const updateRating = (e, num) => {
-        e.preventDefault();
-        const action = { type: 'UPDATE_RATING', payload: { id, rating: num } };
-        dispatch(action);
-        setRating(num);
-    };
-
     // Function to fetch image list
     const getImageList = () => {
         axios.get(`/photos/${id}`)
@@ -234,7 +226,7 @@ function RecipeDetails() {
                                     <RecipePrepAndCookTime prepTime={prepTime} replaceWithCommas={replaceWithCommas} />
                                     <RecipePrepAndCookTime cookTime={cookTime} replaceWithCommas={replaceWithCommas} />
                                     <RecipeCooked isCooked={isCooked} setIsCooked={setIsCooked} id={id} dispatch={dispatch} />
-                                    <RecipeRating rating={rating} updateRating={updateRating} />
+                                    <RecipeRating rating={rating} setRating={setRating} id={id} dispatch={dispatch} />
                                     <p style={{
                                         color: 'black', marginTop: '0px', fontSize: '.9rem', cursor: 'pointer', }}
                                         onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}

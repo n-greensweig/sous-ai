@@ -1,9 +1,17 @@
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 
-function RecipeRating({ rating, updateRating }) {
+function RecipeRating({ rating, setRating, id, dispatch}) {
+
+    // Function to update rating
+    const updateRating = (e, num) => {
+        e.preventDefault();
+        const action = { type: 'UPDATE_RATING', payload: { id, rating: num } };
+        dispatch(action);
+        setRating(num);
+    };
     return (
-        <>
+        <div>
             <div style={{ display: 'flex', flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 0, }}>
                 <p>Your rating</p>
                 <span style={{ cursor: 'pointer', color: '#DAA520', textDecoration: 'underline', }} onClick={e => updateRating(e, 0)}>Clear</span>
@@ -16,7 +24,7 @@ function RecipeRating({ rating, updateRating }) {
                             rating === 4 ? <span><StarIcon style={{ fill: '#DAA520', }} onClick={e => updateRating(e, 1)} /><StarIcon style={{ fill: '#DAA520', }} onClick={e => updateRating(e, 2)} /><StarIcon style={{ fill: '#DAA520', }} onClick={e => updateRating(e, 3)} /><StarIcon style={{ fill: '#DAA520', }} onClick={e => updateRating(e, 4)} /><StarBorderIcon style={{ fill: '#DAA520', }} onClick={e => updateRating(e, 5)} /></span> :
                                 <span><StarIcon style={{ fill: '#DAA520', }} onClick={e => updateRating(e, 1)} /><StarIcon style={{ fill: '#DAA520', }} onClick={e => updateRating(e, 2)} /><StarIcon style={{ fill: '#DAA520', }} onClick={e => updateRating(e, 3)} /><StarIcon style={{ fill: '#DAA520', }} onClick={e => updateRating(e, 4)} /><StarIcon style={{ fill: '#DAA520', }} onClick={e => updateRating(e, 5)} /></span>}
             </p>
-        </>
+        </div>
     )
 }
 
