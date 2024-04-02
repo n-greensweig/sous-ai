@@ -9,10 +9,6 @@ import swal from 'sweetalert';
 import { useState } from "react";
 import axios from "axios";
 import './RecipeDetails.css';
-import RecipeInstructions from "./RecipeIngredientsAndInstructions/RecipeInstructions/RecipeInstructions";
-import RecipeIngredients from "./RecipeIngredientsAndInstructions/RecipeIngredients/RecipeIngredients";
-import RecipePhotos from "./RecipePhotos/RecipePhotos";
-import RecipeNotes from "./RecipeNotes/RecipeNotes";
 import RecipeRating from "./RecipeRating/RecipeRating";
 import DialogComponent from "../DialogComponent/DialogComponent";
 import SnackbarComponent from "../SnackbarComponent/SnackbarComponent";
@@ -21,6 +17,9 @@ import RecipePrepAndCookTime from "./RecipePrepAndCookTime/RecipePrepAndCookTime
 import RecipeCooked from "./RecipeCooked/RecipeCooked";
 import RecipeIngredientsAndInstructions from "./RecipeIngredientsAndInstructions/RecipeIngredientsAndInstructions";
 import RecipeNotesAndPhoto from "./RecipeNotesAndPhoto/RecipeNotesAndPhoto";
+import RecipeTitle from "./RecipeTitleAndEditButton/RecipeTitle/RecipeTitle";
+import RecipeEditButton from "./RecipeTitleAndEditButton/RecipeEditButton/RecipeEditButton";
+import RecipeTitleAndEditButton from "./RecipeTitleAndEditButton/RecipeTitleAndEditButton";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -203,17 +202,7 @@ function RecipeDetails() {
                             display: 'flex', flexDirection: 'row', alignItems: 'center',
                             flexWrap: 'wrap', justifyContent: isSmScreen || isXsScreen ? 'center' : 'space-between'
                         }}>
-                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <p style={{
-                                    color: 'black', fontWeight: 'bold', fontSize: isSmScreen || isXsScreen ? '44px' : '40px',
-                                    textAlign: 'center', marginBottom: isSmScreen || isXsScreen ? '10px' : '5px'
-                                }}> {title ? title : ''}</p>
-                                <Button variant="text" onClick={e => toggleEditing(e)} startIcon={isEditing ? null : <EditIcon />}
-                                    style={{
-                                        borderColor: 'white', color: "gray",
-                                        marginBottom: isSmScreen || isXsScreen ? '5%' : null,
-                                    }}>{isEditing ? null : 'Edit recipe'}</Button>
-                            </div>
+                            <RecipeTitleAndEditButton title={title} isEditing={isEditing} toggleEditing={toggleEditing} isSmScreen={isSmScreen} isXsScreen={isXsScreen} />
                             <DialogComponent isEditing={isEditing} setIsEditing={setIsEditing} toggleEditing={toggleEditing}
                                 isLoading={isLoading} onFileChange={onFileChange} imagePath={imagePath} title={title}
                                 setTitle={setTitle} id={id} saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} />
@@ -235,8 +224,8 @@ function RecipeDetails() {
                                         onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                                     >
                                         <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                            <strong><span style={{ marginRight: '5px' }}>Notes</span> <span style={{ textDecoration: 'underline' }}>Read recipe notes</span></strong>
-                                            <FaArrowTurnDown style={{ marginLeft: '3px', fill: "black", }} />
+                                            <strong><span style={{ textDecoration: 'underline' }}>Read recipe notes</span></strong>
+                                            <FaArrowTurnDown style={{ marginLeft: '3px', fill: 'black', }} />
                                         </span>
                                     </p>
                                 </div>
@@ -245,7 +234,7 @@ function RecipeDetails() {
                             <RecipeIngredientsAndInstructions ingredients={ingredients} instructions={instructions} servings={servings} isXsScreen={isXsScreen}
                                 isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} />
                             <RecipeNotesAndPhoto imageList={imageList} isXsScreen={isXsScreen} isSmScreen={isSmScreen} comments={comments} dispatch={dispatch} id={id} />
-                            
+
                         </div>
                         <p style={{
                             color: 'black', margin: '10px 0px', fontSize: '.9rem',
@@ -263,8 +252,8 @@ function RecipeDetails() {
                         </p>
                     </div>
                 </div>
-            </div >
-        </div >
+            </div>
+        </div>
     );
 }
 
