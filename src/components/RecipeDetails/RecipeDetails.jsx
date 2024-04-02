@@ -97,14 +97,6 @@ function RecipeDetails() {
         setRating(num);
     };
 
-    // Function to toggle the cooked state of the recipe
-    const toggleCooked = (e, cooked) => {
-        e.preventDefault();
-        setIsCooked(cooked);
-        const action = { type: 'UPDATE_COOKED', payload: { id, isCooked: cooked } };
-        dispatch(action);
-    };
-
     // Function to fetch image list
     const getImageList = () => {
         axios.get(`/photos/${id}`)
@@ -241,7 +233,7 @@ function RecipeDetails() {
                                 <div className="time" style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
                                     <RecipePrepAndCookTime prepTime={prepTime} replaceWithCommas={replaceWithCommas} />
                                     <RecipePrepAndCookTime cookTime={cookTime} replaceWithCommas={replaceWithCommas} />
-                                    <RecipeCooked isCooked={isCooked} toggleCooked={toggleCooked} />
+                                    <RecipeCooked isCooked={isCooked} setIsCooked={setIsCooked} id={id} dispatch={dispatch} />
                                     <RecipeRating rating={rating} updateRating={updateRating} />
                                     <p style={{
                                         color: 'black', marginTop: '0px', fontSize: '.9rem', cursor: 'pointer', }}
