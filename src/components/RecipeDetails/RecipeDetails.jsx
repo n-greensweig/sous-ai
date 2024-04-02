@@ -19,6 +19,7 @@ import RecipeRating from "./RecipeRating/RecipeRating";
 import DialogComponent from "../DialogComponent/DialogComponent";
 import SnackbarComponent from "../SnackbarComponent/SnackbarComponent";
 import RecipeProfilePhotoAndNotes from "./RecipeProfilePhotoAndNotes/RecipeProfilePhotoAndNotes";
+import RecipePrepAndCookTime from "./RecipePrepAndCookTime/RecipePrepAndCookTime";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -239,8 +240,8 @@ function RecipeDetails() {
                                 display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: isXsScreen || isSmScreen ? 'center' : 'space-between',
                             }}>
                                 <div className="time" style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
-                                    <p style={{ color: 'black', marginBottom: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Prep Time</strong> {prepTime ? replaceWithCommas(prepTime) : ''}</p>
-                                    <p style={{ color: 'black', marginTop: '0px', fontSize: '.9rem' }}><strong style={{ marginRight: '5px' }}>Cook Time</strong> {cookTime ? replaceWithCommas(cookTime) : ''}</p>
+                                    <RecipePrepAndCookTime prepTime={prepTime} replaceWithCommas={replaceWithCommas} />
+                                    <RecipePrepAndCookTime cookTime={cookTime} replaceWithCommas={replaceWithCommas} />
                                     <strong>Have you cooked this?</strong>
                                     <p style={{ cursor: 'pointer' }}>
                                         {!isCooked ? (
