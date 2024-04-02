@@ -83,10 +83,7 @@ function RecipeItems() {
                 {recipes.map((recipe, index) => (
                     // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
                     <Grid item className='card' xs={11} md={3} onClick={() => handleClick(recipe.id)}
-                        style={{
-                            padding: '0px',
-                            margin: '4px',
-                        }}
+                        style={{ padding: '0px', margin: '4px', }}
                         id={recipe.id} key={index}
                     >
                         <FadeIn>
