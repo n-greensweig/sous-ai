@@ -1,0 +1,19 @@
+.recipe-time {
+    color: black;
+    font-size: .9rem;
+}
+.recipe-time__prep {
+    margin-bottom: 0px;
+}
+.recipe-time__cook {
+    margin-top: 0px;
+}
+.recipe-time__prep,
+.recipe-time__cook {
+    display: flex;
+    justify-content: space-between;
+}
+.recipe-time__value {
+    margin-left: 5px;
+    font-weight: bold;
+}
