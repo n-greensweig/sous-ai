@@ -9,8 +9,8 @@ import swal from 'sweetalert';
 import { useState } from "react";
 import axios from "axios";
 import './RecipeDetails.css';
-import RecipeInstructions from "./RecipeInstructions/RecipeInstructions";
-import RecipeIngredients from "./RecipeIngredients/RecipeIngredients";
+import RecipeInstructions from "./RecipeIngredientsAndInstructions/RecipeInstructions/RecipeInstructions";
+import RecipeIngredients from "./RecipeIngredientsAndInstructions/RecipeIngredients/RecipeIngredients";
 import RecipePhotos from "./RecipePhotos/RecipePhotos";
 import RecipeNotes from "./RecipeNotes/RecipeNotes";
 import RecipeRating from "./RecipeRating/RecipeRating";
@@ -20,6 +20,7 @@ import RecipeProfilePhotoAndNotes from "./RecipeProfilePhotoAndNotes/RecipeProfi
 import RecipePrepAndCookTime from "./RecipePrepAndCookTime/RecipePrepAndCookTime";
 import RecipeCooked from "./RecipeCooked/RecipeCooked";
 import RecipeIngredientsAndInstructions from "./RecipeIngredientsAndInstructions/RecipeIngredientsAndInstructions";
+import RecipeNotesAndPhoto from "./RecipeNotesAndPhoto/RecipeNotesAndPhoto";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -213,9 +214,9 @@ function RecipeDetails() {
                                         marginBottom: isSmScreen || isXsScreen ? '5%' : null,
                                     }}>{isEditing ? null : 'Edit recipe'}</Button>
                             </div>
-                            <DialogComponent isEditing={isEditing} setIsEditing={setIsEditing} toggleEditing={toggleEditing} 
-                            isLoading={isLoading} onFileChange={onFileChange} imagePath={imagePath} title={title} 
-                            setTitle={setTitle} id={id} saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} />
+                            <DialogComponent isEditing={isEditing} setIsEditing={setIsEditing} toggleEditing={toggleEditing}
+                                isLoading={isLoading} onFileChange={onFileChange} imagePath={imagePath} title={title}
+                                setTitle={setTitle} id={id} saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} />
                             <RecipeProfilePhotoAndNotes isXsScreen={isXsScreen} isSmScreen={isSmScreen} imageList={imageList} image={image} notes={notes} replaceWithCommas={replaceWithCommas} />
                         </div>
 
@@ -229,7 +230,8 @@ function RecipeDetails() {
                                     <RecipeCooked isCooked={isCooked} setIsCooked={setIsCooked} id={id} dispatch={dispatch} />
                                     <RecipeRating rating={rating} setRating={setRating} id={id} dispatch={dispatch} />
                                     <p style={{
-                                        color: 'black', marginTop: '0px', fontSize: '.9rem', cursor: 'pointer', }}
+                                        color: 'black', marginTop: '0px', fontSize: '.9rem', cursor: 'pointer',
+                                    }}
                                         onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                                     >
                                         <span style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
@@ -240,16 +242,10 @@ function RecipeDetails() {
                                 </div>
                             </div>
 
-                            <RecipeIngredientsAndInstructions ingredients={ingredients} instructions={instructions} servings={servings} isXsScreen={isXsScreen} isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} />
-
-                            <div id="notes-photo-container" style={{
-                                display: 'flex', flexDirection: isSmScreen || isXsScreen ? 'column' : 'row',
-                                marginTop: '30px',
-                                alignItems: 'flex-start', justifyContent: 'space-between', width: '100%',
-                            }}>
-                                <RecipePhotos imageList={imageList} isXsScreen={isXsScreen} isSmScreen={isSmScreen} />
-                                <RecipeNotes isXsScreen={isXsScreen} isSmScreen={isSmScreen} comments={comments} dispatch={dispatch} id={id} />
-                            </div>
+                            <RecipeIngredientsAndInstructions ingredients={ingredients} instructions={instructions} servings={servings} isXsScreen={isXsScreen}
+                                isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} />
+                            <RecipeNotesAndPhoto imageList={imageList} isXsScreen={isXsScreen} isSmScreen={isSmScreen} comments={comments} dispatch={dispatch} id={id} />
+                            
                         </div>
                         <p style={{
                             color: 'black', margin: '10px 0px', fontSize: '.9rem',

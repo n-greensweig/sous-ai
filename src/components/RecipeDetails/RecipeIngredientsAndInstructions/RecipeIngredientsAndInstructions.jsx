@@ -1,5 +1,5 @@
-import RecipeIngredients from "../RecipeIngredients/RecipeIngredients";
-import RecipeInstructions from "../RecipeInstructions/RecipeInstructions";
+import RecipeIngredients from "./RecipeIngredients/RecipeIngredients";
+import RecipeInstructions from "./RecipeInstructions/RecipeInstructions";
 
 function RecipeIngredientsAndInstructions({ ingredients, instructions, servings, isXsScreen, isSmScreen, replaceWithCommas }) {
     return (
