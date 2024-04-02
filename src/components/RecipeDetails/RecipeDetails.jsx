@@ -20,6 +20,7 @@ import RecipeNotesAndPhoto from "./RecipeNotesAndPhoto/RecipeNotesAndPhoto";
 import RecipeTitle from "./RecipeTitleAndEditButton/RecipeTitle/RecipeTitle";
 import RecipeEditButton from "./RecipeTitleAndEditButton/RecipeEditButton/RecipeEditButton";
 import RecipeTitleAndEditButton from "./RecipeTitleAndEditButton/RecipeTitleAndEditButton";
+import UpperSection from "./UpperSection/UpperSection";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -198,16 +199,11 @@ function RecipeDetails() {
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
                 <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
                     <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div className="upper-section" style={{
-                            display: 'flex', flexDirection: 'row', alignItems: 'center',
-                            flexWrap: 'wrap', justifyContent: isSmScreen || isXsScreen ? 'center' : 'space-between'
-                        }}>
-                            <RecipeTitleAndEditButton title={title} isEditing={isEditing} toggleEditing={toggleEditing} isSmScreen={isSmScreen} isXsScreen={isXsScreen} />
-                            <DialogComponent isEditing={isEditing} setIsEditing={setIsEditing} toggleEditing={toggleEditing}
-                                isLoading={isLoading} onFileChange={onFileChange} imagePath={imagePath} title={title}
-                                setTitle={setTitle} id={id} saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} />
-                            <RecipeProfilePhotoAndNotes isXsScreen={isXsScreen} isSmScreen={isSmScreen} imageList={imageList} image={image} notes={notes} replaceWithCommas={replaceWithCommas} />
-                        </div>
+                        <UpperSection title={title} isEditing={isEditing} toggleEditing={toggleEditing}
+                            isSmScreen={isSmScreen} isXsScreen={isXsScreen} isLoading={isLoading}
+                            onFileChange={onFileChange} imagePath={imagePath} setTitle={setTitle} id={id}
+                            saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} imageList={imageList}
+                            image={image} notes={notes} replaceWithCommas={replaceWithCommas} setIsEditing={setIsEditing} />
 
                         <div className="lower-section">
                             <div className="time" style={{
