@@ -1,9 +1,12 @@
-import { useTheme, useMediaQuery } from '@mui/material';
+import { useTheme, useMediaQuery, Button, TextField } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom'; // Note: This import is unused and could be removed.
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import './Header.css';
-
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import PersonIcon from '@mui/icons-material/Person';
+import './Header.css';
+import SearchIcon from '@mui/icons-material/Search';
 /**
  * Renders a header component that is responsive and navigates to a specified route when clicked.
  * 
@@ -25,31 +28,53 @@ function Header(props) {
         // Conditionally renders the header based on screen size
         // Header is not rendered on extra-small and small devices
         isXsScreen || isSmScreen ? null :
-            <header style={{
-                background: 'radial-gradient(circle, #F5F5F5, #DAA520)',
-                position: 'fixed',
-                width: '100%',
-                color: '#000000',
-                borderColor: 'white',
-                textAlign: 'center',
-                padding: '24px',
-                zIndex: 1000,
-                top: 0,
-                cursor: 'pointer',
-            }}
-                // Navigates to the path specified in 'props.to' when the header is clicked
-                onClick={() => history.push(props.to)}
-            >
-                {/* Displays the header text passed through props, emphasized with <strong> */}
-                <strong>{props.text}</strong>
-            </header>
-
-            // <header>
-            //     <img src="images/avatars/sous.png" className="header__icon" alt="SousAI"
-            //     onClick={() => history.push('/')}
-            //     />
-            //     <input type="text" placeholder="Search recipes" className="header__searchBar" />
+            // <header style={{
+            //     background: 'radial-gradient(circle, #F5F5F5, #DAA520)',
+            //     position: 'fixed',
+            //     width: '100%',
+            //     color: '#000000',
+            //     borderColor: 'white',
+            //     textAlign: 'center',
+            //     padding: '24px',
+            //     zIndex: 1000,
+            //     top: 0,
+            //     cursor: 'pointer',
+            // }}
+            //     // Navigates to the path specified in 'props.to' when the header is clicked
+            //     onClick={() => history.push(props.to)}
+            // >
+            //     {/* Displays the header text passed through props, emphasized with <strong> */}
+            //     <strong>{props.text}</strong>
             // </header>
+
+            <header>
+                <div className='header--flex'>
+                    <div className="header__logo">
+
+                        <img src="images/avatars/sous.png" className="header__img" alt="SousAI"
+                            onClick={() => history.push('/')}
+                        />
+                        <div className='header__bar'></div>
+                        <strong>SousAI</strong>
+                    </div>
+                    {/* <div className="header__search"> */}
+                        <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
+                        <input type="text" placeholder="What would you like to cook?" className="header__searchBar" />
+                        <Button variant="text" className="header__button" startIcon={<BookmarkIcon className='icon--black' />}>
+                            Your Recipe Box
+                        </Button>
+                        <Button variant="text" className="header__button" startIcon={<PersonIcon className='icon--black' />}></Button>
+                    {/* </div> */}
+
+                </div>
+                <div>
+                    <button className='header__button hover'>What to Cook</button>
+                    <button className='header__button hover'>Recipes</button>
+                    <button className='header__button hover'>Ingredients</button>
+                    <button className='header__button hover'>Occasions</button>
+                    <button className='header__button hover'>About</button>
+                </div>
+            </header>
     );
 }
 

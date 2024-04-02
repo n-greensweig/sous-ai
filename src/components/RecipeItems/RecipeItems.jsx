@@ -61,7 +61,7 @@ function RecipeItems() {
 
     return (
         // Sets padding and margin based on screen size for responsive design.
-        <div style={{ paddingBottom: isSmScreen || isXsScreen ? '28%' : '8%', marginTop: isSmScreen || isXsScreen ? '7%' : '5%' }}>
+        <div style={{ paddingBottom: isSmScreen || isXsScreen ? '28%' : '8%', marginTop: isSmScreen || isXsScreen ? '7%' : '1%' }}>
             <Header text={'Saved Recipes'} />
 
             <NewRecipeList />

@@ -1,5 +1,74 @@
-.header__icon {
-    width: 10%;
+.header--flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header__logo {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 20%;
+    flex-shrink: 0; /* Prevent the logo from shrinking */
+}
+.header__img {
+    width: 25%;
     height: auto;
     cursor: pointer;
+    border-radius: 75%;
+    margin-right: 1%;
+}
+.header__bar {
+    border: 1px solid black;
+    height: 40px;
+}
+.header__logo strong {
+    padding-left: 1%;
+    height: 100%;
+}
+.header__search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+}
+.header__searchBar {
+    width: 50%;
+    height: 5px;
+    padding: 1%;
+    border: 1px solid #FFF;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    outline: none;
+
+    &:focus,
+    &:active,
+    &:hover {
+        border: 1px solid black;
+    }
+}
+button {
+    /* Resetting or overriding default styles */
+    border: none;
+    background: none;
+    color: inherit; /* Inherits the color from the parent */
+    font-family: inherit; /* Inherits the font-family from the parent */
+    font-size: inherit; /* Inherits the font-size from the parent */
+}
+
+.header__button {
+    color: black !important;
+    text-transform: none !important;
+    border-radius: 0 !important;
+    outline: none !important;
+}
+.hover:hover {
+    border-bottom: 2px solid red;
+    background-color: none;
+    cursor: pointer;
+}
+.icon--black {
+    fill: black !important;
 }
