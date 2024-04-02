@@ -1,6 +1,6 @@
-import RecipeTitleAndEditButton from "../RecipeTitleAndEditButton/RecipeTitleAndEditButton";
+import RecipeTitleAndEditButton from "./RecipeTitleAndEditButton/RecipeTitleAndEditButton";
 import DialogComponent from "../../DialogComponent/DialogComponent";
-import RecipeProfilePhotoAndNotes from "../RecipeProfilePhotoAndNotes/RecipeProfilePhotoAndNotes";
+import RecipeProfilePhotoAndNotes from "./RecipeProfilePhotoAndNotes/RecipeProfilePhotoAndNotes";
 
 function UpperSection({ title, isEditing, toggleEditing, isSmScreen, isXsScreen, isLoading, onFileChange, imagePath, setTitle, id, saveEditedTitle, removeRecipe, imageList, image, notes, replaceWithCommas, setIsEditing }) {
     return (

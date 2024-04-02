@@ -1,5 +1,5 @@
-import RecipePhotos from "../RecipePhotos/RecipePhotos";
-import RecipeNotes from "../RecipeNotes/RecipeNotes";
+import RecipePhotos from "./RecipePhotos/RecipePhotos";
+import RecipeNotes from "./RecipeNotes/RecipeNotes";
 
 function RecipeNotesAndPhoto({ imageList, isXsScreen, isSmScreen, comments, dispatch, id }) {
     return (

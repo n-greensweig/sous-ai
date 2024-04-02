@@ -9,19 +9,20 @@ import swal from 'sweetalert';
 import { useState } from "react";
 import axios from "axios";
 import './RecipeDetails.css';
-import RecipeRating from "./RecipeRating/RecipeRating";
+import RecipeRating from "./LowerSection/RecipeRating/RecipeRating";
 import DialogComponent from "../DialogComponent/DialogComponent";
 import SnackbarComponent from "../SnackbarComponent/SnackbarComponent";
-import RecipeProfilePhotoAndNotes from "./RecipeProfilePhotoAndNotes/RecipeProfilePhotoAndNotes";
-import RecipePrepAndCookTime from "./RecipePrepAndCookTime/RecipePrepAndCookTime";
-import RecipeCooked from "./RecipeCooked/RecipeCooked";
-import RecipeIngredientsAndInstructions from "./RecipeIngredientsAndInstructions/RecipeIngredientsAndInstructions";
-import RecipeNotesAndPhoto from "./RecipeNotesAndPhoto/RecipeNotesAndPhoto";
-import RecipeTitle from "./RecipeTitleAndEditButton/RecipeTitle/RecipeTitle";
-import RecipeEditButton from "./RecipeTitleAndEditButton/RecipeEditButton/RecipeEditButton";
-import RecipeTitleAndEditButton from "./RecipeTitleAndEditButton/RecipeTitleAndEditButton";
+import RecipeProfilePhotoAndNotes from "./UpperSection/RecipeProfilePhotoAndNotes/RecipeProfilePhotoAndNotes";
+import RecipePrepAndCookTime from "./LowerSection/RecipePrepAndCookTime/RecipePrepAndCookTime";
+import RecipeCooked from "./LowerSection/RecipeCooked/RecipeCooked";
+import RecipeIngredientsAndInstructions from "./LowerSection/RecipeIngredientsAndInstructions/RecipeIngredientsAndInstructions";
+import RecipeNotesAndPhoto from "./LowerSection/RecipeNotesAndPhoto/RecipeNotesAndPhoto";
+import RecipeTitle from "./UpperSection/RecipeTitleAndEditButton/RecipeTitle/RecipeTitle";
+import RecipeEditButton from "./UpperSection/RecipeTitleAndEditButton/RecipeEditButton/RecipeEditButton";
+import RecipeTitleAndEditButton from "./UpperSection/RecipeTitleAndEditButton/RecipeTitleAndEditButton";
 import UpperSection from "./UpperSection/UpperSection";
 import AutoScroll from "../AutoScroll/AutoScroll";
+import LowerSection from "./LowerSection/LowerSection";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -207,24 +208,9 @@ function RecipeDetails() {
                             saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} imageList={imageList}
                             image={image} notes={notes} replaceWithCommas={replaceWithCommas} setIsEditing={setIsEditing} />
 
-                        <div className="lower-section">
-                            <div className="time" style={{
-                                display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: isXsScreen || isSmScreen ? 'center' : 'space-between',
-                            }}>
-                                <div className="time" style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
-                                    <RecipePrepAndCookTime prepTime={prepTime} replaceWithCommas={replaceWithCommas} />
-                                    <RecipePrepAndCookTime cookTime={cookTime} replaceWithCommas={replaceWithCommas} />
-                                    <RecipeCooked isCooked={isCooked} setIsCooked={setIsCooked} id={id} dispatch={dispatch} />
-                                    <RecipeRating rating={rating} setRating={setRating} id={id} dispatch={dispatch} />
-                                    <AutoScroll isSmScreen={isSmScreen} isXsScreen={isXsScreen} type={'scroll-down'} />
-                                </div>
-                            </div>
+                        <LowerSection prepTime={prepTime} cookTime={cookTime} isCooked={isCooked} setIsCooked={setIsCooked} id={id} dispatch={dispatch} rating={rating}
+                            setRating={setRating} ingredients={ingredients} instructions={instructions} servings={servings} isXsScreen={isXsScreen} isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} imageList={imageList} comments={comments} />
 
-                            <RecipeIngredientsAndInstructions ingredients={ingredients} instructions={instructions} servings={servings} isXsScreen={isXsScreen}
-                                isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} />
-                            <RecipeNotesAndPhoto imageList={imageList} isXsScreen={isXsScreen} isSmScreen={isSmScreen} comments={comments} dispatch={dispatch} id={id} />
-
-                        </div>
                         <AutoScroll isSmScreen={isSmScreen} isXsScreen={isXsScreen} type={'scroll-up'} />
                     </div>
                 </div>
