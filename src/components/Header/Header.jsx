@@ -28,25 +28,6 @@ function Header(props) {
         // Conditionally renders the header based on screen size
         // Header is not rendered on extra-small and small devices
         isXsScreen || isSmScreen ? null :
-            // <header style={{
-            //     background: 'radial-gradient(circle, #F5F5F5, #DAA520)',
-            //     position: 'fixed',
-            //     width: '100%',
-            //     color: '#000000',
-            //     borderColor: 'white',
-            //     textAlign: 'center',
-            //     padding: '24px',
-            //     zIndex: 1000,
-            //     top: 0,
-            //     cursor: 'pointer',
-            // }}
-            //     // Navigates to the path specified in 'props.to' when the header is clicked
-            //     onClick={() => history.push(props.to)}
-            // >
-            //     {/* Displays the header text passed through props, emphasized with <strong> */}
-            //     <strong>{props.text}</strong>
-            // </header>
-
             <header>
                 <div className='header--flex'>
                     <div className="header__logo">
@@ -57,15 +38,11 @@ function Header(props) {
                         <div className='header__bar'></div>
                         <strong>SousAI</strong>
                     </div>
-                    {/* <div className="header__search"> */}
                         <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
                         <input type="text" placeholder="What would you like to cook?" className="header__searchBar" />
                         <Button variant="text" className="header__button" startIcon={<BookmarkIcon className='icon--black' />}>
                             Your Recipe Box
                         </Button>
-                        <Button variant="text" className="header__button" startIcon={<PersonIcon className='icon--black' />}></Button>
-                    {/* </div> */}
-
                 </div>
                 <div>
                     <button className='header__button hover'>What to Cook</button>

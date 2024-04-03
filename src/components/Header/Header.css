@@ -1,3 +1,7 @@
+header {
+    padding-bottom: 1%;
+    border-bottom: 1px solid #d3d3d3;
+}
 .header--flex {
     display: flex;
     justify-content: space-between;
@@ -25,13 +29,6 @@
 .header__logo strong {
     padding-left: 1%;
     height: 100%;
-}
-.header__search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    margin: 0 auto;
 }
 .header__searchBar {
     width: 50%;
