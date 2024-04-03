@@ -7,15 +7,18 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 import './Header.css';
+import LogOutButton from '../LogOutButton/LogOutButton';
+import { useDispatch } from 'react-redux';
 /**
  * Renders a header component that is responsive and navigates to a specified route when clicked.
  * 
  * @param {Object} props - Component props including navigation path and text.
  * @returns A header component or null based on screen size.
  */
-function Header(props) {
+function Header() {
     // Hook to programmatically navigate between routes
     const history = useHistory();
+    const dispatch = useDispatch();
 
     // MUI theme hooks for responsive design
     const theme = useTheme();
@@ -38,12 +41,13 @@ function Header(props) {
                         <div className='header__bar'></div>
                         <strong>SousAI</strong>
                     </div>
-                        <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
-                        <input type="text" placeholder="What would you like to cook?" className="header__searchBar" />
-                        <Button variant="text" className="header__button" startIcon={<BookmarkIcon className='icon--black' />}>
-                            Your Recipe Box
-                        </Button>
-                        <Button startIcon={<PersonIcon className='icon--black' />} className="header__button"></Button>
+                    <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
+                    <input type="text" placeholder="What would you like to cook?" className="header__searchBar" />
+                    <Button variant="text" className="header__button" startIcon={<BookmarkIcon className='icon--black' />}>
+                        Your Recipe Box
+                    </Button>
+                    {/* <LogOutButton className="header__button" /> */}
+                    <Button onClick={() => dispatch({ type: 'LOGOUT' })} startIcon={<PersonIcon className='icon--black' />} className="header__button"></Button>
                 </div>
                 <div>
                     <button className='header__button hover'>What to Cook</button>

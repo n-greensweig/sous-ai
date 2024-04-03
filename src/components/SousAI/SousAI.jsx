@@ -1,5 +1,5 @@
 // Import styles specific to the UserPage component
-import './UserPage.css';
+import './SousAI.css';
 // React hooks for managing state and lifecycle in functional components
 import { useState, useEffect } from "react";
 // Hook from redux for dispatching actions
@@ -21,8 +21,9 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 // Loader component for indicating loading state
 import { PacmanLoader } from 'react-spinners';
+import Header from '../Header/Header';
 
-function UserPage() {
+function SousAI() {
   // Redux hook for dispatching actions
   const dispatch = useDispatch();
   // State hooks for various component states
@@ -180,6 +181,7 @@ function UserPage() {
       {/* Main content area */}
       <section className='main' style={{ color: '#374151' }}>
         {/* Page title */}
+        <Header />
         <h1>SousAI</h1>
         <ul className='feed'>
           {/* Maps over currentChat to render chat messages */}
@@ -314,4 +316,4 @@ function UserPage() {
   );
 }
 
-export default UserPage;
+export default SousAI;

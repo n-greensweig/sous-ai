@@ -23,6 +23,7 @@ import RecipeTitleAndEditButton from "./UpperSection/RecipeTitleAndEditButton/Re
 import UpperSection from "./UpperSection/UpperSection";
 import AutoScroll from "../AutoScroll/AutoScroll";
 import LowerSection from "./LowerSection/LowerSection";
+import Header from "../Header/Header";
 
 // Function component for RecipeDetails
 function RecipeDetails() {
@@ -197,11 +198,11 @@ function RecipeDetails() {
 
     return (
         <div>
+            <Header />
             <SnackbarComponent open={open} handleClose={handleClose} vertical={vertical} horizontal={horizontal} />
             <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
                 <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
                     <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
-
                         <UpperSection title={title} isEditing={isEditing} toggleEditing={toggleEditing}
                             isSmScreen={isSmScreen} isXsScreen={isXsScreen} isLoading={isLoading}
                             onFileChange={onFileChange} imagePath={imagePath} setTitle={setTitle} id={id}
