@@ -43,6 +43,7 @@ function Header(props) {
                         <Button variant="text" className="header__button" startIcon={<BookmarkIcon className='icon--black' />}>
                             Your Recipe Box
                         </Button>
+                        <Button startIcon={<PersonIcon className='icon--black' />} className="header__button"></Button>
                 </div>
                 <div>
                     <button className='header__button hover'>What to Cook</button>
