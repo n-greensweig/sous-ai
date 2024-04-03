@@ -42,14 +42,17 @@ function SavedRecipesSidebar() {
     const toggleCreating = () => setIsCreating(!isCreating);
 
     return (
-        <div>
+        <div className='sidebar__container'>
             <div className="sidebar-content">
-                <p><BookmarkIcon /> Saved Recipes</p>
-                <p><CheckCircleIcon /> Cooked Recipes</p>
-                <p><AccessTimeIcon /> Recently Viewed</p>
-                <p><ListAltIcon /> Grocery List</p>
-                <p>Your folders</p>
-                <p onClick={toggleCreating}><span className='icon--gray-border'><AddIcon /></span> New Folder</p>
+                <p><BookmarkIcon className='sidebar__icon' /> Saved Recipes</p>
+                <p><CheckCircleIcon className='sidebar__icon' /> Cooked Recipes</p>
+                <p><AccessTimeIcon className='sidebar__icon' /> Recently Viewed</p>
+                <p><ListAltIcon className='sidebar__icon' /> Grocery List</p>
+                <p className='sidebar__p--your-folders'>Your folders</p>
+                <div onClick={toggleCreating} style={{ display: 'flex', flexDirection: 'row', }}>
+                        <Button className='icon--gray-border'><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
+                    <p>New Folder</p>
+                </div>
                 {recipeLists && recipeLists.map((list, index) => (
                     <p key={index} style={{ color: 'black' }}>{list.list_name}</p>
                 ))}

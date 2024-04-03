@@ -43,7 +43,7 @@ function Header() {
                     </div>
                     <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
                     <input type="text" placeholder="What would you like to cook?" className="header__searchBar" />
-                    <Button variant="text" className="header__button" startIcon={<BookmarkIcon className='icon--black' />}>
+                    <Button onClick={() => history.push('/recipes')} variant="text" className="header__button" startIcon={<BookmarkIcon className='icon--black' />}>
                         Your Recipe Box
                     </Button>
                     {/* <LogOutButton className="header__button" /> */}
@@ -51,7 +51,7 @@ function Header() {
                 </div>
                 <div>
                     <button className='header__button hover'>What to Cook</button>
-                    <button className='header__button hover'>Recipes</button>
+                    <button className='header__button hover' onClick={() => history.push('/recipes')}>Recipes</button>
                     <button className='header__button hover'>Ingredients</button>
                     <button className='header__button hover'>Occasions</button>
                     <button className='header__button hover'>About</button>

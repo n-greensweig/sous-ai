@@ -62,7 +62,7 @@ function RecipeItems() {
 
     return (
         // Sets padding and margin based on screen size for responsive design.
-        <div style={{ paddingBottom: isSmScreen || isXsScreen ? '28%' : '8%', marginTop: isSmScreen || isXsScreen ? '7%' : '1%' }}>
+        <div style={{ paddingBottom: isSmScreen || isXsScreen ? '28%' : '8%', marginTop: isSmScreen || isXsScreen ? '7%' : '1%', }}>
             <Header text={'Saved Recipes'} />
             <div style={{ display: 'flex', flexDirection: 'row', }}>
                 <SavedRecipesSidebar />
@@ -80,6 +80,7 @@ function RecipeItems() {
                         maxWidth: '1400px',
                         margin: '0 auto',
                         padding: '20px 10px',
+                        backgroundColor: '#FAF9F6',
                     }}
                 >
                     {recipes.map((recipe, index) => (
