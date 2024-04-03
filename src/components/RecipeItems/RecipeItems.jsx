@@ -12,6 +12,7 @@ import Header from '../Header/Header';
 import NewRecipeList from "../NewRecipeList/NewRecipeList";
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
+import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -63,80 +64,82 @@ function RecipeItems() {
         // Sets padding and margin based on screen size for responsive design.
         <div style={{ paddingBottom: isSmScreen || isXsScreen ? '28%' : '8%', marginTop: isSmScreen || isXsScreen ? '7%' : '1%' }}>
             <Header text={'Saved Recipes'} />
-
-            <NewRecipeList />
-            {/* Grid container to display recipes in a responsive layout. */}
-            <Grid container spacing={2} minHeight={'5vh'} className="container"
-                style={{
-                    marginTop: '0px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '16px',
-                    maxWidth: '1400px',
-                    margin: '0 auto',
-                    padding: '20px 10px',
-                }}
-            >
-                {recipes.map((recipe, index) => (
-                    // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
-                    <Grid item className='card' xs={11} md={3} onClick={() => handleClick(recipe.id)}
-                        style={{ padding: '0px', margin: '4px', }}
-                        id={recipe.id} key={index}
-                    >
-                        <FadeIn>
-                            <Paper elevation={5}>
-                                <Card>
-                                    <div key={recipe.id}>
-                                        <CardActionArea>
-                                            <CardMedia
-                                                component={'img'}
-                                                height={'194'}
-                                                image={`${recipe.display_photo}`}
-                                                alt={`${recipe.title} dish`}
-                                            />
-                                            <CardContent className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-                                                {/* Typography for recipe title with responsive font size. */}
-                                                <Typography className="title" style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'flex-start',
-                                                    fontFamily: 'inter',
-                                                    color: 'black',
-                                                    fontSize: '18px',
-                                                    margin: '0px',
-                                                    paddingTop: '0px',
-                                                }}
-                                                    variant="h4"
-                                                    component="div"
-                                                    sx={{
-                                                        fontWeight: 'bold',
-                                                        mb: 2
-                                                    }}>{recipe.title}</Typography>
-                                                {/* Typography for recipe notes with dynamic font size based on screen size. */}
-                                                <Typography className="notes" style={{
-                                                    alignItems: 'baseline',
-                                                    justifyContent: 'center',
-                                                    fontFamily: 'inter',
-                                                    color: 'black',
-                                                    fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
-                                                    marginTop: '5px',
-                                                    overflow: 'auto'
-                                                }}
-                                                    variant="h4"
-                                                    component="div"
-                                                >{replaceWithCommas(recipe.notes)}</Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </div>
-                                </Card>
-                            </Paper>
-                        </FadeIn>
-                    </Grid>
-                ))}
-            </Grid>
+            <div style={{ display: 'flex', flexDirection: 'row', }}>
+                <SavedRecipesSidebar />
+                {/* <NewRecipeList /> */}
+                {/* Grid container to display recipes in a responsive layout. */}
+                <Grid container spacing={2} minHeight={'5vh'} className="container"
+                    style={{
+                        marginTop: '0px',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: '16px',
+                        maxWidth: '1400px',
+                        margin: '0 auto',
+                        padding: '20px 10px',
+                    }}
+                >
+                    {recipes.map((recipe, index) => (
+                        // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
+                        <Grid item className='card' xs={11} md={3} onClick={() => handleClick(recipe.id)}
+                            style={{ padding: '0px', margin: '4px', }}
+                            id={recipe.id} key={index}
+                        >
+                            <FadeIn>
+                                <Paper elevation={5}>
+                                    <Card>
+                                        <div key={recipe.id}>
+                                            <CardActionArea>
+                                                <CardMedia
+                                                    component={'img'}
+                                                    height={'194'}
+                                                    image={`${recipe.display_photo}`}
+                                                    alt={`${recipe.title} dish`}
+                                                />
+                                                <CardContent className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+                                                    {/* Typography for recipe title with responsive font size. */}
+                                                    <Typography className="title" style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'flex-start',
+                                                        fontFamily: 'inter',
+                                                        color: 'black',
+                                                        fontSize: '18px',
+                                                        margin: '0px',
+                                                        paddingTop: '0px',
+                                                    }}
+                                                        variant="h4"
+                                                        component="div"
+                                                        sx={{
+                                                            fontWeight: 'bold',
+                                                            mb: 2
+                                                        }}>{recipe.title}</Typography>
+                                                    {/* Typography for recipe notes with dynamic font size based on screen size. */}
+                                                    <Typography className="notes" style={{
+                                                        alignItems: 'baseline',
+                                                        justifyContent: 'center',
+                                                        fontFamily: 'inter',
+                                                        color: 'black',
+                                                        fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
+                                                        marginTop: '5px',
+                                                        overflow: 'auto'
+                                                    }}
+                                                        variant="h4"
+                                                        component="div"
+                                                    >{replaceWithCommas(recipe.notes)}</Typography>
+                                                </CardContent>
+                                            </CardActionArea>
+                                        </div>
+                                    </Card>
+                                </Paper>
+                            </FadeIn>
+                        </Grid>
+                    ))}
+                </Grid>
+            </div>
         </div>
     )
 }

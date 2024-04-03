@@ -6,7 +6,7 @@ import RecipeIngredientsAndInstructions from "./RecipeIngredientsAndInstructions
 import RecipeNotesAndPhoto from "./RecipeNotesAndPhoto/RecipeNotesAndPhoto";
 function LowerSection({ prepTime, cookTime, isCooked, setIsCooked, id, dispatch, rating, setRating, ingredients, instructions, servings, isXsScreen, isSmScreen, replaceWithCommas, imageList, comments }) {
     return (
-        <div className="lower-section">
+        <section className="lower-section">
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: isXsScreen || isSmScreen ? 'center' : 'space-between', }}>
                 <div style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
                     <RecipePrepAndCookTime prepTime={prepTime} replaceWithCommas={replaceWithCommas} />
@@ -20,7 +20,7 @@ function LowerSection({ prepTime, cookTime, isCooked, setIsCooked, id, dispatch,
             <RecipeIngredientsAndInstructions ingredients={ingredients} instructions={instructions} servings={servings} isXsScreen={isXsScreen}
                 isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} />
             <RecipeNotesAndPhoto imageList={imageList} isXsScreen={isXsScreen} isSmScreen={isSmScreen} comments={comments} dispatch={dispatch} id={id} />
-        </div>
+        </section>
     )
 }
 

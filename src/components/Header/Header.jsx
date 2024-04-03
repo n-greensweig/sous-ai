@@ -5,8 +5,8 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import './Header.css';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import PersonIcon from '@mui/icons-material/Person';
-import './Header.css';
 import SearchIcon from '@mui/icons-material/Search';
+import './Header.css';
 /**
  * Renders a header component that is responsive and navigates to a specified route when clicked.
  * 

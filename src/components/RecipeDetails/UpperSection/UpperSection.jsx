@@ -4,7 +4,7 @@ import RecipeProfilePhotoAndNotes from "./RecipeProfilePhotoAndNotes/RecipeProfi
 
 function UpperSection({ title, isEditing, toggleEditing, isSmScreen, isXsScreen, isLoading, onFileChange, imagePath, setTitle, id, saveEditedTitle, removeRecipe, imageList, image, notes, replaceWithCommas, setIsEditing }) {
     return (
-        <div className="upper-section" style={{
+        <section className="upper-section" style={{
             display: 'flex', flexDirection: 'row', alignItems: 'center',
             flexWrap: 'wrap', justifyContent: isSmScreen || isXsScreen ? 'center' : 'space-between'
         }}>
@@ -13,7 +13,7 @@ function UpperSection({ title, isEditing, toggleEditing, isSmScreen, isXsScreen,
                 isLoading={isLoading} onFileChange={onFileChange} imagePath={imagePath} title={title}
                 setTitle={setTitle} id={id} saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} />
             <RecipeProfilePhotoAndNotes isXsScreen={isXsScreen} isSmScreen={isSmScreen} imageList={imageList} image={image} notes={notes} replaceWithCommas={replaceWithCommas} />
-        </div>
+        </section>
     )
 }
 
