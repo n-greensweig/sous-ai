@@ -138,7 +138,7 @@ function App() {
           </Route>
         </Switch>
         {/* <Footer /> */}
-        <Nav />
+        {/* <Nav /> */}
       </div>
     </Router>
   );
