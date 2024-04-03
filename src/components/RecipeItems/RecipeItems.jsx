@@ -9,7 +9,10 @@ import { Grid, Paper, Card, CardContent, CardMedia, CardActionArea, Typography, 
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // Custom components for displaying headers and new recipe list forms.
 import Header from '../Header/Header';
-import NewRecipeList from "../NewRecipeList/NewRecipeList";
+
+// Imports Material-UI components for buttons and icons.
+import { Button } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
@@ -70,34 +73,30 @@ function RecipeItems() {
                 <Grid container spacing={2} minHeight={'5vh'} className="container"
                     style={{
                         marginTop: '0px',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        gap: '16px',
-                        maxWidth: '1400px',
                         margin: '0 auto',
                         padding: '20px 10px',
                         backgroundColor: '#FAF9F6',
                     }}
                 >
-                    <div style={{ display: 'flex', flexDirection: 'column', }}>
-                        <h2 style={{ marginLeft: 'inherit', color: '#222', }}>Saved Recipes</h2>
+                    <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', maxWidth: '1400px', }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+                            <h2 style={{ marginLeft: 'inherit', color: '#222', }}>Saved Recipes</h2>
+                            <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
+                            <input type="text" placeholder="Search your saved recipes" />
+                        </div>
                         {/* Maps through the recipes array and creates a Grid item for each recipe. */}
                         <div style={{
                             marginTop: '0px',
                             display: 'flex',
                             flexDirection: 'row',
                             flexWrap: 'wrap',
-                            justifyContent: 'center',
+                            justifyContent: 'left',
                             alignItems: 'center',
                             gap: '16px',
-                            maxWidth: '1400px',
                         }}>
                             {recipes.map((recipe, index) => (
                                 // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
-                                <Grid item className='card' xs={11} md={3} onClick={() => handleClick(recipe.id)}
+                                <Grid item className='card' xs={11} md={2.5} onClick={() => handleClick(recipe.id)}
                                     style={{ padding: '0px', margin: '4px', }}
                                     id={recipe.id} key={index}
                                 >
@@ -142,7 +141,19 @@ function RecipeItems() {
                                                             }}
                                                                 variant="h4"
                                                                 component="div"
-                                                            >{replaceWithCommas(recipe.notes)}</Typography>
+                                                            >Prep time: {replaceWithCommas(recipe.prep_time)}</Typography>
+                                                            <Typography className="notes" style={{
+                                                                alignItems: 'baseline',
+                                                                justifyContent: 'center',
+                                                                fontFamily: 'inter',
+                                                                color: 'black',
+                                                                fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
+                                                                marginTop: '5px',
+                                                                overflow: 'auto'
+                                                            }}
+                                                                variant="h4"
+                                                                component="div"
+                                                            >Cook time: {replaceWithCommas(recipe.cook_time)}</Typography>
                                                         </CardContent>
                                                     </CardActionArea>
                                                 </div>
