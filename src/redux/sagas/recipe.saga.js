@@ -123,7 +123,6 @@ function* changeCooked(action) {
 }
 
 function* fetchRecipeLists() {
-    console.log('fetching recipe lists');
     try {
         const response = yield axios.get('/api/recipe/list/recipes');
         console.log(response.data);
@@ -131,6 +130,16 @@ function* fetchRecipeLists() {
         yield put(action);
     } catch (error) {
         console.error('Error fetching recipe lists:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
+function* addRecipeToFolder(action) {
+    try {
+        yield axios.post('/api/recipe/list/recipes', action.payload);
+    } catch (error) {
+        console.error('Error adding recipe to folder:', error);
         alert('Something went wrong.');
         throw error;
     }
@@ -148,6 +157,7 @@ function* recipeSaga() {
     yield takeLatest('UPDATE_RATING', changeRating);
     yield takeLatest('UPDATE_COOKED', changeCooked);
     yield takeLatest('FETCH_RECIPE_LISTS', fetchRecipeLists);
+    yield takeLatest('ADD_RECIPE_TO_FOLDER', addRecipeToFolder);
 }
 
 export default recipeSaga;

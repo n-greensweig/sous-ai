@@ -271,4 +271,21 @@ router.get('/list/recipes', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// POST recipe to recipe list in the DB
+router.post('/list/recipes', rejectUnauthenticated, (req, res) => {
+    console.log('req.body:', req.body);
+    let queryText = `
+    INSERT INTO "recipe_list_recipes" ("user_id", "list_id", "recipe_id")
+    VALUES ($1, $2, $3);
+    `;
+    pool.query(queryText, [req.user.id, req.body.listId, req.body.recipeId])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.error('Error posting recipe to recipe list in DB:', error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;

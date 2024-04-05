@@ -47,7 +47,9 @@ function RecipeItems() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [buttonPopup, setButtonPopup] = useState(false);
+    const [addingToFolder, setAddingToFolder] = useState(false);
     const [editedRecipeId, setEditedRecipeId] = useState(null);
+    const recipeLists = useSelector(store => store.recipeListsReducer);
 
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
 
@@ -68,7 +70,11 @@ function RecipeItems() {
     const removeRecipe = () => {
         dispatch({ type: 'REMOVE_RECIPE', payload: editedRecipeId, });
         dispatch({ type: 'FETCH_RECIPES' });
-        history.push('/recipes');
+    };
+
+    // Add recipe to folder
+    const addRecipeToFolder = (id) => {
+        dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: editedRecipeId, }, });
     };
 
     // Fetches recipes from the backend on component mount.
@@ -199,17 +205,50 @@ function RecipeItems() {
                                                                         }}>
                                                                         <DialogContent className="dialog__buttons">
                                                                             <Button onClick={() => removeRecipe()}><BookmarkBorderIcon /> Unsave from Recipe Box</Button>
-                                                                            <Button><FolderOpenIcon /> Add to folder</Button>
+                                                                            <Button onClick={() => setAddingToFolder(true)}><FolderOpenIcon /> Add to folder</Button>
+
+
+
+
+
+
+                                                                            <Dialog open={addingToFolder} onClose={() => setAddingToFolder(false)}
+                                                                                PaperProps={{
+                                                                                    component: 'form',
+                                                                                    onSubmit: (event) => {
+                                                                                        event.preventDefault();
+                                                                                        // saveToFolder(listName);
+                                                                                        setAddingToFolder(false);
+                                                                                    },
+                                                                                }}
+                                                                            >
+                                                                                <DialogTitle style={{ borderBottom: '2px solid gray', }}>Add to Folder <Button onClick={() => setAddingToFolder(false)}>Close</Button></DialogTitle>
+                                                                                <DialogContent>
+                                                                                    {recipeLists && recipeLists.map((list, index) => (
+                                                                                        <p key={list.id} onClick={() => addRecipeToFolder(list.id)} style={{ color: 'black' }}>{list.list_name}</p>
+                                                                                    ))}
+                                                                                    <Button>Done</Button>
+                                                                                </DialogContent>
+                                                                            </Dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                                                         </DialogContent>
-                                                                        <DialogActions>
-                                                                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                                                                                <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
-                                                                                    {/* Buttons for cancelling or saving the new recipe folder. */}
-                                                                                    <Button style={{ width: '50%', color: 'gray' }} onClick={() => setButtonPopup(false)}>Cancel</Button>
-                                                                                    <Button variant="outlined" type="submit" style={{ width: '50%', color: '#DAA520', borderColor: '#DAA520' }}>Save</Button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </DialogActions>
                                                                     </Dialog>
                                                                 </Popup>
                                                             </div>
