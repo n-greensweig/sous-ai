@@ -1,6 +1,6 @@
 // Imports necessary hooks from React and Redux for state management, and effects.
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useState, useEffect } from 'react';
 // Imports custom CSS for styling this component.
 import './RecipeItems.css';
 // Imports from Material-UI for UI components with responsive capabilities.
@@ -13,9 +13,11 @@ import Header from '../Header/Header';
 // Imports Material-UI components for buttons and icons.
 import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
+import Popup from "../Popup/Popup";
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -38,16 +40,22 @@ function RecipeItems() {
     // Initialize dispatch and history for Redux actions and navigation.
     const dispatch = useDispatch();
     const history = useHistory();
+    const [buttonPopup, setButtonPopup] = useState(false);
+    
+    const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
 
-    // Retrieves the recipes from the Redux store using useSelector hook.
-    const recipes = useSelector(store => store.recipeReducer);
-    // Sets the document title to 'Saved Recipes'.
-    document.title = 'Saved Recipes';
+    document.title = 'Saved Recipes'; // Sets the document title to 'Saved Recipes'.
+
+    const [lockClick, setLockClick] = useState(false);
 
     // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
-    const handleClick = id => {
-        dispatch({ type: 'SET_SELECTED_RECIPE_ID', payload: id });
-        history.push(`/recipes/${id}`);
+    const handleClick = (id) => {
+        if (!buttonPopup) {
+            dispatch({ type: 'SET_SELECTED_RECIPE_ID', payload: id });
+            history.push(`/recipes/${id}`);
+        } else {
+            setButtonPopup(false);
+        }
     };
 
     // Fetches recipes from the backend on component mount.
@@ -62,6 +70,20 @@ function RecipeItems() {
     const theme = useTheme();
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    // Function to handle the opening of the popup and prevent event propagation
+    const handleOpenPopup = (e, id) => {
+        e.stopPropagation(); // Prevent the click from reaching the card's onClick
+        setButtonPopup(true);
+    };
+
+    // useEffect(() => {
+    //     if (!buttonPopup) {
+    //         // When the popup is not visible, unlock after a brief moment
+    //         const timer = setTimeout(() => setLockClick(false), 100);
+    //         return () => clearTimeout(timer);
+    //     }
+    // }, [buttonPopup]);
 
     return (
         // Sets padding and margin based on screen size for responsive design.
@@ -96,7 +118,8 @@ function RecipeItems() {
                         }}>
                             {recipes.map((recipe, index) => (
                                 // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
-                                <Grid item className='card' xs={11} md={2.5} onClick={() => handleClick(recipe.id)}
+                                <Grid item className='card' xs={11} md={2.5}
+                                    onClick={() => handleClick(recipe.id)}
                                     style={{ padding: '0px', margin: '4px', }}
                                     id={recipe.id} key={index}
                                 >
@@ -142,23 +165,37 @@ function RecipeItems() {
                                                                 variant="h4"
                                                                 component="div"
                                                             >Prep time: {replaceWithCommas(recipe.prep_time)}</Typography>
-                                                            <Typography className="notes" style={{
-                                                                alignItems: 'baseline',
-                                                                justifyContent: 'center',
-                                                                fontFamily: 'inter',
-                                                                color: 'black',
-                                                                fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
-                                                                marginTop: '5px',
-                                                                overflow: 'auto'
-                                                            }}
-                                                                variant="h4"
-                                                                component="div"
-                                                            >Cook time: {replaceWithCommas(recipe.cook_time)}</Typography>
+                                                            <div className="notes__button">
+                                                                <Typography className="notes" style={{
+                                                                    alignItems: 'baseline',
+                                                                    justifyContent: 'center',
+                                                                    fontFamily: 'inter',
+                                                                    color: 'black',
+                                                                    fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
+                                                                    marginTop: '5px',
+                                                                    overflow: 'auto'
+                                                                }}
+                                                                    variant="h4"
+                                                                    component="div"
+                                                                >Cook time: {replaceWithCommas(recipe.cook_time)}</Typography>
+                                                                {/* <Button variant="text" className="header__button"
+                                                                    startIcon={<MoreHorizIcon className='icon--black' />}></Button> */}
+                                                                <Button onClick={(e) => handleOpenPopup(e, recipe.id)}>More</Button>
+                                                                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                                                                    <h3>My popup</h3>
+                                                                    <p>This is my button-triggered pop-up</p>
+                                                                </Popup>
+                                                            </div>
                                                         </CardContent>
                                                     </CardActionArea>
                                                 </div>
                                             </Card>
                                         </Paper>
+                                        {/* {buttonPopup && (
+                                            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                                                <h3>Recipe Popup</h3>
+                                            </Popup>
+                                        )} */}
                                     </FadeIn>
                                 </Grid>
                             ))}
