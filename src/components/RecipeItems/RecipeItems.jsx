@@ -41,7 +41,7 @@ function RecipeItems() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [buttonPopup, setButtonPopup] = useState(false);
-    
+
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
 
     document.title = 'Saved Recipes'; // Sets the document title to 'Saved Recipes'.
@@ -49,6 +49,7 @@ function RecipeItems() {
     const [lockClick, setLockClick] = useState(false);
 
     // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
+    // If the buttonPopup state is true, it sets the buttonPopup state to false.
     const handleClick = (id) => {
         if (!buttonPopup) {
             dispatch({ type: 'SET_SELECTED_RECIPE_ID', payload: id });
@@ -72,18 +73,10 @@ function RecipeItems() {
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     // Function to handle the opening of the popup and prevent event propagation
-    const handleOpenPopup = (e, id) => {
+    const handleOpenPopup = e => {
         e.stopPropagation(); // Prevent the click from reaching the card's onClick
         setButtonPopup(true);
     };
-
-    // useEffect(() => {
-    //     if (!buttonPopup) {
-    //         // When the popup is not visible, unlock after a brief moment
-    //         const timer = setTimeout(() => setLockClick(false), 100);
-    //         return () => clearTimeout(timer);
-    //     }
-    // }, [buttonPopup]);
 
     return (
         // Sets padding and margin based on screen size for responsive design.
@@ -178,9 +171,8 @@ function RecipeItems() {
                                                                     variant="h4"
                                                                     component="div"
                                                                 >Cook time: {replaceWithCommas(recipe.cook_time)}</Typography>
-                                                                {/* <Button variant="text" className="header__button"
-                                                                    startIcon={<MoreHorizIcon className='icon--black' />}></Button> */}
-                                                                <Button onClick={(e) => handleOpenPopup(e, recipe.id)}>More</Button>
+                                                                <Button variant="text" className="header__button"
+                                                                    startIcon={<MoreHorizIcon className='icon--black' />} onClick={(e) => handleOpenPopup(e)}></Button>
                                                                 <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                                                                     <h3>My popup</h3>
                                                                     <p>This is my button-triggered pop-up</p>
@@ -191,11 +183,6 @@ function RecipeItems() {
                                                 </div>
                                             </Card>
                                         </Paper>
-                                        {/* {buttonPopup && (
-                                            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                                                <h3>Recipe Popup</h3>
-                                            </Popup>
-                                        )} */}
                                     </FadeIn>
                                 </Grid>
                             ))}
