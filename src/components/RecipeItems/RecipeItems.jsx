@@ -14,10 +14,16 @@ import Header from '../Header/Header';
 import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
 import Popup from "../Popup/Popup";
+
+// Imports Material-UI components for buttons and icons.
+import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
+import './RecipeItems.css';
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -41,12 +47,11 @@ function RecipeItems() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [buttonPopup, setButtonPopup] = useState(false);
+    const [editedRecipeId, setEditedRecipeId] = useState(null);
 
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
 
     document.title = 'Saved Recipes'; // Sets the document title to 'Saved Recipes'.
-
-    const [lockClick, setLockClick] = useState(false);
 
     // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
     // If the buttonPopup state is true, it sets the buttonPopup state to false.
@@ -57,6 +62,13 @@ function RecipeItems() {
         } else {
             setButtonPopup(false);
         }
+    };
+
+    // Remove recipe
+    const removeRecipe = () => {
+        dispatch({ type: 'REMOVE_RECIPE', payload: editedRecipeId, });
+        dispatch({ type: 'FETCH_RECIPES' });
+        history.push('/recipes');
     };
 
     // Fetches recipes from the backend on component mount.
@@ -73,8 +85,9 @@ function RecipeItems() {
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     // Function to handle the opening of the popup and prevent event propagation
-    const handleOpenPopup = e => {
+    const handleOpenPopup = (e, id) => {
         e.stopPropagation(); // Prevent the click from reaching the card's onClick
+        setEditedRecipeId(id); // Set the recipe ID to the one that was clicked
         setButtonPopup(true);
     };
 
@@ -171,11 +184,33 @@ function RecipeItems() {
                                                                     variant="h4"
                                                                     component="div"
                                                                 >Cook time: {replaceWithCommas(recipe.cook_time)}</Typography>
+
                                                                 <Button variant="text" className="header__button"
-                                                                    startIcon={<MoreHorizIcon className='icon--black' />} onClick={(e) => handleOpenPopup(e)}></Button>
+                                                                    startIcon={<MoreHorizIcon className='icon--black' />} onClick={(e) => handleOpenPopup(e, recipe.id)}></Button>
                                                                 <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                                                                    <h3>My popup</h3>
-                                                                    <p>This is my button-triggered pop-up</p>
+                                                                    <Dialog open={buttonPopup} onClose={() => setButtonPopup(false)}
+                                                                        PaperProps={{
+                                                                            component: 'form',
+                                                                            onSubmit: (event) => {
+                                                                                event.preventDefault();
+                                                                                // saveToFolder(listName);
+                                                                                setButtonPopup(false);
+                                                                            },
+                                                                        }}>
+                                                                        <DialogContent className="dialog__buttons">
+                                                                            <Button onClick={() => removeRecipe()}><BookmarkBorderIcon /> Unsave from Recipe Box</Button>
+                                                                            <Button><FolderOpenIcon /> Add to folder</Button>
+                                                                        </DialogContent>
+                                                                        <DialogActions>
+                                                                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                                                                                <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
+                                                                                    {/* Buttons for cancelling or saving the new recipe folder. */}
+                                                                                    <Button style={{ width: '50%', color: 'gray' }} onClick={() => setButtonPopup(false)}>Cancel</Button>
+                                                                                    <Button variant="outlined" type="submit" style={{ width: '50%', color: '#DAA520', borderColor: '#DAA520' }}>Save</Button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </DialogActions>
+                                                                    </Dialog>
                                                                 </Popup>
                                                             </div>
                                                         </CardContent>

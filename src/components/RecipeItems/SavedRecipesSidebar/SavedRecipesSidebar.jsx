@@ -57,7 +57,7 @@ function SavedRecipesSidebar() {
                     <p key={index} style={{ color: 'black' }}>{list.list_name}</p>
                 ))}
             </div>
-            {/* Dialog for creating a new recipe list. */}
+            {/* Dialog for creating a new recipe folder. */}
             <Dialog open={isCreating}
                 onClose={toggleCreating}
                 PaperProps={{
@@ -68,9 +68,9 @@ function SavedRecipesSidebar() {
                         toggleCreating(event);
                     },
                 }}>
-                <DialogTitle>Create new recipe list</DialogTitle>
+                <DialogTitle>Create new recipe folder</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>New recipe list</DialogContentText>
+                    <DialogContentText>New recipe folder</DialogContentText>
                     <TextField autoFocus
                         margin="dense"
                         id="title"
@@ -84,7 +84,7 @@ function SavedRecipesSidebar() {
                 <DialogActions>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                         <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
-                            {/* Buttons for cancelling or saving the new recipe list. */}
+                            {/* Buttons for cancelling or saving the new recipe folder. */}
                             <Button style={{ width: '50%', color: 'gray' }} onClick={() => setIsCreating(false)}>Cancel</Button>
                             <Button variant="outlined" type="submit" style={{ width: '50%', color: '#DAA520', borderColor: '#DAA520' }}>Save</Button>
                         </div>

@@ -24,3 +24,8 @@
 .notes__button {
    display: flex;
 }
+
+.dialog__buttons {
+   display: flex;
+   flex-direction: column;
+}
