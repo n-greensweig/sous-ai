@@ -16,6 +16,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import AddIcon from '@mui/icons-material/Add';
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
@@ -225,7 +226,9 @@ function RecipeItems() {
                                                                                 <DialogTitle style={{ borderBottom: '2px solid gray', }}>Add to Folder <Button onClick={() => setAddingToFolder(false)}>Close</Button></DialogTitle>
                                                                                 <DialogContent>
                                                                                     {recipeLists && recipeLists.map((list, index) => (
-                                                                                        <p key={list.id} onClick={() => addRecipeToFolder(list.id)} style={{ color: 'black' }}>{list.list_name}</p>
+                                                                                        <p className="gray-background" key={list.id} onClick={() => addRecipeToFolder(list.id)} style={{ color: 'black' }}>
+                                                                                            {list.list_name} <AddIcon onClick={() => addRecipeToFolder(list.id)} />
+                                                                                        </p>
                                                                                     ))}
                                                                                     <Button>Done</Button>
                                                                                 </DialogContent>
