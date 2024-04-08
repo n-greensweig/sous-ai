@@ -22,11 +22,11 @@ function* saveRecipe(action) {
     }
 }
 
-function* getRecipes() {
+function* getRecipes(action) {
     try {
-        const response = yield axios.get('/api/recipe');
-        const action = { type: 'GET_RECIPES', payload: response.data };
-        yield put(action);
+        const response = yield axios.get(`/api/recipe?q=${action.payload}`);
+        const newAction = { type: 'GET_RECIPES', payload: response.data };
+        yield put(newAction);
     } catch (error) {
         console.error('Error fetching recipes:', error);
         alert('Something went wrong.');

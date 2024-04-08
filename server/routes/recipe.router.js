@@ -106,26 +106,34 @@ router.post('/comments/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
-// GET all recipes from the DB
+// GET all recipes from the DB with optional search query
 router.get('/', rejectUnauthenticated, (req, res) => {
     let queryText = `
-SELECT 
-    "recipe_item".*,
-    COALESCE(
-        (SELECT "images"."path"
-         FROM "images"
-         WHERE "images"."recipe_id" = "recipe_item"."id"
-         ORDER BY "images"."created_at" DESC
-         LIMIT 1),
-        "recipe_item"."photo"
-    ) AS "display_photo"
-FROM 
-    "recipe_item"
-WHERE
-    "recipe_item"."user_id" = $1
-ORDER BY 
-    "recipe_item"."id" DESC;`;
-    pool.query(queryText, [req.user.id])
+        SELECT 
+            "recipe_item".*,
+            COALESCE(
+                (SELECT "images"."path"
+                FROM "images"
+                WHERE "images"."recipe_id" = "recipe_item"."id"
+                ORDER BY "images"."created_at" DESC
+                LIMIT 1),
+                "recipe_item"."photo"
+            ) AS "display_photo"
+        FROM 
+            "recipe_item"
+        WHERE
+            "recipe_item"."user_id" = $1
+            ${req.query.q ? 'AND "title" ILIKE $2' : ''}
+        ORDER BY 
+            "recipe_item"."id" DESC;
+    `;
+
+    const queryParams = [req.user.id];
+    if (req.query.q) {
+        queryParams.push(`%${req.query.q}%`);
+    }
+
+    pool.query(queryText, queryParams)
         .then(result => {
             res.send(result.rows);
         })

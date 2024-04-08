@@ -50,6 +50,7 @@ function RecipeItems() {
     const [buttonPopup, setButtonPopup] = useState(false);
     const [addingToFolder, setAddingToFolder] = useState(false);
     const [editedRecipeId, setEditedRecipeId] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
     const recipeLists = useSelector(store => store.recipeListsReducer);
 
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
@@ -78,10 +79,10 @@ function RecipeItems() {
         dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: editedRecipeId, }, });
     };
 
-    // Fetches recipes from the backend on component mount.
+    // Fetch recipes with search filter
     useEffect(() => {
-        dispatch({ type: 'FETCH_RECIPES' });
-    }, []);
+        dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
+    }, [searchQuery, dispatch]);
 
     // Utility function to replace '@' symbols with commas, used for displaying recipe notes.
     const replaceWithCommas = str => str.replace(/@/g, ',');
@@ -117,7 +118,12 @@ function RecipeItems() {
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                             <h2 style={{ marginLeft: 'inherit', color: '#222', }}>Saved Recipes</h2>
                             <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
-                            <input type="text" placeholder="Search your saved recipes" />
+                            <input
+                                type="text"
+                                placeholder="Search your saved recipes"
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                value={searchQuery}
+                            />
                         </div>
                         {/* Maps through the recipes array and creates a Grid item for each recipe. */}
                         <div style={{
