@@ -20,6 +20,7 @@
 
 .sidebar__icon {
     fill: black !important;
+    margin-right: 16px;
 }
 .sidebar__p--your-folders {
     text-transform: uppercase;
@@ -29,4 +30,7 @@
     cursor: pointer;
     background-color: #FAF9F6;
     width: 100%;
+}
+.sidebar-content p {
+    display: flex;
 }

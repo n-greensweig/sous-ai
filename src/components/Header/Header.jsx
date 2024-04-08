@@ -33,11 +33,8 @@ function Header() {
         isXsScreen || isSmScreen ? null :
             <header>
                 <div className='header--flex'>
-                    <div className="header__logo">
-
-                        <img src="images/avatars/sous.png" className="header__img" alt="SousAI"
-                            onClick={() => history.push('/')}
-                        />
+                    <div className="header__logo" onClick={() => history.push('/')}>
+                        <img src="images/avatars/sous.png" className="header__img" alt="SousAI" />
                         <div className='header__bar'></div>
                         <strong>SousAI</strong>
                     </div>
