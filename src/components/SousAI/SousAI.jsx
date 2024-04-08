@@ -1,7 +1,7 @@
 // Import styles specific to the UserPage component
 import './SousAI.css';
 // React hooks for managing state and lifecycle in functional components
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // Hook from redux for dispatching actions
 import { useDispatch } from 'react-redux';
 // MUI components for UI design
@@ -33,6 +33,19 @@ function SousAI() {
   const [message, setMessage] = useState(null); // Stores the current message
   const [createdRecipes, setCreatedRecipes] = useState([]); // Stores recipes created in the session
   const [loading, setLoading] = useState(false); // Indicates whether a request is in progress
+  const textareaRef = useRef(null);
+
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    textarea.style.height = 'auto'; // Reset the height so the scrollHeight measurement is correct
+    const maxHeight = 125; // Maximum height before scrolling
+    const scrollHeight = textarea.scrollHeight;
+    textarea.style.height = `${Math.min(scrollHeight, maxHeight)}px`;
+    textarea.style.overflowY = scrollHeight > maxHeight ? 'auto' : 'hidden'; // Allow scrolling if the content exceeds maxHeight
+  };
+
 
   // Date utilities for displaying current month and year
   const today = new Date();
@@ -288,9 +301,14 @@ function SousAI() {
             <div className="input-container">
               <form onSubmit={getMessages} id='sous-form'>
                 <textarea
+                  id="dynamic-textarea"
+                  ref={textareaRef}
                   value={loading ? '' : value}
                   disabled={loading}
-                  onChange={e => setValue(e.target.value)}
+                  onChange={e => {
+                    setValue(e.target.value);
+                    adjustTextareaHeight(); // Adjust the height after setting the new value
+                  }}
                   onKeyDown={(e) => {
                     // Check if Enter key is pressed without the Shift key
                     if (e.key === 'Enter' && !e.shiftKey) {
@@ -300,7 +318,6 @@ function SousAI() {
                   }}
                   placeholder='What would you like to cook today?'
                   required
-                  style={{ height: 'auto', minHeight: '30px' }}
                 />
                 {/* Submit button changes based on whether input value is present and not loading */}
                 {value.trim() && !loading

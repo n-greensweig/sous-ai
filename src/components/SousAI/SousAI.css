@@ -55,6 +55,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 .section__chat {
   display: flex;
   flex-direction: column;
@@ -91,18 +92,33 @@ body {
 }
 
 /* Styling for text area inputs with subtle background, no border, and shadow for depth */
-textarea {
+#dynamic-textarea {
   width: 100%;
-  font-size: 20px;
-  border: none;
-  background-color: rgba(255, 255, 255, .05);
-  padding: 12px 15px;
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, .05) 0 54px 55px,
-    rgba(0, 0, 0, .05) 0 -12px 30px,
-    rgba(0, 0, 0, .05) 0 4px 6px,
-    rgba(0, 0, 0, .05) 0 12px 3px,
-    rgba(0, 0, 0, .05) 0 -3px 5px;
+  padding: 10px;
+  font-size: 16px;
+  min-height: 25px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  align-content: center;
+  resize: none;
+  outline: none;
+  overflow-y: hidden;
+  /* Prevent scrollbar from appearing */
+  min-height: 10px;
+  /* Minimum height */
+  max-height: 300px;
+  /* Maximum height before scrolling */
+  line-height: 1.5;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+textarea::placeholder {
+  color: #999;
 }
 
 /* Adjust input container and textarea styles for better usability on mobile devices */
@@ -117,11 +133,6 @@ textarea {
     /* Adjust font size for smaller screens */
     padding: 10px 15px;
   }
-}
-
-/* Remove the outline on focus for textareas to maintain a clean design */
-textarea:focus {
-  outline: none;
 }
 
 /* Submit button styling, transparent with custom sizing and cursor change on hover */
@@ -153,6 +164,7 @@ textarea:focus {
 #sous-form {
   display: flex;
   flex-direction: row;
+  height: fit-content;
 }
 
 /* Styling for the feed container to allow scrolling of content */
