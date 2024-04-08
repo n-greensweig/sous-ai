@@ -43,8 +43,13 @@ function SousAI() {
     const maxHeight = 200; // Maximum height before scrolling
     const scrollHeight = textarea.scrollHeight;
     textarea.style.height = `${Math.min(scrollHeight, maxHeight)}px`;
+    textarea.scrollTop = textarea.scrollHeight; // Scroll to the bottom
     textarea.style.overflowY = scrollHeight > maxHeight ? 'auto' : 'hidden'; // Allow scrolling if the content exceeds maxHeight
   };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [value]); // Call adjustTextareaHeight whenever 'value' changes
 
 
   // Date utilities for displaying current month and year
