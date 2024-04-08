@@ -291,6 +291,13 @@ function SousAI() {
                   value={loading ? '' : value}
                   disabled={loading}
                   onChange={e => setValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    // Check if Enter key is pressed without the Shift key
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault(); // Prevent the default action to avoid a new line
+                      getMessages(e); // Call the function directly or use the form's submit method
+                    }
+                  }}
                   placeholder='What would you like to cook today?'
                   required
                   style={{ height: 'auto', minHeight: '30px' }}
