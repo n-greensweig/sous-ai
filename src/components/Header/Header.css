@@ -57,9 +57,11 @@ button {
 
 .header__button {
     color: black !important;
-    text-transform: none !important;
-    border-radius: 0 !important;
-    outline: none !important;
+}
+.hover {
+    border-bottom: 2px solid transparent;
+    background-color: none;
+    cursor: pointer;
 }
 .hover:hover {
     border-bottom: 2px solid red;
