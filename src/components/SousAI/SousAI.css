@@ -103,7 +103,7 @@ body {
   align-content: center;
   resize: none;
   outline: none;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   min-height: 10px;
   max-height: 300px;
   height: 52px;
@@ -142,7 +142,7 @@ textarea::placeholder {
   width: 10px;
   padding: 0px;
   align-self: flex-end;
-  margin-left: -75px;
+  margin-left: -45px;
   cursor: pointer;
 }
 

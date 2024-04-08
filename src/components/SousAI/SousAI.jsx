@@ -322,10 +322,12 @@ function SousAI() {
                 />
                 {/* Submit button changes based on whether input value is present and not loading */}
                 {value.trim() && !loading
-                  ? <Button style={{ backgroundColor: '#333333' }} type='submit' id='submit'>
+                  ? <Button style={{ backgroundColor: '#333333' }}
+                    sx={{ minWidth: '33px', }}
+                    type='submit' id='submit'>
                     <ArrowUpwardIcon className='up-icon' style={{ fill: '#FFF', justifyContent: 'center' }} />
                   </Button>
-                  : <Button disabled type='submit' id='submit'>
+                  : <Button sx={{ minWidth: '33px', }} disabled type='submit' id='submit'>
                     <ArrowUpwardIcon className='up-icon' style={{ justifyContent: 'center' }} />
                   </Button>
                 }
