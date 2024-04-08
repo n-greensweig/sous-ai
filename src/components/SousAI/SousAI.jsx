@@ -179,139 +179,141 @@ function SousAI() {
       </Snackbar>
 
       {/* Main content area */}
-      <section className='main' style={{ color: '#374151' }}>
+      <section className='main' style={{ color: '#374151', }}>
         {/* Page title */}
         <Header />
-        <h1>SousAI</h1>
-        <ul className='feed'>
-          {/* Maps over currentChat to render chat messages */}
-          {currentChat?.map((chatMessage, index) => (
-            <li className='response' key={index}>
-              <p className="role">
-                {/* Conditional rendering based on the role of the message sender */}
-                {capitalizeFirstLetter(chatMessage.role) === 'Assistant' ?
-                  // Renders assistant's avatar and name
-                  <div id='name-pic' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <img className='avi' src={`images/avatars/sous.png`}
-                      height={'30'}
-                      width={'30'}
-                      style={{ borderRadius: '75%', marginRight: '15px' }}
-                    />
-                    <strong>SousAI</strong>
-                  </div>
-                  :
-                  // Renders user's avatar and name
-                  <div id='name-pic' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <img className='avi' src={`images/avatars/user-avatar.png`}
-                      height={'30'}
-                      width={'30'}
-                      style={{ borderRadius: '75%', marginRight: '15px' }}
-                    />
-                    <strong>You</strong>
-                  </div>
-                }
-              </p>
+        <div className='section__chat'>
+          <h1>SousAI</h1>
+          <ul className='feed'>
+            {/* Maps over currentChat to render chat messages */}
+            {currentChat?.map((chatMessage, index) => (
+              <li className='response' key={index}>
+                <p className="role">
+                  {/* Conditional rendering based on the role of the message sender */}
+                  {capitalizeFirstLetter(chatMessage.role) === 'Assistant' ?
+                    // Renders assistant's avatar and name
+                    <div id='name-pic' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                      <img className='avi' src={`images/avatars/sous.png`}
+                        height={'30'}
+                        width={'30'}
+                        style={{ borderRadius: '75%', marginRight: '15px' }}
+                      />
+                      <strong>SousAI</strong>
+                    </div>
+                    :
+                    // Renders user's avatar and name
+                    <div id='name-pic' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                      <img className='avi' src={`images/avatars/user-avatar.png`}
+                        height={'30'}
+                        width={'30'}
+                        style={{ borderRadius: '75%', marginRight: '15px' }}
+                      />
+                      <strong>You</strong>
+                    </div>
+                  }
+                </p>
 
-              <p>
-                {/* Conditional rendering for recipe content, including parsing JSON if needed */}
-                {chatMessage.role === 'user'
-                  ? chatMessage.content // User's message
-                  : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).prep_time
-                    ? (
-                      // Recipe details formatted
-                      <div className='black'>
-                        <strong>Recipe Name: </strong>
-                        {replaceWithCommas(JSON.parse(chatMessage.content).recipe_name)}<br /><br />
-                        <strong>Prep Time: </strong>
-                        {replaceWithCommas(JSON.parse(chatMessage.content).prep_time)}<br /><br />
-                        <strong>Cook Time: </strong>
-                        {replaceWithCommas(JSON.parse(chatMessage.content).cook_time)}<br /><br />
-                        <strong>Number of servings: </strong>
-                        {replaceWithCommas(JSON.parse(chatMessage.content).number_of_servings)}<br /><br />
-                        <strong>Recipe notes: </strong>
-                        {replaceWithCommas(JSON.parse(chatMessage.content).notes)}
-                      </div>
-                    )
-                    : chatMessage.content // Fallback to plain message content
-                }
-
-                {/* Conditional rendering for ingredients list */}
-                {chatMessage.role === 'user'
-                  ? null
-                  : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).ingredients
-                    ? (
-                      <div style={{ margin: '15px 0' }}>
-                        <strong>Ingredients:</strong>
-                        <ul>
-                          {JSON.parse(chatMessage.content).ingredients.map((ingredient, index) => (
-                            <li key={index}>{replaceWithCommas(ingredient)}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )
-                    : null
-                }
-                {/* Conditional rendering for cooking instructions */}
-                {
-                  chatMessage.role === 'user'
-                    ? null
-                    : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).instructions
+                <p>
+                  {/* Conditional rendering for recipe content, including parsing JSON if needed */}
+                  {chatMessage.role === 'user'
+                    ? chatMessage.content // User's message
+                    : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).prep_time
                       ? (
-                        <div>
-                          <strong>Instructions:</strong>
-                          <ol>
-                            {JSON.parse(chatMessage.content).instructions.map((instruction, index) => (
-                              <li key={index}>{replaceWithCommas(instruction)}</li>
+                        // Recipe details formatted
+                        <div className='black'>
+                          <strong>Recipe Name: </strong>
+                          {replaceWithCommas(JSON.parse(chatMessage.content).recipe_name)}<br /><br />
+                          <strong>Prep Time: </strong>
+                          {replaceWithCommas(JSON.parse(chatMessage.content).prep_time)}<br /><br />
+                          <strong>Cook Time: </strong>
+                          {replaceWithCommas(JSON.parse(chatMessage.content).cook_time)}<br /><br />
+                          <strong>Number of servings: </strong>
+                          {replaceWithCommas(JSON.parse(chatMessage.content).number_of_servings)}<br /><br />
+                          <strong>Recipe notes: </strong>
+                          {replaceWithCommas(JSON.parse(chatMessage.content).notes)}
+                        </div>
+                      )
+                      : chatMessage.content // Fallback to plain message content
+                  }
+
+                  {/* Conditional rendering for ingredients list */}
+                  {chatMessage.role === 'user'
+                    ? null
+                    : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).ingredients
+                      ? (
+                        <div style={{ margin: '15px 0' }}>
+                          <strong>Ingredients:</strong>
+                          <ul>
+                            {JSON.parse(chatMessage.content).ingredients.map((ingredient, index) => (
+                              <li key={index}>{replaceWithCommas(ingredient)}</li>
                             ))}
-                          </ol>
+                          </ul>
                         </div>
                       )
                       : null
+                  }
+                  {/* Conditional rendering for cooking instructions */}
+                  {
+                    chatMessage.role === 'user'
+                      ? null
+                      : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).instructions
+                        ? (
+                          <div>
+                            <strong>Instructions:</strong>
+                            <ol>
+                              {JSON.parse(chatMessage.content).instructions.map((instruction, index) => (
+                                <li key={index}>{replaceWithCommas(instruction)}</li>
+                              ))}
+                            </ol>
+                          </div>
+                        )
+                        : null
+                  }
+                </p>
+                {/* Button to save the recipe if it's from the assistant and is in JSON format */}
+                {chatMessage.role === 'assistant' && isJSON(chatMessage.content) ? <button onClick={saveRecipe} id='save-recipe-button'>Save recipe</button> : null}
+              </li>
+            ))}
+          </ul>
+
+          {/* Loader animation to indicate that a recipe is being prepared */}
+          {loading && (
+            <div id='pacman'>
+              Cooking up delicious recipe...<PacmanLoader color='#DAA520' size={20} />
+            </div>
+          )}
+
+          {/* Input form for new recipe requests */}
+          <div className='bottom-section' style={{ marginBottom: isXsScreen || isSmScreen ? '5%' : null }}>
+            <div className="input-container">
+              <form onSubmit={getMessages} id='sous-form'>
+                <textarea
+                  value={loading ? '' : value}
+                  disabled={loading}
+                  onChange={e => setValue(e.target.value)}
+                  placeholder='What would you like to cook today?'
+                  required
+                  style={{ height: 'auto', minHeight: '30px' }}
+                />
+                {/* Submit button changes based on whether input value is present and not loading */}
+                {value.trim() && !loading
+                  ? <Button style={{ backgroundColor: '#333333' }} type='submit' id='submit'>
+                    <ArrowUpwardIcon className='up-icon' style={{ fill: '#FFF', justifyContent: 'center' }} />
+                  </Button>
+                  : <Button disabled type='submit' id='submit'>
+                    <ArrowUpwardIcon className='up-icon' style={{ justifyContent: 'center' }} />
+                  </Button>
                 }
-              </p>
-              {/* Button to save the recipe if it's from the assistant and is in JSON format */}
-              {chatMessage.role === 'assistant' && isJSON(chatMessage.content) ? <button onClick={saveRecipe} id='save-recipe-button'>Save recipe</button> : null}
-            </li>
-          ))}
-        </ul>
-
-        {/* Loader animation to indicate that a recipe is being prepared */}
-        {loading && (
-          <div id='pacman'>
-            Cooking up delicious recipe...<PacmanLoader color='#DAA520' size={20} />
+              </form>
+            </div>
+            {/* Informational text about how the app operates */}
+            <p className="info" style={{ marginBottom: isSmScreen || isXsScreen ? '10%' : null }}>
+              As of {month} {year}, SousAI operates on a message-by-message basis.<br />
+              Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
+            </p>
           </div>
-        )}
-
-        {/* Input form for new recipe requests */}
-        <div className='bottom-section' style={{ marginBottom: '7%', margin: '0 10px 7% 10px' }}>
-          <div className="input-container">
-            <form onSubmit={getMessages} id='sous-form' style={{ marginBottom: '0px' }}>
-              <textarea
-                value={loading ? '' : value}
-                disabled={loading}
-                onChange={e => setValue(e.target.value)}
-                placeholder='What would you like to cook today?'
-                required
-                style={{ height: 'auto', minHeight: '30px' }}
-              />
-              {/* Submit button changes based on whether input value is present and not loading */}
-              {value.trim() && !loading
-                ? <Button style={{ backgroundColor: '#333333' }} type='submit' id='submit'>
-                  <ArrowUpwardIcon className='up-icon' style={{ fill: '#FFF', justifyContent: 'center' }} />
-                </Button>
-                : <Button disabled type='submit' id='submit'>
-                  <ArrowUpwardIcon className='up-icon' style={{ justifyContent: 'center' }} />
-                </Button>
-              }
-            </form>
-          </div>
-          {/* Informational text about how the app operates */}
-          <p className="info" style={{ marginBottom: isSmScreen || isXsScreen ? '10%' : null }}>
-            As of {month} {year}, SousAI operates on a message-by-message basis.<br />
-            Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
-          </p>
         </div>
-      </section >
+      </section>
     </div >
   );
 }
