@@ -314,7 +314,7 @@ function SousAI() {
                     setValue(e.target.value);
                     adjustTextareaHeight(); // Adjust the height after setting the new value
                   }}
-                  style={{ padding: '0px 0px 0px 10px', }}
+                  style={{ padding: '0px 0px 0px 10px', marginRight: '10px', }}
                   onKeyDown={(e) => {
                     // Check if Enter key is pressed without the Shift key
                     if (e.key === 'Enter' && !e.shiftKey) {
