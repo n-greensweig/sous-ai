@@ -40,7 +40,7 @@ function SousAI() {
     if (!textarea) return;
 
     textarea.style.height = 'auto'; // Reset the height so the scrollHeight measurement is correct
-    const maxHeight = 125; // Maximum height before scrolling
+    const maxHeight = 200; // Maximum height before scrolling
     const scrollHeight = textarea.scrollHeight;
     textarea.style.height = `${Math.min(scrollHeight, maxHeight)}px`;
     textarea.style.overflowY = scrollHeight > maxHeight ? 'auto' : 'hidden'; // Allow scrolling if the content exceeds maxHeight
@@ -309,6 +309,7 @@ function SousAI() {
                     setValue(e.target.value);
                     adjustTextareaHeight(); // Adjust the height after setting the new value
                   }}
+                  style={{ padding: '0px 0px 0px 10px', }}
                   onKeyDown={(e) => {
                     // Check if Enter key is pressed without the Shift key
                     if (e.key === 'Enter' && !e.shiftKey) {

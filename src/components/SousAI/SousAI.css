@@ -104,11 +104,9 @@ body {
   resize: none;
   outline: none;
   overflow-y: hidden;
-  /* Prevent scrollbar from appearing */
   min-height: 10px;
-  /* Minimum height */
   max-height: 300px;
-  /* Maximum height before scrolling */
+  height: 52px;
   line-height: 1.5;
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
@@ -143,7 +141,7 @@ textarea::placeholder {
   height: 35px;
   width: 10px;
   padding: 0px;
-  align-self: center;
+  align-self: flex-end;
   margin-left: -75px;
   cursor: pointer;
 }
