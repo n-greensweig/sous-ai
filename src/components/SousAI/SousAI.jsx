@@ -314,7 +314,7 @@ function SousAI() {
                     setValue(e.target.value);
                     adjustTextareaHeight(); // Adjust the height after setting the new value
                   }}
-                  style={{ padding: '0px 0px 0px 10px', marginRight: '10px', }}
+                  style={{ padding: '0px 41px 0px 10px', }}
                   onKeyDown={(e) => {
                     // Check if Enter key is pressed without the Shift key
                     if (e.key === 'Enter' && !e.shiftKey) {
@@ -327,13 +327,13 @@ function SousAI() {
                 />
                 {/* Submit button changes based on whether input value is present and not loading */}
                 {value.trim() && !loading
-                  ? <Button style={{ backgroundColor: '#333333' }}
+                  ? <Button style={{ backgroundColor: '#333333', }}
                     sx={{ minWidth: '33px', }}
                     type='submit' id='submit'>
-                    <ArrowUpwardIcon className='up-icon' style={{ fill: '#FFF', justifyContent: 'center' }} />
+                    <ArrowUpwardIcon className='up-icon' sx={{ fill: '#FFF', justifyContent: 'center', }} />
                   </Button>
                   : <Button sx={{ minWidth: '33px', }} disabled type='submit' id='submit'>
-                    <ArrowUpwardIcon className='up-icon' style={{ justifyContent: 'center' }} />
+                    <ArrowUpwardIcon className='up-icon' sx={{ justifyContent: 'center' }} />
                   </Button>
                 }
               </form>
