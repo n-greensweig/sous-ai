@@ -27,11 +27,7 @@ function LandingPage() {
 
   // Determine the text for the first paragraph based on screen size
   const firstParagraphText = isXsScreen || isSmScreen ? `Welcome to SousAI! Let's get cooking.` :
-    `Welcome to SousAI, your partner in the kitchen for real, everyday cooking. 
-  We understand that life can be busy, and sometimes all you need is a simple, tasty meal to bring a little comfort to your day. 
-  Our app is here to help, offering personalized recipe suggestions that fit your lifestyle and preferences. 
-  Whether you're cooking for one or for a crowd, we're here to guide you with practical, approachable advice. 
-  Let's make cooking less about perfection and more about the joy of creating something nourishing and delicious. Grab your ingredients, and let's get started! 🍲👩‍🍳👨‍🍳`;
+    `Welcome to SousAI, your partner in the kitchen. We're here to help you find the perfect recipe for any occasion.`;
 
   return (
     <div className="container" style={{
