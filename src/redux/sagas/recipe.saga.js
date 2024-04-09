@@ -100,7 +100,6 @@ function* postComment(action) {
 function* changeRating(action) {
     const id = action.payload.id;
     const rating = action.payload.rating;
-    console.log('rating:', rating, id);
     try {
         axios.put(`/api/recipe/rating/${id}`, { rating });
     } catch (error) {
@@ -125,7 +124,6 @@ function* changeCooked(action) {
 function* fetchRecipeLists() {
     try {
         const response = yield axios.get('/api/recipe/list/recipes');
-        console.log(response.data);
         const action = { type: 'GET_RECIPE_LISTS', payload: response.data };
         yield put(action);
     } catch (error) {
