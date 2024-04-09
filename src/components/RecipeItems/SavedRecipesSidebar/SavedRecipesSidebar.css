@@ -3,10 +3,13 @@
     padding: 0px !important;
     justify-content: center;
     align-items: center;
-    /* padding: 5px; */
     vertical-align: middle;
     border-radius: 5px;
-    
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    padding: 0 !important;
+    display: flex !important;
 }
 
 .sidebar__container {
@@ -22,15 +25,33 @@
     fill: black !important;
     margin-right: 16px;
 }
+
+.sidebar__icon--add {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
 .sidebar__p--your-folders {
     text-transform: uppercase;
     font-weight: bold;
 }
+
 .sidebar__container p:hover {
     cursor: pointer;
     background-color: #FAF9F6;
-    width: 100%;
+    width: initial;
 }
+
 .sidebar-content p {
     display: flex;
+}
+
+.p__new-folder {
+    margin-left: 10px;
+}
+
+.div__icon__p--new-folder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

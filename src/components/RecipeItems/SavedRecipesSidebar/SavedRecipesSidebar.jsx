@@ -49,9 +49,10 @@ function SavedRecipesSidebar() {
                 <p><AccessTimeIcon className='sidebar__icon' /> Recently Viewed</p>
                 <p><ListAltIcon className='sidebar__icon' /> Grocery List</p>
                 <p className='sidebar__p--your-folders'>Your folders</p>
-                <div onClick={toggleCreating} style={{ display: 'flex', flexDirection: 'row', }}>
-                        <Button className='icon--gray-border'><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
-                    <p>New Folder</p>
+                <div onClick={toggleCreating} className='div__icon__p--new-folder'>
+                    <Button className='icon--gray-border'
+                    ><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
+                    <p className='p__new-folder'>New Folder</p>
                 </div>
                 {recipeLists && recipeLists.map((list, index) => (
                     <p key={index} style={{ color: 'black' }}>{list.list_name}</p>
