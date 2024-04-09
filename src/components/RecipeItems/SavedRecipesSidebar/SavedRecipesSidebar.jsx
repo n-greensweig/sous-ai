@@ -44,7 +44,7 @@ function SavedRecipesSidebar() {
     return (
         <div className='sidebar__container'>
             <div className="sidebar-content">
-                <p><BookmarkIcon className='sidebar__icon' /> Saved Recipes</p>
+                <p style={{backgroundColor: '#FAF9F6'}}><BookmarkIcon className='sidebar__icon' /> <strong>Saved Recipes</strong></p>
                 <p><CheckCircleIcon className='sidebar__icon' /> Cooked Recipes</p>
                 <p><AccessTimeIcon className='sidebar__icon' /> Recently Viewed</p>
                 <p><ListAltIcon className='sidebar__icon' /> Grocery List</p>

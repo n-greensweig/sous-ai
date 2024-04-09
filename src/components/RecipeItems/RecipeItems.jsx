@@ -17,6 +17,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import AddIcon from '@mui/icons-material/Add';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
@@ -54,6 +55,7 @@ function RecipeItems() {
     const recipeLists = useSelector(store => store.recipeListsReducer);
 
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
+    const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.
 
     document.title = 'Saved Recipes'; // Sets the document title to 'Saved Recipes'.
 
@@ -116,14 +118,23 @@ function RecipeItems() {
                 >
                     <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', maxWidth: '1400px', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-                            <h2 style={{ marginLeft: 'inherit', color: '#222', }}>Saved Recipes</h2>
-                            <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
-                            <input
-                                type="text"
-                                placeholder="Search your saved recipes"
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                value={searchQuery}
-                            />
+                            <div style={{ display: 'flex', flexDirection: 'column', }}>
+                                <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>Saved Recipes</h2>
+                                <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} recipes</p>
+                            </div>
+                            <div className="search__input" style={{
+                                display: 'flex', flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
+                                <input
+                                    type="text"
+                                    placeholder="Search your saved recipes"
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    value={searchQuery}
+                                />
+                                {searchQuery ? <Button variant="text" className="header__button" onClick={() => setSearchQuery('')} startIcon={<CancelIcon className='icon--gray' />}></Button> : null}
+                            </div>
                         </div>
                         {/* Maps through the recipes array and creates a Grid item for each recipe. */}
                         <div style={{

@@ -38,7 +38,7 @@ function Header() {
                     </div>
                     <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
                     <input type="text" placeholder="What would you like to cook?" className="header__searchBar" />
-                    <Button onClick={() => history.push('/recipes')} variant="text" className="header__button" startIcon={<BookmarkIcon className='icon--black' />}>
+                    <Button onClick={() => history.push('/recipes')} variant="text" className="header__button button__recipe-box" startIcon={<BookmarkIcon className='icon--black' />}>
                         Your Recipe Box
                     </Button>
                     {/* <LogOutButton className="header__button" /> */}

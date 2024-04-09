@@ -35,3 +35,27 @@
    cursor: pointer;
    justify-content: space-between;
 }
+
+.search__input {
+   width: 300px;
+   height: 50px;
+   border: 1px solid #CCC;
+   border-radius: 5px;
+   background-color: #FFF;
+   padding: none;
+   margin: none;
+   &:hover {
+      border: 1px solid #000;
+   }
+}
+
+.search__input>input {
+   width: 70%;
+   height: 40px;
+   padding: none;
+   margin: none;
+   border: none;
+}
+.icon--gray {
+   fill: #ced0cb !important;
+}

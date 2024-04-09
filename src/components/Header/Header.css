@@ -74,3 +74,9 @@ button {
 button {
     padding-bottom: .75%;
 }
+.button__recipe-box {
+    text-transform: none !important;
+    font-weight: 600 !important;
+    letter-spacing: .02rem !important;
+    line-height: 100% !important;
+}

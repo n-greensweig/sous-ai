@@ -16,7 +16,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import './App.css';
-import Header from '../Header/Header';
+import CookedRecipeItems from '../CookedRecipeItems/CookedRecipeItems';
 import RecipeItems from '../RecipeItems/RecipeItems';
 import RecipeDetails from '../RecipeDetails/RecipeDetails';
 
@@ -64,6 +64,14 @@ function App() {
             path="/recipes"
           >
             <RecipeItems />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows RecipeItems else shows LoginPage
+            exact
+            path="/recipes/cooked"
+          >
+            <CookedRecipeItems />
           </ProtectedRoute>
 
           <ProtectedRoute

@@ -1,5 +1,5 @@
 .icon--gray-border {
-    border: 1px solid #d3d3d3 !important;
+    border: 1px solid #CCC !important;
     padding: 0px !important;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,8 @@
 }
 
 .sidebar__container {
-    border-right: 1px solid #d3d3d3;
+    box-sizing: border-box;
+    border-right: 1px solid #CCC;
     width: 25%;
     justify-content: flex-start;
     align-items: center;
