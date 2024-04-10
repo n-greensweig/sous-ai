@@ -59,3 +59,20 @@
 .icon--gray {
    fill: #ced0cb !important;
 }
+/* Styles for the input field */
+.search__input input {
+   padding: 10px;
+   width: 100%; /* Adjust as needed */
+   box-sizing: border-box; /* Ensures padding doesn't affect the total width */
+}
+
+/* Removes border and outline when the input is focused */
+.search__input input:focus {
+   border: none; /* Removes the border */
+   outline: none; /* Removes the outline */
+}
+.search {
+   width: 24px !important;
+   padding: 0% !important;
+   margin: 0% !important;
+}

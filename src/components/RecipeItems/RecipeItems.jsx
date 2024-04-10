@@ -126,14 +126,20 @@ function RecipeItems() {
                                 display: 'flex', flexDirection: 'row',
                                 alignItems: 'center'
                             }}>
-                                <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
+                                {/* <Button variant="text" className="header__button search" startIcon={ */}
+                                <SearchIcon className='icon--black search' />
+                                {/* }></Button> */}
                                 <input
                                     type="text"
                                     placeholder="Search your saved recipes"
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     value={searchQuery}
                                 />
-                                {searchQuery ? <Button variant="text" className="header__button" onClick={() => setSearchQuery('')} startIcon={<CancelIcon className='icon--gray' />}></Button> : null}
+                                {searchQuery ? 
+                                // <Button variant="text" className="header__button" onClick={() => setSearchQuery('')} startIcon={
+                                <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' />
+                                // }></Button> 
+                                : null}
                             </div>
                         </div>
                         {/* Maps through the recipes array and creates a Grid item for each recipe. */}
