@@ -103,7 +103,11 @@ function RecipeItems() {
 
     return (
         // Sets padding and margin based on screen size for responsive design.
-        <div style={{ marginTop: isSmScreen || isXsScreen ? '7%' : '1%', }}>
+        <div style={{
+            marginTop: isSmScreen || isXsScreen ? '7%' : '1%',
+            maxWidth: '1200px',
+            margin: '0 auto',
+        }}>
             <Header />
             <div style={{ display: 'flex', flexDirection: 'row', }}>
                 <SavedRecipesSidebar />
@@ -135,11 +139,11 @@ function RecipeItems() {
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     value={searchQuery}
                                 />
-                                {searchQuery ? 
-                                // <Button variant="text" className="header__button" onClick={() => setSearchQuery('')} startIcon={
-                                <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' />
-                                // }></Button> 
-                                : null}
+                                {searchQuery ?
+                                    // <Button variant="text" className="header__button" onClick={() => setSearchQuery('')} startIcon={
+                                    <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' />
+                                    // }></Button> 
+                                    : null}
                             </div>
                         </div>
                         {/* Maps through the recipes array and creates a Grid item for each recipe. */}

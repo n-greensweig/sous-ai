@@ -43,12 +43,10 @@ function Header() {
                         style={{
                             display: 'flex', flexDirection: 'row',
                             alignItems: 'center',
-                            // border: '2px solid blue',
                             justifyContent: 'space-between',
                         }}
                     >
                         <div style={{
-                            // border: '2px solid red',
                             width: '90%',
                         }}>
                             <Button variant="text" className="header__button" startIcon={
