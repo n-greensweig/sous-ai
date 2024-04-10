@@ -1,5 +1,4 @@
 import { useTheme, useMediaQuery, Button, TextField } from '@mui/material';
-import React from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import './Header.css';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -7,6 +6,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 import './Header.css';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import CancelIcon from '@mui/icons-material/Cancel';
 /**
  * Renders a header component that is responsive and navigates to a specified route when clicked.
  * 
@@ -17,6 +18,8 @@ function Header() {
     // Hook to programmatically navigate between routes
     const history = useHistory();
     const dispatch = useDispatch();
+    const [searchQuery, setSearchQuery] = useState('');
+
 
     // MUI theme hooks for responsive design
     const theme = useTheme();
@@ -36,12 +39,31 @@ function Header() {
                         <div className='header__bar'></div>
                         <strong>SousAI</strong>
                     </div>
-                    <Button variant="text" className="header__button" startIcon={<SearchIcon className='icon--black' />}></Button>
-                    <input type="text" placeholder="What would you like to cook?" className="header__searchBar" />
+                    <div className="header__searchBar"
+                        style={{
+                            display: 'flex', flexDirection: 'row',
+                            alignItems: 'center',
+                            // border: '2px solid blue',
+                            justifyContent: 'space-between',
+                        }}
+                    >
+                        <div style={{
+                            // border: '2px solid red',
+                            width: '90%',
+                        }}>
+                            <Button variant="text" className="header__button" startIcon={
+                                <SearchIcon className='icon--black' />
+                            }></Button>
+                            <input value={searchQuery} type="text" placeholder="What would you like to cook?" className="header__searchBar"
+                                onChange={(event) => setSearchQuery(event.target.value)}
+                                style={{ border: 'none', }}
+                            />
+                        </div>
+                        {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' /> : null}
+                    </div>
                     <Button onClick={() => history.push('/recipes')} variant="text" className="header__button button__recipe-box" startIcon={<BookmarkIcon className='icon--black' />}>
                         Your Recipe Box
                     </Button>
-                    {/* <LogOutButton className="header__button" /> */}
                     <Button onClick={() => dispatch({ type: 'LOGOUT' })} startIcon={<PersonIcon className='icon--black' />} className="header__button"></Button>
                 </div>
                 <div>
@@ -51,7 +73,7 @@ function Header() {
                     <button className='header__button hover'>Occasions</button>
                     <button className='header__button hover'>About</button>
                 </div>
-            </header>
+            </header >
     );
 }
 
