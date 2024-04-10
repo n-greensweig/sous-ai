@@ -39,12 +39,17 @@
 
 .sidebar__container p:hover {
     cursor: pointer;
-    background-color: #FAF9F6;
+    background-color: #F8F8F5;
     width: initial;
 }
 
 .sidebar-content p {
     display: flex;
+    padding: 10px;
+    margin: 0px 10px;
+    &:first-of-type {
+        margin-top: 10px;
+    }
 }
 
 .p__new-folder {
