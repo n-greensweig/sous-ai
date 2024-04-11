@@ -71,7 +71,7 @@ CREATE TABLE "images" (
 	"id" SERIAL PRIMARY KEY,
     "recipe_id" INTEGER REFERENCES "recipe_item",
     "user_id" INTEGER REFERENCES "user",
-    "path" VARCHAR(2048),
+    "path" VARCHAR(2048) DEFAULT NULL,
     "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -79,3 +79,67 @@ CREATE TABLE "images" (
 INSERT INTO "images" (
 "recipe_id", "user_id", "path")
 VALUES (1,1,'images/tomato-soup.png');
+
+SELECT 
+    "recipe_item".*,
+    COALESCE(
+        (SELECT "images"."path"
+         FROM "images"
+         WHERE "images"."recipe_id" = "recipe_item"."id"
+         ORDER BY "images"."created_at" DESC
+         LIMIT 1),
+        "recipe_item"."photo"
+    ) AS "display_photo"
+FROM 
+    "recipe_item"
+WHERE
+    "recipe_item"."user_id" = 1
+ORDER BY 
+    "recipe_item"."id" DESC;
+    
+CREATE TABLE "recipe_list" (
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INTEGER NOT NULL,
+	"list_name" VARCHAR(256) NOT NULL
+);
+
+INSERT INTO "recipe_list"
+VALUES (1, 1, 'Vegan');
+
+INSERT INTO "recipe_list" ("user_id", "list_name")
+VALUES (1, 'Beef');
+
+CREATE TABLE "recipe_list_recipes" (
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INTEGER,
+	"list_id" INTEGER NOT NULL REFERENCES "recipe_list",
+	"recipe_id" INTEGER NOT NULL REFERENCES "recipe_item",
+	UNIQUE ("list_id", "recipe_id")
+);
+
+INSERT INTO "recipe_list_recipes" ("user_id", "list_id", "recipe_id")
+VALUES (1, 1, 11);
+
+SELECT
+    rl."id" AS "list_id",
+    rl."list_name",
+    r."id" AS "recipe_id",
+    r."title",
+    COALESCE(
+        (
+            SELECT i."path"
+            FROM "images" i
+            WHERE i."recipe_id" = r."id"
+            ORDER BY i."created_at" ASC
+            LIMIT 1
+        ),
+        r."photo"
+    ) AS "first_image"
+FROM
+    "recipe_list" rl
+JOIN "recipe_list_recipes" rlr ON rl."id" = rlr."list_id"
+JOIN "recipe_item" r ON rlr."recipe_id" = r."id"
+WHERE
+    rl."user_id" = 1 -- Example for a specific user, change as needed
+ORDER BY
+    rl."id", r."id";
