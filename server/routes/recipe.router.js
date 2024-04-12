@@ -173,6 +173,37 @@ router.get('/comments/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// GET all recipes from specific folder
+router.get('/folder/:id', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+        SELECT 
+            "recipe_item".*,
+        COALESCE(
+            (SELECT "images"."path"
+            FROM "images"
+            WHERE "images"."recipe_id" = "recipe_item"."id"
+            ORDER BY "images"."created_at" DESC
+            LIMIT 1),
+            "recipe_item"."photo"
+            ) AS "display_photo"
+        FROM 
+            "recipe_item"
+        JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
+        WHERE
+            "recipe_list_recipes"."list_id" = $1
+        ORDER BY 
+            "recipe_item"."id" DESC;
+        `
+        pool.query(queryText, [req.params.id])
+            .then(result => {
+                res.send(result.rows);
+            })
+            .catch(error => {
+                console.error('Error getting recipe folder recipes from DB', error);
+                res.sendStatus(400);
+            })
+});
+
 // DELETE selected recipe from the DB
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     // Must first delete comments associated with the recipe

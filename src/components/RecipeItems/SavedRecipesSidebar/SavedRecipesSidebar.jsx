@@ -35,6 +35,7 @@ function SavedRecipesSidebar() {
 
     const recipeFolder = (id) => {
         console.log('This is the id', id)
+        dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: id})
     }
 
     // Effect hook to fetch recipe lists when the component mounts.
