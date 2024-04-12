@@ -60,7 +60,7 @@ function SavedRecipesSidebar() {
                     <p className='p__new-folder'>New Folder</p>
                 </div>
                 {recipeLists && recipeLists.map((list, index) => (
-                    <button key={index} style={{ color: 'black' }} onClick={() => recipeFolder(list.id)}>{list.list_name}</button>
+                    <p><button key={index} style={{ color: 'black' }} onClick={() => recipeFolder(list.id)}>{list.list_name}</button></p>
                 ))}
             </div>
             {/* Dialog for creating a new recipe folder. */}
