@@ -21,13 +21,8 @@ router.post('/register', async (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   const queryText = `INSERT INTO "user" (username, password)
-    VALUES ($1, $2) RETURNING "id";`;
-  const userInsertResult = await pool.query(queryText, [username, password]);
-  const userId = userInsertResult.rows[0].id;
-
-  const insertDefaultRecipesList = `INSERT INTO "recipe_list" ("user_id", "list_name")
-    VALUES ($1, 'Saved Recipes')`;
-  await pool.query(insertDefaultRecipesList, [userId])
+    VALUES ($1, $2);`;
+  pool.query(queryText, [username, password])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('User registration failed: ', err);

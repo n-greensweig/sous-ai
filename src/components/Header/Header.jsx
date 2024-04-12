@@ -59,14 +59,14 @@ function Header() {
                         </div>
                         {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' /> : null}
                     </div>
-                    <Button onClick={() => history.push('/recipes')} variant="text" className="header__button button__recipe-box" startIcon={<BookmarkIcon className='icon--black' />}>
+                    <Button onClick={() => history.push('/recipe-box')} variant="text" className="header__button button__recipe-box" startIcon={<BookmarkIcon className='icon--black' />}>
                         Your Recipe Box
                     </Button>
                     <Button onClick={() => dispatch({ type: 'LOGOUT' })} startIcon={<PersonIcon className='icon--black' />} className="header__button"></Button>
                 </div>
                 <div>
                     <button className='header__button hover'>What to Cook</button>
-                    <button className='header__button hover' onClick={() => history.push('/recipes')}>Recipes</button>
+                    <button className='header__button hover' onClick={() => history.push('/recipe-box')}>Recipes</button>
                     <button className='header__button hover'>Ingredients</button>
                     <button className='header__button hover'>Occasions</button>
                     <button className='header__button hover'>About</button>
