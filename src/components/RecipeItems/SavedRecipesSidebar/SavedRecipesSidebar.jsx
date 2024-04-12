@@ -33,6 +33,10 @@ function SavedRecipesSidebar() {
         dispatch({ type: 'FETCH_RECIPE_LISTS' }); // Triggers a fetch for the updated lists.
     };
 
+    const recipeFolder = (id) => {
+        console.log('This is the id', id)
+    }
+
     // Effect hook to fetch recipe lists when the component mounts.
     useEffect(() => {
         dispatch({ type: 'FETCH_RECIPE_LISTS' });
@@ -55,7 +59,7 @@ function SavedRecipesSidebar() {
                     <p className='p__new-folder'>New Folder</p>
                 </div>
                 {recipeLists && recipeLists.map((list, index) => (
-                    <p key={index} style={{ color: 'black' }}>{list.list_name}</p>
+                    <button key={index} style={{ color: 'black' }} onClick={() => recipeFolder(list.id)}>{list.list_name}</button>
                 ))}
             </div>
             {/* Dialog for creating a new recipe folder. */}
