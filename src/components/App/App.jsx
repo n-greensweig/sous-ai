@@ -6,10 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import AboutPage from '../AboutPage/AboutPage';
 import SousAI from '../SousAI/SousAI';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
@@ -59,22 +56,6 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows RecipeItems else shows LoginPage
-            exact
-            path="/recipes"
-          >
-            <RecipeItems />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows RecipeItems else shows LoginPage
-            exact
-            path="/recipes/cooked"
-          >
-            <CookedRecipeItems />
-          </ProtectedRoute>
-
-          <ProtectedRoute
             // logged in shows RecipeDetails else shows LoginPage
             exact
             path="/recipes/:id"
@@ -93,9 +74,17 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/recipes"
+            path="/recipe-box"
           >
-            <RecipeItems />
+            <RecipeItems path={'/recipe-box'} />
+          </ProtectedRoute>
+          
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/recipe-box/cooked"
+          >
+            <RecipeItems path={'/recipe-box/cooked'} />
           </ProtectedRoute>
 
           <Route

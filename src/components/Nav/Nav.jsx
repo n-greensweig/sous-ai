@@ -43,7 +43,7 @@ function Nav() {
           </div>
           <div id='saved-footer'>
             {/* Link to saved recipes, active state based on current route */}
-            <Link className={isActive('/recipes')} to="/recipes">
+            <Link className={isActive('/recipe-box')} to="/recipe-box">
               <MenuBookIcon className='icon' /> Saved Recipes
             </Link>
           </div>

@@ -142,7 +142,7 @@ function RecipeDetails() {
                     dispatch({ type: 'REMOVE_RECIPE', payload: id });
                     setState({ ...state, open: true, vertical: 'top', horizontal: 'center' });
                     setTimeout(() => {
-                        history.push('/recipes');
+                        history.push('/recipe-box');
                     }, 1000);
                 }
             });

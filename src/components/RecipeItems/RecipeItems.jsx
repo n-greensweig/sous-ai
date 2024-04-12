@@ -44,7 +44,7 @@ function FadeIn({ children }) {
     );
 }
 
-function RecipeItems() {
+function RecipeItems(props) {
     // Initialize dispatch and history for Redux actions and navigation.
     const dispatch = useDispatch();
     const history = useHistory();
@@ -52,12 +52,22 @@ function RecipeItems() {
     const [addingToFolder, setAddingToFolder] = useState(false);
     const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const [listName, setListName] = useState('');
     const recipeLists = useSelector(store => store.recipeListsReducer);
+    if (props.path === '/recipe-box') {
+        document.title = 'Saved Recipes';
+    } else if (props.path === '/recipe-box/cooked') {
+        document.title = 'Cooked Recipes';
+    } else if (props.path === '/recipe-box/recent') {
+        document.title = 'Recently Viewed';
+    } else if (props.path === '/recipe-box/grocery') {
+        document.title = 'Grocery List';
+    } else {
+        document.title = 'Saved Recipes';
+    }
 
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
     const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.
-
-    document.title = 'Saved Recipes'; // Sets the document title to 'Saved Recipes'.
 
     // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
     // If the buttonPopup state is true, it sets the buttonPopup state to false.
@@ -122,7 +132,8 @@ function RecipeItems() {
                     <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                             <div style={{ display: 'flex', flexDirection: 'column', }}>
-                                <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>Saved Recipes</h2>
+                                <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>
+                                    {props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' : props.path === '/recipe-box/recent' ? 'Recently Viewed' : props.path === '/recipe-box/grocery' ? 'Grocery List' : 'Saved Recipes'}</h2>
                                 <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} recipes</p>
                             </div>
                             <div className="search__input" style={{
