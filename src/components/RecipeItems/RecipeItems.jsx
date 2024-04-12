@@ -105,7 +105,6 @@ function RecipeItems() {
         // Sets padding and margin based on screen size for responsive design.
         <div style={{
             marginTop: isSmScreen || isXsScreen ? '7%' : '1%',
-            maxWidth: '1200px',
             margin: '0 auto',
         }}>
             <Header />
@@ -120,7 +119,7 @@ function RecipeItems() {
                         backgroundColor: '#FAF9F6',
                     }}
                 >
-                    <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', maxWidth: '1400px', }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                             <div style={{ display: 'flex', flexDirection: 'column', }}>
                                 <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>Saved Recipes</h2>
@@ -160,7 +159,7 @@ function RecipeItems() {
                                 // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
                                 <Grid item className='card' xs={11} md={2.5}
                                     onClick={() => handleClick(recipe.id)}
-                                    style={{ padding: '0px', margin: '4px', }}
+                                    style={{ padding: '0px', margin: '4px', minWidth: 250 }}
                                     id={recipe.id} key={index}
                                 >
                                     <FadeIn>
