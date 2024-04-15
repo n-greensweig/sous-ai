@@ -8,6 +8,10 @@ import './Header.css';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { Menu, MenuItem } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Link } from 'react-router-dom';
 /**
  * Renders a header component that is responsive and navigates to a specified route when clicked.
  * 
@@ -19,7 +23,16 @@ function Header() {
     const history = useHistory();
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
 
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    }
+
+    const handleClose = () => {
+        setAnchorEl(null)
+    }
 
     // MUI theme hooks for responsive design
     const theme = useTheme();
@@ -62,7 +75,46 @@ function Header() {
                     <Button onClick={() => history.push('/recipe-box')} variant="text" className="header__button button__recipe-box" startIcon={<BookmarkIcon className='icon--black' />}>
                         Your Recipe Box
                     </Button>
-                    <Button onClick={() => dispatch({ type: 'LOGOUT' })} startIcon={<PersonIcon className='icon--black' />} className="header__button"></Button>
+                    <div className='menuDiv'>
+                    <Button id="basic-button"
+                        className='header__button'
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="menu"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}>
+                        <MenuIcon/>
+                    </Button>
+                    <Menu 
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        inputProps={{MenuProps: {disableScrollLock: true}}}
+                        MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                        }}>
+                        <MenuItem onClick={handleClose}>
+                            <Link className='navLink' to="/recipe-box">
+                                Preferences
+                            </Link>
+                        </MenuItem>
+                        <MenuItem onClick={handleClose}>
+                            <Link className='navLink' to="/recipe-box">
+                                Submit a suggestion
+                            </Link>
+                        </MenuItem>
+                        <MenuItem onClick={handleClose}>
+                            <Link className='navLink' to="/recipe-box">
+                                Report a bug
+                            </Link>
+                        </MenuItem>
+                        <MenuItem onClick={handleClose}>
+                            <Button onClick={() => dispatch({ type: 'LOGOUT' })} className="header__button"><LogoutIcon/> Logout</Button>
+                        </MenuItem>
+
+                    </Menu>
+                    </div>
+                    
                 </div>
                 <div>
                     <button className='header__button hover'>What to Cook</button>
