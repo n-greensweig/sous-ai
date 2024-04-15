@@ -98,6 +98,8 @@ function RecipeItems(props) {
             dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
         } else if (listToDisplay === 'Cooked Recipes') {
             dispatch({ type: 'FETCH_COOKED_RECIPES', payload: searchQuery });
+        } else if (listToDisplay === 'Recently Viewed Recipes') {
+            dispatch({ type: 'FETCH_RECENT_RECIPES', payload: searchQuery });
         }
     }, [searchQuery, listToDisplay, dispatch]);
 

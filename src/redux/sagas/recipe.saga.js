@@ -153,6 +153,18 @@ function* getCookedRecipes(action) {
     }
 }
 
+function* getRecentRecipes(action) {
+    try {
+        const response = yield axios.get(`/api/recipe/recent?q=${action.payload}`);
+        const newAction = { type: 'GET_RECENT_RECIPES', payload: response.data };
+        yield put(newAction);
+    } catch (error) {
+        console.error('Error fetching recent recipes:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
     yield takeLatest('SAVE_RECIPE', saveRecipe);
@@ -167,6 +179,7 @@ function* recipeSaga() {
     yield takeLatest('FETCH_RECIPE_LISTS', fetchRecipeLists);
     yield takeLatest('ADD_RECIPE_TO_FOLDER', addRecipeToFolder);
     yield takeLatest('FETCH_COOKED_RECIPES', getCookedRecipes);
+    yield takeLatest('FETCH_RECENT_RECIPES', getRecentRecipes);
 }
 
 export default recipeSaga;
