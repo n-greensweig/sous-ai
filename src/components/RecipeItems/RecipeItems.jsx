@@ -94,6 +94,7 @@ function RecipeItems(props) {
     }
 
     const handlePopover = (e) => {
+        console.log('popover')
         setAnchorEl(e.currentTarget)
     };
 
@@ -113,7 +114,9 @@ function RecipeItems(props) {
 
     // Add recipe to folder
     const addRecipeToFolder = (id) => {
-        dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: editedRecipeId, }, });
+        console.log('recipe id is', editedRecipeId)
+        console.log('Folder id is', id)
+        // dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: editedRecipeId, }, });
     };
 
     // Fetch recipes with search filter
@@ -130,10 +133,8 @@ function RecipeItems(props) {
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     // Function to handle the opening of the popup and prevent event propagation
-    const handleOpenPopup = (e, id) => {
-        e.stopPropagation(); // Prevent the click from reaching the card's onClick
+    const handleOpenPopup = (id) => {
         setEditedRecipeId(id); // Set the recipe ID to the one that was clicked
-        setButtonPopup(true);
     };
 
     return (
@@ -225,7 +226,7 @@ function RecipeItems(props) {
                                                                 sx={{
                                                                     fontWeight: 'bold',
                                                                     mb: 2
-                                                                }}>{recipe.title}</Typography>
+                                                                }}>{recipe.title} ID: {recipe.id}</Typography>
                                                             {/* Typography for recipe notes with dynamic font size based on screen size. */}
                                                             <Typography className="notes" style={{
                                                                 alignItems: 'baseline',
@@ -257,7 +258,7 @@ function RecipeItems(props) {
                                                             </CardActionArea>
                                                             <CardActions>
                                                                 <Button variant="text" className="header__button options_menu"
-                                                                    startIcon={<MoreHorizIcon className='icon--black' />} onClick={handlePopover}></Button>
+                                                                    startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => {handlePopover(event); setEditedRecipeId(recipe.id)}}>{recipe.id}</Button>
                                                                     <Popover
                                                                     id={popoverID}
                                                                     open={open}
@@ -280,7 +281,11 @@ function RecipeItems(props) {
                                                                                     horizontal: 'right',
                                                                                 }}
                                                                                 >
-                                                                                    <Typography>This is the folder popover</Typography>
+                                                                                    
+                                                                                    {recipeLists.map((folder, i) => (
+                                                                                        <><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button><br/></>
+                                                                                    ))}
+                                                                                    
                                                                                 </Popover>
                                                                             </li>
                                                                             <li>
