@@ -24,7 +24,7 @@ import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
 import Popup from "../Popup/Popup";
 
 // Imports Material-UI components for buttons and icons.
-import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent } from '@mui/material';
 import './RecipeItems.css';
 import { TypeSpecimenOutlined } from "@mui/icons-material";
 
@@ -54,14 +54,15 @@ function RecipeItems(props) {
     const [buttonPopup, setButtonPopup] = useState(false);
     const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
-    const [listName, setListName] = useState('');
+    const [listToDisplay, setlistToDisplay] = useState(document.title);
+
     const recipeLists = useSelector(store => store.recipeListsReducer);
     if (props.path === '/recipe-box') {
         document.title = 'Saved Recipes';
     } else if (props.path === '/recipe-box/cooked') {
         document.title = 'Cooked Recipes';
     } else if (props.path === '/recipe-box/recent') {
-        document.title = 'Recently Viewed';
+        document.title = 'Recently Viewed Recipes';
     } else if (props.path === '/recipe-box/grocery') {
         document.title = 'Grocery List';
     } else {
@@ -116,8 +117,14 @@ function RecipeItems(props) {
 
     // Fetch recipes with search filter
     useEffect(() => {
-        dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
-    }, [searchQuery, dispatch]);
+        if (listToDisplay === 'Saved Recipes') {
+            dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
+        } else if (listToDisplay === 'Cooked Recipes') {
+            dispatch({ type: 'FETCH_COOKED_RECIPES', payload: searchQuery });
+        } else if (listToDisplay === 'Recently Viewed Recipes') {
+            dispatch({ type: 'FETCH_RECENT_RECIPES', payload: searchQuery });
+        }
+    }, [searchQuery, listToDisplay, dispatch]);
 
     // Utility function to replace '@' symbols with commas, used for displaying recipe notes.
     const replaceWithCommas = str => str.replace(/@/g, ',');
@@ -243,7 +250,6 @@ function RecipeItems(props) {
                                                                     variant="h4"
                                                                     component="div"
                                                                 >Cook time: {replaceWithCommas(recipe.cook_time)}</Typography>
-                                                                      </div>
                                                         </CardContent>
                                                             </CardActionArea>
                                                             <CardActions>
