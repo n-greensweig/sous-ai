@@ -154,6 +154,7 @@ function* getCookedRecipes(action) {
 }
 
 function* getRecentRecipes(action) {
+    console.log('hi');
     try {
         const response = yield axios.get(`/api/recipe/recent?q=${action.payload}`);
         const newAction = { type: 'GET_RECENT_RECIPES', payload: response.data };
