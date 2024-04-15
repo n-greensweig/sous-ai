@@ -48,6 +48,20 @@ function* getRecipeDetails(action) {
     }
 }
 
+// Function for returning recipes from a specific recipe folder
+function* getRecipesFromFolder(action) {
+    const id = action.payload
+    try {
+        const response = yield axios.get(`/api/recipe/folder/${id}`)
+        const newAction = { type: 'GET_RECIPES', payload: response.data}
+        yield put(newAction);
+    } catch (error) {
+        console.log('Error fetching recipes from folder', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
 function* deleteRecipe(action) {
     const id = action.payload;
     try {
@@ -177,6 +191,7 @@ function* recipeSaga() {
     yield takeLatest('REMOVE_COMMENT', deleteComment);
     yield takeLatest('UPDATE_RATING', changeRating);
     yield takeLatest('UPDATE_COOKED', changeCooked);
+    yield takeLatest('FETCH_RECIPES_FROM_FOLDER', getRecipesFromFolder);
     yield takeLatest('FETCH_RECIPE_LISTS', fetchRecipeLists);
     yield takeLatest('ADD_RECIPE_TO_FOLDER', addRecipeToFolder);
     yield takeLatest('FETCH_COOKED_RECIPES', getCookedRecipes);

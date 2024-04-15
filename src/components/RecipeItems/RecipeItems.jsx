@@ -136,7 +136,6 @@ function RecipeItems(props) {
                         backgroundColor: '#FAF9F6',
                     }}
                 >
-                    <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                             <div style={{ display: 'flex', flexDirection: 'column', }}>
                                 <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>
@@ -177,7 +176,7 @@ function RecipeItems(props) {
                                 // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
                                 <Grid item className='card' xs={11} md={2.5}
                                     onClick={() => handleClick(recipe.id)}
-                                    style={{ padding: '0px', margin: '4px', }}
+                                    style={{ padding: '0px', margin: '4px', minWidth: 250 }}
                                     id={recipe.id} key={index}
                                 >
                                     <FadeIn>
