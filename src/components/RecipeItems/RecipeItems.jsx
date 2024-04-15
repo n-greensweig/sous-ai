@@ -250,44 +250,45 @@ function RecipeItems(props) {
                                                                     variant="h4"
                                                                     component="div"
                                                                 >Cook time: {replaceWithCommas(recipe.cook_time)}</Typography>
+                                                            </div>
                                                         </CardContent>
-                                                            </CardActionArea>
-                                                            <CardActions>
-                                                                <Button variant="text" className="header__button options_menu"
-                                                                    startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => {handlePopover(event); setEditedRecipeId(recipe.id)}}></Button>
+                                                    </CardActionArea>
+                                                    <CardActions>
+                                                        <Button variant="text" className="header__button options_menu"
+                                                            startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => { handlePopover(event); setEditedRecipeId(recipe.id) }}></Button>
+                                                        <Popover
+                                                            id={popoverID}
+                                                            open={open}
+                                                            anchorEl={anchorEl}
+                                                            onClose={handleClose}
+                                                            anchorOrigin={{
+                                                                vertical: 'bottom',
+                                                                horizontal: 'left',
+                                                            }}
+                                                        >
+                                                            <ul className={`dropdown`}>
+                                                                <li>
+                                                                    <button onClick={handleFolderPopover}>Add to Folder</button>
                                                                     <Popover
-                                                                    id={popoverID}
-                                                                    open={open}
-                                                                    anchorEl={anchorEl}
-                                                                    onClose={handleClose}
-                                                                    anchorOrigin={{
-                                                                        vertical: 'bottom',
-                                                                        horizontal: 'left',
-                                                                    }}
-                                                                    >
-                                                                        <ul className={`dropdown`}>
-                                                                            <li>
-                                                                                <button onClick={handleFolderPopover}>Add to Folder</button>
-                                                                                <Popover
-                                                                                    open={openFolder}
-                                                                                    anchorEl={anchorFolder}
-                                                                                    onClose={handleFolderPopoverClose}
-                                                                                    anchorOrigin={{
-                                                                                        vertical: 'bottom',
-                                                                                        horizontal: 'right',
-                                                                                }}>
-                                                                                    {recipeLists.map((folder, i) => (
-                                                                                        <><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button><br/></>
-                                                                                    ))}
-                                                                                    
-                                                                                </Popover>
-                                                                            </li>
-                                                                            <li>
-                                                                                <button onClick={() => removeRecipe()}>Remove recipe</button>
-                                                                            </li>
-                                                                        </ul>
+                                                                        open={openFolder}
+                                                                        anchorEl={anchorFolder}
+                                                                        onClose={handleFolderPopoverClose}
+                                                                        anchorOrigin={{
+                                                                            vertical: 'bottom',
+                                                                            horizontal: 'right',
+                                                                        }}>
+                                                                        {recipeLists.map((folder, i) => (
+                                                                            <><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button><br /></>
+                                                                        ))}
+
                                                                     </Popover>
-                                                            </CardActions> 
+                                                                </li>
+                                                                <li>
+                                                                    <button onClick={() => removeRecipe()}>Remove recipe</button>
+                                                                </li>
+                                                            </ul>
+                                                        </Popover>
+                                                    </CardActions>
                                                 </div>
                                             </Card>
                                         </Paper>

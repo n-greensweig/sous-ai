@@ -145,7 +145,7 @@ router.get('/recent', rejectUnauthenticated, (req, res) => {
 });
 
 // GET all recipes from the DB with optional search query
-router.get('/cooked', rejectUnauthenticated, (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     let queryText = `
         SELECT 
             "recipe_item".*,
@@ -160,7 +160,7 @@ router.get('/cooked', rejectUnauthenticated, (req, res) => {
         FROM 
             "recipe_item"
         WHERE
-            "recipe_item"."user_id" = $1 AND "recipe_item"."is_cooked" = TRUE
+            "recipe_item"."user_id" = $1
             ${req.query.q ? 'AND "title" ILIKE $2' : ''}
         ORDER BY 
             "recipe_item"."id" DESC;
