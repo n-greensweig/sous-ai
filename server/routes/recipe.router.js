@@ -181,19 +181,42 @@ router.get('/cooked', rejectUnauthenticated, (req, res) => {
         });
 });
 
-// GET recipe details from the DB
-router.get('/:id', rejectUnauthenticated, (req, res) => {
-    let queryText = `
-SELECT * FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
-`;
-    pool.query(queryText, [req.user.id, req.params.id])
-        .then(result => {
-            res.send(result.rows.length > 0 ? result.rows[0] : {});
-        })
-        .catch(error => {
-            console.error('Error getting recipe details from DB:', error);
-            res.sendStatus(400);
-        });
+// GET recipe details from the DB and update last_viewed timestamp
+router.get('/:id', rejectUnauthenticated, async (req, res) => {
+    const connection = await pool.connect();
+
+    try {
+        // Start a transaction
+        await connection.query('BEGIN');
+
+        // Update the last_viewed timestamp
+        let updateQuery = `
+            UPDATE "recipe_item" 
+            SET "last_viewed" = CURRENT_TIMESTAMP 
+            WHERE "user_id" = $1 AND "id" = $2;
+        `;
+        await connection.query(updateQuery, [req.user.id, req.params.id]);
+
+        // Fetch the recipe details
+        let selectQuery = `
+            SELECT * FROM "recipe_item" 
+            WHERE "user_id" = $1 AND "id" = $2;
+        `;
+        const result = await connection.query(selectQuery, [req.user.id, req.params.id]);
+
+        // Commit the transaction
+        await connection.query('COMMIT');
+
+        // Send response
+        res.send(result.rows.length > 0 ? result.rows[0] : {});
+    } catch (error) {
+        // Rollback the transaction on error
+        await connection.query('ROLLBACK');
+        console.error('Error getting recipe details from DB:', error);
+        res.sendStatus(400);
+    } finally {
+        connection.release();
+    }
 });
 
 // GET recipe comments from the DB
