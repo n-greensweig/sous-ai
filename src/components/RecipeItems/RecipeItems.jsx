@@ -10,8 +10,6 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // Custom components for displaying headers and new recipe list forms.
 import Header from '../Header/Header';
 
-import RecipeFolderModal from "../RecipeFolderModal/RecipeFolderModal";
-
 // Imports Material-UI components for buttons and icons.
 import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -54,7 +52,6 @@ function RecipeItems(props) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorFolder, setAnchorFolder] = useState(null);
     const [buttonPopup, setButtonPopup] = useState(false);
-    const [addingToFolder, setAddingToFolder] = useState(false);
     const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [listName, setListName] = useState('');
@@ -75,26 +72,22 @@ function RecipeItems(props) {
     const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.
 
     // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
-    // If the buttonPopup state is true, it sets the buttonPopup state to false.
     const handleClick = (id) => {
-        if (!buttonPopup) {
-            dispatch({ type: 'SET_SELECTED_RECIPE_ID', payload: id });
-            history.push(`/recipes/${id}`);
-        } else {
-            setButtonPopup(false);
-        }
+        dispatch({ type: 'SET_SELECTED_RECIPE_ID', payload: id });
+        history.push(`/recipes/${id}`);
     };
 
+    // Handle the pop-overs for adding or removing recipes
     const handleFolderPopover = (e) => {
         setAnchorFolder(e.currentTarget)
     }
 
     const handleFolderPopoverClose = () => {
         setAnchorFolder(null);
+        handleClose();
     }
 
     const handlePopover = (e) => {
-        console.log('popover')
         setAnchorEl(e.currentTarget)
     };
 
@@ -102,6 +95,7 @@ function RecipeItems(props) {
         setAnchorEl(null);
     }
 
+    // For popover operations
     const open = Boolean(anchorEl);
     const openFolder = Boolean(anchorFolder)
     const popoverID = open ? 'simple-popover' : undefined;
@@ -116,7 +110,8 @@ function RecipeItems(props) {
     const addRecipeToFolder = (id) => {
         console.log('recipe id is', editedRecipeId)
         console.log('Folder id is', id)
-        // dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: editedRecipeId, }, });
+        dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: editedRecipeId, }, });
+        handleFolderPopoverClose();
     };
 
     // Fetch recipes with search filter
@@ -131,11 +126,6 @@ function RecipeItems(props) {
     const theme = useTheme();
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-    // Function to handle the opening of the popup and prevent event propagation
-    const handleOpenPopup = (id) => {
-        setEditedRecipeId(id); // Set the recipe ID to the one that was clicked
-    };
 
     return (
         // Sets padding and margin based on screen size for responsive design.
@@ -258,7 +248,7 @@ function RecipeItems(props) {
                                                             </CardActionArea>
                                                             <CardActions>
                                                                 <Button variant="text" className="header__button options_menu"
-                                                                    startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => {handlePopover(event); setEditedRecipeId(recipe.id)}}>{recipe.id}</Button>
+                                                                    startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => {handlePopover(event); setEditedRecipeId(recipe.id)}}></Button>
                                                                     <Popover
                                                                     id={popoverID}
                                                                     open={open}
@@ -273,15 +263,13 @@ function RecipeItems(props) {
                                                                             <li>
                                                                                 <button onClick={handleFolderPopover}>Add to Folder</button>
                                                                                 <Popover
-                                                                                open={openFolder}
-                                                                                anchorEl={anchorFolder}
-                                                                                onClose={handleFolderPopoverClose}
-                                                                                anchorOrigin={{
-                                                                                    vertical: 'bottom',
-                                                                                    horizontal: 'right',
-                                                                                }}
-                                                                                >
-                                                                                    
+                                                                                    open={openFolder}
+                                                                                    anchorEl={anchorFolder}
+                                                                                    onClose={handleFolderPopoverClose}
+                                                                                    anchorOrigin={{
+                                                                                        vertical: 'bottom',
+                                                                                        horizontal: 'right',
+                                                                                }}>
                                                                                     {recipeLists.map((folder, i) => (
                                                                                         <><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button><br/></>
                                                                                     ))}
@@ -293,82 +281,7 @@ function RecipeItems(props) {
                                                                             </li>
                                                                         </ul>
                                                                     </Popover>
-                                                                    {/* {buttonPopup ? <>
-                                                                        <ul className={`dropdown`}>
-                                                                            <li>
-                                                                                <button onClick={() => setAddingToFolder(!addingToFolder)}>Add to Folder</button>
-                                                                            </li>
-                                                                            <li>
-                                                                                <button onClick={() => removeRecipe()}>Remove recipe</button>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </> : ''} */}
-                                                                    </CardActions>
-                                                                    {/* {buttonPopup && <RecipeFolderModal closeModal={() => setButtonPopup(!buttonPopup)}/>} */}
-                                                                    {/* Add to Folder
-                                                                        Remove Recipe */}
-                                                                {/* <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                                                                    <Dialog open={buttonPopup} onClose={() => setButtonPopup(false)}
-                                                                        PaperProps={{
-                                                                            component: 'form',
-                                                                            onSubmit: (event) => {
-                                                                                event.preventDefault();
-                                                                                // saveToFolder(listName);
-                                                                                setButtonPopup(false);
-                                                                            },
-                                                                        }}>
-                                                                        <DialogContent className="dialog__buttons">
-                                                                            <Button onClick={() => removeRecipe()}><BookmarkBorderIcon /> Unsave from Recipe Box</Button>
-                                                                            <Button onClick={() => setAddingToFolder(true)}><FolderOpenIcon /> Add to folder</Button>
-
-
-
-
-
-
-                                                                            <Dialog open={addingToFolder} onClose={() => setAddingToFolder(false)}
-                                                                                PaperProps={{
-                                                                                    component: 'form',
-                                                                                    onSubmit: (event) => {
-                                                                                        event.preventDefault();
-                                                                                        // saveToFolder(listName);
-                                                                                        setAddingToFolder(false);
-                                                                                    },
-                                                                                }}
-                                                                            >
-                                                                                <DialogTitle style={{ borderBottom: '2px solid gray', }}>Add to Folder <Button onClick={() => setAddingToFolder(false)}>Close</Button></DialogTitle>
-                                                                                <DialogContent>
-                                                                                    {recipeLists && recipeLists.map((list, index) => (
-                                                                                        <p className="gray-background" key={list.id} onClick={() => addRecipeToFolder(list.id)} style={{ color: 'black' }}>
-                                                                                            {list.list_name} <AddIcon onClick={() => addRecipeToFolder(list.id)} />
-                                                                                        </p>
-                                                                                    ))}
-                                                                                    <Button>Done</Button>
-                                                                                </DialogContent>
-                                                                            </Dialog>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                        </DialogContent>
-                                                                    </Dialog>
-                                                                </Popup> */}
-                                                      
-                                                    
+                                                            </CardActions> 
                                                 </div>
                                             </Card>
                                         </Paper>
