@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react';
 // Imports custom CSS for styling this component.
 import './RecipeItems.css';
 // Imports from Material-UI for UI components with responsive capabilities.
-import { Grid, Paper, Card, CardContent, CardMedia, CardActionArea, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Grid, Paper, Card, CardContent, CardMedia, CardActionArea, CardActions, Typography, useTheme, useMediaQuery, Popover } from "@mui/material";
 // useHistory hook from React Router for programmatically navigating to different routes.
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // Custom components for displaying headers and new recipe list forms.
 import Header from '../Header/Header';
+
+import RecipeFolderModal from "../RecipeFolderModal/RecipeFolderModal";
 
 // Imports Material-UI components for buttons and icons.
 import { Button } from '@mui/material';
@@ -26,6 +28,7 @@ import Popup from "../Popup/Popup";
 // Imports Material-UI components for buttons and icons.
 import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
 import './RecipeItems.css';
+import { TypeSpecimenOutlined } from "@mui/icons-material";
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -48,6 +51,8 @@ function RecipeItems(props) {
     // Initialize dispatch and history for Redux actions and navigation.
     const dispatch = useDispatch();
     const history = useHistory();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorFolder, setAnchorFolder] = useState(null);
     const [buttonPopup, setButtonPopup] = useState(false);
     const [addingToFolder, setAddingToFolder] = useState(false);
     const [editedRecipeId, setEditedRecipeId] = useState(null);
@@ -79,6 +84,26 @@ function RecipeItems(props) {
             setButtonPopup(false);
         }
     };
+
+    const handleFolderPopover = (e) => {
+        setAnchorFolder(e.currentTarget)
+    }
+
+    const handleFolderPopoverClose = () => {
+        setAnchorFolder(null);
+    }
+
+    const handlePopover = (e) => {
+        setAnchorEl(e.currentTarget)
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    }
+
+    const open = Boolean(anchorEl);
+    const openFolder = Boolean(anchorFolder)
+    const popoverID = open ? 'simple-popover' : undefined;
 
     // Remove recipe
     const removeRecipe = () => {
@@ -129,6 +154,7 @@ function RecipeItems(props) {
                         backgroundColor: '#FAF9F6',
                     }}
                 >
+                    <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                             <div style={{ display: 'flex', flexDirection: 'column', }}>
                                 <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>
@@ -168,7 +194,6 @@ function RecipeItems(props) {
                             {recipes.map((recipe, index) => (
                                 // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
                                 <Grid item className='card' xs={11} md={2.5}
-                                    onClick={() => handleClick(recipe.id)}
                                     style={{ padding: '0px', margin: '4px', minWidth: 250 }}
                                     id={recipe.id} key={index}
                                 >
@@ -176,7 +201,7 @@ function RecipeItems(props) {
                                         <Paper elevation={5}>
                                             <Card>
                                                 <div key={recipe.id}>
-                                                    <CardActionArea>
+                                                    <CardActionArea onClick={() => handleClick(recipe.id)}>
                                                         <CardMedia
                                                             component={'img'}
                                                             height={'194'}
@@ -227,10 +252,57 @@ function RecipeItems(props) {
                                                                     variant="h4"
                                                                     component="div"
                                                                 >Cook time: {replaceWithCommas(recipe.cook_time)}</Typography>
-
-                                                                <Button variant="text" className="header__button"
-                                                                    startIcon={<MoreHorizIcon className='icon--black' />} onClick={(e) => handleOpenPopup(e, recipe.id)}></Button>
-                                                                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                                                                      </div>
+                                                        </CardContent>
+                                                            </CardActionArea>
+                                                            <CardActions>
+                                                                <Button variant="text" className="header__button options_menu"
+                                                                    startIcon={<MoreHorizIcon className='icon--black' />} onClick={handlePopover}></Button>
+                                                                    <Popover
+                                                                    id={popoverID}
+                                                                    open={open}
+                                                                    anchorEl={anchorEl}
+                                                                    onClose={handleClose}
+                                                                    anchorOrigin={{
+                                                                        vertical: 'bottom',
+                                                                        horizontal: 'left',
+                                                                    }}
+                                                                    >
+                                                                        <ul className={`dropdown`}>
+                                                                            <li>
+                                                                                <button onClick={handleFolderPopover}>Add to Folder</button>
+                                                                                <Popover
+                                                                                open={openFolder}
+                                                                                anchorEl={anchorFolder}
+                                                                                onClose={handleFolderPopoverClose}
+                                                                                anchorOrigin={{
+                                                                                    vertical: 'bottom',
+                                                                                    horizontal: 'right',
+                                                                                }}
+                                                                                >
+                                                                                    <Typography>This is the folder popover</Typography>
+                                                                                </Popover>
+                                                                            </li>
+                                                                            <li>
+                                                                                <button onClick={() => removeRecipe()}>Remove recipe</button>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </Popover>
+                                                                    {/* {buttonPopup ? <>
+                                                                        <ul className={`dropdown`}>
+                                                                            <li>
+                                                                                <button onClick={() => setAddingToFolder(!addingToFolder)}>Add to Folder</button>
+                                                                            </li>
+                                                                            <li>
+                                                                                <button onClick={() => removeRecipe()}>Remove recipe</button>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </> : ''} */}
+                                                                    </CardActions>
+                                                                    {/* {buttonPopup && <RecipeFolderModal closeModal={() => setButtonPopup(!buttonPopup)}/>} */}
+                                                                    {/* Add to Folder
+                                                                        Remove Recipe */}
+                                                                {/* <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                                                                     <Dialog open={buttonPopup} onClose={() => setButtonPopup(false)}
                                                                         PaperProps={{
                                                                             component: 'form',
@@ -289,10 +361,9 @@ function RecipeItems(props) {
 
                                                                         </DialogContent>
                                                                     </Dialog>
-                                                                </Popup>
-                                                            </div>
-                                                        </CardContent>
-                                                    </CardActionArea>
+                                                                </Popup> */}
+                                                      
+                                                    
                                                 </div>
                                             </Card>
                                         </Paper>
