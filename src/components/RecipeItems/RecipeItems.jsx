@@ -223,7 +223,7 @@ function RecipeItems(props) {
                                                                 sx={{
                                                                     fontWeight: 'bold',
                                                                     mb: 2
-                                                                }}>{recipe.title} ID: {recipe.id}</Typography>
+                                                                }}>{recipe.title}</Typography>
                                                             {/* Typography for recipe notes with dynamic font size based on screen size. */}
                                                             <Typography className="notes" style={{
                                                                 alignItems: 'baseline',
@@ -267,7 +267,7 @@ function RecipeItems(props) {
                                                             }}
                                                         >
                                                             <ul className={`dropdown`}>
-                                                                <li>
+                                                                <div className="dropdownButton">
                                                                     <button onClick={handleFolderPopover}>Add to Folder</button>
                                                                     <Popover
                                                                         open={openFolder}
@@ -278,14 +278,15 @@ function RecipeItems(props) {
                                                                             horizontal: 'right',
                                                                         }}>
                                                                         {recipeLists.map((folder, i) => (
-                                                                            <><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button><br /></>
+                                                                            <div className="dropdownButton" ><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button></div>
                                                                         ))}
 
                                                                     </Popover>
-                                                                </li>
-                                                                <li>
-                                                                    <button onClick={() => removeRecipe()}>Remove recipe</button>
-                                                                </li>
+                                                                </div>
+                                                                
+                                                                <div className="dropdownButton" >
+                                                                    <button className="dropdownButton" onClick={() => removeRecipe()}>Remove recipe</button>
+                                                                </div>
                                                             </ul>
                                                         </Popover>
                                                     </CardActions>
