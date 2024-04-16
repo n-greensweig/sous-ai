@@ -113,13 +113,8 @@ function RecipeItems(props) {
     };
 
     useEffect(() => {
-        if (currentList) {
-            setListName(currentList.list_name);
-        } else {
-            // Fetch the list name from the server if not available in the state
-            dispatch({ type: 'FETCH_LIST_NAME', payload: id });
-        }
-    }, [id, currentList, dispatch]);
+        dispatch({ type: 'FETCH_LIST_NAME', payload: id }); // Fetch the list name from the server if not available in the state
+    }, [id, dispatch]);
 
     // Fetch recipes with search filter
     useEffect(() => {
