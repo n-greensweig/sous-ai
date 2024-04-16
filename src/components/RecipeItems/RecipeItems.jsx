@@ -246,8 +246,12 @@ function RecipeItems(props) {
                                                                 sx={{
                                                                     fontWeight: 'bold',
                                                                     mb: 2
-                                                                }}>{recipe.title} ID: {recipe.id}</Typography>
+                                                                }}>{recipe.title}</Typography>
                                                             {/* Typography for recipe notes with dynamic font size based on screen size. */}
+                                                        </CardContent>
+                                                    </CardActionArea>
+                                                    <CardActions>
+                                                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                                                             <Typography className="notes" style={{
                                                                 alignItems: 'baseline',
                                                                 justifyContent: 'center',
@@ -260,11 +264,9 @@ function RecipeItems(props) {
                                                                 variant="h4"
                                                                 component="div"
                                                             >{formatTime((Number(replaceWithCommas(recipe.prep_time).split(' ')[0])) + Number(replaceWithCommas(recipe.cook_time).split(' ')[0]))}</Typography>
-                                                        </CardContent>
-                                                    </CardActionArea>
-                                                    <CardActions>
-                                                        <Button variant="text" className="header__button options_menu"
-                                                            startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => { handlePopover(event); setEditedRecipeId(recipe.id) }}></Button>
+                                                            <Button variant="text" className="header__button options_menu"
+                                                                startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => { handlePopover(event); setEditedRecipeId(recipe.id) }}></Button>
+                                                        </div>
                                                         <Popover
                                                             id={popoverID}
                                                             open={open}
