@@ -21,8 +21,6 @@ function SavedRecipesSidebar() {
     // Hooks for dispatching actions and selecting a slice of the Redux store.
     const dispatch = useDispatch();
     const history = useHistory();
-
-    const [listToDisplay, setlistToDisplay] = useState(document.title);
     const recipeLists = useSelector(store => store.recipeListsReducer);
 
     // State hooks for managing the creation process and input value of the new recipe list.
@@ -39,7 +37,8 @@ function SavedRecipesSidebar() {
 
     const recipeFolder = (id) => {
         console.log('This is the id', id)
-        dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: id})
+        history.push(`/recipe-box/${id}`);
+        // dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: id})
     }
 
     // Effect hook to fetch recipe lists when the component mounts.
@@ -58,11 +57,7 @@ function SavedRecipesSidebar() {
                         document.title === 'Saved Recipes' ? '#F8F8F5' : 'inherit',
                     fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal'
                 }}><BookmarkIcon className='sidebar__icon' /> Saved Recipes</p>
-                <p onClick={() => {
-                    history.push('/recipe-box/cooked');
-                    setlistToDisplay('Cooked Recipes');
-                }
-                }
+                <p onClick={() => history.push('/recipe-box/cooked')}
                     style={{
                         backgroundColor:
                             document.title === 'Cooked Recipes' ? '#F8F8F5' : 'inherit',
@@ -70,7 +65,7 @@ function SavedRecipesSidebar() {
                     }}
                 ><CheckCircleIcon className='sidebar__icon' /> Cooked Recipes</p>
                 <p
-                onClick={() => history.push('/recipe-box/recent')}
+                    onClick={() => history.push('/recipe-box/recent')}
                     style={{
                         backgroundColor:
                             document.title === 'Recently Viewed Recipes' ? '#F8F8F5' : 'inherit',
@@ -89,7 +84,16 @@ function SavedRecipesSidebar() {
                     <p className='p__new-folder'>New Folder</p>
                 </div>
                 {recipeLists && recipeLists.map((list, index) => (
-                    <p><button key={index} style={{ color: 'black' }} onClick={() => recipeFolder(list.id)}>{list.list_name}</button></p>
+                    <p onClick={() => {
+                        history.push(`/recipe-box/${list.id}`);
+                        dispatch({ type: 'SET_CURRENT_LIST_ID', payload: list.id }); // Optional: if you want to maintain current list state in Redux
+                    }}
+                        style={{
+                            backgroundColor: document.title === `${list.list_name} Recipes` ? '#F8F8F5' : 'inherit',
+                            fontWeight: document.title === `${list.list_name} Recipes` ? 'bold' : 'normal'
+                        }}
+                    ><button key={index} style={{ color: 'black' }}>{list.list_name}</button></p>
+
                 ))}
             </div>
             {/* Dialog for creating a new recipe folder. */}

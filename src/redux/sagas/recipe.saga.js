@@ -48,20 +48,6 @@ function* getRecipeDetails(action) {
     }
 }
 
-// Function for returning recipes from a specific recipe folder
-function* getRecipesFromFolder(action) {
-    const id = action.payload
-    try {
-        const response = yield axios.get(`/api/recipe/folder/${id}`)
-        const newAction = { type: 'GET_RECIPES', payload: response.data}
-        yield put(newAction);
-    } catch (error) {
-        console.log('Error fetching recipes from folder', error);
-        alert('Something went wrong.');
-        throw error;
-    }
-}
-
 function* deleteRecipe(action) {
     const id = action.payload;
     try {
@@ -168,7 +154,6 @@ function* getCookedRecipes(action) {
 }
 
 function* getRecentRecipes(action) {
-    console.log('hi');
     try {
         const response = yield axios.get(`/api/recipe/recent?q=${action.payload}`);
         const newAction = { type: 'GET_RECENT_RECIPES', payload: response.data };
@@ -177,6 +162,30 @@ function* getRecentRecipes(action) {
         console.error('Error fetching recent recipes:', error);
         alert('Something went wrong.');
         throw error;
+    }
+}
+
+// Function for returning recipes from a specific recipe folder
+function* getRecipesFromFolder(action) {
+    const id = action.payload;
+    try {
+        const response = yield axios.get(`/api/recipe/folder/${id}?q=${action.payload}`)
+        const newAction = { type: 'GET_USER_RECIPES', payload: response.data}
+        yield put(newAction);
+    } catch (error) {
+        console.error('Error fetching recipes from folder', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
+function* fetchRecipesFromFolder(action) {
+    try {
+        const response = yield axios.get(`/api/recipe/folder/${action.payload.id}?q=${action.payload.searchQuery}`);
+        yield put({ type: 'GET_USER_RECIPES', payload: response.data });
+    } catch (error) {
+        console.error('Error fetching recipes from folder:', error);
+        alert('Something went wrong.');
     }
 }
 
@@ -191,11 +200,12 @@ function* recipeSaga() {
     yield takeLatest('REMOVE_COMMENT', deleteComment);
     yield takeLatest('UPDATE_RATING', changeRating);
     yield takeLatest('UPDATE_COOKED', changeCooked);
-    yield takeLatest('FETCH_RECIPES_FROM_FOLDER', getRecipesFromFolder);
     yield takeLatest('FETCH_RECIPE_LISTS', fetchRecipeLists);
     yield takeLatest('ADD_RECIPE_TO_FOLDER', addRecipeToFolder);
     yield takeLatest('FETCH_COOKED_RECIPES', getCookedRecipes);
     yield takeLatest('FETCH_RECENT_RECIPES', getRecentRecipes);
+    // yield takeLatest('FETCH_USER_RECIPES', getRecipesFromFolder);
+    yield takeLatest('FETCH_RECIPES_FROM_FOLDER', fetchRecipesFromFolder);
 }
 
 export default recipeSaga;

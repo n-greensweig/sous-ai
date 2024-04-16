@@ -18,15 +18,13 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import AddIcon from '@mui/icons-material/Add';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { TypeSpecimenOutlined } from "@mui/icons-material";
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
-import Popup from "../Popup/Popup";
-
-// Imports Material-UI components for buttons and icons.
-import { Dialog, DialogTitle, DialogContent } from '@mui/material';
 import './RecipeItems.css';
-import { TypeSpecimenOutlined } from "@mui/icons-material";
+
+import { useParams } from 'react-router-dom';
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -47,16 +45,18 @@ function FadeIn({ children }) {
 
 function RecipeItems(props) {
     // Initialize dispatch and history for Redux actions and navigation.
+    const { id } = useParams(); // Get the list ID from URL parameter
+    console.log(id);
     const dispatch = useDispatch();
     const history = useHistory();
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorFolder, setAnchorFolder] = useState(null);
-    const [buttonPopup, setButtonPopup] = useState(false);
     const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [listToDisplay, setlistToDisplay] = useState(document.title);
 
     const recipeLists = useSelector(store => store.recipeListsReducer);
+
     if (props.path === '/recipe-box') {
         document.title = 'Saved Recipes';
     } else if (props.path === '/recipe-box/cooked') {
@@ -66,7 +66,7 @@ function RecipeItems(props) {
     } else if (props.path === '/recipe-box/grocery') {
         document.title = 'Grocery List';
     } else {
-        document.title = 'Saved Recipes';
+        document.title = 'User List';
     }
 
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
@@ -117,7 +117,9 @@ function RecipeItems(props) {
 
     // Fetch recipes with search filter
     useEffect(() => {
-        if (listToDisplay === 'Saved Recipes') {
+        if (id) {
+            dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery: searchQuery } });
+        } else if (listToDisplay === 'Saved Recipes') {
             dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
         } else if (listToDisplay === 'Cooked Recipes') {
             dispatch({ type: 'FETCH_COOKED_RECIPES', payload: searchQuery });
@@ -156,27 +158,24 @@ function RecipeItems(props) {
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                             <div style={{ display: 'flex', flexDirection: 'column', }}>
                                 <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>
-                                    {props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' : props.path === '/recipe-box/recent' ? 'Recently Viewed' : props.path === '/recipe-box/grocery' ? 'Grocery List' : 'Saved Recipes'}</h2>
+                                    {props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' :
+                                        props.path === '/recipe-box/recent' ? 'Recently Viewed' :
+                                            props.path === '/recipe-box/grocery' ? 'Grocery List' :
+                                                'User Recipes'}</h2>
                                 <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} recipes</p>
                             </div>
                             <div className="search__input" style={{
                                 display: 'flex', flexDirection: 'row',
                                 alignItems: 'center'
                             }}>
-                                {/* <Button variant="text" className="header__button search" startIcon={ */}
                                 <SearchIcon className='icon--black search' />
-                                {/* }></Button> */}
                                 <input
                                     type="text"
                                     placeholder="Search your saved recipes"
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     value={searchQuery}
                                 />
-                                {searchQuery ?
-                                    // <Button variant="text" className="header__button" onClick={() => setSearchQuery('')} startIcon={
-                                    <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' />
-                                    // }></Button> 
-                                    : null}
+                                {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' /> : null}
                             </div>
                         </div>
                         {/* Maps through the recipes array and creates a Grid item for each recipe. */}
