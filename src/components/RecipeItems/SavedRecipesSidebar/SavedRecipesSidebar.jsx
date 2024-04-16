@@ -35,12 +35,6 @@ function SavedRecipesSidebar() {
         dispatch({ type: 'FETCH_RECIPE_LISTS' }); // Triggers a fetch for the updated lists.
     };
 
-    const recipeFolder = (id) => {
-        console.log('This is the id', id)
-        history.push(`/recipe-box/${id}`);
-        // dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: id})
-    }
-
     // Effect hook to fetch recipe lists when the component mounts.
     useEffect(() => {
         dispatch({ type: 'FETCH_RECIPE_LISTS' });
@@ -85,7 +79,7 @@ function SavedRecipesSidebar() {
                 </div>
                 {recipeLists && recipeLists.map((list, index) => (
                     <p onClick={() => {
-                        document.title = `${list.list_name} Recipes`;
+                        document.title = `Your Recipe Box - ${list.list_name}`;
                         history.push(`/recipe-box/${list.id}`);
                         dispatch({ type: 'SET_CURRENT_LIST_ID', payload: list.id }); // Optional: if you want to maintain current list state in Redux
                     }}

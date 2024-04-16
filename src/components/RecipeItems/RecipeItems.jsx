@@ -46,9 +46,9 @@ function FadeIn({ children }) {
 function RecipeItems(props) {
     // Initialize dispatch and history for Redux actions and navigation.
     const { id } = useParams(); // Get the list ID from URL parameter
-    console.log(id);
     const dispatch = useDispatch();
     const history = useHistory();
+    const [listName, setListName] = useState('');
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorFolder, setAnchorFolder] = useState(null);
     const [editedRecipeId, setEditedRecipeId] = useState(null);
@@ -56,8 +56,17 @@ function RecipeItems(props) {
     const [listToDisplay, setlistToDisplay] = useState(document.title);
 
     const recipeLists = useSelector(store => store.recipeListsReducer);
+    const currentList = recipeLists.find(list => list.id === id);
 
-    document.title = 'Your Recipe Box - SousAI';
+    if (props.path === '/recipe-box') {
+        document.title = 'Saved Recipes';
+    } else if (props.path === '/recipe-box/cooked') {
+        document.title = 'Cooked Recipes';
+    } else if (props.path === '/recipe-box/recent') {
+        document.title = 'Recently Viewed Recipes';
+    } else if (props.path === '/recipe-box/grocery') {
+        document.title = 'Grocery List';
+    }
 
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
     const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.
@@ -99,11 +108,18 @@ function RecipeItems(props) {
 
     // Add recipe to folder
     const addRecipeToFolder = (id) => {
-        console.log('recipe id is', editedRecipeId)
-        console.log('Folder id is', id)
         dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: editedRecipeId, }, });
         handleFolderPopoverClose();
     };
+
+    useEffect(() => {
+        if (currentList) {
+            setListName(currentList.list_name);
+        } else {
+            // Fetch the list name from the server if not available in the state
+            dispatch({ type: 'FETCH_LIST_NAME', payload: id });
+        }
+    }, [id, currentList, dispatch]);
 
     // Fetch recipes with search filter
     useEffect(() => {
@@ -151,7 +167,7 @@ function RecipeItems(props) {
                                     {props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' :
                                         props.path === '/recipe-box/recent' ? 'Recently Viewed' :
                                             props.path === '/recipe-box/grocery' ? 'Grocery List' :
-                                                'User Recipes'}</h2>
+                                                document.title.split('Your Recipe Box - ')[1]}</h2>
                                 <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} recipes</p>
                             </div>
                             <div className="search__input" style={{
