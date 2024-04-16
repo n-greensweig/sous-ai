@@ -132,6 +132,28 @@ function RecipeItems(props) {
     // Utility function to replace '@' symbols with commas, used for displaying recipe notes.
     const replaceWithCommas = str => str.replace(/@/g, ',');
 
+    // Utility function to format time strings in minutes to hours and minutes
+    const formatTime = timeString => {
+        // Convert string to an integer
+        const timeInMinutes = parseInt(timeString, 10);
+
+        // Check if time is 60 minutes or more
+        if (timeInMinutes >= 60) {
+            const hours = Math.floor(timeInMinutes / 60);
+            const minutes = timeInMinutes % 60;
+
+            // Return a formatted string in terms of hours and remaining minutes
+            if (minutes === 0) {
+                return `${hours} hour${hours > 1 ? 's' : ''}`;
+            } else {
+                return `${hours} hour${hours > 1 ? 's' : ''} and ${minutes} minute${minutes > 1 || minutes === 0 ? 's' : ''}`;
+            }
+        } else {
+            // Return in minutes if less than 60
+            return `${timeInMinutes} minute${timeInMinutes > 1 || timeInMinutes === 0 ? 's' : ''}`;
+        }
+    };
+
     // Use Material-UI hooks to check for screen size for responsive layout design.
     const theme = useTheme();
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
@@ -237,21 +259,7 @@ function RecipeItems(props) {
                                                             }}
                                                                 variant="h4"
                                                                 component="div"
-                                                            >Prep time: {replaceWithCommas(recipe.prep_time)}</Typography>
-                                                            <div className="notes__button">
-                                                                <Typography className="notes" style={{
-                                                                    alignItems: 'baseline',
-                                                                    justifyContent: 'center',
-                                                                    fontFamily: 'inter',
-                                                                    color: 'black',
-                                                                    fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
-                                                                    marginTop: '5px',
-                                                                    overflow: 'auto'
-                                                                }}
-                                                                    variant="h4"
-                                                                    component="div"
-                                                                >Cook time: {replaceWithCommas(recipe.cook_time)}</Typography>
-                                                            </div>
+                                                            >{formatTime((Number(replaceWithCommas(recipe.prep_time).split(' ')[0])) + Number(replaceWithCommas(recipe.cook_time).split(' ')[0]))}</Typography>
                                                         </CardContent>
                                                     </CardActionArea>
                                                     <CardActions>
