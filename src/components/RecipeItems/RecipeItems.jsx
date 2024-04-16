@@ -168,7 +168,8 @@ function RecipeItems(props) {
                                         props.path === '/recipe-box/recent' ? 'Recently Viewed' :
                                             props.path === '/recipe-box/grocery' ? 'Grocery List' :
                                                 document.title.split('Your Recipe Box - ')[1]}</h2>
-                                <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} recipes</p>
+                                {numOfRecipes > 0 ? <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} recipes</p> :
+                                    <p style={{ marginTop: 0, color: '#717171' }}>No recipes yet</p>}
                             </div>
                             <div className="search__input" style={{
                                 display: 'flex', flexDirection: 'row',
