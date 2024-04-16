@@ -165,20 +165,6 @@ function* getRecentRecipes(action) {
     }
 }
 
-// Function for returning recipes from a specific recipe folder
-function* getRecipesFromFolder(action) {
-    const id = action.payload;
-    try {
-        const response = yield axios.get(`/api/recipe/folder/${id}?q=${action.payload}`)
-        const newAction = { type: 'GET_USER_RECIPES', payload: response.data}
-        yield put(newAction);
-    } catch (error) {
-        console.error('Error fetching recipes from folder', error);
-        alert('Something went wrong.');
-        throw error;
-    }
-}
-
 function* fetchRecipesFromFolder(action) {
     try {
         const response = yield axios.get(`/api/recipe/folder/${action.payload.id}?q=${action.payload.searchQuery}`);
@@ -204,7 +190,6 @@ function* recipeSaga() {
     yield takeLatest('ADD_RECIPE_TO_FOLDER', addRecipeToFolder);
     yield takeLatest('FETCH_COOKED_RECIPES', getCookedRecipes);
     yield takeLatest('FETCH_RECENT_RECIPES', getRecentRecipes);
-    // yield takeLatest('FETCH_USER_RECIPES', getRecipesFromFolder);
     yield takeLatest('FETCH_RECIPES_FROM_FOLDER', fetchRecipesFromFolder);
 }
 

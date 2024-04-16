@@ -57,17 +57,7 @@ function RecipeItems(props) {
 
     const recipeLists = useSelector(store => store.recipeListsReducer);
 
-    if (props.path === '/recipe-box') {
-        document.title = 'Saved Recipes';
-    } else if (props.path === '/recipe-box/cooked') {
-        document.title = 'Cooked Recipes';
-    } else if (props.path === '/recipe-box/recent') {
-        document.title = 'Recently Viewed Recipes';
-    } else if (props.path === '/recipe-box/grocery') {
-        document.title = 'Grocery List';
-    } else {
-        document.title = 'User List';
-    }
+    document.title = 'Your Recipe Box - SousAI';
 
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
     const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.

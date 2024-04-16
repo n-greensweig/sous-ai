@@ -85,6 +85,7 @@ function SavedRecipesSidebar() {
                 </div>
                 {recipeLists && recipeLists.map((list, index) => (
                     <p onClick={() => {
+                        document.title = `${list.list_name} Recipes`;
                         history.push(`/recipe-box/${list.id}`);
                         dispatch({ type: 'SET_CURRENT_LIST_ID', payload: list.id }); // Optional: if you want to maintain current list state in Redux
                     }}
