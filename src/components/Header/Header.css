@@ -24,10 +24,6 @@ header {
     border-radius: 75%;
     margin-right: 1%;
 }
-.header__bar {
-    border: 1px solid black;
-    height: 40px;
-}
 .header__logo strong {
     padding-left: 1%;
     height: 100%;

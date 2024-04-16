@@ -18,15 +18,13 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import AddIcon from '@mui/icons-material/Add';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { TypeSpecimenOutlined } from "@mui/icons-material";
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
-import Popup from "../Popup/Popup";
-
-// Imports Material-UI components for buttons and icons.
-import { Dialog, DialogTitle, DialogContent } from '@mui/material';
 import './RecipeItems.css';
-import { TypeSpecimenOutlined } from "@mui/icons-material";
+
+import { useParams } from 'react-router-dom';
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -47,16 +45,19 @@ function FadeIn({ children }) {
 
 function RecipeItems(props) {
     // Initialize dispatch and history for Redux actions and navigation.
+    const { id } = useParams(); // Get the list ID from URL parameter
     const dispatch = useDispatch();
     const history = useHistory();
+    const [listName, setListName] = useState('');
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorFolder, setAnchorFolder] = useState(null);
-    const [buttonPopup, setButtonPopup] = useState(false);
     const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [listToDisplay, setlistToDisplay] = useState(document.title);
 
     const recipeLists = useSelector(store => store.recipeListsReducer);
+    const currentList = recipeLists.find(list => list.id === id);
+
     if (props.path === '/recipe-box') {
         document.title = 'Saved Recipes';
     } else if (props.path === '/recipe-box/cooked') {
@@ -65,8 +66,6 @@ function RecipeItems(props) {
         document.title = 'Recently Viewed Recipes';
     } else if (props.path === '/recipe-box/grocery') {
         document.title = 'Grocery List';
-    } else {
-        document.title = 'Saved Recipes';
     }
 
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
@@ -109,15 +108,19 @@ function RecipeItems(props) {
 
     // Add recipe to folder
     const addRecipeToFolder = (id) => {
-        console.log('recipe id is', editedRecipeId)
-        console.log('Folder id is', id)
         dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: editedRecipeId, }, });
         handleFolderPopoverClose();
     };
 
+    useEffect(() => {
+        dispatch({ type: 'FETCH_LIST_NAME', payload: id }); // Fetch the list name from the server if not available in the state
+    }, [id, dispatch]);
+
     // Fetch recipes with search filter
     useEffect(() => {
-        if (listToDisplay === 'Saved Recipes') {
+        if (id) {
+            dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery: searchQuery } });
+        } else if (listToDisplay === 'Saved Recipes') {
             dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
         } else if (listToDisplay === 'Cooked Recipes') {
             dispatch({ type: 'FETCH_COOKED_RECIPES', payload: searchQuery });
@@ -128,6 +131,28 @@ function RecipeItems(props) {
 
     // Utility function to replace '@' symbols with commas, used for displaying recipe notes.
     const replaceWithCommas = str => str.replace(/@/g, ',');
+
+    // Utility function to format time strings in minutes to hours and minutes
+    const formatTime = timeString => {
+        // Convert string to an integer
+        const timeInMinutes = parseInt(timeString, 10);
+
+        // Check if time is 60 minutes or more
+        if (timeInMinutes >= 60) {
+            const hours = Math.floor(timeInMinutes / 60);
+            const minutes = timeInMinutes % 60;
+
+            // Return a formatted string in terms of hours and remaining minutes
+            if (minutes === 0) {
+                return `${hours} hour${hours > 1 ? 's' : ''}`;
+            } else {
+                return `${hours} hour${hours > 1 ? 's' : ''} and ${minutes} minute${minutes > 1 || minutes === 0 ? 's' : ''}`;
+            }
+        } else {
+            // Return in minutes if less than 60
+            return `${timeInMinutes} minute${timeInMinutes > 1 || timeInMinutes === 0 ? 's' : ''}`;
+        }
+    };
 
     // Use Material-UI hooks to check for screen size for responsive layout design.
     const theme = useTheme();
@@ -156,27 +181,25 @@ function RecipeItems(props) {
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                             <div style={{ display: 'flex', flexDirection: 'column', }}>
                                 <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>
-                                    {props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' : props.path === '/recipe-box/recent' ? 'Recently Viewed' : props.path === '/recipe-box/grocery' ? 'Grocery List' : 'Saved Recipes'}</h2>
-                                <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} recipes</p>
+                                    {props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' :
+                                        props.path === '/recipe-box/recent' ? 'Recently Viewed' :
+                                            props.path === '/recipe-box/grocery' ? 'Grocery List' :
+                                                document.title.split('Your Recipe Box - ')[1]}</h2>
+                                {numOfRecipes > 0 ? <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} recipes</p> :
+                                    <p style={{ marginTop: 0, color: '#717171' }}>No recipes yet</p>}
                             </div>
                             <div className="search__input" style={{
                                 display: 'flex', flexDirection: 'row',
                                 alignItems: 'center'
                             }}>
-                                {/* <Button variant="text" className="header__button search" startIcon={ */}
                                 <SearchIcon className='icon--black search' />
-                                {/* }></Button> */}
                                 <input
                                     type="text"
                                     placeholder="Search your saved recipes"
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     value={searchQuery}
                                 />
-                                {searchQuery ?
-                                    // <Button variant="text" className="header__button" onClick={() => setSearchQuery('')} startIcon={
-                                    <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' />
-                                    // }></Button> 
-                                    : null}
+                                {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' /> : null}
                             </div>
                         </div>
                         {/* Maps through the recipes array and creates a Grid item for each recipe. */}
@@ -223,8 +246,12 @@ function RecipeItems(props) {
                                                                 sx={{
                                                                     fontWeight: 'bold',
                                                                     mb: 2
-                                                                }}>{recipe.title} ID: {recipe.id}</Typography>
+                                                                }}>{recipe.title}</Typography>
                                                             {/* Typography for recipe notes with dynamic font size based on screen size. */}
+                                                        </CardContent>
+                                                    </CardActionArea>
+                                                    <CardActions>
+                                                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                                                             <Typography className="notes" style={{
                                                                 alignItems: 'baseline',
                                                                 justifyContent: 'center',
@@ -236,26 +263,10 @@ function RecipeItems(props) {
                                                             }}
                                                                 variant="h4"
                                                                 component="div"
-                                                            >Prep time: {replaceWithCommas(recipe.prep_time)}</Typography>
-                                                            <div className="notes__button">
-                                                                <Typography className="notes" style={{
-                                                                    alignItems: 'baseline',
-                                                                    justifyContent: 'center',
-                                                                    fontFamily: 'inter',
-                                                                    color: 'black',
-                                                                    fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
-                                                                    marginTop: '5px',
-                                                                    overflow: 'auto'
-                                                                }}
-                                                                    variant="h4"
-                                                                    component="div"
-                                                                >Cook time: {replaceWithCommas(recipe.cook_time)}</Typography>
-                                                            </div>
-                                                        </CardContent>
-                                                    </CardActionArea>
-                                                    <CardActions>
-                                                        <Button variant="text" className="header__button options_menu"
-                                                            startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => { handlePopover(event); setEditedRecipeId(recipe.id) }}></Button>
+                                                            >{formatTime((Number(replaceWithCommas(recipe.prep_time).split(' ')[0])) + Number(replaceWithCommas(recipe.cook_time).split(' ')[0]))}</Typography>
+                                                            <Button variant="text" className="header__button options_menu"
+                                                                startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => { handlePopover(event); setEditedRecipeId(recipe.id) }}></Button>
+                                                        </div>
                                                         <Popover
                                                             id={popoverID}
                                                             open={open}
