@@ -1,4 +1,4 @@
-import { useTheme, useMediaQuery, Button, TextField } from '@mui/material';
+import { useTheme, useMediaQuery, Button } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import './Header.css';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
