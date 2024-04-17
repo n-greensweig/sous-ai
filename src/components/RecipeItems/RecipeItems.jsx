@@ -22,9 +22,17 @@ import { TypeSpecimenOutlined } from "@mui/icons-material";
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
+
+
+//Pop-up via Snackbar
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+
+// Imports Material-UI components for buttons and icons.
 import './RecipeItems.css';
 
 import { useParams } from 'react-router-dom';
+
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -51,6 +59,7 @@ function RecipeItems(props) {
     const [listName, setListName] = useState('');
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorFolder, setAnchorFolder] = useState(null);
+    const [confirmFolder, setConfirmFolder] = useState(false)
     const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [listToDisplay, setlistToDisplay] = useState(document.title);
@@ -93,6 +102,7 @@ function RecipeItems(props) {
 
     const handleClose = () => {
         setAnchorEl(null);
+        setConfirmFolder(false)
     }
 
     // For popover operations
@@ -110,6 +120,7 @@ function RecipeItems(props) {
     const addRecipeToFolder = (id) => {
         dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: editedRecipeId, }, });
         handleFolderPopoverClose();
+        setConfirmFolder(true);
     };
 
     useEffect(() => {
@@ -278,7 +289,7 @@ function RecipeItems(props) {
                                                             }}
                                                         >
                                                             <ul className={`dropdown`}>
-                                                                <li>
+                                                                <div className="dropdownButton">
                                                                     <button onClick={handleFolderPopover}>Add to Folder</button>
                                                                     <Popover
                                                                         open={openFolder}
@@ -289,16 +300,22 @@ function RecipeItems(props) {
                                                                             horizontal: 'right',
                                                                         }}>
                                                                         {recipeLists.map((folder, i) => (
-                                                                            <><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button><br /></>
+                                                                            <div className="dropdownButton" ><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button></div>
                                                                         ))}
 
                                                                     </Popover>
-                                                                </li>
-                                                                <li>
-                                                                    <button onClick={() => removeRecipe()}>Remove recipe</button>
-                                                                </li>
+                                                                </div>
+                                                                
+                                                                <div className="dropdownButton" >
+                                                                    <button className="dropdownButton" onClick={() => removeRecipe()}>Remove recipe</button>
+                                                                </div>
                                                             </ul>
                                                         </Popover>
+                                                        <Snackbar open={confirmFolder} autoHideDuration={3500} onClose={handleClose}>
+                                                            <Alert onClose={handleClose} severity="success" variant="filled">
+                                                               Recipe Added!
+                                                            </Alert>
+                                                        </Snackbar>
                                                     </CardActions>
                                                 </div>
                                             </Card>
