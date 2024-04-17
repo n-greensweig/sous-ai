@@ -21,12 +21,13 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
-import Popup from "../Popup/Popup";
+
+//Pop-up via Snackbar
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 // Imports Material-UI components for buttons and icons.
-import { Dialog, DialogTitle, DialogContent } from '@mui/material';
 import './RecipeItems.css';
-import { TypeSpecimenOutlined } from "@mui/icons-material";
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -51,7 +52,7 @@ function RecipeItems(props) {
     const history = useHistory();
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorFolder, setAnchorFolder] = useState(null);
-    const [buttonPopup, setButtonPopup] = useState(false);
+    const [confirmFolder, setConfirmFolder] = useState(false)
     const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [listToDisplay, setlistToDisplay] = useState(document.title);
@@ -94,6 +95,7 @@ function RecipeItems(props) {
 
     const handleClose = () => {
         setAnchorEl(null);
+        setConfirmFolder(false)
     }
 
     // For popover operations
@@ -113,6 +115,7 @@ function RecipeItems(props) {
         console.log('Folder id is', id)
         dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: editedRecipeId, }, });
         handleFolderPopoverClose();
+        setConfirmFolder(true);
     };
 
     // Fetch recipes with search filter
@@ -289,6 +292,11 @@ function RecipeItems(props) {
                                                                 </div>
                                                             </ul>
                                                         </Popover>
+                                                        <Snackbar open={confirmFolder} autoHideDuration={3500} onClose={handleClose}>
+                                                            <Alert onClose={handleClose} severity="success" variant="filled">
+                                                               Recipe Added!
+                                                            </Alert>
+                                                        </Snackbar>
                                                     </CardActions>
                                                 </div>
                                             </Card>
