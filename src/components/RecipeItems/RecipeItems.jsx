@@ -40,9 +40,9 @@ function RecipeItems(props) {
     }
 
     const listName = props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' :
-            props.path === '/recipe-box/recent' ? 'Recently Viewed' :
-                props.path === '/recipe-box/grocery' ? 'Grocery List' :
-                    document.title.split('Your Recipe Box - ')[1];
+        props.path === '/recipe-box/recent' ? 'Recently Viewed' :
+            props.path === '/recipe-box/grocery' ? 'Grocery List' :
+                document.title.split('Your Recipe Box - ')[1];
 
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
     const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.
@@ -67,21 +67,14 @@ function RecipeItems(props) {
 
     return (
         // Sets padding and margin based on screen size for responsive design.
-        <div style={{
-            marginTop: isSmScreen || isXsScreen ? '7%' : '1%',
-            margin: '0 auto',
-        }}>
+        <div style={{ marginTop: isSmScreen || isXsScreen ? '7%' : '1%', margin: '0 auto', }}>
             <Header />
             <div style={{ display: 'flex', flexDirection: 'row', }}>
                 <SavedRecipesSidebar />
                 {/* Grid container to display recipes in a responsive layout. */}
                 <Grid container spacing={2} minHeight={'5vh'} className="container"
-                    style={{
-                        marginTop: '0px',
-                        margin: '0 auto',
-                        padding: '20px 10px',
-                        backgroundColor: '#FAF9F6',
-                    }}
+                    style={{ marginTop: '0px', margin: '0 auto',
+                        padding: '20px 10px', backgroundColor: '#FAF9F6', }}
                 >
                     <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>

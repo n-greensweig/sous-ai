@@ -51,7 +51,6 @@ function RecipeCard(props) {
     const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [totalTime, setTotalTime] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
-
     const recipeLists = useSelector(store => store.recipeListsReducer);
 
     // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
@@ -63,12 +62,12 @@ function RecipeCard(props) {
     // Handle the pop-overs for adding or removing recipes
     const handleFolderPopover = (e) => {
         setAnchorFolder(e.currentTarget)
-    }
+    };
 
     const handleFolderPopoverClose = () => {
         setAnchorFolder(null);
         handleClose();
-    }
+    };
 
     const handlePopover = (e) => {
         setAnchorEl(e.currentTarget)
@@ -77,7 +76,7 @@ function RecipeCard(props) {
     const handleClose = () => {
         setAnchorEl(null);
         setConfirmFolder(false)
-    }
+    };
 
     // For popover operations
     const open = Boolean(anchorEl);
@@ -87,7 +86,7 @@ function RecipeCard(props) {
     // Remove recipe
     const removeRecipe = () => {
         dispatch({ type: 'REMOVE_RECIPE', payload: props.recipe.id, });
-        dispatch({ type: 'FETCH_RECIPES' });
+        // dispatch({ type: 'FETCH_RECIPES' });
     };
 
     // Remove recipe from folder
@@ -102,10 +101,6 @@ function RecipeCard(props) {
         handleFolderPopoverClose();
         setConfirmFolder(true);
     };
-
-    useEffect(() => {
-        dispatch({ type: 'FETCH_LIST_NAME', payload: id }); // Fetch the list name from the server if not available in the state
-    }, [id, dispatch]);
 
     // Ensure recipes display correct time.
     useEffect(() => {

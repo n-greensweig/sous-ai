@@ -305,21 +305,27 @@ router.get('/folder/:id', rejectUnauthenticated, (req, res) => {
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     // Must first delete comments associated with the recipe
     let firstQueryText = `
+DELETE FROM "recipe_list_recipes" WHERE "user_id" = $1 AND "recipe_id" = $2;
+`;
+    // Must first delete comments associated with the recipe
+    let secondQueryText = `
 DELETE FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2;
 `;
     // Must then delete images associated with the recipe
-    let secondQueryText = `
+    let thirdQueryText = `
 DELETE FROM "images" WHERE "user_id" = $1 AND "recipe_id" = $2;
 `;
-    let queryText = `
+    let fourthQueryText = `
 DELETE FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 `;
     pool.query(firstQueryText, [req.user.id, req.params.id])
         .then(result => {
-            // Next, delete recipe images from DB
+            // Next, delete recipe comments from DB
             pool.query(secondQueryText, [req.user.id, req.params.id]);
+            // Next, delete recipe images from DB
+            pool.query(thirdQueryText, [req.user.id, req.params.id]);
             // Next, delete recipe from DB
-            pool.query(queryText, [req.user.id, req.params.id]);
+            pool.query(fourthQueryText, [req.user.id, req.params.id]);
             res.sendStatus(201);
         })
         .catch(error => {
