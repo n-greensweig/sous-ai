@@ -39,116 +39,101 @@ function FadeIn({ children }) {
 
 function RecipeCard(props) {
 
-        // Initialize dispatch and history for Redux actions and navigation.
-        const { id } = useParams(); // Get the list ID from URL parameter
-        const dispatch = useDispatch();
-        const history = useHistory();
-        const [listName, setListName] = useState('');
-        const [anchorEl, setAnchorEl] = useState(null);
-        const [anchorFolder, setAnchorFolder] = useState(null);
-        const [confirmFolder, setConfirmFolder] = useState(false)
-        const [editedRecipeId, setEditedRecipeId] = useState(null);
-        const [searchQuery, setSearchQuery] = useState('');
-        const [listToDisplay, setlistToDisplay] = useState(document.title);
-        const [totalTime, setTotalTime] = useState('');
-    
-        const recipeLists = useSelector(store => store.recipeListsReducer);
-        const currentList = recipeLists.find(list => list.id === id);
-    
-        const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
-        const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.
-    
-        // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
-        const handleClick = (id) => {
-            dispatch({ type: 'SET_SELECTED_RECIPE_ID', payload: id });
-            history.push(`/recipes/${id}`);
-        };
-    
-        // Handle the pop-overs for adding or removing recipes
-        const handleFolderPopover = (e) => {
-            setAnchorFolder(e.currentTarget)
-        }
-    
-        const handleFolderPopoverClose = () => {
-            setAnchorFolder(null);
-            handleClose();
-        }
-    
-        const handlePopover = (e) => {
-            setAnchorEl(e.currentTarget)
-        };
-    
-        const handleClose = () => {
-            setAnchorEl(null);
-            setConfirmFolder(false)
-        }
-    
-        // For popover operations
-        const open = Boolean(anchorEl);
-        const openFolder = Boolean(anchorFolder)
-        const popoverID = open ? 'simple-popover' : undefined;
-    
-        // Remove recipe
-        const removeRecipe = () => {
-            dispatch({ type: 'REMOVE_RECIPE', payload: props.recipe.id, });
-            dispatch({ type: 'FETCH_RECIPES' });
-        };
-    
-        // Add recipe to folder
-        const addRecipeToFolder = (id) => {
-            dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: props.recipe.id, }, });
-            handleFolderPopoverClose();
-            setConfirmFolder(true);
-        };
-    
-        useEffect(() => {
-            dispatch({ type: 'FETCH_LIST_NAME', payload: id }); // Fetch the list name from the server if not available in the state
-        }, [id, dispatch]);
-    
-        useEffect(() => {
-            formatTime();
-        }, [])
-        // Fetch recipes with search filter
-        useEffect(() => {
-            if (id) {
-                dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery: searchQuery } });
-            } else if (listToDisplay === 'Saved Recipes') {
-                dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
-            } else if (listToDisplay === 'Cooked Recipes') {
-                dispatch({ type: 'FETCH_COOKED_RECIPES', payload: searchQuery });
-            } else if (listToDisplay === 'Recently Viewed Recipes') {
-                dispatch({ type: 'FETCH_RECENT_RECIPES', payload: searchQuery });
-            }
-        }, [searchQuery, listToDisplay, dispatch]);
-    
-        // Utility function to format time strings in minutes to hours and minutes
-        const formatTime = () => {
-            // Convert string to an integer
-            const prepTime = parseInt(props.recipe.prep_time, 10);
-            const cookTime = parseInt(props.recipe.cook_time, 10);
-            const timeInMinutes = prepTime + cookTime;
-            // Check if time is 60 minutes or more
-            if (timeInMinutes >= 60) {
-                const hours = Math.floor(timeInMinutes / 60);
-                const minutes = timeInMinutes % 60;
-    
-                // Return a formatted string in terms of hours and remaining minutes
-                if (minutes === 0) {
-                    setTotalTime(`${hours} hour${hours > 1 ? 's' : ''}`);
-                } else {
-                    setTotalTime(`${hours} hour${hours > 1 ? 's' : ''} and ${minutes} minute${minutes > 1 || minutes === 0 ? 's' : ''}`);
-                }
-            } else {
-                // Return in minutes if less than 60
-                setTotalTime(`${timeInMinutes} minute${timeInMinutes > 1 || timeInMinutes === 0 ? 's' : ''}`);
-            }
-        };
-    
-        // Use Material-UI hooks to check for screen size for responsive layout design.
-        const theme = useTheme();
-        const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
-        const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    // Initialize dispatch and history for Redux actions and navigation.
+    const { id } = useParams(); // Get the list ID from URL parameter
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorFolder, setAnchorFolder] = useState(null);
+    const [confirmFolder, setConfirmFolder] = useState(false)
+    const [editedRecipeId, setEditedRecipeId] = useState(null);
+    const [totalTime, setTotalTime] = useState('');
 
+    const recipeLists = useSelector(store => store.recipeListsReducer);
+    // const currentList = recipeLists.find(list => list.id === id);
+        
+    // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
+    const handleClick = (id) => {
+        dispatch({ type: 'SET_SELECTED_RECIPE_ID', payload: id });
+        history.push(`/recipes/${id}`);
+    };
+
+    // Handle the pop-overs for adding or removing recipes
+    const handleFolderPopover = (e) => {
+        setAnchorFolder(e.currentTarget)
+    }
+
+    const handleFolderPopoverClose = () => {
+        setAnchorFolder(null);
+        handleClose();
+    }
+
+    const handlePopover = (e) => {
+        setAnchorEl(e.currentTarget)
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+        setConfirmFolder(false)
+    }
+
+    // For popover operations
+    const open = Boolean(anchorEl);
+    const openFolder = Boolean(anchorFolder)
+    const popoverID = open ? 'simple-popover' : undefined;
+
+    // Remove recipe
+    const removeRecipe = () => {
+        dispatch({ type: 'REMOVE_RECIPE', payload: props.recipe.id, });
+        dispatch({ type: 'FETCH_RECIPES' });
+    };
+
+    // Add recipe to folder
+    const addRecipeToFolder = (id) => {
+        dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: props.recipe.id, }, });
+        handleFolderPopoverClose();
+        setConfirmFolder(true);
+            };
+        
+    useEffect(() => {
+        dispatch({ type: 'FETCH_LIST_NAME', payload: id }); // Fetch the list name from the server if not available in the state
+    }, [id, dispatch]);
+
+    // Ensure recipes display correct time.
+    useEffect(() => {
+        formatTime();
+    }, [])
+
+        
+    // Utility function to format time strings in minutes to hours and minutes
+    const formatTime = () => {
+        // Convert string to an integer
+        const prepTime = parseInt(props.recipe.prep_time, 10);
+        const cookTime = parseInt(props.recipe.cook_time, 10);
+        const timeInMinutes = prepTime + cookTime;
+        // Check if time is 60 minutes or more
+        if (timeInMinutes >= 60) {
+            const hours = Math.floor(timeInMinutes / 60);
+            const minutes = timeInMinutes % 60;
+
+            // Return a formatted string in terms of hours and remaining minutes
+            if (minutes === 0) {
+                setTotalTime(`${hours} hour${hours > 1 ? 's' : ''}`);
+            } else {
+                setTotalTime(`${hours} hour${hours > 1 ? 's' : ''} and ${minutes} minute${minutes > 1 || minutes === 0 ? 's' : ''}`);
+            }
+        } else {
+            // Return in minutes if less than 60
+            setTotalTime(`${timeInMinutes} minute${timeInMinutes > 1 || timeInMinutes === 0 ? 's' : ''}`);
+        }
+    };
+        
+    // Use Material-UI hooks to check for screen size for responsive layout design.
+    const theme = useTheme();
+    const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
+    const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    // Confirming props are loaded 
     if (!props.recipe) {
         return (
             <>Loading...</>
@@ -201,9 +186,7 @@ function RecipeCard(props) {
                                     }}
                                         variant="h4"
                                         component="div"
-                                    >
-                                        Time: {totalTime}
-                                        </Typography>
+                                    >{totalTime}</Typography>
                                     <Button variant="text" className="header__button options_menu"
                                         startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }}></Button>
                                 </div>
@@ -250,7 +233,7 @@ function RecipeCard(props) {
                     </Card>
                 </Paper>
             </FadeIn>
-    )
+        )
 }}
 
 export default RecipeCard;
