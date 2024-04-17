@@ -10,6 +10,8 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // Custom components for displaying headers and new recipe list forms.
 import Header from '../Header/Header';
 
+import RecipeCard from '../RecipeCard/RecipeCard';
+
 // Imports Material-UI components for buttons and icons.
 import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -229,98 +231,7 @@ function RecipeItems(props) {
                                     style={{ padding: '0px', margin: '4px', minWidth: 250 }}
                                     id={recipe.id} key={index}
                                 >
-                                    <FadeIn>
-                                        <Paper elevation={5}>
-                                            <Card>
-                                                <div key={recipe.id}>
-                                                    <CardActionArea onClick={() => handleClick(recipe.id)}>
-                                                        <CardMedia
-                                                            component={'img'}
-                                                            height={'194'}
-                                                            image={`${recipe.display_photo}`}
-                                                            alt={`${recipe.title} dish`}
-                                                        />
-                                                        <CardContent className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-                                                            {/* Typography for recipe title with responsive font size. */}
-                                                            <Typography className="title" style={{
-                                                                display: 'flex',
-                                                                alignItems: 'center',
-                                                                justifyContent: 'flex-start',
-                                                                fontFamily: 'inter',
-                                                                color: 'black',
-                                                                fontSize: '18px',
-                                                                margin: '0px',
-                                                                paddingTop: '0px',
-                                                            }}
-                                                                variant="h4"
-                                                                component="div"
-                                                                sx={{
-                                                                    fontWeight: 'bold',
-                                                                    mb: 2
-                                                                }}>{recipe.title}</Typography>
-                                                            {/* Typography for recipe notes with dynamic font size based on screen size. */}
-                                                        </CardContent>
-                                                    </CardActionArea>
-                                                    <CardActions>
-                                                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-                                                            <Typography className="notes" style={{
-                                                                alignItems: 'baseline',
-                                                                justifyContent: 'center',
-                                                                fontFamily: 'inter',
-                                                                color: 'black',
-                                                                fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
-                                                                marginTop: '5px',
-                                                                overflow: 'auto'
-                                                            }}
-                                                                variant="h4"
-                                                                component="div"
-                                                            >{formatTime((Number(replaceWithCommas(recipe.prep_time).split(' ')[0])) + Number(replaceWithCommas(recipe.cook_time).split(' ')[0]))}</Typography>
-                                                            <Button variant="text" className="header__button options_menu"
-                                                                startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => { handlePopover(event); setEditedRecipeId(recipe.id) }}></Button>
-                                                        </div>
-                                                        <Popover
-                                                            id={popoverID}
-                                                            open={open}
-                                                            anchorEl={anchorEl}
-                                                            onClose={handleClose}
-                                                            anchorOrigin={{
-                                                                vertical: 'bottom',
-                                                                horizontal: 'left',
-                                                            }}
-                                                        >
-                                                            <ul className={`dropdown`}>
-                                                                <div className="dropdownButton">
-                                                                    <button onClick={handleFolderPopover}>Add to Folder</button>
-                                                                    <Popover
-                                                                        open={openFolder}
-                                                                        anchorEl={anchorFolder}
-                                                                        onClose={handleFolderPopoverClose}
-                                                                        anchorOrigin={{
-                                                                            vertical: 'bottom',
-                                                                            horizontal: 'right',
-                                                                        }}>
-                                                                        {recipeLists.map((folder, i) => (
-                                                                            <div className="dropdownButton" ><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button></div>
-                                                                        ))}
-
-                                                                    </Popover>
-                                                                </div>
-                                                                
-                                                                <div className="dropdownButton" >
-                                                                    <button className="dropdownButton" onClick={() => removeRecipe()}>Remove recipe</button>
-                                                                </div>
-                                                            </ul>
-                                                        </Popover>
-                                                        <Snackbar open={confirmFolder} autoHideDuration={3500} onClose={handleClose}>
-                                                            <Alert onClose={handleClose} severity="success" variant="filled">
-                                                               Recipe Added!
-                                                            </Alert>
-                                                        </Snackbar>
-                                                    </CardActions>
-                                                </div>
-                                            </Card>
-                                        </Paper>
-                                    </FadeIn>
+                                 <RecipeCard key={recipe.id} recipe={recipe}/>    
                                 </Grid>
                             ))}
                         </div>
