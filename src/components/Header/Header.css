@@ -28,16 +28,24 @@ header {
     padding-left: 1%;
     height: 100%;
 }
+.header__container {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    height: 32px;
+}
 .header__searchBar {
-    width: 50%;
-    height: 5px;
-    padding: 1%;
-    border: 1px solid #FFF;
+    flex-grow: 1;
+    padding: 8px 12px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
     background-color: #F8F8F5;
     border-radius: 5px;
     font-size: 1.2rem;
     outline: none;
-
+}
+.header__searchBar--main {
     &:focus,
     &:active,
     &:hover {

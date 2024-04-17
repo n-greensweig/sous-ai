@@ -50,69 +50,73 @@ function Header() {
                     <div className="header__logo" onClick={() => history.push('/')}>
                         <img src="images/avatars/sous.png" className="header__img" alt="SousAI" />
                     </div>
-                    <div className="header__searchBar"
+                    <div className="header__searchBar header__searchBar--main"
                         style={{
                             display: 'flex', flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-between',
                         }}
                     >
-                        <div style={{
-                            width: '90%',
-                        }}>
-                            <Button variant="text" className="header__button" startIcon={
+                        <div className="header__container">
+                            <button className="button--icon">
                                 <SearchIcon className='icon--black' />
-                            }></Button>
-                            <input value={searchQuery} type="text" placeholder="What would you like to cook?" className="header__searchBar"
+                            </button>
+                            <input
+                                value={searchQuery}
+                                type="text"
+                                placeholder="What would you like to cook?"
+                                className="header__searchBar"
                                 onChange={(event) => setSearchQuery(event.target.value)}
-                                style={{ border: 'none', }}
                             />
+                            {searchQuery ? (
+                                <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' />
+                            ) : null}
                         </div>
-                        {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' /> : null}
+
                     </div>
                     <Button onClick={() => history.push('/recipe-box')} variant="text" className="header__button button__recipe-box" startIcon={<BookmarkIcon className='icon--black' />}>
                         Your Recipe Box
                     </Button>
                     <div className='menuDiv'>
-                    <Button id="basic-button"
-                        className='header__button'
-                        aria-controls={open ? 'basic-menu' : undefined}
-                        aria-haspopup="menu"
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={handleClick}>
-                        <MenuIcon/>
-                    </Button>
-                    <Menu 
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        inputProps={{MenuProps: {disableScrollLock: true}}}
-                        MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                        }}>
-                        <MenuItem onClick={handleClose}>
-                            <Link className='navLink' to="/recipe-box">
-                                Preferences
-                            </Link>
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                            <Link className='navLink' to="/recipe-box">
-                                Submit a suggestion
-                            </Link>
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                            <Link className='navLink' to="/recipe-box">
-                                Report a bug
-                            </Link>
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                            <Button onClick={() => dispatch({ type: 'LOGOUT' })} className="header__button"><LogoutIcon/> Logout</Button>
-                        </MenuItem>
+                        <Button id="basic-button"
+                            className='header__button'
+                            aria-controls={open ? 'basic-menu' : undefined}
+                            aria-haspopup="menu"
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleClick}>
+                            <MenuIcon />
+                        </Button>
+                        <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            inputProps={{ MenuProps: { disableScrollLock: true } }}
+                            MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                            }}>
+                            <MenuItem onClick={handleClose}>
+                                <Link className='navLink' to="/recipe-box">
+                                    Preferences
+                                </Link>
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                                <Link className='navLink' to="/recipe-box">
+                                    Submit a suggestion
+                                </Link>
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                                <Link className='navLink' to="/recipe-box">
+                                    Report a bug
+                                </Link>
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                                <Button onClick={() => dispatch({ type: 'LOGOUT' })} className="header__button"><LogoutIcon /> Logout</Button>
+                            </MenuItem>
 
-                    </Menu>
+                        </Menu>
                     </div>
-                    
+
                 </div>
                 <div>
                     <button className='header__button hover' onClick={() => history.push('/')}>SousAI</button>
