@@ -3,25 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 
 // Imports from Material-UI for UI components with responsive capabilities.
-import { Grid, Paper, Card, CardContent, CardMedia, CardActionArea, CardActions, Typography, useTheme, useMediaQuery, Popover } from "@mui/material";
+import { Paper, Card, CardContent, CardMedia, CardActionArea, CardActions, Typography, useTheme, useMediaQuery, Popover } from "@mui/material";
 // useHistory hook from React Router for programmatically navigating to different routes.
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // Custom components for displaying headers and new recipe list forms.
-import Header from '../Header/Header';
 
 // Imports Material-UI components for buttons and icons.
 import { Button } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import AddIcon from '@mui/icons-material/Add';
-import CancelIcon from '@mui/icons-material/Cancel';
-import { TypeSpecimenOutlined } from "@mui/icons-material";
 
 import { useInView } from 'react-intersection-observer'; // Import the hook
-
-
 
 //Pop-up via Snackbar
 import Snackbar from '@mui/material/Snackbar';
