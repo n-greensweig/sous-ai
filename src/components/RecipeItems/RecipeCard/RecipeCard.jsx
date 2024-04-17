@@ -50,7 +50,6 @@ function RecipeCard(props) {
     const [totalTime, setTotalTime] = useState('');
 
     const recipeLists = useSelector(store => store.recipeListsReducer);
-    // const currentList = recipeLists.find(list => list.id === id);
         
     // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
     const handleClick = (id) => {

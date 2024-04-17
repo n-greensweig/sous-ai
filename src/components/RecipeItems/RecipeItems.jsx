@@ -10,12 +10,11 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // Custom components for displaying headers and new recipe list forms.
 import Header from '../Header/Header';
 
-import RecipeCard from '../RecipeCard/RecipeCard';
+import RecipeCard from './RecipeCard/RecipeCard';
 
 // Imports Material-UI components for buttons and icons.
 import SearchIcon from '@mui/icons-material/Search';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import CancelIcon from '@mui/icons-material/Cancel';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
 
@@ -28,14 +27,8 @@ function RecipeItems(props) {
     // Initialize dispatch and history for Redux actions and navigation.
     const { id } = useParams(); // Get the list ID from URL parameter
     const dispatch = useDispatch();
-    const history = useHistory();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [anchorFolder, setAnchorFolder] = useState(null);
-    const [confirmFolder, setConfirmFolder] = useState(false)
-    const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [listToDisplay, setlistToDisplay] = useState(document.title);
-    const recipeLists = useSelector(store => store.recipeListsReducer);
 
     if (props.path === '/recipe-box') {
         document.title = 'Saved Recipes';
@@ -117,13 +110,8 @@ function RecipeItems(props) {
                         </div>
                         {/* Maps through the recipes array and creates a Grid item for each recipe. */}
                         <div style={{
-                            marginTop: '0px',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            justifyContent: 'left',
-                            alignItems: 'center',
-                            gap: '16px',
+                            marginTop: '0px', display: 'flex', flexDirection: 'row',
+                            flexWrap: 'wrap', justifyContent: 'left', alignItems: 'center', gap: '16px',
                         }}>
                             {recipes.map((recipe, index) => (
                                 // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
@@ -131,7 +119,7 @@ function RecipeItems(props) {
                                     style={{ padding: '0px', margin: '4px', minWidth: 250 }}
                                     id={recipe.id} key={index}
                                 >
-                                    <RecipeCard key={recipe.id} recipe={recipe}/>    
+                                    <RecipeCard key={recipe.id} recipe={recipe} />
                                 </Grid>
                             ))}
                         </div>
