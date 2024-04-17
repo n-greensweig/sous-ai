@@ -1,7 +1,5 @@
 // Import necessary components and libraries
-import { Button, useTheme, useMediaQuery } from "@mui/material";
-import EditIcon from '@mui/icons-material/Edit';
-import { FaArrowTurnDown, FaTurnUp } from "react-icons/fa6";
+import { useTheme, useMediaQuery } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -9,17 +7,7 @@ import swal from 'sweetalert';
 import { useState } from "react";
 import axios from "axios";
 import './RecipeDetails.css';
-import RecipeRating from "./LowerSection/RecipeRating/RecipeRating";
-import DialogComponent from "../DialogComponent/DialogComponent";
 import SnackbarComponent from "../SnackbarComponent/SnackbarComponent";
-import RecipeProfilePhotoAndNotes from "./UpperSection/RecipeProfilePhotoAndNotes/RecipeProfilePhotoAndNotes";
-import RecipePrepAndCookTime from "./LowerSection/RecipePrepAndCookTime/RecipePrepAndCookTime";
-import RecipeCooked from "./LowerSection/RecipeCooked/RecipeCooked";
-import RecipeIngredientsAndInstructions from "./LowerSection/RecipeIngredientsAndInstructions/RecipeIngredientsAndInstructions";
-import RecipeNotesAndPhoto from "./LowerSection/RecipeNotesAndPhoto/RecipeNotesAndPhoto";
-import RecipeTitle from "./UpperSection/RecipeTitleAndEditButton/RecipeTitle/RecipeTitle";
-import RecipeEditButton from "./UpperSection/RecipeTitleAndEditButton/RecipeEditButton/RecipeEditButton";
-import RecipeTitleAndEditButton from "./UpperSection/RecipeTitleAndEditButton/RecipeTitleAndEditButton";
 import UpperSection from "./UpperSection/UpperSection";
 import AutoScroll from "../AutoScroll/AutoScroll";
 import LowerSection from "./LowerSection/LowerSection";
