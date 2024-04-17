@@ -49,8 +49,6 @@ function Header() {
                 <div className='header--flex'>
                     <div className="header__logo" onClick={() => history.push('/')}>
                         <img src="images/avatars/sous.png" className="header__img" alt="SousAI" />
-                        <div className='header__bar'></div>
-                        <strong>SousAI</strong>
                     </div>
                     <div className="header__searchBar"
                         style={{
@@ -117,7 +115,7 @@ function Header() {
                     
                 </div>
                 <div>
-                    <button className='header__button hover'>What to Cook</button>
+                    <button className='header__button hover' onClick={() => history.push('/')}>SousAI</button>
                     <button className='header__button hover' onClick={() => history.push('/recipe-box')}>Recipes</button>
                     <button className='header__button hover'>Ingredients</button>
                     <button className='header__button hover'>Occasions</button>

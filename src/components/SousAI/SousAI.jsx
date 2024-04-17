@@ -164,6 +164,28 @@ function SousAI() {
   // Utility function to replace all instances of '@' with commas in a string
   const replaceWithCommas = str => str.replace(/@/g, ',');
 
+  // Utility function to format time strings in minutes to hours and minutes
+  const formatTime = timeString => {
+    // Convert string to an integer
+    const timeInMinutes = parseInt(timeString, 10);
+
+    // Check if time is 60 minutes or more
+    if (timeInMinutes >= 60) {
+        const hours = Math.floor(timeInMinutes / 60);
+        const minutes = timeInMinutes % 60;
+
+        // Return a formatted string in terms of hours and remaining minutes
+        if (minutes === 0) {
+            return `${hours} hour${hours > 1 ? 's' : ''}`;
+        } else {
+            return `${hours} hour${hours > 1 ? 's' : ''} and ${minutes} minute${minutes > 1 || minutes === 0 ? 's' : ''}`;
+        }
+    } else {
+        // Return in minutes if less than 60
+        return `${timeInMinutes} minute${timeInMinutes > 1 || timeInMinutes === 0 ? 's' : ''}`;
+    }
+};
+
   return (
     <div className="App">
       {/* Snackbar component displays temporary messages or alerts */}
@@ -242,9 +264,9 @@ function SousAI() {
                           <strong>Recipe Name: </strong>
                           {replaceWithCommas(JSON.parse(chatMessage.content).recipe_name)}<br /><br />
                           <strong>Prep Time: </strong>
-                          {replaceWithCommas(JSON.parse(chatMessage.content).prep_time)}<br /><br />
+                          {formatTime(replaceWithCommas(JSON.parse(chatMessage.content).prep_time.split(' ')[0]))}<br /><br />
                           <strong>Cook Time: </strong>
-                          {replaceWithCommas(JSON.parse(chatMessage.content).cook_time)}<br /><br />
+                          {formatTime(replaceWithCommas(JSON.parse(chatMessage.content).cook_time.split(' ')[0]))}<br /><br />
                           <strong>Number of servings: </strong>
                           {replaceWithCommas(JSON.parse(chatMessage.content).number_of_servings)}<br /><br />
                           <strong>Recipe notes: </strong>

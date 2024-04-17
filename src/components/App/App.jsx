@@ -92,6 +92,13 @@ function App() {
           >
             <RecipeItems path={'/recipe-box/recent'} />
           </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/recipe-box/:id"
+          >
+            <RecipeItems path={'/recipe-box/:id'} />
+          </ProtectedRoute>
 
           <Route
             exact

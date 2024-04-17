@@ -287,19 +287,18 @@ router.get('/folder/:id', rejectUnauthenticated, (req, res) => {
         FROM 
             "recipe_item"
         JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
-        WHERE
-            "recipe_list_recipes"."list_id" = $1
+        WHERE "recipe_item"."user_id" = $1 AND "recipe_list_recipes"."list_id" = $2
         ORDER BY 
             "recipe_item"."id" DESC;
         `
-        pool.query(queryText, [req.params.id])
-            .then(result => {
-                res.send(result.rows);
-            })
-            .catch(error => {
-                console.error('Error getting recipe folder recipes from DB', error);
-                res.sendStatus(400);
-            })
+    pool.query(queryText, [req.user.id, req.params.id])
+        .then(result => {
+            res.send(result.rows);
+        })
+        .catch(error => {
+            console.error('Error getting recipe folder recipes from DB', error);
+            res.sendStatus(400);
+        })
 });
 
 // DELETE selected recipe from the DB
