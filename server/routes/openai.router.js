@@ -8,7 +8,7 @@ const router = express.Router();
 // Access API key from environment variables for security
 const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 
-// Define POST route for generating recipes with GPT-4
+// Define POST route for generating recipes with gpt-4-turbo
 router.post('/', rejectUnauthenticated, async (req, res) => {
   // Set up options for the API request to OpenAI, including authorization header
   const options = {
@@ -17,9 +17,9 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
           'Authorization': `Bearer ${API_KEY}`,
           'Content-Type': 'application/json'
       },
-      // JSON body for the API request specifying the GPT-4 model and the conversation context
+      // JSON body for the API request specifying the gpt-4-turbo model and the conversation context
       body: JSON.stringify({
-          model: 'gpt-4', // Specify using GPT-4 model; update as needed for newer models
+          model: 'gpt-4-turbo', // Specify using gpt-4-turbo model; update as needed for newer models
           messages: [
               // System message defining the assistant's behavior and constraints
               { role: 'system', content: `You are a helpful assistant named Sous that generates recipes according to users' requests.
