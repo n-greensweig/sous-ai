@@ -423,4 +423,22 @@ router.post('/list/recipes', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// DELETE recipe from recipe list in the DB
+router.delete('/list/recipes/:recipeId/:listId', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    DELETE FROM "recipe_list_recipes" 
+    WHERE "user_id" = $1 AND "recipe_id" = $2
+    AND "list_id" = $3
+    ;
+    `;
+    pool.query(queryText, [req.user.id, req.params.recipeId, req.params.listId])
+        .then(result => {
+            res.sendStatus(201);
+        })
+        .catch(error => {
+            console.error('Error deleting recipe from recipe list in DB:', error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;

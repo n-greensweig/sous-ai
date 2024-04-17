@@ -14,7 +14,6 @@ import RecipeCard from './RecipeCard/RecipeCard';
 
 // Imports Material-UI components for buttons and icons.
 import SearchIcon from '@mui/icons-material/Search';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
 
@@ -40,12 +39,13 @@ function RecipeItems(props) {
         document.title = 'Grocery List';
     }
 
+    const listName = props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' :
+            props.path === '/recipe-box/recent' ? 'Recently Viewed' :
+                props.path === '/recipe-box/grocery' ? 'Grocery List' :
+                    document.title.split('Your Recipe Box - ')[1];
+
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
     const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.
-
-    useEffect(() => {
-        dispatch({ type: 'FETCH_LIST_NAME', payload: id }); // Fetch the list name from the server if not available in the state
-    }, [id, dispatch]);
 
     // Fetch recipes with search filter
     useEffect(() => {
@@ -86,11 +86,7 @@ function RecipeItems(props) {
                     <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                             <div style={{ display: 'flex', flexDirection: 'column', }}>
-                                <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>
-                                    {props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' :
-                                        props.path === '/recipe-box/recent' ? 'Recently Viewed' :
-                                            props.path === '/recipe-box/grocery' ? 'Grocery List' :
-                                                document.title.split('Your Recipe Box - ')[1]}</h2>
+                                <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>{listName}</h2>
                                 {numOfRecipes > 0 ? <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} recipes</p> :
                                     <p style={{ marginTop: 0, color: '#717171' }}>No recipes yet</p>}
                             </div>
@@ -119,7 +115,7 @@ function RecipeItems(props) {
                                     style={{ padding: '0px', margin: '4px', minWidth: 250 }}
                                     id={recipe.id} key={index}
                                 >
-                                    <RecipeCard key={recipe.id} recipe={recipe} />
+                                    <RecipeCard key={recipe.id} recipe={recipe} listName={listName} />
                                 </Grid>
                             ))}
                         </div>

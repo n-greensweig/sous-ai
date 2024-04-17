@@ -11,14 +11,16 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // Imports Material-UI components for buttons and icons.
 import { Button } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useInView } from 'react-intersection-observer'; // Import the hook
 
 //Pop-up via Snackbar
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
+import './RecipeCard.css';
 import { useParams } from 'react-router-dom';
+import { Book } from "@mui/icons-material";
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -48,9 +50,10 @@ function RecipeCard(props) {
     const [confirmFolder, setConfirmFolder] = useState(false)
     const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [totalTime, setTotalTime] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
     const recipeLists = useSelector(store => store.recipeListsReducer);
-        
+
     // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
     const handleClick = (id) => {
         dispatch({ type: 'SET_SELECTED_RECIPE_ID', payload: id });
@@ -87,13 +90,19 @@ function RecipeCard(props) {
         dispatch({ type: 'FETCH_RECIPES' });
     };
 
+    // Remove recipe from folder
+    const removeRecipeFromUserFolder = () => {
+        dispatch({ type: 'REMOVE_RECIPE_FROM_FOLDER', payload: { listId: id, recipeId: props.recipe.id, }, });
+        dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery: searchQuery } });
+    };
+
     // Add recipe to folder
     const addRecipeToFolder = (id) => {
         dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: props.recipe.id, }, });
         handleFolderPopoverClose();
         setConfirmFolder(true);
-            };
-        
+    };
+
     useEffect(() => {
         dispatch({ type: 'FETCH_LIST_NAME', payload: id }); // Fetch the list name from the server if not available in the state
     }, [id, dispatch]);
@@ -103,7 +112,7 @@ function RecipeCard(props) {
         formatTime();
     }, [])
 
-        
+
     // Utility function to format time strings in minutes to hours and minutes
     const formatTime = () => {
         // Convert string to an integer
@@ -126,7 +135,7 @@ function RecipeCard(props) {
             setTotalTime(`${timeInMinutes} minute${timeInMinutes > 1 || timeInMinutes === 0 ? 's' : ''}`);
         }
     };
-        
+
     // Use Material-UI hooks to check for screen size for responsive layout design.
     const theme = useTheme();
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
@@ -139,7 +148,7 @@ function RecipeCard(props) {
         )
     } else {
 
-    return (
+        return (
             <FadeIn>
                 <Paper elevation={5}>
                     <Card>
@@ -186,8 +195,11 @@ function RecipeCard(props) {
                                         variant="h4"
                                         component="div"
                                     >{totalTime}</Typography>
-                                    <Button variant="text" className="header__button options_menu"
-                                        startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }}></Button>
+                                    {document.title === 'Cooked Recipes' || document.title === 'Recently Viewed Recipes' ?
+                                        <BookmarkIcon /> :
+                                        <Button variant="text" className="header__button options_menu"
+                                            startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }}></Button>
+                                    }
                                 </div>
                                 <Popover
                                     id={popoverID}
@@ -201,7 +213,7 @@ function RecipeCard(props) {
                                 >
                                     <ul className={`dropdown`}>
                                         <div className="dropdownButton">
-                                            <button onClick={handleFolderPopover}>Add to Folder</button>
+                                            <button onClick={handleFolderPopover}>Add to folder</button>
                                             <Popover
                                                 open={openFolder}
                                                 anchorEl={anchorFolder}
@@ -216,9 +228,10 @@ function RecipeCard(props) {
 
                                             </Popover>
                                         </div>
-                                        
-                                        <div className="dropdownButton" >
-                                            <button className="dropdownButton" onClick={() => removeRecipe()}>Remove recipe</button>
+                                        <div className="div__dropdownButton">
+                                            <button className="dropdownButton" onClick={() => removeRecipe()}>Unsave from Recipe Box</button>
+                                            {document.title.includes('Your Recipe Box') ?
+                                                <button className="dropdownButton" onClick={() => removeRecipeFromUserFolder()} >Remove from this folder</button> : null}
                                         </div>
                                     </ul>
                                 </Popover>
@@ -233,6 +246,7 @@ function RecipeCard(props) {
                 </Paper>
             </FadeIn>
         )
-}}
+    }
+}
 
 export default RecipeCard;
