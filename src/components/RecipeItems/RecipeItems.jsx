@@ -13,16 +13,10 @@ import Header from '../Header/Header';
 import RecipeCard from '../RecipeCard/RecipeCard';
 
 // Imports Material-UI components for buttons and icons.
-// import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-// import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-// import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-// import AddIcon from '@mui/icons-material/Add';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import CancelIcon from '@mui/icons-material/Cancel';
-//import { TypeSpecimenOutlined } from "@mui/icons-material";
-
-//import { useInView } from 'react-intersection-observer'; // Import the hook
+import CancelIcon from '@mui/icons-material/Cancel';
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
 
 // Imports Material-UI components for buttons and icons.
@@ -35,12 +29,13 @@ function RecipeItems(props) {
     const { id } = useParams(); // Get the list ID from URL parameter
     const dispatch = useDispatch();
     const history = useHistory();
-    // const [listName, setListName] = useState('');
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorFolder, setAnchorFolder] = useState(null);
+    const [confirmFolder, setConfirmFolder] = useState(false)
+    const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [listToDisplay, setlistToDisplay] = useState(document.title);
-
     const recipeLists = useSelector(store => store.recipeListsReducer);
-    const currentList = recipeLists.find(list => list.id === id);
 
     if (props.path === '/recipe-box') {
         document.title = 'Saved Recipes';
