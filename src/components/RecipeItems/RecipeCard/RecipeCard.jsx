@@ -17,10 +17,12 @@ import { useInView } from 'react-intersection-observer'; // Import the hook
 //Pop-up via Snackbar
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 import './RecipeCard.css';
 import { useParams } from 'react-router-dom';
-import { Book } from "@mui/icons-material";
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -230,8 +232,20 @@ function RecipeCard(props) {
                                         </div>
                                     </ul>
                                 </Popover>
-                                <Snackbar open={confirmFolder} autoHideDuration={3500} onClose={handleClose}>
-                                    <Alert onClose={handleClose} severity="success" variant="filled">
+                                <Snackbar open={confirmFolder} autoHideDuration={1500} onClose={handleClose}>
+                                    <Alert onClose={handleClose} severity="success" variant="filled"
+                                        icon={<CheckCircleOutlineIcon style={{ fill: 'white' }} />}
+                                        action={
+                                            <IconButton
+                                                size="small"
+                                                aria-label="close"
+                                                color="inherit"
+                                                onClick={handleClose}
+                                            >
+                                                <CloseIcon style={{ fill: 'white' }} />
+                                            </IconButton>
+                                        }
+                                    >
                                         Recipe Added!
                                     </Alert>
                                 </Snackbar>
