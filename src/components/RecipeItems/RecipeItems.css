@@ -87,12 +87,34 @@
 .dropdownButton:hover {
    background-color: rgb(0,0,0,0.1);
 }
-.full-width-backgroun::before {
-   background-color: #F8F8F5; /* Adjust the color as needed */
+/* Existing styles for full-width background color */
+.full-width-background {
+   background-color: #F8F8F5;
 }
+
+/* Centered container with max width for the recipe cards content */
 .max-width-container {
-   margin: 0 auto; /* Centering the container */
-   max-width: 1200px; /* Maximum width */
-   display: flex;
-   flex-direction: row; /* Ensures items are in a row */
+   display: flex; /* Use flexbox layout */
+   flex-direction: row; /* Arrange items in a row */
+   justify-content: center; /* Center the items horizontally */
+   max-width: 1200px; /* Max width of the container */
+   margin: 0 auto; /* Center the container */
+   position: relative; /* For positioning the pseudo-element */
+}
+
+/* Full-width color behind the max-width-container */
+.max-width-container::before {
+   content: ''; /* Required for pseudo-elements */
+   display: block;
+   position: absolute;
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   background-color: inherit; /* Use the same background as the parent */
+   z-index: -1; /* Ensure it's behind the content */
+}
+.recipe-cards-grid {
+   flex-grow: 1; /* Allows the grid to fill the space next to the sidebar */
+   padding: 20px 10px; /* Adjust padding as needed */
 }
