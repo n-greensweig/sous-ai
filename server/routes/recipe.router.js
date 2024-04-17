@@ -287,11 +287,17 @@ router.get('/folder/:id', rejectUnauthenticated, (req, res) => {
         FROM 
             "recipe_item"
         JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
-        WHERE "recipe_item"."user_id" = $1 AND "recipe_list_recipes"."list_id" = $2
+        WHERE "recipe_item"."user_id" = $1 AND "recipe_list_recipes"."list_id" = $2 
+        ${req.query.q ? 'AND "title" ILIKE $3' : ''}
         ORDER BY 
             "recipe_item"."id" DESC;
-        `
-    pool.query(queryText, [req.user.id, req.params.id])
+        `;
+
+    const queryParams = [req.user.id, req.params.id];
+    if (req.query.q) {
+        queryParams.push(`%${req.query.q}%`);
+    }
+    pool.query(queryText, queryParams)
         .then(result => {
             res.send(result.rows);
         })
