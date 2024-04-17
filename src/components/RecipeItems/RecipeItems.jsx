@@ -67,15 +67,18 @@ function RecipeItems(props) {
 
     return (
         // Sets padding and margin based on screen size for responsive design.
-        <div style={{ marginTop: isSmScreen || isXsScreen ? '7%' : '1%' }}>
+        <div style={{ marginTop: isSmScreen || isXsScreen ? '7%' : '1%', margin: '0 auto', }}>
             <Header />
-            {/* Full width background color for the recipe cards */}
-            <div >
-                {/* This container will be centered with max-width */}
-                <div className="max-width-container full-width-background">
+            <div>
+                <div className="max-width-container">
                     <SavedRecipesSidebar />
-                    {/* Grid for the recipe cards */}
-                    <Grid container spacing={2} className="recipe-cards-grid">
+                        {/* Grid container to display recipes in a responsive layout. */}
+                        <Grid container spacing={2} minHeight={'5vh'} className="full-width-background"
+                            style={{
+                                marginTop: '0px', margin: '0 auto',
+                                padding: '20px 10px', backgroundColor: '#F8F8F5', flexGrow: 1,
+                            }}
+                        >
                             <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', }}>
