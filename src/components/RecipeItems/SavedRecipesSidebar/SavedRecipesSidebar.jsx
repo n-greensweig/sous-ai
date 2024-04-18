@@ -71,7 +71,7 @@ function SavedRecipesSidebar() {
                         document.title === 'Grocery List' ? '#F8F8F5' : 'inherit',
                     fontWeight: document.title === 'Grocery List' ? 'bold' : 'normal'
                 }}><ListAltIcon className='sidebar__icon' /> Grocery List</p>
-                <p className='sidebar__p--your-folders'>Your folders</p>
+                <span className='sidebar__span--your-folders'>Your folders</span>
                 <div onClick={toggleCreating} className='div__icon__p--new-folder'>
                     <Button className='icon--gray-border'
                     ><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
