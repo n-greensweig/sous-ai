@@ -183,8 +183,15 @@ textarea::placeholder {
 }
 
 /* Visual cue for interactivity on the save recipe button */
+#save-recipe-button {
+  cursor: pointer;
+  border: 1px solid #333333;
+  border-radius: 5px;
+}
+/* Visual cue for interactivity on the save recipe button */
 #save-recipe-button:hover {
   cursor: pointer;
+  opacity: 0.5;
 }
 
 /* Ensures consistent text color across various text elements for readability */

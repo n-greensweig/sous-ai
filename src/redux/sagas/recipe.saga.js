@@ -175,6 +175,15 @@ function* fetchRecipesFromFolder(action) {
     }
 }
 
+function* removeRecipeFromFolder(action) {
+    try {
+        yield axios.delete(`/api/recipe/list/recipes/${action.payload.recipeId}/${action.payload.listId}`);
+    } catch (error) {
+        console.error('Error removing recipe from folder:', error);
+        alert('Something went wrong.');
+    }
+}
+
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
     yield takeLatest('SAVE_RECIPE', saveRecipe);
@@ -191,6 +200,7 @@ function* recipeSaga() {
     yield takeLatest('FETCH_COOKED_RECIPES', getCookedRecipes);
     yield takeLatest('FETCH_RECENT_RECIPES', getRecentRecipes);
     yield takeLatest('FETCH_RECIPES_FROM_FOLDER', fetchRecipesFromFolder);
+    yield takeLatest('REMOVE_RECIPE_FROM_FOLDER', removeRecipeFromFolder);
 }
 
 export default recipeSaga;

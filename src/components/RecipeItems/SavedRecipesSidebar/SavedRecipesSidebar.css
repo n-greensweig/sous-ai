@@ -1,3 +1,49 @@
+.sidebar__container {
+    box-sizing: border-box;
+    border-right: 1px solid #CCC;
+    width: 25%;
+    justify-content: flex-start;
+    align-items: left;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar__icon {
+    fill: black !important;
+    margin-right: 16px;
+}
+.sidebar__icon--add {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+.sidebar__p--your-folders {
+    text-transform: uppercase;
+    font-weight: bold;
+    &:hover {
+        cursor: auto !important;
+        background-color: inherit !important;
+    }
+}
+.sidebar__container p:hover {
+    cursor: pointer;
+    background-color: #F8F8F5;
+}
+.sidebar-content p {
+    display: flex;
+    padding: 10px;
+    margin: 0px;
+    &:first-of-type {
+        margin-top: 10px;
+    }
+}
+.p__new-folder {
+    margin-left: 10px;
+}
+.div__icon__p--new-folder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10px;
+}
 .icon--gray-border {
     border: 1px solid #CCC !important;
     padding: 0px !important;
@@ -10,55 +56,4 @@
     min-width: 40px !important;
     padding: 0 !important;
     display: flex !important;
-}
-
-.sidebar__container {
-    box-sizing: border-box;
-    border-right: 1px solid #CCC;
-    width: 25%;
-    justify-content: flex-start;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar__icon {
-    fill: black !important;
-    margin-right: 16px;
-}
-
-.sidebar__icon--add {
-    margin: 0px !important;
-    padding: 0px !important;
-}
-
-.sidebar__p--your-folders {
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.sidebar__container p:hover {
-    cursor: pointer;
-    background-color: #F8F8F5;
-    width: initial;
-}
-
-.sidebar-content p {
-    display: flex;
-    padding: 10px;
-    margin: 0px;
-    &:first-of-type {
-        margin-top: 10px;
-    }
-}
-
-.p__new-folder {
-    margin-left: 10px;
-}
-
-.div__icon__p--new-folder {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-left: 10px;
 }

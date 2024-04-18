@@ -10,19 +10,11 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // Custom components for displaying headers and new recipe list forms.
 import Header from '../Header/Header';
 
-import RecipeCard from '../RecipeCard/RecipeCard';
+import RecipeCard from './RecipeCard/RecipeCard';
 
 // Imports Material-UI components for buttons and icons.
-// import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-// import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-// import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-// import AddIcon from '@mui/icons-material/Add';
 import CancelIcon from '@mui/icons-material/Cancel';
-//import { TypeSpecimenOutlined } from "@mui/icons-material";
-
-//import { useInView } from 'react-intersection-observer'; // Import the hook
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
 
 // Imports Material-UI components for buttons and icons.
@@ -34,13 +26,8 @@ function RecipeItems(props) {
     // Initialize dispatch and history for Redux actions and navigation.
     const { id } = useParams(); // Get the list ID from URL parameter
     const dispatch = useDispatch();
-    const history = useHistory();
-    // const [listName, setListName] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [listToDisplay, setlistToDisplay] = useState(document.title);
-
-    const recipeLists = useSelector(store => store.recipeListsReducer);
-    const currentList = recipeLists.find(list => list.id === id);
 
     if (props.path === '/recipe-box') {
         document.title = 'Saved Recipes';
@@ -52,12 +39,13 @@ function RecipeItems(props) {
         document.title = 'Grocery List';
     }
 
+    const listName = props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' :
+        props.path === '/recipe-box/recent' ? 'Recently Viewed' :
+            props.path === '/recipe-box/grocery' ? 'Grocery List' :
+                document.title.split('Your Recipe Box - ')[1];
+
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
     const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.
-
-    useEffect(() => {
-        dispatch({ type: 'FETCH_LIST_NAME', payload: id }); // Fetch the list name from the server if not available in the state
-    }, [id, dispatch]);
 
     // Fetch recipes with search filter
     useEffect(() => {
@@ -79,71 +67,56 @@ function RecipeItems(props) {
 
     return (
         // Sets padding and margin based on screen size for responsive design.
-        <div style={{
-            marginTop: isSmScreen || isXsScreen ? '7%' : '1%',
-            margin: '0 auto',
-        }}>
+        <div style={{ marginTop: isSmScreen || isXsScreen ? '7%' : '1%' }}>
             <Header />
-            <div style={{ display: 'flex', flexDirection: 'row', }}>
-                <SavedRecipesSidebar />
-                {/* Grid container to display recipes in a responsive layout. */}
-                <Grid container spacing={2} minHeight={'5vh'} className="container"
-                    style={{
-                        marginTop: '0px',
-                        margin: '0 auto',
-                        padding: '20px 10px',
-                        backgroundColor: '#FAF9F6',
-                    }}
-                >
-                    <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', }}>
-                                <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>
-                                    {props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' :
-                                        props.path === '/recipe-box/recent' ? 'Recently Viewed' :
-                                            props.path === '/recipe-box/grocery' ? 'Grocery List' :
-                                                document.title.split('Your Recipe Box - ')[1]}</h2>
-                                {numOfRecipes > 0 ? <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} recipes</p> :
-                                    <p style={{ marginTop: 0, color: '#717171' }}>No recipes yet</p>}
+            {/* Full width background color for the recipe cards */}
+            <div >
+                {/* This container will be centered with max-width */}
+                <div className="max-width-container full-width-background">
+                    <SavedRecipesSidebar />
+                    {/* Grid for the recipe cards */}
+                    <Grid container spacing={2} className="recipe-cards-grid">
+                            <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
+                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', }}>
+                                        <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>{listName}</h2>
+                                        {numOfRecipes > 0 ? <p style={{ marginTop: 0, color: '#717171' }}>{numOfRecipes} {numOfRecipes === 1 ? 'recipe' : 'recipes'}</p> :
+                                            <p style={{ marginTop: 0, color: '#717171' }}>No recipes yet</p>}
+                                    </div>
+                                    <div className="search__input" style={{
+                                        display: 'flex', flexDirection: 'row',
+                                        alignItems: 'center'
+                                    }}>
+                                        <SearchIcon className='icon--black search' />
+                                        <input
+                                            type="text"
+                                            placeholder="Search your saved recipes"
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            value={searchQuery}
+                                        />
+                                        {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' /> : null}
+                                    </div>
+                                </div>
+                                {/* Maps through the recipes array and creates a Grid item for each recipe. */}
+                                <div style={{
+                                    marginTop: '0px', display: 'flex', flexDirection: 'row',
+                                    flexWrap: 'wrap', justifyContent: 'left', alignItems: 'center', gap: '16px',
+                                }}>
+                                    {recipes.map((recipe, index) => (
+                                        // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
+                                        <Grid item className='card' xs={11} md={2.5}
+                                            style={{ padding: '0px', margin: '4px', minWidth: 250 }}
+                                            id={recipe.id} key={index}
+                                        >
+                                            <RecipeCard key={recipe.id} recipe={recipe} listName={listName} />
+                                        </Grid>
+                                    ))}
+                                </div>
                             </div>
-                            <div className="search__input" style={{
-                                display: 'flex', flexDirection: 'row',
-                                alignItems: 'center'
-                            }}>
-                                <SearchIcon className='icon--black search' />
-                                <input
-                                    type="text"
-                                    placeholder="Search your saved recipes"
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    value={searchQuery}
-                                />
-                                {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' /> : null}
-                            </div>
-                        </div>
-                        {/* Maps through the recipes array and creates a Grid item for each recipe. */}
-                        <div style={{
-                            marginTop: '0px',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            justifyContent: 'left',
-                            alignItems: 'center',
-                            gap: '16px',
-                        }}>
-                            {recipes.map((recipe, index) => (
-                                // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
-                                <Grid item className='card' xs={11} md={2.5}
-                                    style={{ padding: '0px', margin: '4px', minWidth: 250 }}
-                                    id={recipe.id} key={index}
-                                >
-                                    <RecipeCard key={recipe.id} recipe={recipe}/>    
-                                </Grid>
-                            ))}
-                        </div>
+                        </Grid>
                     </div>
-                </Grid>
+                </div>
             </div>
-        </div>
     )
 }
 

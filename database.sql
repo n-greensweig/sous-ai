@@ -143,3 +143,6 @@ WHERE
     rl."user_id" = 1 -- Example for a specific user, change as needed
 ORDER BY
     rl."id", r."id";
+
+ALTER TABLE "recipe_item"
+ADD COLUMN "last_viewed" TIMESTAMP DEFAULT CURRENT_TIMESTAMP;

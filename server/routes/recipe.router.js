@@ -297,11 +297,17 @@ router.get('/folder/:id', rejectUnauthenticated, (req, res) => {
         FROM 
             "recipe_item"
         JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
-        WHERE "recipe_item"."user_id" = $1 AND "recipe_list_recipes"."list_id" = $2
+        WHERE "recipe_item"."user_id" = $1 AND "recipe_list_recipes"."list_id" = $2 
+        ${req.query.q ? 'AND "title" ILIKE $3' : ''}
         ORDER BY 
             "recipe_item"."id" DESC;
-        `
-    pool.query(queryText, [req.user.id, req.params.id])
+        `;
+
+    const queryParams = [req.user.id, req.params.id];
+    if (req.query.q) {
+        queryParams.push(`%${req.query.q}%`);
+    }
+    pool.query(queryText, queryParams)
         .then(result => {
             res.send(result.rows);
         })
@@ -315,21 +321,27 @@ router.get('/folder/:id', rejectUnauthenticated, (req, res) => {
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     // Must first delete comments associated with the recipe
     let firstQueryText = `
+DELETE FROM "recipe_list_recipes" WHERE "user_id" = $1 AND "recipe_id" = $2;
+`;
+    // Must first delete comments associated with the recipe
+    let secondQueryText = `
 DELETE FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2;
 `;
     // Must then delete images associated with the recipe
-    let secondQueryText = `
+    let thirdQueryText = `
 DELETE FROM "images" WHERE "user_id" = $1 AND "recipe_id" = $2;
 `;
-    let queryText = `
+    let fourthQueryText = `
 DELETE FROM "recipe_item" WHERE "user_id" = $1 AND "id" = $2;
 `;
     pool.query(firstQueryText, [req.user.id, req.params.id])
         .then(result => {
-            // Next, delete recipe images from DB
+            // Next, delete recipe comments from DB
             pool.query(secondQueryText, [req.user.id, req.params.id]);
+            // Next, delete recipe images from DB
+            pool.query(thirdQueryText, [req.user.id, req.params.id]);
             // Next, delete recipe from DB
-            pool.query(queryText, [req.user.id, req.params.id]);
+            pool.query(fourthQueryText, [req.user.id, req.params.id]);
             res.sendStatus(201);
         })
         .catch(error => {
@@ -429,6 +441,24 @@ router.post('/list/recipes', rejectUnauthenticated, (req, res) => {
         })
         .catch(error => {
             console.error('Error posting recipe to recipe list in DB:', error);
+            res.sendStatus(500);
+        });
+});
+
+// DELETE recipe from recipe list in the DB
+router.delete('/list/recipes/:recipeId/:listId', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    DELETE FROM "recipe_list_recipes" 
+    WHERE "user_id" = $1 AND "recipe_id" = $2
+    AND "list_id" = $3
+    ;
+    `;
+    pool.query(queryText, [req.user.id, req.params.recipeId, req.params.listId])
+        .then(result => {
+            res.sendStatus(201);
+        })
+        .catch(error => {
+            console.error('Error deleting recipe from recipe list in DB:', error);
             res.sendStatus(500);
         });
 });

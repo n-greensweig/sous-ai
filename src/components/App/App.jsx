@@ -77,7 +77,7 @@ function App() {
           >
             <RecipeItems path={'/recipe-box'} />
           </ProtectedRoute>
-          
+
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
@@ -85,6 +85,7 @@ function App() {
           >
             <RecipeItems path={'/recipe-box/cooked'} />
           </ProtectedRoute>
+
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
@@ -92,6 +93,7 @@ function App() {
           >
             <RecipeItems path={'/recipe-box/recent'} />
           </ProtectedRoute>
+
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
