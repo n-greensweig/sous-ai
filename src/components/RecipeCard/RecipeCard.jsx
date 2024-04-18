@@ -90,10 +90,14 @@ function RecipeCard(props) {
 
     // Add recipe to folder
     const addRecipeToFolder = (id) => {
+        if (props.recipe.list_id.includes(id)) {
+            console.log('You already added it to this folder!')
+            return;
+        } else {
         dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: props.recipe.id, }, });
         handleFolderPopoverClose();
         setConfirmFolder(true);
-            };
+    }};
         
     useEffect(() => {
         dispatch({ type: 'FETCH_LIST_NAME', payload: id }); // Fetch the list name from the server if not available in the state
@@ -171,6 +175,7 @@ function RecipeCard(props) {
                                             mb: 2
                                         }}>{props.recipe.title}</Typography>
                                     {/* Typography for recipe notes with dynamic font size based on screen size. */}
+                                    {JSON.stringify(props.recipe)}
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
