@@ -156,12 +156,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
                 ORDER BY "images"."created_at" DESC
                 LIMIT 1),
                 "recipe_item"."photo"
-            ) AS "display_photo"
+            ) AS "display_photo", 
+            array_agg("recipe_list_recipes"."list_id") AS "list_id"
         FROM 
             "recipe_item"
+        LEFT JOIN 
+            "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
         WHERE
             "recipe_item"."user_id" = $1
             ${req.query.q ? 'AND "title" ILIKE $2' : ''}
+        GROUP BY 
+            "recipe_item"."id"
         ORDER BY 
             "recipe_item"."id" DESC;
     `;
@@ -193,12 +198,17 @@ router.get('/cooked', rejectUnauthenticated, (req, res) => {
                 ORDER BY "images"."created_at" DESC
                 LIMIT 1),
                 "recipe_item"."photo"
-            ) AS "display_photo"
+            ) AS "display_photo",
+            array_agg("recipe_list_recipes"."list_id") AS "list_id"
         FROM 
             "recipe_item"
+        LEFT JOIN 
+            "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
         WHERE
             "recipe_item"."user_id" = $1 AND "recipe_item"."is_cooked" = TRUE
             ${req.query.q ? 'AND "title" ILIKE $2' : ''}
+        GROUP BY 
+            "recipe_item"."id"
         ORDER BY 
             "recipe_item"."id" DESC;
     `;
