@@ -9,9 +9,9 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Menu, MenuItem } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from 'react-router-dom';
+import MobileNavbar from '../MobileNavbar/MobileNavbar';
 /**
  * Renders a header component that is responsive and navigates to a specified route when clicked.
  * 
@@ -44,7 +44,7 @@ function Header() {
     return (
         // Conditionally renders the header based on screen size
         // Header is not rendered on extra-small and small devices
-        isXsScreen || isSmScreen ? null :
+        isXsScreen || isSmScreen ? <MobileNavbar /> :
             <header className='header'>
                 <div className="header-content">
                     <div className='header--flex'>
@@ -85,7 +85,7 @@ function Header() {
                                 aria-haspopup="menu"
                                 aria-expanded={open ? 'true' : undefined}
                                 onClick={handleClick}>
-                                <MenuIcon />
+                                <PersonIcon style={{ fill: 'black', }} />
                             </Button>
                             <Menu
                                 id="basic-menu"
