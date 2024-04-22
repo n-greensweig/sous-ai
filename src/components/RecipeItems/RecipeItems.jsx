@@ -88,7 +88,7 @@ function RecipeItems(props) {
                                     </div>
                                     <div className="search__input" style={{
                                         display: 'flex', flexDirection: 'row',
-                                        alignItems: 'center'
+                                        alignItems: 'center', position: 'absolute', right: '2%',
                                     }}>
                                         <SearchIcon className='icon--black search' />
                                         <input
