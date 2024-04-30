@@ -76,7 +76,7 @@ function RecipeItems(props) {
                     <Grid container spacing={2} minHeight={'5vh'} className="full-width-background"
                         style={{
                             marginTop: '0px', margin: '0 auto',
-                            padding: '20px 10px', backgroundColor: '#F8F8F5', flexGrow: 1,
+                            padding: '20px 10px', backgroundColor: '#FFF', flexGrow: 1,
                         }}
                     >
                         <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
@@ -110,7 +110,7 @@ function RecipeItems(props) {
                                 {recipes.map((recipe, index) => (
                                     // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
                                     <Grid item className='card' xs={11} md={2.5}
-                                        style={{ padding: '0px', margin: '4px', minWidth: 250 }}
+                                        style={{ padding: '0px', margin: '4px', minWidth: 250, }}
                                         id={recipe.id} key={index}
                                     >
                                         <RecipeCard key={recipe.id} recipe={recipe} listName={listName} />
