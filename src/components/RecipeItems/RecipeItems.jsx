@@ -72,14 +72,15 @@ function RecipeItems(props) {
             <div>
                 <div className="max-width-container">
                     <SavedRecipesSidebar />
-                        {/* Grid container to display recipes in a responsive layout. */}
-                        <Grid container spacing={2} minHeight={'5vh'} className="full-width-background"
-                            style={{
-                                marginTop: '0px', margin: '0 auto',
-                                padding: '20px 10px', backgroundColor: '#F8F8F5', flexGrow: 1,
-                            }}
-                        >
-                            <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
+                    {/* Grid container to display recipes in a responsive layout. */}
+                    <Grid container spacing={2} minHeight={'5vh'} className="full-width-background"
+                        style={{
+                            marginTop: '0px', margin: '0 auto',
+                            padding: '20px 10px', backgroundColor: '#FFF', flexGrow: 1,
+                        }}
+                    >
+                        <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
+                            {isXsScreen || isSmScreen ? null :
                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', }}>
                                         <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0 }}>{listName}</h2>
@@ -88,7 +89,7 @@ function RecipeItems(props) {
                                     </div>
                                     <div className="search__input" style={{
                                         display: 'flex', flexDirection: 'row',
-                                        alignItems: 'center'
+                                        alignItems: 'center', position: 'absolute', right: '2%',
                                     }}>
                                         <SearchIcon className='icon--black search' />
                                         <input
@@ -100,26 +101,27 @@ function RecipeItems(props) {
                                         {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' /> : null}
                                     </div>
                                 </div>
-                                {/* Maps through the recipes array and creates a Grid item for each recipe. */}
-                                <div style={{
-                                    marginTop: '0px', display: 'flex', flexDirection: 'row',
-                                    flexWrap: 'wrap', justifyContent: 'left', alignItems: 'center', gap: '16px',
-                                }}>
-                                    {recipes.map((recipe, index) => (
-                                        // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
-                                        <Grid item className='card' xs={11} md={2.5}
-                                            style={{ padding: '0px', margin: '4px', minWidth: 250 }}
-                                            id={recipe.id} key={index}
-                                        >
-                                            <RecipeCard key={recipe.id} recipe={recipe} listName={listName} />
-                                        </Grid>
-                                    ))}
-                                </div>
+                            }
+                            {/* Maps through the recipes array and creates a Grid item for each recipe. */}
+                            <div style={{
+                                marginTop: '0px', display: 'flex', flexDirection: 'row',
+                                flexWrap: 'wrap', justifyContent: 'left', alignItems: 'center', gap: '16px',
+                            }}>
+                                {recipes.map((recipe, index) => (
+                                    // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
+                                    <Grid item className='card' xs={11} md={2.5}
+                                        style={{ padding: '0px', margin: '4px', minWidth: 250, }}
+                                        id={recipe.id} key={index}
+                                    >
+                                        <RecipeCard key={recipe.id} recipe={recipe} listName={listName} />
+                                    </Grid>
+                                ))}
                             </div>
-                        </Grid>
-                    </div>
+                        </div>
+                    </Grid>
                 </div>
             </div>
+        </div>
     )
 }
 

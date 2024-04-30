@@ -1,0 +1,11 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color: #000 !important;
+}
+
+.dropdown-item {
+    color: #000 !important;
+}
