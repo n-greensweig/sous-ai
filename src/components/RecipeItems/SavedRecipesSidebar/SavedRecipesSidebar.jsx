@@ -27,6 +27,7 @@ function SavedRecipesSidebar() {
     // State hooks for managing the creation process and input value of the new recipe list.
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
     const [listName, setListName] = useState(''); // Stores the new recipe list's name.
+    const [activeItem, setActiveItem] = useState(null);
 
     // Function to save the new recipe list. Dispatches actions to the store and resets local state.
     const saveRecipeList = listName => {
@@ -49,53 +50,81 @@ function SavedRecipesSidebar() {
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const handleSetActiveItem = (itemId) => {
+        setActiveItem(itemId);
+    };
+
+    const handleClearActiveItem = () => {
+        setActiveItem(null);
+    };
+
+    const navigateTo = (path) => {
+        history.push(path);
+        handleClearActiveItem();
+    };
+
     return (
         isXsScreen || isSmScreen ? null :
             <div className='sidebar__container'>
                 <div className="sidebar-content">
-                    <p onClick={() => history.push('/recipe-box')} style={{
-                        backgroundColor:
-                            document.title === 'Saved Recipes' ? '#F8F8F5' : 'inherit',
-                        fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal'
-                    }}><BookmarkIcon className='sidebar__icon' /> Saved Recipes</p>
-                    <p onClick={() => history.push('/recipe-box/cooked')}
+                    <p onClick={() => navigateTo('/recipe-box')}
+                        onMouseDown={() => handleSetActiveItem('saved')}
+                        onMouseUp={handleClearActiveItem}
+                        onMouseLeave={handleClearActiveItem}
                         style={{
-                            backgroundColor:
-                                document.title === 'Cooked Recipes' ? '#F8F8F5' : 'inherit',
+                            backgroundColor: document.title === 'Saved Recipes' ? '#F8F8F5' : 'inherit',
+                            fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal'
+                        }}>
+                        <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black' }} /> Saved Recipes
+                    </p>
+                    <p onClick={() => navigateTo('/recipe-box/cooked')}
+                        onMouseDown={() => handleSetActiveItem('cooked')}
+                        onMouseUp={handleClearActiveItem}
+                        onMouseLeave={handleClearActiveItem}
+                        style={{
+                            backgroundColor: document.title === 'Cooked Recipes' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Cooked Recipes' ? 'bold' : 'normal'
-                        }}
-                    ><CheckCircleIcon className='sidebar__icon' /> Cooked Recipes</p>
-                    <p
-                        onClick={() => history.push('/recipe-box/recent')}
+                        }}>
+                        <CheckCircleIcon className='sidebar__icon' style={{ fill: activeItem === 'cooked' ? '#767676' : 'black' }} /> Cooked Recipes
+                    </p>
+                    <p onClick={() => navigateTo('/recipe-box/recent')}
+                        onMouseDown={() => handleSetActiveItem('recent')}
+                        onMouseUp={handleClearActiveItem}
+                        onMouseLeave={handleClearActiveItem}
                         style={{
-                            backgroundColor:
-                                document.title === 'Recently Viewed Recipes' ? '#F8F8F5' : 'inherit',
+                            backgroundColor: document.title === 'Recently Viewed Recipes' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Recently Viewed Recipes' ? 'bold' : 'normal'
-                        }}
-                    ><AccessTimeIcon className='sidebar__icon' /> Recently Viewed</p>
-                    <p style={{
-                        backgroundColor:
-                            document.title === 'Grocery List' ? '#F8F8F5' : 'inherit',
-                        fontWeight: document.title === 'Grocery List' ? 'bold' : 'normal'
-                    }}><ListAltIcon className='sidebar__icon' /> Grocery List</p>
+                        }}>
+                        <AccessTimeIcon className='sidebar__icon' style={{ fill: activeItem === 'recent' ? '#767676' : 'black' }} /> Recently Viewed
+                    </p>
+                    <p
+                        onMouseDown={() => handleSetActiveItem('grocery')}
+                        onMouseUp={handleClearActiveItem}
+                        onMouseLeave={handleClearActiveItem}
+                        style={{
+                            backgroundColor: document.title === 'Grocery List' ? '#F8F8F5' : 'inherit',
+                            fontWeight: document.title === 'Grocery List' ? 'bold' : 'normal'
+                        }}>
+                        <ListAltIcon className='sidebar__icon' style={{ fill: activeItem === 'grocery' ? '#767676' : 'black' }} /> Grocery List
+                    </p>
                     <span className='sidebar__span--your-folders'>Your folders</span>
                     <div onClick={toggleCreating} className='div__icon__p--new-folder'>
                         <Button className='icon--gray-border'
                         ><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
                         <p className='p__new-folder'>New Folder</p>
                     </div>
-                        {recipeLists && recipeLists.map((list, index) => (
-                            <p key={index}
-                                onClick={() => {
-                                    document.title = `Your Recipe Box - ${list.list_name}`;
-                                    history.push(`/recipe-box/${list.id}`);
-                                }}
-                                style={{
-                                    backgroundColor: document.title === `Your Recipe Box - ${list.list_name}` ? '#F8F8F5' : 'inherit',
-                                }}
-                            ><button key={index} style={{ cursor: 'pointer', fontWeight: document.title === `Your Recipe Box - ${list.list_name}` ? 'bold' : 'normal' }}>{list.list_name}</button></p>
-                        ))}
-                    </div>
+                    {recipeLists && recipeLists.map((list, index) => (
+                        <p key={index}
+                            onClick={() => {
+                                document.title = `Your Recipe Box - ${list.list_name}`;
+                                history.push(`/recipe-box/${list.id}`);
+                            }}
+                            style={{
+                                backgroundColor: document.title === `Your Recipe Box - ${list.list_name}` ? '#F8F8F5' : 'inherit',
+                            }}
+                        ><button key={index} style={{ cursor: 'pointer', fontWeight: document.title === `Your Recipe Box - ${list.list_name}` ? 'bold' : 'normal' }}>{list.list_name}</button></p>
+                    ))}
+                </div>
                 {/* Dialog for creating a new recipe folder. */}
                 <Dialog open={isCreating}
                     onClose={toggleCreating}
