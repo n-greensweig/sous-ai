@@ -72,6 +72,7 @@ button {
 .header__button {
     color: #222 !important;
     &:hover {
+        color: #767676 !important;
         background-color: inherit !important;
         cursor: pointer;
     }

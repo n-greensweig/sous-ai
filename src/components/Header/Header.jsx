@@ -95,14 +95,18 @@ function Header() {
 
                         </div>
                         <Button onClick={() => navigateTo('/recipe-box')}
+                            onMouseOver={() => handleSetActiveItem('bookmark-hover')}
+                            onMouseLeave={handleClearActiveItem}
                             onMouseDown={() => handleSetActiveItem('bookmark')}
                             onMouseUp={handleClearActiveItem}
                             onDragStart={handleDragStart}
                             onDragEnd={handleClearActiveItem}
                             draggable
                             variant="text" className="header__button button__recipe-box"
-                            startIcon={<BookmarkIcon style={{ fill: activeItem === 'bookmark' ? 'red' : 'black' }}
-                                className='icon--black' />}>
+                            startIcon={<BookmarkIcon style={{
+                                fill: activeItem === 'bookmark' ? 'red' :
+                                    activeItem === 'bookmark-hover' ? '#767676' : 'black'
+                            }} />}>
                             Your Recipe Box
                         </Button>
                         <div className='menuDiv'>
@@ -112,12 +116,17 @@ function Header() {
                                 aria-haspopup="menu"
                                 aria-expanded={open ? 'true' : undefined}
                                 onClick={handleClick}
+                                onMouseOver={() => handleSetActiveItem('person-hover')}
+                                onMouseLeave={handleClearActiveItem}
                                 onMouseDown={() => handleSetActiveItem('person')}
                                 onMouseUp={handleClearActiveItem}
                                 onDragEnd={handleClearActiveItem}
                                 draggable
                             >
-                                <PersonIcon style={{ fill: activeItem === 'person' ? 'red' : 'black' }} />
+                                <PersonIcon style={{
+                                    fill: activeItem === 'person' ? 'red' :
+                                        activeItem === 'person-hover' ? '#767676' : 'black'
+                                }} />
                             </Button>
                             <Menu
                                 id="basic-menu"
@@ -159,7 +168,7 @@ function Header() {
                         <button className='header__button hover'>About</button>
                     </div>
                 </div>
-            </header>
+            </header >
     );
 }
 
