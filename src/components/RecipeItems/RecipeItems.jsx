@@ -72,8 +72,7 @@ function RecipeItems(props) {
                 <div className="max-width-container">
                     <SavedRecipesSidebar />
                     {/* Grid container to display recipes in a responsive layout. */}
-                    <RecipeGrid 
-                    recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
+                    <RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
                     searchQuery={searchQuery} setSearchQuery={setSearchQuery}
                     isXsScreen={isXsScreen} isSmScreen={isSmScreen}
                     />
