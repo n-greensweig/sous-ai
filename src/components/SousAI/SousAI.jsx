@@ -33,6 +33,7 @@ function SousAI() {
   const [message, setMessage] = useState(null); // Stores the current message
   const [createdRecipes, setCreatedRecipes] = useState([]); // Stores recipes created in the session
   const [loading, setLoading] = useState(false); // Indicates whether a request is in progress
+  const [recipeSaved, setRecipeSaved] = useState({}); // Indicates whether a recipe has been saved
   const textareaRef = useRef(null);
 
   const adjustTextareaHeight = () => {
@@ -58,11 +59,11 @@ function SousAI() {
   const year = today.getFullYear();
 
   // Function to reset chat creation form
-  const createNewChat = () => {
-    setMessage(null);
-    setValue('');
-    setCurrentTitle(null);
-  };
+  // const createNewChat = () => {
+  //   setMessage(null);
+  //   setValue('');
+  //   setCurrentTitle(null);
+  // };
 
   // State for managing Snackbar component
   const [state, setState] = useState({
@@ -95,6 +96,11 @@ function SousAI() {
       const response = await fetch('/completions', options); // Fetch API call
       const data = await response.json(); // Parsing response data
       setMessage(data.choices[0].message); // Setting message from response
+      // setPreviousChats(prev => [...prev, {
+      //   role: 'assistant',
+      //   content: message,
+      //   title: value // Assuming title is set from the input for contextual understanding
+      // }]);
       setCreatedRecipes(prevRecipes => [...prevRecipes, data.choices[0].message]); // Adding new recipe to list
     } catch (error) {
       console.error(error);
@@ -107,14 +113,23 @@ function SousAI() {
   const capitalizeFirstLetter = str => str.replace(str.charAt(0), str.charAt(0).toUpperCase());
 
   // Function to dispatch save recipe action
-  const saveRecipe = e => {
-    e.preventDefault();
-    const recipe = {
-      message: message.content,
-    };
-    const action = { type: 'SAVE_RECIPE', payload: recipe };
+  // const saveRecipe = (index) => {
+  //   // e.preventDefault();
+  //   const recipe = {
+  //     message: message.content,
+  //   };
+  //   const action = { type: 'SAVE_RECIPE', payload: recipe };
+  //   dispatch(action);
+  //   setState({ ...state, open: true, vertical: 'top', horizontal: 'center' });
+  //   setRecipeSaved(prev => ({...prev, [index]: true}));
+  // };
+  
+  const saveRecipe = (index) => {
+    const recipe = previousChats[index].content;
+    const action = { type: 'SAVE_RECIPE', payload: { message: recipe }};
     dispatch(action);
     setState({ ...state, open: true, vertical: 'top', horizontal: 'center' });
+    setRecipeSaved(prev => ({ ...prev, [index]: true }));
   };
 
   // Effect hook to update chat history based on currentTitle and message
@@ -171,20 +186,20 @@ function SousAI() {
 
     // Check if time is 60 minutes or more
     if (timeInMinutes >= 60) {
-        const hours = Math.floor(timeInMinutes / 60);
-        const minutes = timeInMinutes % 60;
+      const hours = Math.floor(timeInMinutes / 60);
+      const minutes = timeInMinutes % 60;
 
-        // Return a formatted string in terms of hours and remaining minutes
-        if (minutes === 0) {
-            return `${hours} hour${hours > 1 ? 's' : ''}`;
-        } else {
-            return `${hours} hour${hours > 1 ? 's' : ''} and ${minutes} minute${minutes > 1 || minutes === 0 ? 's' : ''}`;
-        }
+      // Return a formatted string in terms of hours and remaining minutes
+      if (minutes === 0) {
+        return `${hours} hour${hours > 1 ? 's' : ''}`;
+      } else {
+        return `${hours} hour${hours > 1 ? 's' : ''} and ${minutes} minute${minutes > 1 || minutes === 0 ? 's' : ''}`;
+      }
     } else {
-        // Return in minutes if less than 60
-        return `${timeInMinutes} minute${timeInMinutes > 1 || timeInMinutes === 0 ? 's' : ''}`;
+      // Return in minutes if less than 60
+      return `${timeInMinutes} minute${timeInMinutes > 1 || timeInMinutes === 0 ? 's' : ''}`;
     }
-};
+  };
 
   return (
     <div className="App">
@@ -311,7 +326,14 @@ function SousAI() {
                   }
                 </p>
                 {/* Button to save the recipe if it's from the assistant and is in JSON format */}
-                {chatMessage.role === 'assistant' && isJSON(chatMessage.content) ? <button onClick={saveRecipe} id='save-recipe-button'>Save recipe</button> : null}
+                {chatMessage.role === 'assistant' && isJSON(chatMessage.content) ?
+                  <button
+                    disabled={!!recipeSaved[index]}
+                    onClick={() => saveRecipe(index)}
+                  >
+                    {recipeSaved[index] ? 'Recipe Saved' : 'Save Recipe'}
+                  </button> : null
+                }
               </li>
             ))}
           </ul>
