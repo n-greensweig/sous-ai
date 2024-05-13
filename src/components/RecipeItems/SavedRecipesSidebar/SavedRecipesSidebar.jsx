@@ -27,7 +27,6 @@ function SavedRecipesSidebar() {
     // State hooks for managing the creation process and input value of the new recipe list.
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
     const [listName, setListName] = useState(''); // Stores the new recipe list's name.
-    const [activeId, setActiveId] = useState(null);
 
     // Function to save the new recipe list. Dispatches actions to the store and resets local state.
     const saveRecipeList = listName => {
@@ -49,16 +48,6 @@ function SavedRecipesSidebar() {
     const theme = useTheme();
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-    const handleMouseDown = (e, id) => {
-        console.log('hi!!!', id);
-        e.preventDefault();
-        setActiveId(id);
-    };
-
-    const handleMouseUp = () => {
-        setActiveId(null);
-    };
 
     return (
         isXsScreen || isSmScreen ? null :
