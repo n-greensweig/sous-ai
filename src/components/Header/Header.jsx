@@ -24,15 +24,16 @@ function Header() {
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
     const [anchorEl, setAnchorEl] = useState(null);
+    const [activeItem, setActiveItem] = useState(null);
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
-    }
+    };
 
     const handleClose = () => {
         setAnchorEl(null)
-    }
+    };
 
     // MUI theme hooks for responsive design
     const theme = useTheme();
@@ -40,6 +41,24 @@ function Header() {
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     // Determines if the screen width is less than or equal to the size of small devices
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const handleSetActiveItem = (itemId) => {
+        setActiveItem(itemId);
+    };
+
+    const handleClearActiveItem = () => {
+        setActiveItem(null);
+    };
+
+    const navigateTo = (path) => {
+        history.push(path);
+        handleClearActiveItem();
+    };
+
+    // Function to handle the drag start event
+    const handleDragStart = (event) => {
+        event.dataTransfer.setData('text/plain', 'http://localhost:3000/#/recipe-box'); // Set the URL you want to drag
+    };
 
     return (
         // Conditionally renders the header based on screen size
@@ -75,7 +94,15 @@ function Header() {
                             </div>
 
                         </div>
-                        <Button onClick={() => history.push('/recipe-box')} variant="text" className="header__button button__recipe-box" startIcon={<BookmarkIcon className='icon--black' />}>
+                        <Button onClick={() => navigateTo('/recipe-box')}
+                            onMouseDown={() => handleSetActiveItem('bookmark')}
+                            onMouseUp={handleClearActiveItem}
+                            onDragStart={handleDragStart}
+                            onDragEnd={handleClearActiveItem}
+                            draggable
+                            variant="text" className="header__button button__recipe-box"
+                            startIcon={<BookmarkIcon style={{ fill: activeItem === 'bookmark' ? 'red' : 'black' }}
+                                className='icon--black' />}>
                             Your Recipe Box
                         </Button>
                         <div className='menuDiv'>
@@ -84,8 +111,13 @@ function Header() {
                                 aria-controls={open ? 'basic-menu' : undefined}
                                 aria-haspopup="menu"
                                 aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick}>
-                                <PersonIcon style={{ fill: 'black', }} />
+                                onClick={handleClick}
+                                onMouseDown={() => handleSetActiveItem('person')}
+                                onMouseUp={handleClearActiveItem}
+                                onDragEnd={handleClearActiveItem}
+                                draggable
+                            >
+                                <PersonIcon style={{ fill: activeItem === 'person' ? 'red' : 'black' }} />
                             </Button>
                             <Menu
                                 id="basic-menu"

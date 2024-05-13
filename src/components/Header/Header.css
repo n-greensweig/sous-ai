@@ -57,7 +57,7 @@
     &:focus,
     &:active,
     &:hover {
-        border: 1px solid black;
+        border: 1px solid #222;
     }
 }
 button {
@@ -70,7 +70,14 @@ button {
 }
 
 .header__button {
-    color: black !important;
+    color: #222 !important;
+    &:hover {
+        background-color: inherit !important;
+        cursor: pointer;
+    }
+}
+.header__button:active {
+    color: red !important;
 }
 .hover {
     border-bottom: 4px solid transparent;
@@ -81,9 +88,6 @@ button {
     border-bottom: 4px solid red;
     background-color: none;
     cursor: pointer;
-}
-.icon--black {
-    fill: black !important;
 }
 button {
     padding-bottom: .75%;

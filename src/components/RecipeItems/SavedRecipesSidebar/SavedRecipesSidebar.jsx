@@ -70,7 +70,8 @@ function SavedRecipesSidebar() {
                     <p onClick={() => navigateTo('/recipe-box')}
                         onMouseDown={() => handleSetActiveItem('saved')}
                         onMouseUp={handleClearActiveItem}
-                        onMouseLeave={handleClearActiveItem}
+                        onDragEnd={handleClearActiveItem}
+                        draggable
                         style={{
                             backgroundColor: document.title === 'Saved Recipes' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal'
@@ -80,7 +81,8 @@ function SavedRecipesSidebar() {
                     <p onClick={() => navigateTo('/recipe-box/cooked')}
                         onMouseDown={() => handleSetActiveItem('cooked')}
                         onMouseUp={handleClearActiveItem}
-                        onMouseLeave={handleClearActiveItem}
+                        onDragEnd={handleClearActiveItem}
+                        draggable
                         style={{
                             backgroundColor: document.title === 'Cooked Recipes' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Cooked Recipes' ? 'bold' : 'normal'
@@ -90,7 +92,8 @@ function SavedRecipesSidebar() {
                     <p onClick={() => navigateTo('/recipe-box/recent')}
                         onMouseDown={() => handleSetActiveItem('recent')}
                         onMouseUp={handleClearActiveItem}
-                        onMouseLeave={handleClearActiveItem}
+                        onDragEnd={handleClearActiveItem}
+                        draggable
                         style={{
                             backgroundColor: document.title === 'Recently Viewed Recipes' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Recently Viewed Recipes' ? 'bold' : 'normal'
@@ -101,6 +104,8 @@ function SavedRecipesSidebar() {
                         onMouseDown={() => handleSetActiveItem('grocery')}
                         onMouseUp={handleClearActiveItem}
                         onMouseLeave={handleClearActiveItem}
+                        onDragEnd={handleClearActiveItem}
+                        draggable
                         style={{
                             backgroundColor: document.title === 'Grocery List' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Grocery List' ? 'bold' : 'normal'
