@@ -27,6 +27,7 @@ function SavedRecipesSidebar() {
     // State hooks for managing the creation process and input value of the new recipe list.
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
     const [listName, setListName] = useState(''); // Stores the new recipe list's name.
+    const [activeId, setActiveId] = useState(null);
 
     // Function to save the new recipe list. Dispatches actions to the store and resets local state.
     const saveRecipeList = listName => {
@@ -48,6 +49,16 @@ function SavedRecipesSidebar() {
     const theme = useTheme();
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const handleMouseDown = (e, id) => {
+        console.log('hi!!!', id);
+        e.preventDefault();
+        setActiveId(id);
+    };
+
+    const handleMouseUp = () => {
+        setActiveId(null);
+    };
 
     return (
         isXsScreen || isSmScreen ? null :
@@ -84,18 +95,18 @@ function SavedRecipesSidebar() {
                         ><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
                         <p className='p__new-folder'>New Folder</p>
                     </div>
-                    {recipeLists && recipeLists.map((list, index) => (
-                        <p onClick={() => {
-                            document.title = `Your Recipe Box - ${list.list_name}`;
-                            history.push(`/recipe-box/${list.id}`);
-                        }}
-                            style={{
-                                backgroundColor: document.title === `Your Recipe Box - ${list.list_name}` ? '#F8F8F5' : 'inherit',
-                            }}
-                        ><button key={index} style={{ color: 'black', cursor: 'pointer', fontWeight: document.title === `Your Recipe Box - ${list.list_name}` ? 'bold' : 'normal' }}>{list.list_name}</button></p>
-
-                    ))}
-                </div>
+                        {recipeLists && recipeLists.map((list, index) => (
+                            <p key={index}
+                                onClick={() => {
+                                    document.title = `Your Recipe Box - ${list.list_name}`;
+                                    history.push(`/recipe-box/${list.id}`);
+                                }}
+                                style={{
+                                    backgroundColor: document.title === `Your Recipe Box - ${list.list_name}` ? '#F8F8F5' : 'inherit',
+                                }}
+                            ><button key={index} style={{ cursor: 'pointer', fontWeight: document.title === `Your Recipe Box - ${list.list_name}` ? 'bold' : 'normal' }}>{list.list_name}</button></p>
+                        ))}
+                    </div>
                 {/* Dialog for creating a new recipe folder. */}
                 <Dialog open={isCreating}
                     onClose={toggleCreating}
@@ -130,7 +141,7 @@ function SavedRecipesSidebar() {
                         </div>
                     </DialogActions>
                 </Dialog>
-            </div>
+            </div >
     )
 }
 

@@ -19,6 +19,9 @@
     cursor: pointer !important;
     background-color: #F8F8F5 !important;
 }
+.sidebar__container p:active {
+    color: #767676 !important;
+}
 .sidebar__span--your-folders {
     text-transform: uppercase;
     font-weight: bold;
