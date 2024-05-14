@@ -165,7 +165,8 @@ function RecipeCard(props) {
                                 <CardContent className="card-content" style={{
                                     display: 'flex', flexDirection: 'column',
                                     justifyContent: 'flex-start',
-                                    height: '8px', paddingLeft: '10px', paddingRight: '10px',
+                                    height: '30px', paddingLeft: '10px', paddingRight: '10px',
+                                    overflow: 'clip'
                                 }}>
                                     {/* Typography for recipe title with responsive font size. */}
                                     <Typography className="title" style={{
