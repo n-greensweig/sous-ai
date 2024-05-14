@@ -163,7 +163,7 @@ function RecipeCard(props) {
                                     alt={`${props.recipe.title} dish`}
                                 />
                                 <CardContent className="card-content" style={{
-                                    display: 'flex', flexDirection: 'column', 
+                                    display: 'flex', flexDirection: 'column',
                                     justifyContent: 'flex-start',
                                     height: '8px', paddingLeft: '10px', paddingRight: '10px',
                                 }}>
@@ -184,9 +184,10 @@ function RecipeCard(props) {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
-                                width: '100%', paddingLeft: '5px', margin: '0px',
-                            }}>
+                                <div style={{
+                                    display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
+                                    width: '100%', paddingLeft: '5px', margin: '0px',
+                                }}>
                                     <Typography className="notes" style={{
                                         alignItems: 'baseline',
                                         justifyContent: 'center',
@@ -200,10 +201,8 @@ function RecipeCard(props) {
                                         component="div"
                                     >{totalTime}</Typography>
                                     {document.title === 'Cooked Recipes' || document.title === 'Recently Viewed Recipes' ?
-                                        <BookmarkIcon /> :
-                                        <Button variant="text" className="header__button options_menu"
-                                            startIcon={<MoreHorizIcon className='icon--black' />} onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }}></Button>
-                                    }
+                                        <BookmarkIcon /> : <MoreHorizIcon className='icon--black header__button'
+                                        onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }} />}
                                 </div>
                                 <Popover
                                     id={popoverID}
