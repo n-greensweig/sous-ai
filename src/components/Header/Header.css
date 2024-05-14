@@ -68,10 +68,9 @@ button {
     font-family: inherit; /* Inherits the font-family from the parent */
     font-size: inherit; /* Inherits the font-size from the parent */
 }
-
 .header__button {
     color: #222 !important;
-    &:hover {
+    &:not(.hover):hover {
         color: #767676 !important;
         background-color: inherit !important;
         cursor: pointer;
