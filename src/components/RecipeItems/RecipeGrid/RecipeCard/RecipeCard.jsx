@@ -29,7 +29,7 @@ import { useParams } from 'react-router-dom';
 function FadeIn({ children }) {
     const { ref, inView } = useInView({
         triggerOnce: true, // Trigger animation only once
-        threshold: 0.48,    // Trigger when 48% of the element is in the viewport
+        threshold: 0.1,    // Trigger when 48% of the element is in the viewport
     });
 
     return (
@@ -158,7 +158,7 @@ function RecipeCard(props) {
                             <CardActionArea onClick={() => handleClick(props.recipe.id)}>
                                 <CardMedia
                                     component={'img'}
-                                    height={'194px'}
+                                    height={'130px'}
                                     image={`${props.recipe.display_photo}`}
                                     alt={`${props.recipe.title} dish`}
                                 />
