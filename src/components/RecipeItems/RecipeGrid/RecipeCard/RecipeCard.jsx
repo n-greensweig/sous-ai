@@ -103,7 +103,8 @@ function RecipeCard(props) {
         if (props.recipe.list_id.includes(id)) {
             console.log(`It's already in that folder!`)
         } else {
-        dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: props.recipe.id, }, })};
+            dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: props.recipe.id, }, })
+        };
         handleFolderPopoverClose();
         setConfirmFolder(true);
     };
@@ -157,11 +158,14 @@ function RecipeCard(props) {
                             <CardActionArea onClick={() => handleClick(props.recipe.id)}>
                                 <CardMedia
                                     component={'img'}
-                                    height={'194'}
+                                    height={'194px'}
                                     image={`${props.recipe.display_photo}`}
                                     alt={`${props.recipe.title} dish`}
                                 />
-                                <CardContent className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+                                <CardContent className="card-content" style={{
+                                    display: 'flex', flexDirection: 'column', justifyContent: 'flex-start',
+                                    height: '10px'
+                                }}>
                                     {/* Typography for recipe title with responsive font size. */}
                                     <Typography className="title" style={{
                                         display: 'flex',
@@ -183,7 +187,8 @@ function RecipeCard(props) {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
+                            }}>
                                     <Typography className="notes" style={{
                                         alignItems: 'baseline',
                                         justifyContent: 'center',
