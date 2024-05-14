@@ -163,19 +163,16 @@ function RecipeCard(props) {
                                     alt={`${props.recipe.title} dish`}
                                 />
                                 <CardContent className="card-content" style={{
-                                    display: 'flex', flexDirection: 'column', justifyContent: 'flex-start',
-                                    height: '10px'
+                                    display: 'flex', flexDirection: 'column', 
+                                    justifyContent: 'flex-start',
+                                    height: '8px', paddingLeft: '10px', paddingRight: '10px',
                                 }}>
                                     {/* Typography for recipe title with responsive font size. */}
                                     <Typography className="title" style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'flex-start',
                                         fontFamily: 'inter',
                                         color: 'black',
                                         fontSize: '18px',
-                                        margin: '0px',
-                                        paddingTop: '0px',
+                                        margin: '0px', marginLeft: '0px',
                                     }}
                                         variant="h4"
                                         component="div"
@@ -188,6 +185,7 @@ function RecipeCard(props) {
                             </CardActionArea>
                             <CardActions>
                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
+                                width: '100%', paddingLeft: '5px', margin: '0px',
                             }}>
                                     <Typography className="notes" style={{
                                         alignItems: 'baseline',
@@ -196,7 +194,7 @@ function RecipeCard(props) {
                                         color: 'black',
                                         fontSize: isXsScreen || isSmScreen ? '16px' : '13px',
                                         marginTop: '5px',
-                                        overflow: 'auto'
+                                        overflow: 'auto',
                                     }}
                                         variant="h4"
                                         component="div"
