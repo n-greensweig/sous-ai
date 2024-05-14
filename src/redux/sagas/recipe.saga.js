@@ -184,6 +184,16 @@ function* removeRecipeFromFolder(action) {
     }
 }
 
+function* getRecipeListPhotos() {
+    try {
+        const response = yield axios.get(`/api/recipe/list/recipes/photos`);
+        yield put({ type: 'GET_RECIPE_LIST_PHOTOS', payload: response.data });
+    } catch (error) {
+        console.error('Error fetching recipe list photos:', error);
+        alert('Something went wrong.');
+    }
+}
+
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
     yield takeLatest('SAVE_RECIPE', saveRecipe);
@@ -201,6 +211,7 @@ function* recipeSaga() {
     yield takeLatest('FETCH_RECENT_RECIPES', getRecentRecipes);
     yield takeLatest('FETCH_RECIPES_FROM_FOLDER', fetchRecipesFromFolder);
     yield takeLatest('REMOVE_RECIPE_FROM_FOLDER', removeRecipeFromFolder);
+    yield takeLatest('FETCH_RECIPE_LIST_PHOTOS', getRecipeListPhotos);
 }
 
 export default recipeSaga;

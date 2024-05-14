@@ -23,6 +23,8 @@ function SavedRecipesSidebar() {
     const dispatch = useDispatch();
     const history = useHistory();
     const recipeLists = useSelector(store => store.recipeListsReducer);
+    const recipeListPhotos = useSelector(store => store.recipeListPhotosReducer);
+    console.log('recipeListPhotos:', recipeListPhotos);
 
     // State hooks for managing the creation process and input value of the new recipe list.
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
@@ -40,6 +42,7 @@ function SavedRecipesSidebar() {
     // Effect hook to fetch recipe lists when the component mounts.
     useEffect(() => {
         dispatch({ type: 'FETCH_RECIPE_LISTS' });
+        dispatch({ type: 'FETCH_RECIPE_LIST_PHOTOS' });
     }, []); // Dependency array is empty, so this runs once on mount.
 
     // Toggles the isCreating state, controlling the visibility of the creation dialog.
@@ -118,16 +121,26 @@ function SavedRecipesSidebar() {
                         ><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
                         <p className='p__new-folder'>New Folder</p>
                     </div>
-                    {recipeLists && recipeLists.map((list, index) => (
-                        <p key={index}
-                            onClick={() => {
+                    {recipeLists && recipeLists.map((list) => (
+                        <div key={list.id} className="div__icon__p--folder">
+                            {/* Find the photo that matches the current list ID */}
+                            {recipeListPhotos && recipeListPhotos.map((photo) => {
+                                console.log('photo:', photo.list_id, list.id);
+                                if (photo.list_id.includes(list.id)) {
+                                    return <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo" />
+                                }
+                            })}
+                            <p onClick={() => {
                                 document.title = `Your Recipe Box - ${list.list_name}`;
                                 history.push(`/recipe-box/${list.id}`);
                             }}
-                            style={{
-                                backgroundColor: document.title === `Your Recipe Box - ${list.list_name}` ? '#F8F8F5' : 'inherit',
-                            }}
-                        ><button key={index} style={{ cursor: 'pointer', fontWeight: document.title === `Your Recipe Box - ${list.list_name}` ? 'bold' : 'normal' }}>{list.list_name}</button></p>
+                                style={{
+                                    backgroundColor: document.title.includes(list.list_name) ? '#F8F8F5' : 'inherit',
+                                    fontWeight: document.title.includes(list.list_name) ? 'bold' : 'normal',
+                                    cursor: 'pointer',
+                                }}
+                            >{list.list_name}</p>
+                        </div>
                     ))}
                 </div>
                 {/* Dialog for creating a new recipe folder. */}

@@ -463,4 +463,32 @@ router.delete('/list/recipes/:recipeId/:listId', rejectUnauthenticated, (req, re
         });
 });
 
+// GET recipe list photos from the DB
+router.get('/list/recipes/photos', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    SELECT "recipe_item".*,
+            COALESCE(
+                (SELECT "images"."path"
+                FROM "images"
+                WHERE "images"."recipe_id" = "recipe_item"."id"
+                ORDER BY "images"."created_at" DESC
+                LIMIT 1),
+                "recipe_item"."photo"
+            ) AS "display_photo", 
+            array_agg("recipe_list_recipes"."list_id") AS "list_id"
+FROM "recipe_item"
+JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
+WHERE "recipe_item"."user_id" = $1
+GROUP BY "recipe_item"."id"
+ORDER BY "recipe_item"."id" DESC;`;
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            res.send(result.rows);
+        })
+        .catch(error => {
+            console.error('Error getting recipe list photos from DB:', error);
+            res.sendStatus(400);
+        });
+});
+
 module.exports = router;
