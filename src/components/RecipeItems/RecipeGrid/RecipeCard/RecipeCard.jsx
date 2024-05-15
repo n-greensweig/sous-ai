@@ -7,10 +7,8 @@ import { useState, useEffect } from 'react';
 import { Paper, Card, CardContent, CardMedia, CardActionArea, CardActions, Typography, useTheme, useMediaQuery, Popover } from "@mui/material";
 // useHistory hook from React Router for programmatically navigating to different routes.
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-// Custom components for displaying headers and new recipe list forms.
 
 // Imports Material-UI components for buttons and icons.
-import { Button } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useInView } from 'react-intersection-observer'; // Import the hook
@@ -78,7 +76,7 @@ function RecipeCard(props) {
 
     const handleClose = () => {
         setAnchorEl(null);
-        setConfirmFolder(false)
+        setConfirmFolder(false);
     };
 
     // For popover operations
@@ -89,7 +87,6 @@ function RecipeCard(props) {
     // Remove recipe
     const removeRecipe = () => {
         dispatch({ type: 'REMOVE_RECIPE', payload: props.recipe.id, });
-        // dispatch({ type: 'FETCH_RECIPES' });
     };
 
     // Remove recipe from folder
