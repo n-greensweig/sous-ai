@@ -25,7 +25,6 @@ function SavedRecipesSidebar() {
     const history = useHistory();
     const recipeLists = useSelector(store => store.recipeListsReducer);
     const recipeListPhotos = useSelector(store => store.recipeListPhotosReducer);
-    console.log('recipeListPhotos:', recipeListPhotos);
 
     // State hooks for managing the creation process and input value of the new recipe list.
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
@@ -66,8 +65,6 @@ function SavedRecipesSidebar() {
         history.push(path);
         handleClearActiveItem();
     };
-
-    const renderedRecipeLists = [];
 
     return (
         isXsScreen || isSmScreen ? null :
@@ -127,7 +124,12 @@ function SavedRecipesSidebar() {
                     {recipeLists && recipeLists.map((list) => (
                         <div key={list.id} className="div__icon__p--folder">
                             {/* Find the photo that matches the current list ID */}
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', }}
+                                onClick={() => {
+                                    document.title = `Your Recipe Box - ${list.list_name}`;
+                                    history.push(`/recipe-box/${list.id}`);
+                                }}
+                            >
                                 {recipeListPhotos && recipeListPhotos.map((photo) => {
                                     if (photo.list_id.includes(list.id)) {
                                         return (
@@ -140,8 +142,7 @@ function SavedRecipesSidebar() {
                                     }
                                 })}
                                 {/* If there is no photo for the current list, render the list without a photo */}
-                                {!renderedRecipeLists.includes(list.id) &&
-                                    <p onClick={() => {
+                                <p onClick={() => {
                                         document.title = `Your Recipe Box - ${list.list_name}`;
                                         history.push(`/recipe-box/${list.id}`);
                                     }}
@@ -151,7 +152,6 @@ function SavedRecipesSidebar() {
                                             cursor: 'pointer',
                                         }}
                                     >{list.list_name}</p>
-                                }
                             </div>
                         </div>
                     ))}
