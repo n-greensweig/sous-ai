@@ -113,17 +113,6 @@ function SousAI() {
   const capitalizeFirstLetter = str => str.replace(str.charAt(0), str.charAt(0).toUpperCase());
 
   // Function to dispatch save recipe action
-  // const saveRecipe = (index) => {
-  //   // e.preventDefault();
-  //   const recipe = {
-  //     message: message.content,
-  //   };
-  //   const action = { type: 'SAVE_RECIPE', payload: recipe };
-  //   dispatch(action);
-  //   setState({ ...state, open: true, vertical: 'top', horizontal: 'center' });
-  //   setRecipeSaved(prev => ({...prev, [index]: true}));
-  // };
-  
   const saveRecipe = (index) => {
     const recipe = previousChats[index].content;
     const action = { type: 'SAVE_RECIPE', payload: { message: recipe }};

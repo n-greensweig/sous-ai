@@ -57,7 +57,7 @@ function Header() {
 
     // Function to handle the drag start event
     const handleDragStart = (event) => {
-        event.dataTransfer.setData('text/plain', 'http://localhost:3000/#/recipe-box'); // Set the URL you want to drag
+        event.dataTransfer.setData('text/plain', 'http://localhost:3000/#/recipe-box'); // Set the URL to drag
     };
 
     return (
