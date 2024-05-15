@@ -66,6 +66,8 @@ function SavedRecipesSidebar() {
         handleClearActiveItem();
     };
 
+    const hasPhoto = [];
+
     return (
         isXsScreen || isSmScreen ? null :
             <div className='sidebar__container'>
@@ -132,6 +134,7 @@ function SavedRecipesSidebar() {
                             >
                                 {recipeListPhotos && recipeListPhotos.map((photo) => {
                                     if (photo.list_id.includes(list.id)) {
+                                        hasPhoto.push(list.id);
                                         return (
                                             <div style={{ display: 'flex' }}>
                                                 <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo"
@@ -142,16 +145,21 @@ function SavedRecipesSidebar() {
                                     }
                                 })}
                                 {/* If there is no photo for the current list, render the list without a photo */}
+                                {hasPhoto.includes(list.id) ? null : <div style={{ display: 'flex' }}>
+                                    <img src={'images/empty-folder/empty-folder.jpeg'} alt={list.list_name} className="folder__photo"
+                                        style={{ height: '40px', width: '40px' }}
+                                    />
+                                </div>}
                                 <p onClick={() => {
-                                        document.title = `Your Recipe Box - ${list.list_name}`;
-                                        history.push(`/recipe-box/${list.id}`);
+                                    document.title = `Your Recipe Box - ${list.list_name}`;
+                                    history.push(`/recipe-box/${list.id}`);
+                                }}
+                                    style={{
+                                        backgroundColor: document.title.includes(list.list_name) ? '#F8F8F5' : 'inherit',
+                                        fontWeight: document.title.includes(list.list_name) ? 'bold' : 'normal',
+                                        cursor: 'pointer',
                                     }}
-                                        style={{
-                                            backgroundColor: document.title.includes(list.list_name) ? '#F8F8F5' : 'inherit',
-                                            fontWeight: document.title.includes(list.list_name) ? 'bold' : 'normal',
-                                            cursor: 'pointer',
-                                        }}
-                                    >{list.list_name}</p>
+                                >{list.list_name}</p>
                             </div>
                         </div>
                     ))}
