@@ -109,6 +109,8 @@ function SousAI() {
     }
   };
 
+  document.title = 'SousAI'; // Set the title of the page
+
   // Helper function to capitalize first letter of a string
   const capitalizeFirstLetter = str => str.replace(str.charAt(0), str.charAt(0).toUpperCase());
 
