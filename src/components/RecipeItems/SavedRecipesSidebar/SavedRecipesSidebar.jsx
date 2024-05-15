@@ -17,6 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 // Importing Button and TextField components from Material UI for UI elements.
 import { Button, TextField, useTheme, useMediaQuery } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { render } from 'react-dom';
 
 function SavedRecipesSidebar() {
     // Hooks for dispatching actions and selecting a slice of the Redux store.
@@ -65,6 +66,8 @@ function SavedRecipesSidebar() {
         history.push(path);
         handleClearActiveItem();
     };
+
+    const renderedRecipeLists = [];
 
     return (
         isXsScreen || isSmScreen ? null :
@@ -124,22 +127,32 @@ function SavedRecipesSidebar() {
                     {recipeLists && recipeLists.map((list) => (
                         <div key={list.id} className="div__icon__p--folder">
                             {/* Find the photo that matches the current list ID */}
-                            {recipeListPhotos && recipeListPhotos.map((photo) => {
-                                console.log('photo:', photo.list_id, list.id);
-                                if (photo.list_id.includes(list.id)) {
-                                    return <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo" />
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                {recipeListPhotos && recipeListPhotos.map((photo) => {
+                                    if (photo.list_id.includes(list.id)) {
+                                        return (
+                                            <div style={{ display: 'flex' }}>
+                                                <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo"
+                                                    style={{ height: '40px', width: '40px' }}
+                                                />
+                                            </div>
+                                        )
+                                    }
+                                })}
+                                {/* If there is no photo for the current list, render the list without a photo */}
+                                {!renderedRecipeLists.includes(list.id) &&
+                                    <p onClick={() => {
+                                        document.title = `Your Recipe Box - ${list.list_name}`;
+                                        history.push(`/recipe-box/${list.id}`);
+                                    }}
+                                        style={{
+                                            backgroundColor: document.title.includes(list.list_name) ? '#F8F8F5' : 'inherit',
+                                            fontWeight: document.title.includes(list.list_name) ? 'bold' : 'normal',
+                                            cursor: 'pointer',
+                                        }}
+                                    >{list.list_name}</p>
                                 }
-                            })}
-                            <p onClick={() => {
-                                document.title = `Your Recipe Box - ${list.list_name}`;
-                                history.push(`/recipe-box/${list.id}`);
-                            }}
-                                style={{
-                                    backgroundColor: document.title.includes(list.list_name) ? '#F8F8F5' : 'inherit',
-                                    fontWeight: document.title.includes(list.list_name) ? 'bold' : 'normal',
-                                    cursor: 'pointer',
-                                }}
-                            >{list.list_name}</p>
+                            </div>
                         </div>
                     ))}
                 </div>
