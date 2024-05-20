@@ -102,7 +102,7 @@ function Header() {
                             onDragStart={handleDragStart}
                             onDragEnd={handleClearActiveItem}
                             draggable
-                            variant="text" className="header__button--red button__recipe-box"
+                            variant="text" className="header__button button__recipe-box"
                             startIcon={<BookmarkIcon style={{
                                 fill: activeItem === 'bookmark' ? 'red' :
                                     activeItem === 'bookmark-hover' ? '#767676' : 'black'

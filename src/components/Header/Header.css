@@ -74,15 +74,19 @@ button {
         color: #767676 !important;
         background-color: inherit !important;
         cursor: pointer;
+        &:active {
+            color: red !important;
+        }
     }
-}
-.header__button--red:active {
-    color: red !important;
 }
 .hover {
     border-bottom: 4px solid transparent;
     background-color: none;
     cursor: pointer;
+    font-weight: 600;
+    margin-right: 5%;
+    letter-spacing: .02em;
+    line-height: 1.45;
 }
 .hover:hover {
     border-bottom: 4px solid red;
