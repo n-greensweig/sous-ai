@@ -103,6 +103,11 @@ function Header() {
                             onDragEnd={handleClearActiveItem}
                             draggable
                             variant="text" className="header__button button__recipe-box"
+                            sx={{
+                                '&:hover': {
+                                    backgroundColor: 'transparent',
+                                }
+                            }}
                             startIcon={<BookmarkIcon style={{
                                 fill: activeItem === 'bookmark' ? 'red' :
                                     activeItem === 'bookmark-hover' ? '#767676' : 'black'
@@ -122,6 +127,11 @@ function Header() {
                                 onMouseUp={handleClearActiveItem}
                                 onDragEnd={handleClearActiveItem}
                                 draggable
+                                sx={{
+                                    '&:hover': {
+                                        backgroundColor: 'transparent',
+                                    }
+                                }}
                             >
                                 <PersonIcon style={{
                                     fill: activeItem === 'person' ? 'red' :
