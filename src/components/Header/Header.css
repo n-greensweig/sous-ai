@@ -16,6 +16,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1.5%;
 }
 .header__logo {
     cursor: pointer;
@@ -84,9 +85,8 @@ button {
     background-color: none;
     cursor: pointer;
     font-weight: 600;
-    margin-right: 5%;
+    margin-right: 3.5%;
     letter-spacing: .02em;
-    line-height: 1.45;
 }
 .hover:hover {
     border-bottom: 4px solid red;
