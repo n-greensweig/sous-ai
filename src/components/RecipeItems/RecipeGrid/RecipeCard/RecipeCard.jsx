@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 
 // Imports from Material-UI for UI components with responsive capabilities.
-import { Paper, Card, CardContent, CardMedia, CardActionArea, CardActions, Typography, useTheme, useMediaQuery, Popover } from "@mui/material";
+import { Paper, Card, CardContent, CardMedia, CardActions, Typography, useTheme, useMediaQuery, Popover } from "@mui/material";
 // useHistory hook from React Router for programmatically navigating to different routes.
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -153,7 +153,7 @@ function RecipeCard(props) {
                 {/* <Paper> */}
                 <Card style={{ cursor: 'pointer', }}
                     sx={{
-                        borderRadius: '1px', boxShadow: 'none', border: '1px solid #e6e6e6',
+                        borderRadius: '1px', boxShadow: 'none', border: '1px solid #e6e6e6', width: '200px',
                         '&:hover': {
                             boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
                         }

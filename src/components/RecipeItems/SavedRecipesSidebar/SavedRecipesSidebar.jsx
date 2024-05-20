@@ -7,7 +7,6 @@ import './SavedRecipesSidebar.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-
 // Importing Dialog components from Material UI for modal dialog functionality.
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -17,7 +16,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 // Importing Button and TextField components from Material UI for UI elements.
 import { Button, TextField, useTheme, useMediaQuery } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { render } from 'react-dom';
 
 function SavedRecipesSidebar() {
     // Hooks for dispatching actions and selecting a slice of the Redux store.
