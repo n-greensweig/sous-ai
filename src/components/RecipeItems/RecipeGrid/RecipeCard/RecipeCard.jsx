@@ -149,8 +149,8 @@ function RecipeCard(props) {
 
         return (
             <FadeIn>
-                <Paper elevation={5}>
-                    <Card>
+                <Paper>
+                    <Card style={{ cursor: 'pointer', }}>
                         <div key={props.recipe.id}>
                             <CardActionArea onClick={() => handleClick(props.recipe.id)}>
                                 <CardMedia
@@ -181,8 +181,11 @@ function RecipeCard(props) {
                                     {/* Typography for recipe notes with dynamic font size based on screen size. */}
                                 </CardContent>
                             </CardActionArea>
-                            <CardActions>
-                                <div style={{
+                            <div style={{
+                                display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
+                                width: '100%', paddingLeft: '5px', margin: '0px',
+                            }}>
+                                <div onClick={() => handleClick(props.recipe.id)} style={{
                                     display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
                                     width: '100%', paddingLeft: '5px', margin: '0px',
                                 }}>
@@ -198,10 +201,11 @@ function RecipeCard(props) {
                                         variant="h4"
                                         component="div"
                                     >{totalTime}</Typography>
-                                    {document.title === 'Cooked Recipes' || document.title === 'Recently Viewed Recipes' ?
-                                        <BookmarkIcon /> : <MoreHorizIcon className='icon--black header__button'
-                                        onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }} />}
                                 </div>
+                            <CardActions>
+                                {document.title === 'Cooked Recipes' || document.title === 'Recently Viewed Recipes' ?
+                                    <BookmarkIcon /> : <MoreHorizIcon className='icon--black header__button'
+                                        onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }} />}
                                 <Popover
                                     id={popoverID}
                                     open={open}
@@ -255,9 +259,10 @@ function RecipeCard(props) {
                                 </Snackbar>
                             </CardActions>
                         </div>
+                        </div>
                     </Card>
                 </Paper>
-            </FadeIn>
+            </FadeIn >
         )
     }
 }
