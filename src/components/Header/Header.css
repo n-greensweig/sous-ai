@@ -76,7 +76,7 @@ button {
         cursor: pointer;
     }
 }
-.header__button:active {
+.header__button--red:active {
     color: red !important;
 }
 .hover {

@@ -102,7 +102,7 @@ function Header() {
                             onDragStart={handleDragStart}
                             onDragEnd={handleClearActiveItem}
                             draggable
-                            variant="text" className="header__button button__recipe-box"
+                            variant="text" className="header__button--red button__recipe-box"
                             startIcon={<BookmarkIcon style={{
                                 fill: activeItem === 'bookmark' ? 'red' :
                                     activeItem === 'bookmark-hover' ? '#767676' : 'black'
@@ -111,7 +111,7 @@ function Header() {
                         </Button>
                         <div className='menuDiv'>
                             <Button id="basic-button"
-                                className='header__button'
+                                className='header__button--red'
                                 aria-controls={open ? 'basic-menu' : undefined}
                                 aria-haspopup="menu"
                                 aria-expanded={open ? 'true' : undefined}
