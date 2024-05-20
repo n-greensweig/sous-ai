@@ -22,6 +22,7 @@ import IconButton from '@mui/material/IconButton';
 
 import './RecipeCard.css';
 import { useParams } from 'react-router-dom';
+import './RecipeCard.css';
 
 // Define a functional component for an individual recipe card that fades in
 function FadeIn({ children }) {
@@ -152,7 +153,7 @@ function RecipeCard(props) {
                 <Paper>
                     <Card style={{ cursor: 'pointer', }}>
                         <div key={props.recipe.id}>
-                            <CardActionArea onClick={() => handleClick(props.recipe.id)}>
+                            <div onClick={() => handleClick(props.recipe.id)}>
                                 <CardMedia
                                     component={'img'}
                                     height={'130px'}
@@ -178,9 +179,8 @@ function RecipeCard(props) {
                                             fontWeight: 'bold',
                                             mb: 2
                                         }}>{props.recipe.title}</Typography>
-                                    {/* Typography for recipe notes with dynamic font size based on screen size. */}
                                 </CardContent>
-                            </CardActionArea>
+                            </div>
                             <div style={{
                                 display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
                                 width: '100%', paddingLeft: '5px', margin: '0px',
@@ -202,63 +202,63 @@ function RecipeCard(props) {
                                         component="div"
                                     >{totalTime}</Typography>
                                 </div>
-                            <CardActions>
-                                {document.title === 'Cooked Recipes' || document.title === 'Recently Viewed Recipes' ?
-                                    <BookmarkIcon /> : <MoreHorizIcon className='icon--black header__button'
-                                        onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }} />}
-                                <Popover
-                                    id={popoverID}
-                                    open={open}
-                                    anchorEl={anchorEl}
-                                    onClose={handleClose}
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'left',
-                                    }}
-                                >
-                                    <ul className={`dropdown`}>
-                                        <div className="dropdownButton">
-                                            <button onClick={handleFolderPopover}>Add to folder</button>
-                                            <Popover
-                                                open={openFolder}
-                                                anchorEl={anchorFolder}
-                                                onClose={handleFolderPopoverClose}
-                                                anchorOrigin={{
-                                                    vertical: 'bottom',
-                                                    horizontal: 'right',
-                                                }}>
-                                                {recipeLists.map((folder, i) => (
-                                                    <div className="dropdownButton" ><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button></div>
-                                                ))}
-
-                                            </Popover>
-                                        </div>
-                                        <div className="div__dropdownButton">
-                                            <button className="dropdownButton" onClick={() => removeRecipe()}>Unsave from Recipe Box</button>
-                                            {document.title.includes('Your Recipe Box') ?
-                                                <button className="dropdownButton" onClick={() => removeRecipeFromUserFolder()} >Remove from this folder</button> : null}
-                                        </div>
-                                    </ul>
-                                </Popover>
-                                <Snackbar open={confirmFolder} autoHideDuration={1500} onClose={handleClose}>
-                                    <Alert onClose={handleClose} severity="success" variant="filled"
-                                        icon={<CheckCircleOutlineIcon style={{ fill: 'white' }} />}
-                                        action={
-                                            <IconButton
-                                                size="small"
-                                                aria-label="close"
-                                                color="inherit"
-                                                onClick={handleClose}
-                                            >
-                                                <CloseIcon style={{ fill: 'white' }} />
-                                            </IconButton>
-                                        }
+                                <CardActions>
+                                    {document.title === 'Cooked Recipes' || document.title === 'Recently Viewed Recipes' ?
+                                        <BookmarkIcon /> : <MoreHorizIcon className='icon--black header__button'
+                                            onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }} />}
+                                    <Popover
+                                        id={popoverID}
+                                        open={open}
+                                        anchorEl={anchorEl}
+                                        onClose={handleClose}
+                                        anchorOrigin={{
+                                            vertical: 'bottom',
+                                            horizontal: 'left',
+                                        }}
                                     >
-                                        Recipe Added!
-                                    </Alert>
-                                </Snackbar>
-                            </CardActions>
-                        </div>
+                                        <ul className={`dropdown`}>
+                                            <div className="dropdownButton">
+                                                <button onClick={handleFolderPopover}>Add to folder</button>
+                                                <Popover
+                                                    open={openFolder}
+                                                    anchorEl={anchorFolder}
+                                                    onClose={handleFolderPopoverClose}
+                                                    anchorOrigin={{
+                                                        vertical: 'bottom',
+                                                        horizontal: 'right',
+                                                    }}>
+                                                    {recipeLists.map((folder, i) => (
+                                                        <div className="dropdownButton" ><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button></div>
+                                                    ))}
+
+                                                </Popover>
+                                            </div>
+                                            <div className="div__dropdownButton">
+                                                <button className="dropdownButton" onClick={() => removeRecipe()}>Unsave from Recipe Box</button>
+                                                {document.title.includes('Your Recipe Box') ?
+                                                    <button className="dropdownButton" onClick={() => removeRecipeFromUserFolder()} >Remove from this folder</button> : null}
+                                            </div>
+                                        </ul>
+                                    </Popover>
+                                    <Snackbar open={confirmFolder} autoHideDuration={1500} onClose={handleClose}>
+                                        <Alert onClose={handleClose} severity="success" variant="filled"
+                                            icon={<CheckCircleOutlineIcon style={{ fill: 'white' }} />}
+                                            action={
+                                                <IconButton
+                                                    size="small"
+                                                    aria-label="close"
+                                                    color="inherit"
+                                                    onClick={handleClose}
+                                                >
+                                                    <CloseIcon style={{ fill: 'white' }} />
+                                                </IconButton>
+                                            }
+                                        >
+                                            Recipe Added!
+                                        </Alert>
+                                    </Snackbar>
+                                </CardActions>
+                            </div>
                         </div>
                     </Card>
                 </Paper>
