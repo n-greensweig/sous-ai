@@ -34,13 +34,13 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     const saveRecipeListName = (newListName) => {
         console.log('newListName:', newListName);
         dispatch({ type: 'UPDATE_RECIPE_LIST_NAME', payload: { id, newListName } });
-        dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery: searchQuery } });
+        // dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery: searchQuery } });
     };
 
-    // const handleDelete = () => {
-    //     onDelete();
-    //     handleClose();
-    // };
+    const deleteRecipeList = () => {
+        dispatch({ type: 'REMOVE_RECIPE_LIST', payload: id });
+        history.push('/recipe-box');
+    };
 
     const open = Boolean(anchorEl);
     const popoverID = open ? 'simple-popover' : undefined;
@@ -66,9 +66,9 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                             <Typography>
                                 <Button onClick={toggleCreating}>Rename</Button>
                             </Typography>
-                            {/* <Typography>
-                                <Button onClick={handleDelete}>Delete</Button>
-                            </Typography> */}
+                            <Typography>
+                                <Button onClick={deleteRecipeList}>Delete</Button>
+                            </Typography>
                         </div>
                     </Popover>
                 </div>

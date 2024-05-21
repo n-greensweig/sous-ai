@@ -204,6 +204,16 @@ function* updateRecipeListName(action) {
     }
 }
 
+function* deleteRecipeList(action) {
+    try {
+        yield axios.delete(`/api/recipe/delete/list/${action.payload}`);
+        yield put({ type: 'FETCH_RECIPES' });
+    } catch (error) {
+        console.error('Error deleting recipe list:', error);
+        alert('Something went wrong.');
+    }
+}
+
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
     yield takeLatest('SAVE_RECIPE', saveRecipe);
@@ -223,6 +233,7 @@ function* recipeSaga() {
     yield takeLatest('REMOVE_RECIPE_FROM_FOLDER', removeRecipeFromFolder);
     yield takeLatest('FETCH_RECIPE_LIST_PHOTOS', getRecipeListPhotos);
     yield takeLatest('UPDATE_RECIPE_LIST_NAME', updateRecipeListName);
+    yield takeLatest('REMOVE_RECIPE_LIST', deleteRecipeList);
 }
 
 export default recipeSaga;

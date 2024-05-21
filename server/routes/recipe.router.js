@@ -507,4 +507,23 @@ router.put('/list/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// DELETE selected recipe list from the DB
+router.delete('/delete/list/:id', rejectUnauthenticated, (req, res) => {
+    let firstQueryText = `
+DELETE FROM "recipe_list_recipes" WHERE "user_id" = $1 AND "list_id" = $2;
+`;
+    let secondQueryText = `
+DELETE FROM "recipe_list" WHERE "user_id" = $1 AND "id" = $2;
+`;
+    pool.query(firstQueryText, [req.user.id, req.params.id])
+        .then(result => {
+            pool.query(secondQueryText, [req.user.id, req.params.id]);
+            res.sendStatus(201);
+        })
+        .catch(error => {
+            console.error('Error deleting recipe list from DB:', error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;
