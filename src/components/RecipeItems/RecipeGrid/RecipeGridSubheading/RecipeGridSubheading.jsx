@@ -47,10 +47,10 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     return (
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
             <div style={{ display: 'flex', flexDirection: 'column', }}>
-                <div style={{ display: 'flex', }}>
+                <div style={{ display: 'flex', alignItems: 'center', }}>
                     <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0, }}>{listName}</h2>
-                    {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed' ? 
-                    <MoreHorizIcon onClick={handlePopover} style={{ color: '#717171', marginLeft: '5px', }} /> : null}
+                    {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed' ?
+                        <MoreHorizIcon onClick={handlePopover} sx={{ color: '#717171', marginLeft: '5px', cursor: 'pointer' }} /> : null}
                     <Popover
                         id={popoverID}
                         open={open}
@@ -61,12 +61,22 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                             horizontal: 'left',
                         }}
                     >
-                        <div style={{ padding: '10px' }}>
-                            <Typography>
-                                <Button onClick={toggleCreating}>Rename</Button>
+                        <div>
+                            <Typography onClick={toggleCreating} sx={{
+                                borderBottom: '1px solid #ccc', padding: '10px', cursor: 'pointer', color: '#222', fontFamily: 'inherit',
+                                '&:hover': {
+                                    backgroundColor: '#c0c0c0',
+                                },
+                            }}>
+                                <button style={{ cursor: 'pointer', color: '#222' }}>Rename</button>
                             </Typography>
-                            <Typography>
-                                <Button onClick={deleteRecipeList}>Delete</Button>
+                            <Typography onClick={deleteRecipeList} sx={{
+                                padding: '10px', cursor: 'pointer', color: '#222', fontFamily: 'inherit',
+                                '&:hover': {
+                                    backgroundColor: '#c0c0c0',
+                                },
+                            }}>
+                                <button style={{ cursor: 'pointer' }}>Delete</button>
                             </Typography>
                         </div>
                     </Popover>
@@ -99,7 +109,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                     },
                 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid gray', }}>
-                    <DialogTitle sx={{paddingBottom: '0px', marginBottom: '0px',}}>Rename Folder</DialogTitle>
+                    <DialogTitle sx={{ paddingBottom: '0px', marginBottom: '0px', }}>Rename Folder</DialogTitle>
                     <Button style={{ color: 'gray', textTransform: 'none', paddingBottom: '0px', marginBottom: '0px', }} onClick={() => setIsCreating(false)}>Cancel</Button>
                 </div>
                 <DialogContent>
