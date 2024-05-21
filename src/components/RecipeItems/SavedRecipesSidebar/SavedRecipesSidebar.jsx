@@ -69,7 +69,7 @@ function SavedRecipesSidebar() {
         isXsScreen || isSmScreen ? null :
             <div className='sidebar__container'>
                 <div className="sidebar-content">
-                    <p className='sidebar__p--first' onClick={() => navigateTo('/recipe-box')}
+                    <p className='sidebar__p--first sidebar__margin--right' onClick={() => navigateTo('/recipe-box')}
                         onMouseDown={() => handleSetActiveItem('saved')}
                         onMouseUp={handleClearActiveItem}
                         onDragEnd={handleClearActiveItem}
@@ -85,6 +85,7 @@ function SavedRecipesSidebar() {
                         onMouseUp={handleClearActiveItem}
                         onDragEnd={handleClearActiveItem}
                         draggable
+                        className='sidebar__margin--right'
                         style={{
                             backgroundColor: document.title === 'Cooked Recipes' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Cooked Recipes' ? 'bold' : 'normal'
@@ -96,6 +97,7 @@ function SavedRecipesSidebar() {
                         onMouseUp={handleClearActiveItem}
                         onDragEnd={handleClearActiveItem}
                         draggable
+                        className='sidebar__margin--right'
                         style={{
                             backgroundColor: document.title === 'Recently Viewed Recipes' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Recently Viewed Recipes' ? 'bold' : 'normal'
@@ -108,13 +110,14 @@ function SavedRecipesSidebar() {
                         onMouseLeave={handleClearActiveItem}
                         onDragEnd={handleClearActiveItem}
                         draggable
+                        className='sidebar__margin--right'
                         style={{
                             backgroundColor: document.title === 'Grocery List' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Grocery List' ? 'bold' : 'normal'
                         }}>
                         <ListAltIcon className='sidebar__icon' style={{ fill: activeItem === 'grocery' ? '#767676' : 'black' }} /> Grocery List
                     </p>
-                    <span className='sidebar__span--your-folders'>Your folders</span>
+                    <span className='sidebar__span--your-folders sidebar__margin--right'>Your folders</span>
                     <div onClick={toggleCreating} className='div__icon__span--new-folder'>
                         <Button className='icon--gray-border'
                         ><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
@@ -139,7 +142,7 @@ function SavedRecipesSidebar() {
                                         return (
                                             <div style={{ display: 'flex' }}>
                                                 <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo"
-                                                    style={{ height: '40px', width: '40px' }}
+                                                    style={{ height: '40px', width: '40px', borderRadius: '4px', }}
                                                 />
                                             </div>
                                         )
@@ -148,7 +151,7 @@ function SavedRecipesSidebar() {
                                 {/* If there is no photo for the current list, render the list without a photo */}
                                 {hasPhoto.includes(list.id) ? null : <div style={{ display: 'flex' }}>
                                     <img src={'images/empty-folder/empty-folder.jpeg'} alt={list.list_name} className="folder__photo"
-                                        style={{ height: '40px', width: '40px' }}
+                                        style={{ height: '40px', width: '40px', borderRadius: '4px', }}
                                     />
                                 </div>}
                                 <p onClick={() => {
