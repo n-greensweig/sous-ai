@@ -115,10 +115,10 @@ function SavedRecipesSidebar() {
                         <ListAltIcon className='sidebar__icon' style={{ fill: activeItem === 'grocery' ? '#767676' : 'black' }} /> Grocery List
                     </p>
                     <span className='sidebar__span--your-folders'>Your folders</span>
-                    <div onClick={toggleCreating} className='div__icon__p--new-folder'>
+                    <div onClick={toggleCreating} className='div__icon__span--new-folder'>
                         <Button className='icon--gray-border'
                         ><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
-                        <p className='p__new-folder'>New Folder</p>
+                        <span className='span__new-folder'>New Folder</span>
                     </div>
                     {recipeLists && recipeLists.map((list) => (
                         <div key={list.id} className="div__icon__p--folder">
