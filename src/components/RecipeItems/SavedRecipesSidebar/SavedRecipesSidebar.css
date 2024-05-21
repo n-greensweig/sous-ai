@@ -60,12 +60,10 @@
         background-color: inherit;
     }
 }
-
 .div__icon__p--folder {
     margin-top: 8px;
     margin-right: 8px;
 }
-
 .sidebar-content p {
     display: flex;
     padding: 8px;
