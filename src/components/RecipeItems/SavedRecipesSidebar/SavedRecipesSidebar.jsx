@@ -69,14 +69,14 @@ function SavedRecipesSidebar() {
         isXsScreen || isSmScreen ? null :
             <div className='sidebar__container'>
                 <div className="sidebar-content">
-                    <p onClick={() => navigateTo('/recipe-box')}
+                    <p className='sidebar__p--first' onClick={() => navigateTo('/recipe-box')}
                         onMouseDown={() => handleSetActiveItem('saved')}
                         onMouseUp={handleClearActiveItem}
                         onDragEnd={handleClearActiveItem}
                         draggable
                         style={{
                             backgroundColor: document.title === 'Saved Recipes' ? '#F8F8F5' : 'inherit',
-                            fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal'
+                            fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal',
                         }}>
                         <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black' }} /> Saved Recipes
                     </p>
@@ -121,7 +121,7 @@ function SavedRecipesSidebar() {
                         <span className='span__new-folder'>New Folder</span>
                     </div>
                     {recipeLists && recipeLists.map((list) => (
-                        <div key={list.id} className="div__icon__p--folder">
+                        <div key={list.id} className="div__icon__p--folder div__color-change">
                             {/* Find the photo that matches the current list ID */}
                             <div className='sidebar__user-folders' style={{
                                 display: 'flex', alignItems: 'center', cursor: 'pointer', boxSizing: 'border-box',
