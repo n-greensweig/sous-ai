@@ -38,27 +38,22 @@
         background-color: inherit;
     }
 }
+.div__icon__p--folder {
+    margin-top: 10px;
+}
 .sidebar-content p {
     display: flex;
     padding: 10px;
     margin: 0px;
-    &:first-of-type {
-        margin-top: 10px;
-    }
 }
 .span__new-folder {
-    margin-left: 10px;
     padding: 10px;
     margin: 0px;
-    &:first-of-type {
-        margin-top: 10px;
-    }
 }
 .div__icon__span--new-folder {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 10px;
     cursor: pointer;
     &:active {
         background-color: #F8F8F5;
