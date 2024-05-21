@@ -54,5 +54,5 @@ Contributions are welcome. Please follow these steps to contribute:
 5. Open a pull request.
 
 ## Acknowledgments
-Thank you to the mentors and colleagues who have contributed to the success of this project. You know who you are. Thank you also to OpenAI for making your API available to build with.
+Thank you to Chris Black and Chris Cantoni for your contributions to the success of this project. I am also grateful to OpenAI for making their API available to build with.
 
