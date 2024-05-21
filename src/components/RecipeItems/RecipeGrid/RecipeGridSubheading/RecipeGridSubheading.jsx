@@ -32,7 +32,6 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     };
 
     const saveRecipeListName = (newListName) => {
-        console.log('newListName:', newListName);
         dispatch({ type: 'UPDATE_RECIPE_LIST_NAME', payload: { id, newListName } });
         // dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery: searchQuery } });
     };

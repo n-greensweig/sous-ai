@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 // Importing Button and TextField components from Material UI for UI elements.
 import { Button, TextField, useTheme, useMediaQuery } from '@mui/material';
@@ -173,9 +172,11 @@ function SavedRecipesSidebar() {
                             toggleCreating(event);
                         },
                     }}>
-                    <DialogTitle>Create new recipe folder</DialogTitle>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid gray', }}>
+                        <DialogTitle sx={{ paddingBottom: '0px', marginBottom: '0px', }}>New Folder</DialogTitle>
+                        <Button style={{ color: 'gray', textTransform: 'none', paddingBottom: '0px', marginBottom: '0px', }} onClick={() => setIsCreating(false)}>Cancel</Button>
+                    </div>
                     <DialogContent>
-                        <DialogContentText>New recipe folder</DialogContentText>
                         <TextField autoFocus
                             margin="dense"
                             id="title"
@@ -183,6 +184,7 @@ function SavedRecipesSidebar() {
                             fullWidth
                             variant="standard"
                             defaultValue={listName}
+                            placeholder='Enter folder name'
                             onChange={e => setListName(e.target.value)}
                             style={{ padding: '1px' }} />
                     </DialogContent>
@@ -190,8 +192,7 @@ function SavedRecipesSidebar() {
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                             <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
                                 {/* Buttons for cancelling or saving the new recipe folder. */}
-                                <Button style={{ width: '50%', color: 'gray' }} onClick={() => setIsCreating(false)}>Cancel</Button>
-                                <Button variant="outlined" type="submit" style={{ width: '50%', color: '#DAA520', borderColor: '#DAA520' }}>Save</Button>
+                                <Button variant="outlined" type="submit" style={{ width: '50%', backgroundColor: '#df321b', color: 'white', border: '1px solid #df321b', borderRadius: '5%', textTransform: 'none' }}>Create</Button>
                             </div>
                         </div>
                     </DialogActions>
