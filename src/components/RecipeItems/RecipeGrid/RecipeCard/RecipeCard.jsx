@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 
 // Imports from Material-UI for UI components with responsive capabilities.
-import { Paper, Card, CardContent, CardMedia, CardActions, Typography, useTheme, useMediaQuery, Popover } from "@mui/material";
+import { Card, CardContent, CardMedia, CardActions, Typography, useTheme, useMediaQuery, Popover } from "@mui/material";
 // useHistory hook from React Router for programmatically navigating to different routes.
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 

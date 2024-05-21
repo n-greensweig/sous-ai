@@ -196,7 +196,7 @@ function SavedRecipesSidebar() {
                         </div>
                     </DialogActions>
                 </Dialog>
-            </div >
+            </div>
     )
 }
 

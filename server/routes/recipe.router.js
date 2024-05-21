@@ -491,4 +491,20 @@ ORDER BY "recipe_item"."id" DESC;`;
         });
 });
 
+// PUT request to update recipe list name in the DB
+router.put('/list/:id', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    UPDATE "recipe_list" SET "list_name" = $1
+    WHERE "user_id" = $2 AND "id" = $3;
+    `;
+    pool.query(queryText, [req.body.name, req.user.id, req.params.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.error('Error updating recipe list name in DB:', error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;

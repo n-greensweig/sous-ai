@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import RecipeGridCards from './RecipeGridCards/RecipeGridCards';
 import RecipeGridSubheading from './RecipeGridSubheading/RecipeGridSubheading';
 
-function RecipeGrid({ recipes, listName, numOfRecipes, searchQuery, setSearchQuery, isXsScreen, isSmScreen }) {
+function RecipeGrid({ recipes, listName, numOfRecipes, searchQuery, setSearchQuery, isXsScreen, isSmScreen, id }) {
     return (
         <Grid container spacing={2} minHeight={'5vh'} className="full-width-background"
             style={{
@@ -12,7 +12,7 @@ function RecipeGrid({ recipes, listName, numOfRecipes, searchQuery, setSearchQue
         >
             <div className='div__recipeGrid--container' style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
                 {isXsScreen || isSmScreen ? null :
-                    <RecipeGridSubheading listName={listName} numOfRecipes={numOfRecipes} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
+                    <RecipeGridSubheading listName={listName} numOfRecipes={numOfRecipes} searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id} />}
                 {/* Maps through the recipes array and creates a Grid item for each recipe. */}
                 <RecipeGridCards recipes={recipes} listName={listName} />
             </div>

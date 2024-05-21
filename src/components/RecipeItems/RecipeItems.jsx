@@ -74,8 +74,7 @@ function RecipeItems(props) {
                     {/* Grid container to display recipes in a responsive layout. */}
                     <RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
                     searchQuery={searchQuery} setSearchQuery={setSearchQuery}
-                    isXsScreen={isXsScreen} isSmScreen={isSmScreen}
-                    />
+                    isXsScreen={isXsScreen} isSmScreen={isSmScreen} id={id} />
                 </div>
             </div>
         </div>
