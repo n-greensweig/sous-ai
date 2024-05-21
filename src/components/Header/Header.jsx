@@ -109,7 +109,7 @@ function Header() {
                                 }
                             }}
                             startIcon={<BookmarkIcon style={{
-                                fill: activeItem === 'bookmark' ? 'red' :
+                                fill: activeItem === 'bookmark' ? '#df321b' :
                                     activeItem === 'bookmark-hover' ? '#767676' : 'black'
                             }} />}>
                             Your Recipe Box
@@ -134,7 +134,7 @@ function Header() {
                                 }}
                             >
                                 <PersonIcon style={{
-                                    fill: activeItem === 'person' ? 'red' :
+                                    fill: activeItem === 'person' ? '#df321b' :
                                         activeItem === 'person-hover' ? '#767676' : 'black'
                                 }} />
                             </Button>

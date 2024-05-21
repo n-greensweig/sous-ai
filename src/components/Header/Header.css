@@ -84,7 +84,7 @@ button {
         background-color: inherit !important;
         cursor: pointer;
         &:active {
-            color: red !important;
+            color: #df321b !important;
         }
     }
 }
@@ -97,7 +97,7 @@ button {
     letter-spacing: .02em;
 }
 .hover:hover {
-    border-bottom: 4px solid red;
+    border-bottom: 4px solid #df321b;
     background-color: none;
     cursor: pointer;
 }
