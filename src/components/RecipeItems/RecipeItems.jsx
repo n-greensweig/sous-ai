@@ -4,13 +4,9 @@ import { useState, useEffect } from 'react';
 // Imports custom CSS for styling this component.
 import './RecipeItems.css';
 // Imports from Material-UI for UI components with responsive capabilities.
-import { Grid, useTheme, useMediaQuery } from "@mui/material";
-// useHistory hook from React Router for programmatically navigating to different routes.
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useTheme, useMediaQuery } from "@mui/material";
 // Custom components for displaying headers and new recipe list forms.
 import Header from '../Header/Header';
-
-import RecipeCard from './RecipeGrid/RecipeCard/RecipeCard';
 
 // Imports Material-UI components for buttons and icons.
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";

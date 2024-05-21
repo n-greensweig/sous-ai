@@ -14,11 +14,14 @@
     margin: 0px !important;
     padding: 0px !important;
 }
-.sidebar__container p:hover {
+.sidebar__container p:hover,
+.sidebar__icon:hover,
+.sidebar__user-folders:hover {
     cursor: pointer !important;
     background-color: #F8F8F5 !important;
 }
-.sidebar__container p:active {
+.sidebar__container p:active,
+.sidebar__user-folders:active {
     color: #767676 !important;
 }
 .sidebar__span--your-folders {

@@ -44,6 +44,11 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     const open = Boolean(anchorEl);
     const popoverID = open ? 'simple-popover' : undefined;
 
+    useEffect(() => {
+        console.log('listName:', listName);
+    }, [listName]);
+    
+
     return (
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
             <div style={{ display: 'flex', flexDirection: 'column', }}>

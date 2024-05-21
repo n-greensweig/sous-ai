@@ -123,7 +123,11 @@ function SavedRecipesSidebar() {
                     {recipeLists && recipeLists.map((list) => (
                         <div key={list.id} className="div__icon__p--folder">
                             {/* Find the photo that matches the current list ID */}
-                            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', boxSizing: 'border-box' }}
+                            <div className='sidebar__user-folders' style={{
+                                display: 'flex', alignItems: 'center', cursor: 'pointer', boxSizing: 'border-box',
+                                backgroundColor: document.title.includes(list.list_name) ? '#F8F8F5' : 'inherit',
+                                fontWeight: document.title.includes(list.list_name) ? 'bold' : 'normal',
+                            }}
                                 onClick={() => {
                                     document.title = `Your Recipe Box - ${list.list_name}`;
                                     history.push(`/recipe-box/${list.id}`);
@@ -152,8 +156,6 @@ function SavedRecipesSidebar() {
                                     history.push(`/recipe-box/${list.id}`);
                                 }}
                                     style={{
-                                        backgroundColor: document.title.includes(list.list_name) ? '#F8F8F5' : 'inherit',
-                                        fontWeight: document.title.includes(list.list_name) ? 'bold' : 'normal',
                                         cursor: 'pointer',
                                     }}
                                 >{list.list_name}</p>

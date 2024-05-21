@@ -1,7 +1,6 @@
 import { Grid } from "@mui/material";
 import RecipeGridCards from './RecipeGridCards/RecipeGridCards';
 import RecipeGridSubheading from './RecipeGridSubheading/RecipeGridSubheading';
-
 function RecipeGrid({ recipes, listName, numOfRecipes, searchQuery, setSearchQuery, isXsScreen, isSmScreen, id }) {
     return (
         <Grid container spacing={2} minHeight={'5vh'} className="full-width-background"
