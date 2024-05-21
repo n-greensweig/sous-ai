@@ -39,7 +39,7 @@
 
 .sidebar__user-folders {
     padding: 4px !important;
-    border-radius: 4px;
+    border-radius: 4px !important;
 }
 
 .sidebar__margin--right {
