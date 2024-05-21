@@ -417,7 +417,7 @@ router.put('/cooked/:id', rejectUnauthenticated, (req, res) => {
 // GET recipe lists from the DB
 router.get('/list/recipes', rejectUnauthenticated, (req, res) => {
     let queryText = `
-    SELECT * FROM "recipe_list" WHERE "user_id" = $1;
+    SELECT * FROM "recipe_list" WHERE "user_id" = $1 ORDER BY "created_at" DESC;
 `;
     pool.query(queryText, [req.user.id])
         .then(result => {
