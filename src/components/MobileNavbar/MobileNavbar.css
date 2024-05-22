@@ -11,10 +11,14 @@ ul {
 
 .header__img--mobile {
     width: 25%;
-    height: 100%;
+    height: 90%;
     cursor: pointer;
     border-radius: 75%;
 }
 .icon__fill-black {
     fill: rgb(34, 34, 34) !important;
+}
+.icon__padding {
+    padding: 10px 5px !important;
+    /* margin: 50px !important; */
 }
