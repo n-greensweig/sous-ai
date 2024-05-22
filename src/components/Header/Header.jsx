@@ -147,7 +147,7 @@ function Header() {
                                 MenuListProps={{
                                     'aria-labelledby': 'basic-button',
                                 }}>
-                                <MenuItem onClick={handleClose}>
+                                {/* <MenuItem onClick={handleClose}>
                                     <Link className='navLink' to="/recipe-box">
                                         Preferences
                                     </Link>
@@ -161,9 +161,11 @@ function Header() {
                                     <Link className='navLink' to="/recipe-box">
                                         Report a bug
                                     </Link>
-                                </MenuItem>
+                                </MenuItem> */}
                                 <MenuItem onClick={handleClose}>
-                                    <Button onClick={() => dispatch({ type: 'LOGOUT' })} className="header__button"><LogoutIcon /> Logout</Button>
+                                    <Button onClick={() => dispatch({ type: 'LOGOUT' })} className="header__button">
+                                        {/* <LogoutIcon /> */}
+                                        Logout</Button>
                                 </MenuItem>
 
                             </Menu>

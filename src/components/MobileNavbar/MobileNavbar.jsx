@@ -90,7 +90,7 @@ function MobileNavbar() {
 
 
     return (
-        <header style={{ border: '2px solid red', height: '45px', alignItems: 'center', }}>
+        <header style={{ height: '45px', alignItems: 'center', }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '5px' }}>
                 <div>
                     <Button
@@ -107,7 +107,6 @@ function MobileNavbar() {
                 </div>
                 <div onClick={() => history.push('/')} style={{
                     display: 'flex', alignItems: 'center', width: '35%', height: '35px', justifyContent: 'center',
-                    border: '2px solid blue',
                 }}>
                     <img src="images/avatars/sous.png" className="header__img--mobile" alt="SousAI" />
                     <p>&nbsp;| Sous AI</p>
@@ -136,7 +135,7 @@ function MobileNavbar() {
                 </div>
             </div>
 
-            {/* Side Menu */}
+            {/* Burger Menu on left side of page */}
             <BurgerMenu
                 isOpen={menuOpen}
                 onStateChange={handleStateChange}
@@ -144,15 +143,15 @@ function MobileNavbar() {
                 left
                 className='hide'
             >
-                <Link to="/" onClick={closeMenu} style={{ borderBottom: '1px solid white', width: '100%', textAlign: 'left', textDecoration: 'none' }}>SousAI</Link>
-                <div style={{ borderBottom: '1px solid white', width: '100%', textAlign: 'left', }}>
-                    <Link to="/recipe-box" onClick={closeMenu} style={{ color: '#000', textDecoration: 'none' }}>
+                <Link to="/" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>SousAI</Link>
+                <div style={{ width: '100%', textAlign: 'left', alignItems: 'center', }}>
+                    <Link to="/recipe-box" onClick={closeMenu} style={{ color: '#000', textDecoration: 'none', }}>
                         Saved Recipes
                     </Link>
-                    {showDropdown ? <KeyboardArrowDownIcon onClick={toggleDropdown} style={{ fontSize: '1.5rem', textAlign: 'end', fill: '#000', textDecoration: 'none' }} /> :
-                        <KeyboardArrowRightIcon onClick={toggleDropdown} style={{ fontSize: '1.5rem', textAlign: 'end', fill: '#000', textDecoration: 'none' }} />}
+                    {/* {showDropdown ? <KeyboardArrowDownIcon onClick={toggleDropdown} style={{ fontSize: '1.5rem', textAlign: 'end', fill: '#000', textDecoration: 'none' }} /> :
+                        <KeyboardArrowRightIcon onClick={toggleDropdown} style={{ fontSize: '1.5rem', textAlign: 'end', fill: '#000', textDecoration: 'none' }} />} */}
                 </div>
-                {showDropdown && (
+                {/* {showDropdown && (
                     <ul>
                         <Link style={{ textDecoration: "none" }} to="/recipe-box/cooked" onClick={closeMenu}>
                             <li className='dropdown-item'>Cooked recipes</li>
@@ -161,7 +160,7 @@ function MobileNavbar() {
                             <li className='dropdown-item'>Recently viewed recipes</li>
                         </Link>
                     </ul>
-                )}
+                )} */}
             </BurgerMenu>
             <Menu
                 id="basic-menu"
@@ -172,7 +171,7 @@ function MobileNavbar() {
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}>
-                <MenuItem onClick={handleClose}>
+                {/* <MenuItem onClick={handleClose}>
                     <Link className='navLink' to="/recipe-box">
                         Preferences
                     </Link>
@@ -186,9 +185,11 @@ function MobileNavbar() {
                     <Link className='navLink' to="/recipe-box">
                         Report a bug
                     </Link>
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem onClick={handleClose}>
-                    <Button onClick={() => dispatch({ type: 'LOGOUT' })} className="header__button"><LogoutIcon /> Logout</Button>
+                    <Button onClick={() => dispatch({ type: 'LOGOUT' })} style={{ textTransform: 'none', }} className="header__button">
+                        {/* <LogoutIcon /> */}
+                        Logout</Button>
                 </MenuItem>
 
             </Menu>
