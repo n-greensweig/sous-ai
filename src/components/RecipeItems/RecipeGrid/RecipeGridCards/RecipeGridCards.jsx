@@ -3,8 +3,9 @@ import RecipeCard from '../RecipeCard/RecipeCard';
 function RecipeGridCards({ recipes, listName, isXsScreen, isSmScreen }) {
     return (
         <div style={{
-            marginTop: '0px', display: 'flex', flexDirection: 'row',
-            flexWrap: 'wrap', justifyContent: 'left', alignItems: 'center', gap: '8px 16px',
+            marginTop: '0px', display: 'flex', flexDirection: isXsScreen || isSmScreen ? 'column' : 'row',
+            flexWrap: 'wrap', overflowX: 'scroll', justifyContent: 'left', alignItems: 'center', gap: '8px 16px',
+            height: isXsScreen || isSmScreen ? '275px' : null,
         }}>
             {recipes.map((recipe, index) => (
                 // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
