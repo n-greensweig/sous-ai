@@ -5,18 +5,16 @@ ul {
     overflow: hidden;
     color: #000 !important;
 }
-
 .dropdown-item {
     color: #000 !important;
 }
 
 .header__img--mobile {
-    width: 10%;
-    height: 75%;
+    width: 25%;
+    height: 100%;
     cursor: pointer;
     border-radius: 75%;
 }
-
 .icon__fill-black {
     fill: rgb(34, 34, 34) !important;
 }

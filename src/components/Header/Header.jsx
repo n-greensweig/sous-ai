@@ -173,9 +173,9 @@ function Header() {
                     <div>
                         <button className='header__button hover' onClick={() => history.push('/')}>SousAI</button>
                         <button className='header__button hover' onClick={() => history.push('/recipe-box')}>Recipes</button>
-                        <button className='header__button hover'>Ingredients</button>
+                        {/* <button className='header__button hover'>Ingredients</button>
                         <button className='header__button hover'>Occasions</button>
-                        <button className='header__button hover'>About</button>
+                        <button className='header__button hover'>About</button> */}
                     </div>
                 </div>
             </header >

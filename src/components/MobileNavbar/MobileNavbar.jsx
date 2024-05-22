@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 import { Button } from '@mui/material';
 import { slide as Menu } from 'react-burger-menu'; // Import the slide animation
@@ -16,6 +17,7 @@ import './MobileNavbar.css';
 
 function MobileNavbar() {
 
+    const history = useHistory();
     const [showDropdown, setShowDropdown] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleDropdown = () => setShowDropdown(!showDropdown);
@@ -68,25 +70,31 @@ function MobileNavbar() {
 
     return (
         <header style={{ border: '2px solid red', height: '35px', alignItems: 'center', }}>
-
-            <div style={{ display: 'flex', alignItems: 'flex-start', }}>
-                <Button
-                    style={{ ...styles.bmBurgerButton, position: 'relative', zIndex: 999 }}
-                    onClick={toggleMenu}
-                    startIcon={menuOpen ?
-                        <MenuOpenIcon className='icon__fill-black' style={{ color: 'white', }} /> :
-                        <MenuIcon className='icon__fill-black' style={{ color: 'white', }} />
-                    }
-                >
-                    <i style={{ color: 'white', visibility: 'visible' }}></i>
-                </Button>
-                <SearchIcon className='icon__fill-black' />
-                <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-                    <img src="images/avatars/sous.png" className="header__img--mobile" alt="SousAI" />
-                    <p> | Sous AI</p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                    <Button
+                        style={{ ...styles.bmBurgerButton, position: 'relative', zIndex: 999 }}
+                        onClick={toggleMenu}
+                        startIcon={menuOpen ?
+                            <MenuOpenIcon className='icon__fill-black' style={{ color: 'white', }} /> :
+                            <MenuIcon className='icon__fill-black' style={{ color: 'white', }} />
+                        }
+                    >
+                        <i style={{ color: 'white', visibility: 'visible' }}></i>
+                    </Button>
+                    {/* <SearchIcon className='icon__fill-black' /> */}
                 </div>
-                <BookmarkIcon className='icon__fill-black' />
-                <PersonIcon className='icon__fill-black' />
+                <div onClick={() => history.push('/')} style={{
+                    display: 'flex', alignItems: 'center' , width: '35%', height: '35px', justifyContent: 'center',
+                    border: '2px solid blue',
+                }}>
+                    <img src="images/avatars/sous.png" className="header__img--mobile" alt="SousAI" />
+                    <p>&nbsp;| Sous AI</p>
+                </div>
+                <div style={{ display: 'flex', }}>
+                    <BookmarkIcon className='icon__fill-black' onClick={() => history.push('/recipe-box')} />
+                    <PersonIcon className='icon__fill-black' />
+                </div>
             </div>
 
             {/* Side Menu */}
