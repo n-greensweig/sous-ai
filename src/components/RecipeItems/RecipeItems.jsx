@@ -62,7 +62,7 @@ function RecipeItems(props) {
 
     return (
         // Sets padding and margin based on screen size for responsive design.
-        <div style={{ marginTop: isSmScreen || isXsScreen ? '7%' : '1%', margin: '0 auto', }}>
+        <div style={{ marginTop: isSmScreen || isXsScreen ? '0%' : '1%', margin: '0 auto', }}>
             <Header />
             <div>
                 <div className="max-width-container">

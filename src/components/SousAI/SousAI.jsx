@@ -229,7 +229,7 @@ function SousAI() {
         {/* Page title */}
         <Header />
         <div className='section__chat'>
-          <h1>SousAI</h1>
+          {isXsScreen || isSmScreen ? null : <h1>SousAI</h1>}
           <ul className='feed'>
             {/* Maps over currentChat to render chat messages */}
             {currentChat?.map((chatMessage, index) => (

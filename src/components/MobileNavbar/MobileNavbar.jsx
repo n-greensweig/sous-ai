@@ -9,6 +9,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import SearchIcon from '@mui/icons-material/Search';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import PersonIcon from '@mui/icons-material/Person';
 import './MobileNavbar.css';
 
 function MobileNavbar() {
@@ -27,27 +30,24 @@ function MobileNavbar() {
     // Define styles for the burger menu
     var styles = {
         bmBurgerButton: {
-            position: 'fixed',
-            width: '24px',
-            height: '30px',
-            left: '24px',
-            top: '24px',
+            position: 'relative',
+            width: '20px',
+            height: '14x',
         },
         bmCrossButton: {
-            height: '24px',
-            width: '24px'
+            height: '20px',
+            width: '14px'
         },
         bmCross: {
             background: '#bdc3c7'
         },
         bmMenu: {
             background: '#FFF',
-            padding: '2.5em 1.5em 0',
+            padding: '1.5em .5em',
             fontSize: '1.15em',
         },
         bmItemList: {
             color: '#000',
-            padding: '0.8em',
             display: 'flex',
             flexDirection: 'column', // Align items vertically
             alignItems: 'flex-start', // Center align items horizontally
@@ -67,19 +67,29 @@ function MobileNavbar() {
 
 
     return (
-        <div>
-            {/* Trigger Button (use fixed positioning) */}
-            <Button
-                style={{ ...styles.bmBurgerButton, position: 'absolute', zIndex: 999 }}
-                onClick={toggleMenu}
-                startIcon={menuOpen ?
-                    <MenuOpenIcon style={{ color: 'white', fontSize: '4rem' }} /> :
-                    <MenuIcon style={{ color: 'white', fontSize: '4rem' }} />
-                }
-            >
-                <i style={{ color: 'white', visibility: 'visible' }}></i>
-            </Button>
+        <header style={{ border: '2px solid red', height: '35px', alignItems: 'center', }}>
 
+            <div style={{ display: 'flex', alignItems: 'flex-start', }}>
+                <Button
+                    style={{ ...styles.bmBurgerButton, position: 'relative', zIndex: 999 }}
+                    onClick={toggleMenu}
+                    startIcon={menuOpen ?
+                        <MenuOpenIcon className='icon__fill-black' style={{ color: 'white', }} /> :
+                        <MenuIcon className='icon__fill-black' style={{ color: 'white', }} />
+                    }
+                >
+                    <i style={{ color: 'white', visibility: 'visible' }}></i>
+                </Button>
+                <SearchIcon className='icon__fill-black' />
+                <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+                    <img src="images/avatars/sous.png" className="header__img--mobile" alt="SousAI" />
+                    <p> | Sous AI</p>
+                </div>
+                <BookmarkIcon className='icon__fill-black' />
+                <PersonIcon className='icon__fill-black' />
+            </div>
+
+            {/* Side Menu */}
             <Menu
                 isOpen={menuOpen}
                 onStateChange={handleStateChange}
@@ -106,7 +116,7 @@ function MobileNavbar() {
                     </ul>
                 )}
             </Menu>
-        </div>
+        </header >
     );
 }
 

@@ -99,7 +99,7 @@ function RecipeCard(props) {
     // Add recipe to folder
     const addRecipeToFolder = (id) => {
         if (props.recipe.list_id.includes(id)) {
-            console.log(`It's already in that folder!`)
+            // console.log(`It's already in that folder!`)
         } else {
             dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: props.recipe.id, }, })
         };

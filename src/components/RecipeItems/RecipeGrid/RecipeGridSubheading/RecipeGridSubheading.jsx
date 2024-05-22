@@ -45,7 +45,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     const popoverID = open ? 'simple-popover' : undefined;
 
     useEffect(() => {
-        console.log('listName:', listName);
+        // console.log('listName:', listName);
     }, [listName]);
     
 
