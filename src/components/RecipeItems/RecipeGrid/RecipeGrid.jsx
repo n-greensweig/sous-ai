@@ -10,10 +10,13 @@ function RecipeGrid({ recipes, listName, numOfRecipes, searchQuery, setSearchQue
             }}
         >
             <div className='div__recipeGrid--container' style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
-                {isXsScreen || isSmScreen ? null :
-                    <RecipeGridSubheading listName={listName} numOfRecipes={numOfRecipes} searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id} />}
+                {/* {isXsScreen || isSmScreen ? null : */}
+                    <RecipeGridSubheading listName={listName} numOfRecipes={numOfRecipes} searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id}
+                    isXsScreen={isXsScreen} isSmScreen={isSmScreen}
+                    />
+                    {/* } */}
                 {/* Maps through the recipes array and creates a Grid item for each recipe. */}
-                <RecipeGridCards recipes={recipes} listName={listName} />
+                <RecipeGridCards recipes={recipes} listName={listName} isXsScreen={isXsScreen} isSmScreen={isSmScreen} />
             </div>
         </Grid>
     )

@@ -109,7 +109,7 @@ function MobileNavbar() {
                     display: 'flex', alignItems: 'center', width: '35%', height: '35px', justifyContent: 'center',
                 }}>
                     <img src="images/avatars/sous.png" className="header__img--mobile" alt="SousAI" />
-                    <p>&nbsp;| Sous AI</p>
+                    <p>&nbsp;| SousAI</p>
                 </div>
                 <div style={{ display: 'flex', }}>
                     <BookmarkIcon className='icon__fill-black icon__padding' onClick={() => history.push('/recipe-box')} />

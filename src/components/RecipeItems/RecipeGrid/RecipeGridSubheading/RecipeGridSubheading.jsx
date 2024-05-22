@@ -13,7 +13,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { TextField } from '@mui/material';
-function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQuery, id }) {
+function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQuery, id, isXsScreen, isSmScreen }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
     const [newListName, setNewListName] = useState(listName); // Stores the new recipe list's name.
@@ -47,13 +47,16 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     useEffect(() => {
         // console.log('listName:', listName);
     }, [listName]);
-    
+
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+        <div style={{
+            display: 'flex', flexDirection: isXsScreen || isSmScreen ? 'column-reverse' : 'row',
+            justifyContent: 'space-between', alignItems: 'center',
+        }}>
             <div style={{ display: 'flex', flexDirection: 'column', }}>
                 <div style={{ display: 'flex', alignItems: 'center', }}>
-                    <h2 style={{ marginLeft: 'inherit', color: '#222', margin: 0, }}>{listName}</h2>
+                    <h2 style={{ marginLeft: 'inherit', color: '#222', }}>{listName}</h2>
                     {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed' ?
                         <MoreHorizIcon onClick={handlePopover} sx={{ color: '#717171', marginLeft: '5px', cursor: 'pointer' }} /> : null}
                     <Popover
@@ -91,7 +94,8 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
             </div>
             <div className="search__input" style={{
                 display: 'flex', flexDirection: 'row',
-                alignItems: 'center', position: 'absolute', right: '2%',
+                alignItems: 'center', position: isXsScreen || isSmScreen ? 'relative' : 'absolute', right: isXsScreen || isSmScreen ? 0 : '2%', 
+                margin: isXsScreen || isSmScreen ? '0px' : 0,
             }}>
                 <SearchIcon className='icon--black search' />
                 <input
