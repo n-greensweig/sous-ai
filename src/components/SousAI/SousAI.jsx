@@ -117,7 +117,7 @@ function SousAI() {
   // Function to dispatch save recipe action
   const saveRecipe = (index) => {
     const recipe = previousChats[index].content;
-    const action = { type: 'SAVE_RECIPE', payload: { message: recipe }};
+    const action = { type: 'SAVE_RECIPE', payload: { message: recipe } };
     dispatch(action);
     setState({ ...state, open: true, vertical: 'top', horizontal: 'center' });
     setRecipeSaved(prev => ({ ...prev, [index]: true }));
@@ -337,50 +337,53 @@ function SousAI() {
           )}
 
           {/* Input form for new recipe requests */}
-          <div className='bottom-section' style={{ marginBottom: isXsScreen || isSmScreen ? '3%' : null }}>
-            <div className="input-container">
-              <form onSubmit={getMessages} id='sous-form'>
-                <textarea
-                  id="dynamic-textarea"
-                  ref={textareaRef}
-                  value={loading ? '' : value}
-                  disabled={loading}
-                  onChange={e => {
-                    setValue(e.target.value);
-                    adjustTextareaHeight(); // Adjust the height after setting the new value
-                  }}
-                  style={{ padding: '0px 41px 0px 10px', }}
-                  onKeyDown={(e) => {
-                    // Check if Enter key is pressed without the Shift key
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault(); // Prevent the default action to avoid a new line
-                      getMessages(e); // Call the function directly or use the form's submit method
-                    }
-                  }}
-                  placeholder='What would you like to cook today?'
-                  required
-                />
-                {/* Submit button changes based on whether input value is present and not loading */}
-                {value.trim() && !loading
-                  ? <Button style={{ backgroundColor: '#333333', }}
-                    sx={{ minWidth: '33px', }}
-                    type='submit' id='submit'>
-                    <ArrowUpwardIcon className='up-icon' sx={{ fill: '#FFF', justifyContent: 'center', }} />
-                  </Button>
-                  : <Button sx={{ minWidth: '33px', }} disabled type='submit' id='submit'>
-                    <ArrowUpwardIcon className='up-icon' sx={{ justifyContent: 'center' }} />
-                  </Button>
-                }
-              </form>
-            </div>
-            {/* Informational text about how the app operates */}
-            <p className="info">
-              As of {month} {year}, SousAI operates on a message-by-message basis.<br />
-              Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
-            </p>
+          <div className='bottom-section' style={{
+            marginBottom: isXsScreen || isSmScreen ? '3%' : null,
+            display: isXsScreen || isSmScreen ? 'absolute' : null,
+            }}>
+          <div className="input-container">
+            <form onSubmit={getMessages} id='sous-form'>
+              <textarea
+                id="dynamic-textarea"
+                ref={textareaRef}
+                value={loading ? '' : value}
+                disabled={loading}
+                onChange={e => {
+                  setValue(e.target.value);
+                  adjustTextareaHeight(); // Adjust the height after setting the new value
+                }}
+                style={{ padding: '0px 41px 0px 10px', }}
+                onKeyDown={(e) => {
+                  // Check if Enter key is pressed without the Shift key
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault(); // Prevent the default action to avoid a new line
+                    getMessages(e); // Call the function directly or use the form's submit method
+                  }
+                }}
+                placeholder='What would you like to cook today?'
+                required
+              />
+              {/* Submit button changes based on whether input value is present and not loading */}
+              {value.trim() && !loading
+                ? <Button style={{ backgroundColor: '#333333', }}
+                  sx={{ minWidth: '33px', }}
+                  type='submit' id='submit'>
+                  <ArrowUpwardIcon className='up-icon' sx={{ fill: '#FFF', justifyContent: 'center', }} />
+                </Button>
+                : <Button sx={{ minWidth: '33px', }} disabled type='submit' id='submit'>
+                  <ArrowUpwardIcon className='up-icon' sx={{ justifyContent: 'center' }} />
+                </Button>
+              }
+            </form>
           </div>
+          {/* Informational text about how the app operates */}
+          <p className="info">
+            As of {month} {year}, SousAI operates on a message-by-message basis.<br />
+            Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
+          </p>
         </div>
-      </section>
+    </div>
+      </section >
     </div >
   );
 }
