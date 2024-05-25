@@ -48,7 +48,7 @@ function RecipeNotes({ isXsScreen, isSmScreen, comments, dispatch, id }) {
             display: 'flex',
             flex: '1',
             flexDirection: 'column',
-            margin: isSmScreen || isXsScreen ? '0 10%' : null,
+            margin: isSmScreen || isXsScreen ? '0 10% 5% 10%' : null,
             marginRight: '50px',
             justifyContent: 'flex-end', alignSelf: 'flex-start',
             width: isSmScreen || isXsScreen ? '80%' : null,

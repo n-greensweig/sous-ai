@@ -1,5 +1,5 @@
 import { FaArrowTurnDown, FaTurnUp } from "react-icons/fa6";
-function AutoScroll({ isSmScreen, isXsScreen, type }) {
+function AutoScroll({ type }) {
     return (
         type === 'scroll-up' ?
             // If type is 'scroll-up', then render ability scroll to top of the page
@@ -9,7 +9,6 @@ function AutoScroll({ isSmScreen, isXsScreen, type }) {
                 fontSize: '.9rem',
                 cursor: 'pointer',
                 alignSelf: 'center',
-                paddingBottom: isSmScreen || isXsScreen ? '17%' : null,
             }}
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
