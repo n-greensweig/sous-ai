@@ -337,7 +337,7 @@ function SousAI() {
           )}
 
           {/* Input form for new recipe requests */}
-          <div className='bottom-section' style={{ marginBottom: isXsScreen || isSmScreen ? '5%' : null }}>
+          <div className='bottom-section' style={{ marginBottom: isXsScreen || isSmScreen ? '3%' : null }}>
             <div className="input-container">
               <form onSubmit={getMessages} id='sous-form'>
                 <textarea
@@ -374,7 +374,7 @@ function SousAI() {
               </form>
             </div>
             {/* Informational text about how the app operates */}
-            <p className="info" style={{ marginBottom: isSmScreen || isXsScreen ? '10%' : null }}>
+            <p className="info">
               As of {month} {year}, SousAI operates on a message-by-message basis.<br />
               Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
             </p>
