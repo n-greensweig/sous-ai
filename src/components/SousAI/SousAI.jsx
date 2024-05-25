@@ -339,7 +339,7 @@ function SousAI() {
           {/* Input form for new recipe requests */}
           <div className='bottom-section' style={{
             marginBottom: isXsScreen || isSmScreen ? '3%' : null,
-            display: isXsScreen || isSmScreen ? 'absolute' : null,
+            display: isXsScreen || isSmScreen ? 'fixed' : null,
             }}>
           <div className="input-container">
             <form onSubmit={getMessages} id='sous-form'>
