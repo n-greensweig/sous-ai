@@ -6,7 +6,7 @@ function RecipeGrid({ recipes, listName, numOfRecipes, searchQuery, setSearchQue
         <Grid container spacing={2} minHeight={'5vh'} className="full-width-background"
             style={{
                 marginTop: '0px', margin: '0 auto',
-                padding: '20px 10px', backgroundColor: '#FFF', flexGrow: 1,
+                padding: '20px 0px 20px 10px', backgroundColor: '#FFF', flexGrow: 1,
             }}
         >
             <div className='div__recipeGrid--container' style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
