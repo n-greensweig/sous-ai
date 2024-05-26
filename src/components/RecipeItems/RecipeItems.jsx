@@ -22,7 +22,7 @@ function RecipeItems(props) {
     const { id } = useParams(); // Get the list ID from URL parameter
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
-    const [listToDisplay, setlistToDisplay] = useState(document.title);
+    const [listToDisplay, setListToDisplay] = useState(document.title);
 
     if (props.path === '/recipe-box') {
         document.title = 'Saved Recipes';
@@ -42,6 +42,22 @@ function RecipeItems(props) {
     const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
     const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.
 
+    useEffect(() => {
+        if (props.path === '/recipe-box') {
+            document.title = 'Saved Recipes';
+            setListToDisplay('Saved Recipes');
+        } else if (props.path === '/recipe-box/cooked') {
+            document.title = 'Cooked Recipes';
+            setListToDisplay('Cooked Recipes');
+        } else if (props.path === '/recipe-box/recent') {
+            document.title = 'Recently Viewed Recipes';
+            setListToDisplay('Recently Viewed Recipes');
+        } else if (props.path === '/recipe-box/grocery') {
+            document.title = 'Grocery List';
+            setListToDisplay('Grocery List');
+        }
+    }, [props.path]);
+
     // Fetch recipes with search filter
     useEffect(() => {
         if (id) {
@@ -53,7 +69,7 @@ function RecipeItems(props) {
         } else if (listToDisplay === 'Recently Viewed Recipes') {
             dispatch({ type: 'FETCH_RECENT_RECIPES', payload: searchQuery });
         }
-    }, [searchQuery, listToDisplay, dispatch]);
+    }, [searchQuery, listToDisplay, dispatch, id]);
 
     // Use Material-UI hooks to check for screen size for responsive layout design.
     const theme = useTheme();
@@ -69,8 +85,8 @@ function RecipeItems(props) {
                     <SavedRecipesSidebar />
                     {/* Grid container to display recipes in a responsive layout. */}
                     <RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
-                    searchQuery={searchQuery} setSearchQuery={setSearchQuery}
-                    isXsScreen={isXsScreen} isSmScreen={isSmScreen} id={id} />
+                        searchQuery={searchQuery} setSearchQuery={setSearchQuery}
+                        isXsScreen={isXsScreen} isSmScreen={isSmScreen} id={id} />
                 </div>
             </div>
         </div>

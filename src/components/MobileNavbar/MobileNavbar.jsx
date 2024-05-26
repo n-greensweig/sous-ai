@@ -22,17 +22,17 @@ function MobileNavbar() {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const [showDropdown, setShowDropdown] = useState(false);
+    // const [showDropdown, setShowDropdown] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [activeItem, setActiveItem] = useState(null);
-    const toggleDropdown = () => setShowDropdown(!showDropdown);
+    // const toggleDropdown = () => setShowDropdown(!showDropdown);
     const toggleMenu = () => setMenuOpen(!menuOpen);
 
     const handleStateChange = state => setMenuOpen(state.isOpen);
     const closeMenu = () => {
         setMenuOpen(false);
-        setShowDropdown(false);
+        // setShowDropdown(false);
     };
 
     const open = Boolean(anchorEl);
@@ -112,7 +112,10 @@ function MobileNavbar() {
                     <p>&nbsp;| SousAI</p>
                 </div>
                 <div style={{ display: 'flex', }}>
-                    <BookmarkIcon className='icon__fill-black icon__padding' onClick={() => history.push('/recipe-box')} />
+                    <BookmarkIcon className='icon__fill-black icon__padding' onClick={() => {
+                        history.push('/recipe-box');
+                        dispatch({ type: 'FETCH_RECIPES' });
+                    }} />
                     <PersonIcon id="basic-button"
                         className='icon__fill-black icon__padding header__button--red'
                         aria-controls={open ? 'basic-menu' : undefined}
