@@ -38,6 +38,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     const deleteRecipeList = () => {
         dispatch({ type: 'REMOVE_RECIPE_LIST', payload: id });
         history.push('/recipe-box');
+        dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
     };
 
     const open = Boolean(anchorEl);

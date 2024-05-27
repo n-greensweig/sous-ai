@@ -207,7 +207,8 @@ function* updateRecipeListName(action) {
 function* deleteRecipeList(action) {
     try {
         yield axios.delete(`/api/recipe/delete/list/${action.payload}`);
-        yield put({ type: 'FETCH_RECIPES' });
+        yield put({ type: 'FETCH_RECIPE_LISTS' });
+        yield put({ type: 'FETCH_RECIPES', payload: '' }); 
     } catch (error) {
         console.error('Error deleting recipe list:', error);
         alert('Something went wrong.');

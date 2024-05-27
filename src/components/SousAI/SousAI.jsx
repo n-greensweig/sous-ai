@@ -87,7 +87,7 @@ function SousAI() {
       method: 'POST',
       body: JSON.stringify({
         message: value,
-        preferences: ['gluten-free'].join(', '),
+        // preferences: ['gluten-free'].join(', '),
       }),
       headers: {
         'Content-type': 'application/json'
