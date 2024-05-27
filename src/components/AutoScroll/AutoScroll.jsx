@@ -5,7 +5,6 @@ function AutoScroll({ type }) {
             // If type is 'scroll-up', then render ability scroll to top of the page
             <p style={{
                 color: 'black',
-                margin: '10px 0px',
                 fontSize: '.9rem',
                 cursor: 'pointer',
                 alignSelf: 'center',

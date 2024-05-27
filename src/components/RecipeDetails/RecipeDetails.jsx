@@ -188,7 +188,7 @@ function RecipeDetails() {
         <div>
             <Header />
             <SnackbarComponent open={open} handleClose={handleClose} vertical={vertical} horizontal={horizontal} />
-            <div style={isEditing ? null : { paddingBottom: '8%', marginTop: '5%' }}>
+            <div style={isEditing ? null : { paddingBottom: '1%', marginTop: '5%' }}>
                 <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
                     <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
                         <UpperSection title={title} isEditing={isEditing} toggleEditing={toggleEditing}
