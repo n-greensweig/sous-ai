@@ -30,10 +30,13 @@ function SavedRecipesSidebar() {
 
     // Function to save the new recipe list. Dispatches actions to the store and resets local state.
     const saveRecipeList = listName => {
-        dispatch({ type: 'SAVE_RECIPE_LIST', payload: { listName } });
-        toggleCreating();
-        setListName('');
-        dispatch({ type: 'FETCH_RECIPE_LISTS' }); // Triggers a fetch for the updated lists.
+        if (!listName.trim()) return; // Prevents saving an empty list name.
+        else {
+            dispatch({ type: 'SAVE_RECIPE_LIST', payload: { listName } });
+            toggleCreating();
+            setListName('');
+            dispatch({ type: 'FETCH_RECIPE_LISTS' }); // Triggers a fetch for the updated lists.
+        }
     };
 
     // Effect hook to fetch recipe lists when the component mounts.

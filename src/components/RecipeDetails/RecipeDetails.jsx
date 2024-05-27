@@ -99,7 +99,7 @@ function RecipeDetails() {
     // Function to save the edited title of a recipe
     const saveEditedTitle = (e, id) => {
         e.preventDefault();
-        if (title !== details?.title) {
+        if (title !== details?.title && title.trim() !== '') {
             const action = { type: 'UPDATE_TITLE', payload: { id, title } };
             dispatch(action);
         }
