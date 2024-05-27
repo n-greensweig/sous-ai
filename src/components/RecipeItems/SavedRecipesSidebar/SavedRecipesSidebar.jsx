@@ -65,8 +65,8 @@ function SavedRecipesSidebar() {
 
     const hasPhoto = [];
 
-     // Function to handle the drag start event
-     const handleDragStart = (event, target) => {
+    // Function to handle the drag start event
+    const handleDragStart = (event, target) => {
         if (target === 'saved') {
             event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box'); // Set the URL to drag
         } else if (target === 'cooked') {
@@ -75,6 +75,18 @@ function SavedRecipesSidebar() {
             event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box/recent'); // Set the URL to drag
         } else {
             event.dataTransfer.setData('text/plain', `https://www.sousai.io/#/recipe-box/${target}`); // Set the URL to drag
+        }
+    };
+
+    const handleDragOver = (event) => {
+        event.preventDefault(); // Allow the drop event by preventing the default behavior
+    };
+
+    const handleDrop = (event, listId) => {
+        event.preventDefault();
+        const recipeId = event.dataTransfer.getData('recipeId'); // Get the recipe ID from the data transfer object
+        if (recipeId) {
+            dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { recipeId, listId } }); // Dispatch the action to add the recipe to the folder
         }
     };
 
@@ -92,7 +104,7 @@ function SavedRecipesSidebar() {
                             backgroundColor: document.title === 'Saved Recipes' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal',
                         }}>
-                            <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black' }} /> Saved Recipes
+                        <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black' }} /> Saved Recipes
                     </p>
                     <p onClick={() => navigateTo('/recipe-box/cooked')}
                         onMouseDown={() => handleSetActiveItem('cooked')}
@@ -140,7 +152,10 @@ function SavedRecipesSidebar() {
                         <span className='span__new-folder'>New Folder</span>
                     </div>
                     {recipeLists && recipeLists.map((list) => (
-                        <div key={list.id} className="div__icon__p--folder div__color-change">
+                        <div key={list.id} className="div__icon__p--folder div__color-change"
+                            onDragOver={handleDragOver}
+                            onDrop={(event) => handleDrop(event, list.id)}
+                        >
                             {/* Find the photo that matches the current list ID */}
                             <div className='sidebar__user-folders' style={{
                                 display: 'flex', alignItems: 'center', cursor: 'pointer', boxSizing: 'border-box',

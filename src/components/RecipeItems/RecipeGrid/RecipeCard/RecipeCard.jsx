@@ -141,6 +141,10 @@ function RecipeCard(props) {
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const handleDragStart = (e) => {
+        e.dataTransfer.setData('recipeId', props.recipe.id);
+    };
+
     // Confirming props are loaded 
     if (!props.recipe) {
         return (
@@ -156,8 +160,14 @@ function RecipeCard(props) {
                         borderRadius: '1px', boxShadow: 'none', border: '1px solid #e6e6e6', width: isXsScreen || isSmScreen ? '200px' : '190px',
                         '&:hover': {
                             boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
-                        }
-                    }}>
+                        },
+                        '&:active': {
+                            cursor: 'pointer',
+                        },
+                    }}
+                    draggable
+                    onDragStart={handleDragStart}
+                    >
                     <div key={props.recipe.id}>
                         <div onClick={() => handleClick(props.recipe.id)}>
                             <CardMedia
