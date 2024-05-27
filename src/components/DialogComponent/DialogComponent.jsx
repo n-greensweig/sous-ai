@@ -10,8 +10,6 @@ import { BarLoader } from 'react-spinners';
 
 function DialogComponent({ isEditing, setIsEditing, toggleEditing, isLoading, onFileChange,
     imagePath, title, setTitle, id, saveEditedTitle, removeRecipe }) {
-
-
     return (
         <Dialog open={isEditing}
             onClose={e => toggleEditing(e)}
