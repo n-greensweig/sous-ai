@@ -102,7 +102,3 @@
    background-color: inherit; /* Use the same background as the parent */
    z-index: -1; /* Ensure it's behind the content */
 }
-.recipe-cards-grid {
-   flex-grow: 1; /* Allows the grid to fill the space next to the sidebar */
-   padding: 20px 10px; /* Adjust padding as needed */
-}

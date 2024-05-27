@@ -9,7 +9,7 @@ function RecipeGridCards({ recipes, listName, isXsScreen, isSmScreen }) {
         }}>
             {recipes.map((recipe, index) => (
                 // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
-                <Grid item className='card recipeCard' xs={isXsScreen || isSmScreen ? 5 : 11} sm={5} md={2} lg={1} xl={1}
+                <Grid item className='card recipeCard' xs={11} sm={5} md={2} lg={1} xl={1}
                     style={{ padding: '0px', margin: '4px', minWidth: 200, }}
                     id={recipe.id} key={index}
                 >
