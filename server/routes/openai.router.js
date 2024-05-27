@@ -7,9 +7,11 @@ const router = express.Router();
 
 // Access API key from environment variables for security
 const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
+// const preferences = ['vegetarian', 'gluten-free'];
 
 // Define POST route for generating recipes with gpt-4o model
 router.post('/', rejectUnauthenticated, async (req, res) => {
+    const { message, preferences } = req.body;
   // Set up options for the API request to OpenAI, including authorization header
   const options = {
       method: 'POST',
@@ -38,6 +40,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
               "2 garlic cloves, minced". Similarly, you can say, "Add carrots@ celery@ and water into the pot," but you can never say, "Add carrots,
               celery, and water into the pot." The same is true for any part of your response. Thus, anywhere in your 'recipe_name', 'prep_time', 'cook_time', 
               'number_of_servings', or 'notes' responses where you would usually use a comma, you use the @ symbol instead.
+
+              Take these preferences into account when generating recipes: ${preferences}.
               
               It is important that you only include the JSON data in your response when providing recipe info, no text 
               outside of the JSON object. Make sure to space your text in the JSON notes value in proper English with spaces after periods.
@@ -45,7 +49,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
               However, you respond to any clarification questions or non-recipe-related questions as a normal human would, not in JSON format.
               ` },
               // User message received from the request body
-              { role: 'user', content: req.body.message }
+              { role: 'user', content: message }
           ],
       })
   };
