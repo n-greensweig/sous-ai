@@ -158,7 +158,7 @@ function RecipeCard(props) {
                 {/* <Paper> */}
                 <Card style={{ cursor: 'pointer', }}
                     sx={{
-                        borderRadius: '1px', boxShadow: 'none', border: '1px solid #e6e6e6', width: isXsScreen || isSmScreen ? '200px' : '190px',
+                        borderRadius: '1px', boxShadow: 'none', border: '1px solid #e6e6e6', width: isXsScreen || isSmScreen ? '190px' : '200px',
                         '&:hover': {
                             boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
                         },
