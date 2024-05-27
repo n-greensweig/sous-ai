@@ -1,67 +1,49 @@
-// Imports necessary hooks from React and Redux for state management, and effects.
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
-// Imports custom CSS for styling this component.
-import './RecipeItems.css';
-// Imports from Material-UI for UI components with responsive capabilities.
+import { useParams } from 'react-router-dom';
 import { useTheme, useMediaQuery } from "@mui/material";
-// Custom components for displaying headers and new recipe list forms.
 import Header from '../Header/Header';
-
-// Imports Material-UI components for buttons and icons.
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
 import RecipeGrid from "./RecipeGrid/RecipeGrid";
-
-// Imports Material-UI components for buttons and icons.
 import './RecipeItems.css';
 
-import { useParams } from 'react-router-dom';
-
 function RecipeItems(props) {
-    // Initialize dispatch and history for Redux actions and navigation.
-    const { id } = useParams(); // Get the list ID from URL parameter
+    const { id } = useParams();
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
     const [listToDisplay, setListToDisplay] = useState(document.title);
-
-    if (props.path === '/recipe-box') {
-        document.title = 'Saved Recipes';
-    } else if (props.path === '/recipe-box/cooked') {
-        document.title = 'Cooked Recipes';
-    } else if (props.path === '/recipe-box/recent') {
-        document.title = 'Recently Viewed Recipes';
-    } else if (props.path === '/recipe-box/grocery') {
-        document.title = 'Grocery List';
-    }
-
-    const listName = props.path === '/recipe-box' ? 'Saved Recipes' : props.path === '/recipe-box/cooked' ? 'Cooked Recipes' :
-        props.path === '/recipe-box/recent' ? 'Recently Viewed' :
-            props.path === '/recipe-box/grocery' ? 'Grocery List' :
-                document.title.split('Your Recipe Box - ')[1];
-
-    const recipes = useSelector(store => store.recipeReducer); // Retrieves the recipes from the Redux store using useSelector hook.
-    const numOfRecipes = recipes.length; // Gets the number of recipes in the recipes array.
+    const [listName, setListName] = useState('');
 
     useEffect(() => {
         if (props.path === '/recipe-box') {
             document.title = 'Saved Recipes';
             setListToDisplay('Saved Recipes');
+            setListName('Saved Recipes');
         } else if (props.path === '/recipe-box/cooked') {
             document.title = 'Cooked Recipes';
             setListToDisplay('Cooked Recipes');
+            setListName('Cooked Recipes');
         } else if (props.path === '/recipe-box/recent') {
             document.title = 'Recently Viewed Recipes';
             setListToDisplay('Recently Viewed Recipes');
+            setListName('Recently Viewed Recipes');
         } else if (props.path === '/recipe-box/grocery') {
             document.title = 'Grocery List';
             setListToDisplay('Grocery List');
+            setListName('Grocery List');
+        } else if (id) {
+            // If it's a user-created folder, set listName based on the ID
+            dispatch({ type: 'FETCH_LIST_NAME_BY_ID', payload: id });
         }
-    }, [props.path]);
+    }, [props.path, id, dispatch]);
 
-    // Fetch recipes with search filter
+    const recipes = useSelector(store => store.recipeReducer);
+    const fetchedListName = useSelector(store => store.recipeListNameReducer); // Assuming you have this in your store
+    const numOfRecipes = recipes.length;
+
     useEffect(() => {
         if (id) {
-            dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery: searchQuery } });
+            dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery } });
         } else if (listToDisplay === 'Saved Recipes') {
             dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
         } else if (listToDisplay === 'Cooked Recipes') {
@@ -71,26 +53,31 @@ function RecipeItems(props) {
         }
     }, [searchQuery, listToDisplay, dispatch, id]);
 
-    // Use Material-UI hooks to check for screen size for responsive layout design.
+    useEffect(() => {
+        if (id && fetchedListName) {
+            setListName(fetchedListName);
+        }
+    }, [fetchedListName, id]);
+
     const theme = useTheme();
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        // Sets padding and margin based on screen size for responsive design.
-        <div style={{ marginTop: isSmScreen || isXsScreen ? '0%' : '1%', margin: '0 auto', }}>
+        <div style={{ marginTop: isSmScreen || isXsScreen ? '0%' : '1%', margin: '0 auto' }}>
             <Header />
             <div>
                 <div className="max-width-container">
                     <SavedRecipesSidebar />
-                    {/* Grid container to display recipes in a responsive layout. */}
-                    <RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
-                        searchQuery={searchQuery} setSearchQuery={setSearchQuery}
-                        isXsScreen={isXsScreen} isSmScreen={isSmScreen} id={id} />
+                    {listName && (
+                        <RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
+                            searchQuery={searchQuery} setSearchQuery={setSearchQuery}
+                            isXsScreen={isXsScreen} isSmScreen={isSmScreen} id={id} />
+                    )}
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default RecipeItems; // Export the RecipeItems component for use in other parts of the application.
+export default RecipeItems;

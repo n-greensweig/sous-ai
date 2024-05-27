@@ -526,4 +526,19 @@ DELETE FROM "recipe_list" WHERE "user_id" = $1 AND "id" = $2;
         });
 });
 
+// GET recipe list name by ID from the DB
+router.get('/list/name/:id', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    SELECT "list_name" FROM "recipe_list" WHERE "user_id" = $1 AND "id" = $2;
+    `;
+    pool.query(queryText, [req.user.id, req.params.id])
+        .then(result => {
+            res.send(result.rows[0].list_name);
+        })
+        .catch(error => {
+            console.error('Error getting recipe list name by ID from DB:', error);
+            res.sendStatus(400);
+        });
+});
+
 module.exports = router;
