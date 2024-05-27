@@ -141,8 +141,9 @@ function RecipeCard(props) {
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const handleDragStart = (e) => {
+    const handleDragStart = (e, target) => {
         e.dataTransfer.setData('recipeId', props.recipe.id);
+        e.dataTransfer.setData('text/plain', `https://www.sousai.io/#/recipe-box/${target}`); // Set the URL to drag
     };
 
     // Confirming props are loaded 
@@ -166,7 +167,7 @@ function RecipeCard(props) {
                         },
                     }}
                     draggable
-                    onDragStart={handleDragStart}
+                    onDragStart={e => handleDragStart(e, props.recipe.id)}
                     >
                     <div key={props.recipe.id}>
                         <div onClick={() => handleClick(props.recipe.id)}>
