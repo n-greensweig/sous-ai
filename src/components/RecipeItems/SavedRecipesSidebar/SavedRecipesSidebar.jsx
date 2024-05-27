@@ -73,6 +73,8 @@ function SavedRecipesSidebar() {
             event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box/cooked'); // Set the URL to drag
         } else if (target === 'recent') {
             event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box/recent'); // Set the URL to drag
+        } else {
+            event.dataTransfer.setData('text/plain', `https://www.sousai.io/#/recipe-box/${target}`); // Set the URL to drag
         }
     };
 
@@ -149,6 +151,11 @@ function SavedRecipesSidebar() {
                                     document.title = `Your Recipe Box - ${list.list_name}`;
                                     history.push(`/recipe-box/${list.id}`);
                                 }}
+                                draggable
+                                onMouseDown={() => handleSetActiveItem(list.list_name)}
+                                onMouseUp={handleClearActiveItem}
+                                onDragStart={event => handleDragStart(event, `${list.id}`)}
+                                onDragEnd={handleClearActiveItem}
                             >
                                 {recipeListPhotos && recipeListPhotos.map((photo) => {
                                     if (photo.list_id.includes(list.id)) {
