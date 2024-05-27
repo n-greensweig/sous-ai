@@ -143,7 +143,7 @@ function RecipeCard(props) {
 
     const handleDragStart = (e, target) => {
         e.dataTransfer.setData('recipeId', props.recipe.id);
-        e.dataTransfer.setData('text/plain', `https://www.sousai.io/#/recipe-box/${target}`); // Set the URL to drag
+        e.dataTransfer.setData('text/plain', `https://www.sousai.io/#/recipes/${target}`); // Set the URL to drag
     };
 
     // Confirming props are loaded 
