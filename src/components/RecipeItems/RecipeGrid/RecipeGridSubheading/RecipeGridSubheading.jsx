@@ -56,7 +56,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
             <div style={{ display: 'flex', flexDirection: 'column', }}>
                 <div style={{ display: 'flex', alignItems: 'center', }}>
                     <h2 style={{ marginLeft: 'inherit', color: '#222', }}>{listName}</h2>
-                    {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed' ?
+                    {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed Recipes' ?
                         <MoreHorizIcon onClick={handlePopover} sx={{ color: '#717171', marginLeft: '5px', cursor: 'pointer' }} /> : null}
                     <Popover
                         id={popoverID}
