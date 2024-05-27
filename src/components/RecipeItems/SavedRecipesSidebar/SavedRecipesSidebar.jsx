@@ -65,6 +65,17 @@ function SavedRecipesSidebar() {
 
     const hasPhoto = [];
 
+     // Function to handle the drag start event
+     const handleDragStart = (event, target) => {
+        if (target === 'saved') {
+            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box'); // Set the URL to drag
+        } else if (target === 'cooked') {
+            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box/cooked'); // Set the URL to drag
+        } else if (target === 'recent') {
+            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box/recent'); // Set the URL to drag
+        }
+    };
+
     return (
         isXsScreen || isSmScreen ? null :
             <div className='sidebar__container'>
@@ -72,17 +83,19 @@ function SavedRecipesSidebar() {
                     <p className='sidebar__p--first sidebar__margin--right' onClick={() => navigateTo('/recipe-box')}
                         onMouseDown={() => handleSetActiveItem('saved')}
                         onMouseUp={handleClearActiveItem}
+                        onDragStart={event => handleDragStart(event, 'saved')}
                         onDragEnd={handleClearActiveItem}
                         draggable
                         style={{
                             backgroundColor: document.title === 'Saved Recipes' ? '#F8F8F5' : 'inherit',
                             fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal',
                         }}>
-                        <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black' }} /> Saved Recipes
+                            <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black' }} /> Saved Recipes
                     </p>
                     <p onClick={() => navigateTo('/recipe-box/cooked')}
                         onMouseDown={() => handleSetActiveItem('cooked')}
                         onMouseUp={handleClearActiveItem}
+                        onDragStart={event => handleDragStart(event, 'cooked')}
                         onDragEnd={handleClearActiveItem}
                         draggable
                         className='sidebar__margin--right'
@@ -95,6 +108,7 @@ function SavedRecipesSidebar() {
                     <p onClick={() => navigateTo('/recipe-box/recent')}
                         onMouseDown={() => handleSetActiveItem('recent')}
                         onMouseUp={handleClearActiveItem}
+                        onDragStart={event => handleDragStart(event, 'recent')}
                         onDragEnd={handleClearActiveItem}
                         draggable
                         className='sidebar__margin--right'

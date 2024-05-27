@@ -57,7 +57,7 @@ function Header() {
 
     // Function to handle the drag start event
     const handleDragStart = (event, target) => {
-        if (target === 'Saved Recipes') {
+        if (target === 'saved') {
             event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box'); // Set the URL to drag
         }
     };
@@ -101,7 +101,7 @@ function Header() {
                             onMouseLeave={handleClearActiveItem}
                             onMouseDown={() => handleSetActiveItem('bookmark')}
                             onMouseUp={handleClearActiveItem}
-                            onDragStart={() => handleDragStart(event, 'Saved Recipes')}
+                            onDragStart={event => handleDragStart(event, 'saved')}
                             onDragEnd={handleClearActiveItem}
                             draggable
                             variant="text" className="header__button button__recipe-box"
