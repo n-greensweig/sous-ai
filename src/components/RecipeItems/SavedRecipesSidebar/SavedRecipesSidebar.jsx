@@ -154,56 +154,49 @@ function SavedRecipesSidebar() {
                         ><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
                         <span className='span__new-folder'>New Folder</span>
                     </div>
-                    {recipeLists && recipeLists.map((list) => (
-                        <div key={list.id} className="div__icon__p--folder div__color-change"
-                            onDragOver={handleDragOver}
-                            onDrop={(event) => handleDrop(event, list.id)}
-                        >
-                            {/* Find the photo that matches the current list ID */}
-                            <div className='sidebar__user-folders' style={{
-                                display: 'flex', alignItems: 'center', cursor: 'pointer', boxSizing: 'border-box',
-                                backgroundColor: document.title.includes(list.list_name) ? '#F8F8F5' : 'inherit',
-                                fontWeight: document.title.includes(list.list_name) ? 'bold' : 'normal',
-                            }}
-                                onClick={() => {
-                                    document.title = `Your Recipe Box - ${list.list_name}`;
-                                    history.push(`/recipe-box/${list.id}`);
-                                }}
-                                draggable
-                                onMouseDown={() => handleSetActiveItem(list.list_name)}
-                                onMouseUp={handleClearActiveItem}
-                                onDragStart={event => handleDragStart(event, `${list.id}`)}
-                                onDragEnd={handleClearActiveItem}
+                    {recipeLists && recipeLists.map((list) => {
+                        const photo = recipeListPhotos.find(photo => photo.list_id.includes(list.id));
+                        return (
+                            <div key={list.id} className="div__icon__p--folder div__color-change"
+                                onDragOver={handleDragOver}
+                                onDrop={(event) => handleDrop(event, list.id)}
                             >
-                                {recipeListPhotos && recipeListPhotos.map((photo) => {
-                                    if (photo.list_id.includes(list.id)) {
-                                        hasPhoto.push(list.id);
-                                        return (
-                                            <div style={{ display: 'flex' }}>
-                                                <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo"
-                                                    style={{ height: '40px', width: '40px', borderRadius: '4px', }}
-                                                />
-                                            </div>
-                                        )
-                                    }
-                                })}
-                                {/* If there is no photo for the current list, render the list without a photo */}
-                                {hasPhoto.includes(list.id) ? null : <div style={{ display: 'flex' }}>
-                                    <img src={'images/empty-folder/empty-folder.jpeg'} alt={list.list_name} className="folder__photo"
-                                        style={{ height: '40px', width: '40px', borderRadius: '4px', }}
-                                    />
-                                </div>}
-                                <p onClick={() => {
-                                    document.title = `Your Recipe Box - ${list.list_name}`;
-                                    history.push(`/recipe-box/${list.id}`);
+                                <div className='sidebar__user-folders' style={{
+                                    display: 'flex', alignItems: 'center', cursor: 'pointer', boxSizing: 'border-box',
+                                    backgroundColor: document.title.includes(list.list_name) ? '#F8F8F5' : 'inherit',
+                                    fontWeight: document.title.includes(list.list_name) ? 'bold' : 'normal',
                                 }}
-                                    style={{
-                                        cursor: 'pointer',
+                                    onClick={() => {
+                                        document.title = `Your Recipe Box - ${list.list_name}`;
+                                        history.push(`/recipe-box/${list.id}`);
                                     }}
-                                >{list.list_name}</p>
+                                    draggable
+                                    onMouseDown={() => handleSetActiveItem(list.list_name)}
+                                    onMouseUp={handleClearActiveItem}
+                                    onDragStart={event => handleDragStart(event, `${list.id}`)}
+                                    onDragEnd={handleClearActiveItem}
+                                >
+                                    {photo ? (
+                                        <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo"
+                                            style={{ height: '40px', width: '40px', borderRadius: '4px', }}
+                                        />
+                                    ) : (
+                                        <img src={'images/empty-folder/empty-folder.jpeg'} alt={list.list_name} className="folder__photo"
+                                            style={{ height: '40px', width: '40px', borderRadius: '4px', }}
+                                        />
+                                    )}
+                                    <p onClick={() => {
+                                        document.title = `Your Recipe Box - ${list.list_name}`;
+                                        history.push(`/recipe-box/${list.id}`);
+                                    }}
+                                        style={{
+                                            cursor: 'pointer',
+                                        }}
+                                    >{list.list_name}</p>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
                 {/* Dialog for creating a new recipe folder. */}
                 <Dialog open={isCreating}
