@@ -300,7 +300,7 @@ router.get('/folder/:id', rejectUnauthenticated, (req, res) => {
         WHERE "recipe_item"."user_id" = $1 AND "recipe_list_recipes"."list_id" = $2 
         ${req.query.q ? 'AND "title" ILIKE $3' : ''}
         ORDER BY 
-            "recipe_item"."id" DESC;
+            "recipe_list_recipes"."added_at" DESC;
         `;
 
     const queryParams = [req.user.id, req.params.id];
@@ -479,8 +479,8 @@ router.get('/list/recipes/photos', rejectUnauthenticated, (req, res) => {
 FROM "recipe_item"
 JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
 WHERE "recipe_item"."user_id" = $1
-GROUP BY "recipe_item"."id"
-ORDER BY "recipe_item"."id" DESC;`;
+GROUP BY "recipe_item"."id", "recipe_list_recipes"."added_at"
+ORDER BY "recipe_list_recipes"."added_at" DESC;`;
     pool.query(queryText, [req.user.id])
         .then(result => {
             res.send(result.rows);
