@@ -8,6 +8,7 @@ function RecipeGrid({ recipes, listName, numOfRecipes, searchQuery, setSearchQue
             style={{
                 marginTop: '0px', margin: '0 auto',
                 padding: '20px 10px', backgroundColor: '#FFF', flexGrow: 1,
+                width: isXsScreen || isSmScreen ? '100vw' : null,
             }}
         >
             <div className='div__recipeGrid--container' style={{ display: 'flex', flexDirection: 'column', paddingLeft: '2%', }}>
