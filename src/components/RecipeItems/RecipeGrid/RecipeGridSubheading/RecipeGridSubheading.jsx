@@ -52,8 +52,8 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     return (
         <div style={{
             display: 'flex', flexDirection: isXsScreen || isSmScreen ? 'column-reverse' : 'row',
-            justifyContent: 'space-between', alignItems: 'center',
-        }}>
+            justifyContent: 'space-between', alignItems: 'center', marginTop: isXsScreen || isSmScreen
+                ? '50px' : 0 }}>
             <div style={{ display: 'flex', flexDirection: 'column', }}>
                 <div style={{ display: 'flex', alignItems: 'center', }}>
                     <h2 style={{ marginLeft: 'inherit', color: '#222', }}>{listName}</h2>

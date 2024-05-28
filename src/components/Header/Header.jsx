@@ -9,8 +9,6 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Menu, MenuItem } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { Link } from 'react-router-dom';
 import MobileNavbar from '../MobileNavbar/MobileNavbar';
 /**
  * Renders a header component that is responsive and navigates to a specified route when clicked.

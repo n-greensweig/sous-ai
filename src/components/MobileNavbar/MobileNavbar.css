@@ -22,3 +22,11 @@ ul {
     padding: 10px 5px !important;
     /* margin: 50px !important; */
 }
+.fixed-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white; /* Adjust as necessary */
+    z-index: 1000; /* Ensure it's above other elements */
+    border-bottom: 1px solid #d3d3d3;
+  }

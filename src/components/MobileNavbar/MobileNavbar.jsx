@@ -90,7 +90,7 @@ function MobileNavbar() {
 
 
     return (
-        <header style={{ height: '45px', alignItems: 'center', }}>
+        <header className="fixed-header" style={{ height: '50px', alignItems: 'center', }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '5px' }}>
                 <div>
                     <Button
@@ -106,7 +106,7 @@ function MobileNavbar() {
                     {/* <SearchIcon className='icon__fill-black' /> */}
                 </div>
                 <div onClick={() => history.push('/')} style={{
-                    display: 'flex', alignItems: 'center', width: '35%', height: '35px', justifyContent: 'center',
+                    display: 'flex', alignItems: 'center', width: '35%', height: '40px', justifyContent: 'center',
                 }}>
                     <img src="images/avatars/sous.png" className="header__img--mobile" alt="SousAI" />
                     <p>&nbsp;| SousAI</p>
