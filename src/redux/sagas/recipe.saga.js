@@ -134,6 +134,7 @@ function* fetchRecipeLists() {
 function* addRecipeToFolder(action) {
     try {
         yield axios.post('/api/recipe/list/recipes', action.payload);
+        yield put({ type: 'FETCH_RECIPE_LIST_PHOTOS' }); // Fetch updated photos
     } catch (error) {
         console.error('Error adding recipe to folder:', error);
         alert('Something went wrong.');
@@ -178,6 +179,7 @@ function* fetchRecipesFromFolder(action) {
 function* removeRecipeFromFolder(action) {
     try {
         yield axios.delete(`/api/recipe/list/recipes/${action.payload.recipeId}/${action.payload.listId}`);
+        yield put({ type: 'FETCH_RECIPE_LIST_PHOTOS' }); // Fetch updated photos
     } catch (error) {
         console.error('Error removing recipe from folder:', error);
         alert('Something went wrong.');
