@@ -180,6 +180,7 @@ function* removeRecipeFromFolder(action) {
     try {
         yield axios.delete(`/api/recipe/list/recipes/${action.payload.recipeId}/${action.payload.listId}`);
         yield put({ type: 'FETCH_RECIPE_LIST_PHOTOS' }); // Fetch updated photos
+        yield put({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id: action.payload.listId, searchQuery: '' } }); // Adjust the payload as needed
     } catch (error) {
         console.error('Error removing recipe from folder:', error);
         alert('Something went wrong.');

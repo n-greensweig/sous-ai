@@ -133,8 +133,6 @@ function RecipeItems(props) {
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const hasPhoto = [];
-
     return (
         <div style={{ marginTop: isSmScreen || isXsScreen ? '0%' : '1%', margin: '0 auto' }}>
             <Header />
