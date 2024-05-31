@@ -217,3 +217,10 @@ span {
 .MuiAlert-message {
   color: white;
 }
+
+#skeleton {
+  background-color: #fff;
+  width: 90% !important;
+  min-width: 350px;
+  max-width: 812px;
+}

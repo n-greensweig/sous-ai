@@ -21,6 +21,8 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 // Loader component for indicating loading state
 import { PacmanLoader } from 'react-spinners';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import Header from '../Header/Header';
 
 function SousAI() {
@@ -332,8 +334,10 @@ function SousAI() {
 
           {/* Loader animation to indicate that a recipe is being prepared */}
           {loading && (
-            <div id='pacman'>
-              Cooking up delicious recipe...<PacmanLoader color='#DAA520' size={20} />
+            <div id='skeleton'>
+              <SkeletonTheme baseColor='#e0e0e0' highlightColor='#f0f0f0'>
+                <Skeleton count={3} />
+              </SkeletonTheme>
             </div>
           )}
 
@@ -341,49 +345,49 @@ function SousAI() {
           <div className='bottom-section' style={{
             marginBottom: isXsScreen || isSmScreen ? '3%' : null,
             display: isXsScreen || isSmScreen ? 'fixed' : null,
-            }}>
-          <div className="input-container">
-            <form onSubmit={getMessages} id='sous-form'>
-              <textarea
-                id="dynamic-textarea"
-                ref={textareaRef}
-                value={loading ? '' : value}
-                disabled={loading}
-                onChange={e => {
-                  setValue(e.target.value);
-                  adjustTextareaHeight(); // Adjust the height after setting the new value
-                }}
-                style={{ padding: '0px 41px 0px 10px', }}
-                onKeyDown={(e) => {
-                  // Check if Enter key is pressed without the Shift key
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault(); // Prevent the default action to avoid a new line
-                    getMessages(e); // Call the function directly or use the form's submit method
-                  }
-                }}
-                placeholder='What would you like to cook today?'
-                required
-              />
-              {/* Submit button changes based on whether input value is present and not loading */}
-              {value.trim() && !loading
-                ? <Button style={{ backgroundColor: '#333333', }}
-                  sx={{ minWidth: '33px', }}
-                  type='submit' id='submit'>
-                  <ArrowUpwardIcon className='up-icon' sx={{ fill: '#FFF', justifyContent: 'center', }} />
-                </Button>
-                : <Button sx={{ minWidth: '33px', }} disabled type='submit' id='submit'>
-                  <ArrowUpwardIcon className='up-icon' sx={{ justifyContent: 'center' }} />
-                </Button>
-              }
-            </form>
+          }}>
+            <div className="input-container">
+              <form onSubmit={getMessages} id='sous-form'>
+                <textarea
+                  id="dynamic-textarea"
+                  ref={textareaRef}
+                  value={loading ? '' : value}
+                  disabled={loading}
+                  onChange={e => {
+                    setValue(e.target.value);
+                    adjustTextareaHeight(); // Adjust the height after setting the new value
+                  }}
+                  style={{ padding: '0px 41px 0px 10px', }}
+                  onKeyDown={(e) => {
+                    // Check if Enter key is pressed without the Shift key
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault(); // Prevent the default action to avoid a new line
+                      getMessages(e); // Call the function directly or use the form's submit method
+                    }
+                  }}
+                  placeholder='What would you like to cook today?'
+                  required
+                />
+                {/* Submit button changes based on whether input value is present and not loading */}
+                {value.trim() && !loading
+                  ? <Button style={{ backgroundColor: '#333333', }}
+                    sx={{ minWidth: '33px', }}
+                    type='submit' id='submit'>
+                    <ArrowUpwardIcon className='up-icon' sx={{ fill: '#FFF', justifyContent: 'center', }} />
+                  </Button>
+                  : <Button sx={{ minWidth: '33px', }} disabled type='submit' id='submit'>
+                    <ArrowUpwardIcon className='up-icon' sx={{ justifyContent: 'center' }} />
+                  </Button>
+                }
+              </form>
+            </div>
+            {/* Informational text about how the app operates */}
+            <p className="info">
+              As of {month} {year}, SousAI operates on a message-by-message basis.<br />
+              Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
+            </p>
           </div>
-          {/* Informational text about how the app operates */}
-          <p className="info">
-            As of {month} {year}, SousAI operates on a message-by-message basis.<br />
-            Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
-          </p>
         </div>
-    </div>
       </section >
     </div >
   );
