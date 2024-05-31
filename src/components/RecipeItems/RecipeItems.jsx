@@ -13,27 +13,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import { useInView } from 'react-intersection-observer';
-
 function RecipeItems(props) {
-
-    // Define a functional component for an individual recipe card that fades in
-    function FadeIn({ children }) {
-        const { ref, inView } = useInView({
-            triggerOnce: true, // Trigger animation only once
-            threshold: 0.1,    // Trigger when 48% of the element is in the viewport
-        });
-
-        return (
-            <div
-                ref={ref}
-                style={{ opacity: inView ? 1 : 0, transition: 'opacity 0.5s ease-in' }}
-            >
-                {children}
-            </div>
-        );
-    }
-
     const { id } = useParams();
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
@@ -166,19 +146,18 @@ function RecipeItems(props) {
                         )}
                         <div>
                             {isXsScreen || isSmScreen ?
-                                <div className="sidebar-content">
-                                    <p className='sidebar__p--first sidebar__margin--right' onClick={() => navigateTo('/recipe-box')}
-                                        onMouseDown={() => handleSetActiveItem('saved')}
-                                        onMouseUp={handleClearActiveItem}
-                                        onDragEnd={handleClearActiveItem}
-                                        draggable
-                                        style={{
-                                            backgroundColor: document.title === 'Saved Recipes' ? '#F8F8F5' : 'inherit',
-                                            fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal',
-                                        }}>
-                                        <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black' }} /> Saved Recipes
-                                    </p>
-                                    {/* <FadeIn> */}
+                                    <div className="sidebar-content">
+                                        <p className='sidebar__p--first sidebar__margin--right' onClick={() => navigateTo('/recipe-box')}
+                                            onMouseDown={() => handleSetActiveItem('saved')}
+                                            onMouseUp={handleClearActiveItem}
+                                            onDragEnd={handleClearActiveItem}
+                                            draggable
+                                            style={{
+                                                backgroundColor: document.title === 'Saved Recipes' ? '#F8F8F5' : 'inherit',
+                                                fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal',
+                                            }}>
+                                            <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black' }} /> Saved Recipes
+                                        </p>
                                         <p onClick={() => navigateTo('/recipe-box/cooked')}
                                             onMouseDown={() => handleSetActiveItem('cooked')}
                                             onMouseUp={handleClearActiveItem}
@@ -265,8 +244,7 @@ function RecipeItems(props) {
                                                 </div>
                                             );
                                         })}
-                                    {/* </FadeIn> */}
-                                </div>
+                                    </div>
                                 : null}
                             {/* Dialog for creating a new recipe folder. */}
                             <Dialog open={isCreating}
