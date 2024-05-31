@@ -156,9 +156,9 @@ function RecipeCard(props) {
         return (
             <FadeIn>
                 {/* <Paper> */}
-                <Card style={{ cursor: 'pointer', }}
+                <Card className="recipe-card-hover" style={{ cursor: 'pointer', }}
                     sx={{
-                        borderRadius: '1px', boxShadow: 'none', border: '1px solid #e6e6e6', width: isXsScreen || isSmScreen ? '190px' : '200px',
+                        borderRadius: '1px', boxShadow: 'none', border: '1px solid #e6e6e6', width: isXsScreen || isSmScreen ? '160px' : '200px',
                         '&:hover': {
                             boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
                         },

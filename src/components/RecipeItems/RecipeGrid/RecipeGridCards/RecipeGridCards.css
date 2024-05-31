@@ -1,7 +1,7 @@
 .recipe-grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px; /* Adjust the gap between the cards as needed */
+    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    gap: 16px;
 }
 
 .recipe-card {
