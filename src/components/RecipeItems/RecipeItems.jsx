@@ -178,7 +178,7 @@ function RecipeItems(props) {
                                         }}>
                                         <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black' }} /> Saved Recipes
                                     </p>
-                                    <FadeIn>
+                                    {/* <FadeIn> */}
                                         <p onClick={() => navigateTo('/recipe-box/cooked')}
                                             onMouseDown={() => handleSetActiveItem('cooked')}
                                             onMouseUp={handleClearActiveItem}
@@ -265,7 +265,7 @@ function RecipeItems(props) {
                                                 </div>
                                             );
                                         })}
-                                    </FadeIn>
+                                    {/* </FadeIn> */}
                                 </div>
                                 : null}
                             {/* Dialog for creating a new recipe folder. */}

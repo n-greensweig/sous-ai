@@ -7,6 +7,9 @@
 .recipe-card {
     background-color: #FFF; /* Background color for cards */
     overflow: hidden; /* Ensure content inside card does not overflow */
+    &:hover {
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    }
 }
 
 @media (max-width: 600px) {
