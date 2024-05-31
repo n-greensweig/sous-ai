@@ -11,6 +11,8 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'; // Unused import, consider removing
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // Specialized button that includes an icon, part of MUI
 import IconButton from '@mui/material/IconButton';
 // Transition effect for Snackbar component
@@ -320,14 +322,28 @@ function SousAI() {
                   }
                 </p>
                 {/* Button to save the recipe if it's from the assistant and is in JSON format */}
-                {chatMessage.role === 'assistant' && isJSON(chatMessage.content) ?
-                  <button
+                {chatMessage.role === 'assistant' && isJSON(chatMessage.content) ? (
+                  <Button
+                    variant="contained"
+                    startIcon={recipeSaved[index] ? <CheckCircleIcon sx={{ fill: 'white' }} /> : <BookmarkIcon sx={{ fill: 'white' }} />}
+                    color={recipeSaved[index] ? "success" : "primary"}
                     disabled={!!recipeSaved[index]}
                     onClick={() => saveRecipe(index)}
+                    sx={{
+                      marginTop: '10px',
+                      textTransform: 'none',
+                      backgroundColor: recipeSaved[index] ? '#66BB6A' : '#81C784',
+                      '&:hover': {
+                        backgroundColor: recipeSaved[index] ? '#4CAF50' : '#66BB6A',
+                      },
+                      '&:disabled': {
+                        backgroundColor: '#A5D6A7',
+                      }
+                    }}
                   >
                     {recipeSaved[index] ? 'Recipe Saved' : 'Save Recipe'}
-                  </button> : null
-                }
+                  </Button>
+                ) : null}
               </li>
             ))}
           </ul>
