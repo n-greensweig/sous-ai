@@ -159,6 +159,7 @@ function RecipeCard(props) {
                 <Card className="recipe-card-hover" style={{ cursor: 'pointer', }}
                     sx={{
                         borderRadius: '1px', boxShadow: 'none', border: '1px solid #e6e6e6', width: isXsScreen || isSmScreen ? '160px' : '200px',
+                        height: isXsScreen || isSmScreen ? '247px' : null,
                         '&:hover': {
                             boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
                         },
