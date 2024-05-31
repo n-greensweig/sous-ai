@@ -234,7 +234,17 @@ function SousAI() {
         {/* Page title */}
         <Header />
         <div className='section__chat'>
-          {isXsScreen || isSmScreen ? null : <h1>SousAI</h1>}
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+            {isXsScreen || isSmScreen ? null : <h1>SousAI</h1>}
+            {/* Loader animation to indicate that a recipe is being prepared */}
+            {loading && currentChat.length === 0 ? (
+              <div id='skeleton'>
+                <SkeletonTheme baseColor='#e0e0e0' highlightColor='#f0f0f0'>
+                  <Skeleton count={5} />
+                </SkeletonTheme>
+              </div>
+            ) : null}
+          </div>
           <ul className='feed'>
             {/* Maps over currentChat to render chat messages */}
             {currentChat?.map((chatMessage, index) => (
@@ -349,13 +359,13 @@ function SousAI() {
           </ul>
 
           {/* Loader animation to indicate that a recipe is being prepared */}
-          {loading && (
+          {loading && currentChat.length !== 0 ? (
             <div id='skeleton'>
               <SkeletonTheme baseColor='#e0e0e0' highlightColor='#f0f0f0'>
                 <Skeleton count={3} />
               </SkeletonTheme>
             </div>
-          )}
+          ) : null}
 
           {/* Input form for new recipe requests */}
           <div className='bottom-section' style={{
