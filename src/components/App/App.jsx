@@ -54,13 +54,13 @@ function App() {
             <SousAI />
           </ProtectedRoute>
 
-          <ProtectedRoute
+          <Route
             // logged in shows RecipeDetails else shows LoginPage
             exact
             path="/recipes/:id"
           >
             <RecipeDetails />
-          </ProtectedRoute>
+          </Route>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

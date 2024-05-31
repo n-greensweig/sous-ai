@@ -229,35 +229,28 @@ router.get('/cooked', rejectUnauthenticated, (req, res) => {
 });
 
 // GET recipe details from the DB and update last_viewed timestamp
-router.get('/:id', rejectUnauthenticated, async (req, res) => {
+router.get('/:id', async (req, res) => {
     const connection = await pool.connect();
 
     try {
-        // Start a transaction
         await connection.query('BEGIN');
 
-        // Update the last_viewed timestamp
         let updateQuery = `
             UPDATE "recipe_item" 
             SET "last_viewed" = CURRENT_TIMESTAMP 
-            WHERE "user_id" = $1 AND "id" = $2;
+            WHERE "id" = $1;
         `;
-        await connection.query(updateQuery, [req.user.id, req.params.id]);
+        await connection.query(updateQuery, [req.params.id]);
 
-        // Fetch the recipe details
         let selectQuery = `
             SELECT * FROM "recipe_item" 
-            WHERE "user_id" = $1 AND "id" = $2;
+            WHERE "id" = $1;
         `;
-        const result = await connection.query(selectQuery, [req.user.id, req.params.id]);
+        const result = await connection.query(selectQuery, [req.params.id]);
 
-        // Commit the transaction
         await connection.query('COMMIT');
-
-        // Send response
         res.send(result.rows.length > 0 ? result.rows[0] : {});
     } catch (error) {
-        // Rollback the transaction on error
         await connection.query('ROLLBACK');
         console.error('Error getting recipe details from DB:', error);
         res.sendStatus(400);
@@ -267,11 +260,11 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
 });
 
 // GET recipe comments from the DB
-router.get('/comments/:id', rejectUnauthenticated, (req, res) => {
+router.get('/comments/:id', (req, res) => {
     let queryText = `
-    SELECT * FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2;
+    SELECT * FROM "comments" WHERE "recipe_id" = $1;
 `;
-    pool.query(queryText, [req.user.id, req.params.id])
+    pool.query(queryText, [req.params.id])
         .then(result => {
             res.send(result.rows);
         })
