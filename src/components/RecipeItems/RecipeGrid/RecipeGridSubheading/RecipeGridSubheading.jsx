@@ -96,7 +96,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
             <div className="search__input" style={{
                 display: 'flex', flexDirection: 'row',
                 alignItems: 'center', position: isXsScreen || isSmScreen ? 'relative' : 'absolute', right: isXsScreen || isSmScreen ? 0 : '2%', 
-                margin: isXsScreen || isSmScreen ? '0px' : 0, alignSelf: 'center'
+                margin: isXsScreen || isSmScreen ? '0px 0px 20px 0px' : 0, alignSelf: 'center'
             }}>
                 <SearchIcon className='icon--black search' />
                 <input
