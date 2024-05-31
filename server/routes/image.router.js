@@ -13,11 +13,11 @@ const {
  * Route to fetch all images for a specific recipe belonging to the authenticated user.
  * It requires the user to be authenticated and uses their ID along with a recipe ID.
  */
-router.get('/:id', rejectUnauthenticated, (req, res) => {
+router.get('/:id', (req, res) => {
     // SQL query to select all images from the "images" table where the user_id and recipe_id match the request
-    const queryText = `SELECT * FROM "images" WHERE "user_id" = $1 and "recipe_id" = $2 ORDER BY "path" DESC;`;
+    const queryText = `SELECT * FROM "images" WHERE "recipe_id" = $2 ORDER BY "path" DESC;`;
     // Execute the query with user id and recipe id as parameters
-    pool.query(queryText, [req.user.id, req.params.id])
+    pool.query(queryText, [req.params.id])
         .then((result) => {
             // On success, send back the images to the client
             res.send(result.rows);
