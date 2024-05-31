@@ -55,7 +55,7 @@ function App() {
           </ProtectedRoute>
 
           <Route
-            // logged in shows RecipeDetails else shows LoginPage
+            // Change to ProtectedRoute in the future if desired
             exact
             path="/recipes/:id"
           >
