@@ -51,8 +51,9 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
 
     return (
         <div style={{
-            display: 'flex', flexDirection: isXsScreen || isSmScreen ? 'column-reverse' : 'row',
-            justifyContent: 'space-between', alignItems: 'center', marginTop: isXsScreen || isSmScreen
+            display: 'flex', flexDirection: isXsScreen || isSmScreen ? 'column' : 'row',
+            justifyContent: 'space-between', alignItems: isXsScreen || isSmScreen ? 'flex-start' : 'center', 
+            marginTop: isXsScreen || isSmScreen
                 ? '50px' : 0 }}>
             <div style={{ display: 'flex', flexDirection: 'column', }}>
                 <div style={{ display: 'flex', alignItems: 'center', }}>
@@ -95,7 +96,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
             <div className="search__input" style={{
                 display: 'flex', flexDirection: 'row',
                 alignItems: 'center', position: isXsScreen || isSmScreen ? 'relative' : 'absolute', right: isXsScreen || isSmScreen ? 0 : '2%', 
-                margin: isXsScreen || isSmScreen ? '0px' : 0,
+                margin: isXsScreen || isSmScreen ? '0px' : 0, alignSelf: 'center'
             }}>
                 <SearchIcon className='icon--black search' />
                 <input
