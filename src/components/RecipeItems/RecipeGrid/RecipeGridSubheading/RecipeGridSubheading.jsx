@@ -101,7 +101,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                 <SearchIcon className='icon--black search' />
                 <input
                     type="text"
-                    placeholder="Search your saved recipes"
+                    placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     value={searchQuery}
                 />
