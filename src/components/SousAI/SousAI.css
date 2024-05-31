@@ -223,4 +223,5 @@ span {
   width: 90% !important;
   min-width: 350px;
   max-width: 812px;
+  margin-bottom: 10px;
 }

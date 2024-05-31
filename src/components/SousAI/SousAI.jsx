@@ -348,20 +348,18 @@ function SousAI() {
             ))}
           </ul>
 
-          {/* Loader animation to indicate that a recipe is being prepared */}
-          {loading && currentChat.length !== 0 ? (
-            <div id='skeleton'>
-              <SkeletonTheme baseColor='#e0e0e0' highlightColor='#f0f0f0'>
-                <Skeleton count={3} />
-              </SkeletonTheme>
-            </div>
-          ) : null}
 
           {/* Input form for new recipe requests */}
           <div className='bottom-section' style={{
             marginBottom: isXsScreen || isSmScreen ? '3%' : null,
             display: isXsScreen || isSmScreen ? 'fixed' : null,
           }}>
+          {/* Loader animation to indicate that a recipe is being prepared */}
+          {loading && <div id='skeleton'>
+            <SkeletonTheme baseColor='#e0e0e0' highlightColor='#f0f0f0'>
+              <Skeleton count={3} />
+            </SkeletonTheme>
+          </div>}
             <div className="input-container">
               <form onSubmit={getMessages} id='sous-form'>
                 <textarea
