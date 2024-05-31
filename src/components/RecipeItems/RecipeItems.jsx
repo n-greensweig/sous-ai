@@ -134,7 +134,7 @@ function RecipeItems(props) {
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <div style={{ marginTop: isSmScreen || isXsScreen ? '0%' : '1%', margin: '0 auto' }}>
+        <div style={{ marginTop: isSmScreen || isXsScreen ? '0%' : '1%', margin: '0 auto', }}>
             <Header />
             <div>
                 <div className="max-width-container">

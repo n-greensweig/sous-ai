@@ -1,23 +1,17 @@
 import { Grid } from "@mui/material";
 import RecipeCard from '../RecipeCard/RecipeCard';
-function RecipeGridCards({ recipes, listName, isXsScreen, isSmScreen }) {
+import './RecipeGridCards.css'; // Import CSS file for styling
+
+function RecipeGridCards({ recipes, listName }) {
     return (
-        <div style={{
-            marginTop: '0px', display: 'flex', flexDirection: isXsScreen || isSmScreen ? 'column' : 'row',
-            flexWrap: 'wrap', overflowX: 'scroll', justifyContent: 'left', alignItems: 'center', gap: '8px 16px',
-            height: isXsScreen || isSmScreen ? '275px' : null,
-        }}>
+        <div className="recipe-grid-container">
             {recipes.map((recipe, index) => (
-                // Maps each recipe to a Grid item for a card-like display. Each card is clickable and navigates to the recipe's detail view on click.
-                <Grid item className='card recipeCard' xs={11} sm={5} md={2} lg={1} xl={1}
-                    style={{ padding: '0px', margin: '4px', minWidth: 200, }}
-                    id={recipe.id} key={index}
-                >
+                <div className="recipe-card" key={index}>
                     <RecipeCard key={recipe.id} recipe={recipe} listName={listName} />
-                </Grid>
+                </div>
             ))}
         </div>
-    )
+    );
 }
 
-export default RecipeGridCards; // Export the RecipeGridCards component for use in other parts of the application.
+export default RecipeGridCards;
