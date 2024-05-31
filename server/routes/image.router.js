@@ -15,7 +15,7 @@ const {
  */
 router.get('/:id', (req, res) => {
     // SQL query to select all images from the "images" table where the user_id and recipe_id match the request
-    const queryText = `SELECT * FROM "images" WHERE "recipe_id" = $2 ORDER BY "path" DESC;`;
+    const queryText = `SELECT * FROM "images" WHERE "recipe_id" = $1 ORDER BY "path" DESC;`;
     // Execute the query with user id and recipe id as parameters
     pool.query(queryText, [req.params.id])
         .then((result) => {
