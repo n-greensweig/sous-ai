@@ -268,7 +268,7 @@ function SousAI() {
                   {/* Conditional rendering for recipe content, including parsing JSON if needed */}
                   {chatMessage.role === 'user'
                     ? chatMessage.content // User's message
-                    : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).prep_time
+                    : !JSON.parse(chatMessage.content).non_cooking_response && JSON.parse(chatMessage.content).prep_time
                       ? (
                         // Recipe details formatted
                         <div className='black'>
@@ -284,7 +284,7 @@ function SousAI() {
                           {replaceWithCommas(JSON.parse(chatMessage.content).notes)}
                         </div>
                       )
-                      : chatMessage.content // Fallback to plain message content
+                      : replaceWithCommas(JSON.parse(chatMessage.content).non_cooking_response) // Fallback to plain message content
                   }
 
                   {/* Conditional rendering for ingredients list */}
@@ -322,7 +322,7 @@ function SousAI() {
                   }
                 </p>
                 {/* Button to save the recipe if it's from the assistant and is in JSON format */}
-                {chatMessage.role === 'assistant' && isJSON(chatMessage.content) ? (
+                {chatMessage.role === 'assistant' && !JSON.parse(chatMessage.content).non_cooking_response ? (
                   <Button
                     variant="contained"
                     startIcon={recipeSaved[index] ? <CheckCircleIcon sx={{ fill: 'white' }} /> : <BookmarkIcon sx={{ fill: 'white' }} />}
