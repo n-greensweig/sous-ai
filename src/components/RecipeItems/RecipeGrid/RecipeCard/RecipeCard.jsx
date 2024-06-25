@@ -256,6 +256,7 @@ function RecipeCard(props) {
                                             {document.title.includes('Your Recipe Box') ?
                                                 <button className="dropdownButton" onClick={() => removeRecipeFromUserFolder()} >Remove from this folder</button> : null}
                                         </div>
+                                                <button className="dropdownButton">Add to recipe box</button>
                                     </ul>
                                 </Popover>
                                 <Snackbar open={confirmFolder} autoHideDuration={1500} onClose={handleClose}>
