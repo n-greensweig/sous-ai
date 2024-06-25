@@ -196,5 +196,6 @@ WHERE "recipe_item"."user_id" = 1
 GROUP BY "recipe_item"."id", "recipe_list_recipes"."added_at"
 ORDER BY "recipe_list_recipes"."added_at" DESC;
 
+-- Anything below this line needs to be updated in Heroku
 ALTER TABLE "recipe_item"
 ADD COLUMN "is_in_grocery_list" BOOLEAN DEFAULT FALSE;
