@@ -32,6 +32,7 @@ function RecipeDetails() {
     const [isCooked, setIsCooked] = useState(details?.is_cooked ?? '');
     const [rating, setRating] = useState(details ? details.rating : '');
     const [servings, setServings] = useState(details ? details.number_of_servings : '');
+    const [isInGroceryList, setIsInGroceryList] = useState(details.is_in_grocery_list ?? '');
     const [isEditing, setIsEditing] = useState(false);
     const [imagePath, setImagePath] = useState('');
     document.title = title ? `${title} Recipe` : 'Saved Recipes';
@@ -167,6 +168,8 @@ function RecipeDetails() {
             setNotes(details.notes);
             setIsCooked(details.is_cooked);
             setRating(details.rating);
+            setServings(details.number_of_servings);
+            setIsInGroceryList(details.is_in_grocery_list);
         }
     }, [details]);
 
@@ -197,8 +200,10 @@ function RecipeDetails() {
                             saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} imageList={imageList}
                             image={image} notes={notes} replaceWithCommas={replaceWithCommas} setIsEditing={setIsEditing} />
 
-                        <LowerSection prepTime={prepTime} cookTime={cookTime} isCooked={isCooked} setIsCooked={setIsCooked} id={id} dispatch={dispatch} rating={rating}
-                            setRating={setRating} ingredients={ingredients} instructions={instructions} servings={servings} isXsScreen={isXsScreen} isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} imageList={imageList} comments={comments} />
+                        <LowerSection prepTime={prepTime} cookTime={cookTime} isCooked={isCooked} setIsCooked={setIsCooked}
+                            id={id} dispatch={dispatch} rating={rating} setRating={setRating} ingredients={ingredients}
+                            instructions={instructions} servings={servings} isInGroceryList={isInGroceryList} isXsScreen={isXsScreen} isSmScreen={isSmScreen}
+                            replaceWithCommas={replaceWithCommas} imageList={imageList} comments={comments} />
 
                         <AutoScroll type={'scroll-up'} />
                     </div>

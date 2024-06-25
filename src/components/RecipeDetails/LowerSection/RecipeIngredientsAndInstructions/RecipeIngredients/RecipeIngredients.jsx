@@ -1,8 +1,8 @@
-function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, replaceWithCommas }) {
+function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, replaceWithCommas, isInGroceryList }) {
     return (
         <div className="ingredients" style={{
             borderTop: isSmScreen || isXsScreen ? '2px solid black' : null,
-            marginRight: isSmScreen || isXsScreen ? null : '10%', alignSelf: isSmScreen || isXsScreen ? 'center' : null,
+            marginRight: isSmScreen || isXsScreen ? null : '30px', alignSelf: isSmScreen || isXsScreen ? 'center' : null,
             width: isSmScreen || isXsScreen ? '80%' : null
         }}>
             <p style={{
@@ -18,6 +18,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
             <ul style={{ listStyleType: 'none', paddingLeft: '0px', textAlign: isSmScreen || isXsScreen ? 'left' : null }}>
                 {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
             </ul>
+            <p>{isInGroceryList ? <span>Added!<button>Open grocery list</button></span> : <button>Add ingredients to your grocery list</button>}</p>
         </div>
     );
 }
