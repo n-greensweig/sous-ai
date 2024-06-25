@@ -120,8 +120,81 @@ VALUES (1, 1, 11);
 ALTER TABLE "recipe_item"
 ADD COLUMN "last_viewed" TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
+SELECT 
+            "recipe_item".*,
+            COALESCE(
+                (SELECT "images"."path"
+                FROM "images"
+                WHERE "images"."recipe_id" = "recipe_item"."id"
+                ORDER BY "images"."created_at" DESC
+                LIMIT 1),
+                "recipe_item"."photo"
+            ) AS "display_photo", 
+            array_agg("recipe_list_recipes"."list_id") AS "list_id"
+        FROM 
+            "recipe_item"
+        LEFT JOIN 
+            "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
+        WHERE
+            "recipe_item"."user_id" = 1
+        GROUP BY 
+            "recipe_item"."id"
+        ORDER BY 
+            "recipe_item"."id" DESC;
+
+SELECT "recipe_item".*,
+            COALESCE(
+                (SELECT "images"."path"
+                FROM "images"
+                WHERE "images"."recipe_id" = "recipe_item"."id"
+                ORDER BY "images"."created_at" DESC
+                LIMIT 1),
+                "recipe_item"."photo"
+            ) AS "display_photo", 
+            array_agg("recipe_list_recipes"."list_id") AS "list_id"
+FROM "recipe_item"
+JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
+GROUP BY "recipe_item"."id"
+ORDER BY "recipe_item"."id" DESC;
+
 ALTER TABLE "recipe_list"
 ADD COLUMN "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
 ALTER TABLE "recipe_list_recipes"
 ADD COLUMN "added_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+ SELECT 
+            "recipe_item".*,
+        COALESCE(
+            (SELECT "images"."path"
+            FROM "images"
+            WHERE "images"."recipe_id" = "recipe_item"."id"
+            ORDER BY "images"."created_at" DESC
+            LIMIT 1),
+            "recipe_item"."photo"
+            ) AS "display_photo"
+        FROM 
+            "recipe_item"
+        JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
+        WHERE "recipe_item"."user_id" = 1 AND "recipe_list_recipes"."list_id" = 45 
+        ORDER BY 
+            "recipe_list_recipes"."added_at" DESC;
+            
+            SELECT "recipe_item".*,
+            COALESCE(
+                (SELECT "images"."path"
+                FROM "images"
+                WHERE "images"."recipe_id" = "recipe_item"."id"
+                ORDER BY "images"."created_at" DESC
+                LIMIT 1),
+                "recipe_item"."photo"
+            ) AS "display_photo", 
+            array_agg("recipe_list_recipes"."list_id") AS "list_id"
+FROM "recipe_item"
+JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
+WHERE "recipe_item"."user_id" = 1
+GROUP BY "recipe_item"."id", "recipe_list_recipes"."added_at"
+ORDER BY "recipe_list_recipes"."added_at" DESC;
+
+ALTER TABLE "recipe_item"
+ADD COLUMN "is_in_grocery_list" BOOLEAN DEFAULT FALSE;
