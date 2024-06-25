@@ -4,7 +4,7 @@ import RecipeRating from "./RecipeRating/RecipeRating";
 import AutoScroll from "../../AutoScroll/AutoScroll";
 import RecipeIngredientsAndInstructions from "./RecipeIngredientsAndInstructions/RecipeIngredientsAndInstructions";
 import RecipeNotesAndPhoto from "./RecipeNotesAndPhoto/RecipeNotesAndPhoto";
-function LowerSection({ prepTime, cookTime, isCooked, setIsCooked, id, dispatch, rating, setRating, ingredients, instructions, servings, isXsScreen, isSmScreen, replaceWithCommas, imageList, comments, isInGroceryList }) {
+function LowerSection({ prepTime, cookTime, isCooked, setIsCooked, id, dispatch, rating, setRating, ingredients, instructions, servings, isXsScreen, isSmScreen, replaceWithCommas, imageList, comments, isInGroceryList, title }) {
     return (
         <section className="lower-section">
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: isXsScreen || isSmScreen ? 'center' : 'space-between', }}>
@@ -19,7 +19,7 @@ function LowerSection({ prepTime, cookTime, isCooked, setIsCooked, id, dispatch,
 
             <RecipeIngredientsAndInstructions ingredients={ingredients} instructions={instructions}
                 servings={servings} isInGroceryList={isInGroceryList} isXsScreen={isXsScreen}
-                isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} />
+                isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} title={title} id={id} />
             <RecipeNotesAndPhoto imageList={imageList} isXsScreen={isXsScreen} isSmScreen={isSmScreen} comments={comments} dispatch={dispatch} id={id} />
         </section>
     )

@@ -203,7 +203,8 @@ function RecipeDetails() {
                         <LowerSection prepTime={prepTime} cookTime={cookTime} isCooked={isCooked} setIsCooked={setIsCooked}
                             id={id} dispatch={dispatch} rating={rating} setRating={setRating} ingredients={ingredients}
                             instructions={instructions} servings={servings} isInGroceryList={isInGroceryList} isXsScreen={isXsScreen} isSmScreen={isSmScreen}
-                            replaceWithCommas={replaceWithCommas} imageList={imageList} comments={comments} />
+                            replaceWithCommas={replaceWithCommas} imageList={imageList} comments={comments}
+                            title={title} />
 
                         <AutoScroll type={'scroll-up'} />
                     </div>

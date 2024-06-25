@@ -359,6 +359,22 @@ DELETE FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2 AND "id" = $3;
         });
 });
 
+// PUT request to update grocery list in the DB
+router.put('/groceries', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    UPDATE "recipe_item" SET "is_in_grocery_list" = $1
+    WHERE "user_id" = $2 AND "id" = $3;
+    `;
+    pool.query(queryText, [req.body.isInGroceryList, req.user.id, req.body.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.error('Error updating grocery list in DB:', error);
+            res.sendStatus(500);
+        });
+});
+
 // PUT request to update recipe title in the DB
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     let queryText = `
