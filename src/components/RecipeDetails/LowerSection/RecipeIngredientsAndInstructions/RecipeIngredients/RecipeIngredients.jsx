@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BarLoader } from 'react-spinners';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 import './RecipeIngredients.css';
@@ -17,6 +17,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
 
     const dispatch = useDispatch();
     const [inGroceryList, setInGroceryList] = useState(isInGroceryList);
+    const groceryList = useSelector(store => store.groceryList);
 
     // State to toggle the editing mode for the recipe details
     const [isViewing, setIsViewing] = useState(false);
@@ -32,19 +33,23 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
 
     const updateGroceryList = e => {
         e.preventDefault();
-        // let newState;
         setInGroceryList(!inGroceryList);
         dispatch({ type: 'UPDATE_GROCERY_LIST', payload: { id, ingredients, title, isInGroceryList: !isInGroceryList } });
     };
 
-    const removeFromGroceryList = e => {
-        e.preventDefault();
-        setInGroceryList(prevState => {
-            const newState = !prevState;
-            dispatch({ type: 'REMOVE_FROM_GROCERY_LIST', payload: { id, ingredients, title, isInGroceryList: !isInGroceryList } });
-            return newState;
-        });
-    };
+    // const removeFromGroceryList = e => {
+    //     e.preventDefault();
+    //     setInGroceryList(prevState => {
+    //         const newState = !prevState;
+    //         dispatch({ type: 'REMOVE_FROM_GROCERY_LIST', payload: { id, ingredients, title, isInGroceryList: !isInGroceryList } });
+    //         return newState;
+    //     });
+    // };
+
+    // GET request to get recipe details for those in grocery list
+    useEffect(() => {
+        dispatch({ type: 'FETCH_GROCERY_LIST' });
+    }, []);
 
     useEffect(() => {
         setInGroceryList(isInGroceryList);
@@ -69,6 +74,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
             <ul style={{ listStyleType: 'none', paddingLeft: '0px', textAlign: isSmScreen || isXsScreen ? 'left' : null }}>
                 {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
             </ul>
+            <p>{groceryList[0].recipe_ingredients}!!</p>
             <p>{inGroceryList ? <span>Added!<button className='link' onClick={e => toggleViewing(e)}>Open grocery list</button></span> :
                 <button onClick={e => updateGroceryList(e)}>Add ingredients to your grocery list</button>}</p>
             <Dialog open={isViewing}

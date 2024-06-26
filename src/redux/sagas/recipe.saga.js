@@ -239,6 +239,18 @@ function* updateGroceries(action) {
     }
 }
 
+function* getGroceryList() {
+    try {
+        console.log('hi');
+        const response = yield axios.get('/api/recipe/groceries');
+        yield put({ type: 'GET_GROCERY_LIST', payload: response.data });
+    } catch (error) {
+        console.error('Error fetching grocery list:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
+
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
     yield takeLatest('SAVE_RECIPE', saveRecipe);
@@ -261,6 +273,7 @@ function* recipeSaga() {
     yield takeLatest('REMOVE_RECIPE_LIST', deleteRecipeList);
     yield takeLatest('FETCH_LIST_NAME_BY_ID', fetchListNameById);
     yield takeLatest('UPDATE_GROCERY_LIST', updateGroceries);
+    yield takeLatest('FETCH_GROCERY_LIST', getGroceryList);
 }
 
 export default recipeSaga;

@@ -228,6 +228,23 @@ router.get('/cooked', rejectUnauthenticated, (req, res) => {
         });
 });
 
+
+// GET grocery list from the DB
+router.get('/groceries', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    SELECT * FROM "grocery_list" WHERE "user_id" = $1 ORDER BY "last_edited" DESC;
+`;
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            console.log(result.rows);
+            res.send(result.rows);
+        })
+        .catch(error => {
+            console.error('Error getting grocery list from DB:', error);
+            res.sendStatus(400);
+        });
+});
+
 // GET recipe details from the DB and update last_viewed timestamp
 router.get('/:id', async (req, res) => {
     const connection = await pool.connect();
