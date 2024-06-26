@@ -57,16 +57,16 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
         const cleanedString = ingredientsString
             .replace(/\\/g, '') // Remove backslashes
             .replace(/\"/g, '') // Remove quotes
-    
+
         const ingredientsArray = cleanedString.split(','); // Split by comma into an array
-        
+
         if (ingredientsArray.length > 0) {
             // Remove leading curly brace from the first item
             ingredientsArray[0] = ingredientsArray[0].replace(/^{/, '');
             // Remove trailing curly brace from the last item
             ingredientsArray[ingredientsArray.length - 1] = ingredientsArray[ingredientsArray.length - 1].replace(/}$/, '');
         }
-    
+
         return ingredientsArray;
     };
 
@@ -89,13 +89,19 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
             <ul style={{ listStyleType: 'none', paddingLeft: '0px', textAlign: isSmScreen || isXsScreen ? 'left' : null }}>
                 {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
             </ul>
-            <p>
-                {groceryList.length > 0 && groceryList[0].recipe_ingredients
-                    ? cleanIngredients(groceryList[0].recipe_ingredients).map((ingredient, index) => (
-                        <li key={index}>{ingredient.trim().replace(/@/g, ',')}</li>
-                    ))
-                    : ''}
-            </p>            <p>{inGroceryList ? <span>Added!<button className='link' onClick={e => toggleViewing(e)}>Open grocery list</button></span> :
+            {/* <p>{groceryList)}</p> */}
+            <ul>
+            {groceryList.length > 0 && groceryList.map((recipe, idx) => (
+                <div key={idx}>
+                    <h3>{recipe.recipe_title}</h3>
+                    <ul>
+                        {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
+                            <li key={index}>{ingredient.trim().replace(/@/g, ',')}</li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
+        </ul>         <p>{inGroceryList ? <span>Added!<button className='link' onClick={e => toggleViewing(e)}>Open grocery list</button></span> :
                 <button onClick={e => updateGroceryList(e)}>Add ingredients to your grocery list</button>}</p>
             <Dialog open={isViewing}
                 onClose={e => toggleViewing(e)}
