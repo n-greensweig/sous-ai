@@ -11,6 +11,11 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import './RecipeIngredients.css';
 
 function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, replaceWithCommas, isInGroceryList, title, id }) {
@@ -103,16 +108,24 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                 }}>
                 <DialogTitle>Your grocery list</DialogTitle>
                 <div style={{ margin: '10px' }}>
-                    <ul>
+                <ul>
                         {groceryList.length > 0 && groceryList.map((recipe, idx) => (
-                            <div key={idx}>
-                                <h3>{recipe.recipe_title}</h3>
-                                <ul>
-                                    {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
-                                        <li key={index}>{ingredient.trim().replace(/@/g, ',')}</li>
-                                    ))}
-                                </ul>
-                            </div>
+                            <Accordion key={idx}>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls={`panel${idx}-content`}
+                                    id={`panel${idx}-header`}
+                                >
+                                    <h3>{recipe.recipe_title}</h3>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <ul>
+                                        {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
+                                            <li key={index}>{ingredient.trim().replace(/@/g, ',')}</li>
+                                        ))}
+                                    </ul>
+                                </AccordionDetails>
+                            </Accordion>
                         ))}
                     </ul>
                 </div>
