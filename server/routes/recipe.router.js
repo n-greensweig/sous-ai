@@ -365,7 +365,12 @@ router.put('/groceries', rejectUnauthenticated, (req, res) => {
     UPDATE "recipe_item" SET "is_in_grocery_list" = $1
     WHERE "user_id" = $2 AND "id" = $3;
     `;
+    let secondQueryText = `
+    INSERT INTO "grocery_list" ("user_id", "recipe_id", "recipe_ingredients", "recipe_title")
+    VALUES ($1, $2, $3, $4);
+    `;
     pool.query(queryText, [req.body.isInGroceryList, req.user.id, req.body.id])
+    pool.query(secondQueryText, [req.user.id, req.body.id, req.body.ingredients, req.body.title])
         .then(result => {
             res.sendStatus(200);
         })

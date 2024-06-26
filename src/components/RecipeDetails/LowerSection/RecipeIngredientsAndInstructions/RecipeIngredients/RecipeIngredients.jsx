@@ -32,15 +32,23 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
         e.preventDefault();
         setInGroceryList(prevState => {
             const newState = !prevState;
-            dispatch({ type: 'UPDATE_GROCERY_LIST', payload: { id, isInGroceryList: newState } });
+            dispatch({ type: 'UPDATE_GROCERY_LIST', payload: { id, ingredients, title, isInGroceryList: newState } });
             return newState;
         });
     };
 
+    const removeFromGroceryList = e => {
+        e.preventDefault();
+        setInGroceryList(prevState => {
+            const newState = !prevState;
+            dispatch({ type: 'REMOVE_FROM_GROCERY_LIST', payload: { id, ingredients, title, isInGroceryList: newState } });
+            return newState;
+        });
+    };
 
     useEffect(() => {
         setInGroceryList(isInGroceryList);
-    }, [isInGroceryList, isInGroceryList]);
+    }, [isInGroceryList]);
 
     return (
         <div className="ingredients" style={{
@@ -61,7 +69,8 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
             <ul style={{ listStyleType: 'none', paddingLeft: '0px', textAlign: isSmScreen || isXsScreen ? 'left' : null }}>
                 {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
             </ul>
-            <p>{inGroceryList ? <span onClick={e => updateGroceryList(e)}>Added!<button>Open grocery list</button></span> : <button onClick={e => updateGroceryList(e)}>Add ingredients to your grocery list</button>}</p>
+            <p>{inGroceryList ? <span>Added!<button onClick={e => toggleViewing(e)}>Open grocery list</button></span> : 
+            <button onClick={e => updateGroceryList(e)}>Add ingredients to your grocery list</button>}</p>
             <Dialog open={isViewing}
                 onClose={e => toggleViewing(e)}
                 PaperProps={{
@@ -72,7 +81,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                     //     toggleEditing(event);
                     // },
                 }}>
-                <DialogTitle>Set recipe title</DialogTitle>
+                <DialogTitle>Your grocery list</DialogTitle>
                 {/* <DialogContent>
                     <DialogContentText>
                         New recipe title
