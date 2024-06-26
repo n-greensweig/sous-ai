@@ -89,19 +89,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
             <ul style={{ listStyleType: 'none', paddingLeft: '0px', textAlign: isSmScreen || isXsScreen ? 'left' : null }}>
                 {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
             </ul>
-            {/* <p>{groceryList)}</p> */}
-            <ul>
-            {groceryList.length > 0 && groceryList.map((recipe, idx) => (
-                <div key={idx}>
-                    <h3>{recipe.recipe_title}</h3>
-                    <ul>
-                        {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
-                            <li key={index}>{ingredient.trim().replace(/@/g, ',')}</li>
-                        ))}
-                    </ul>
-                </div>
-            ))}
-        </ul>         <p>{inGroceryList ? <span>Added!<button className='link' onClick={e => toggleViewing(e)}>Open grocery list</button></span> :
+            <p>{inGroceryList ? <span>Added!<button className='link' onClick={e => toggleViewing(e)}>Open grocery list</button></span> :
                 <button onClick={e => updateGroceryList(e)}>Add ingredients to your grocery list</button>}</p>
             <Dialog open={isViewing}
                 onClose={e => toggleViewing(e)}
@@ -114,59 +102,36 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                     // },
                 }}>
                 <DialogTitle>Your grocery list</DialogTitle>
-                {/* <DialogContent>
-                    <DialogContentText>
-                        New recipe title
-                    </DialogContentText>
-                    <TextField autoFocus
-                        margin="dense"
-                        id="title"
-                        name="title"
-                        fullWidth
-                        variant="standard"
-                        defaultValue={title}
-                        onChange={e => setTitle(e.target.value)}
-                        style={{ padding: '1px' }} />
-
-                    <div style={{ margin: '10px' }}>
-                        <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
-                        <form style={{ marginTop: 0 }}>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={onFileChange}
-                            />
-                            {isLoading && <BarLoader color="#DAA520" />}
-                            <br />
-                            {
-                                // Image preview
-                                imagePath === '' ? (
-                                    null
-                                ) : (
-                                    <img style={{ maxWidth: '150px' }} src={imagePath} />
-                                )
-                            }
-                            <br />
-                        </form>
+                <div style={{ margin: '10px' }}>
+                    <ul>
+                        {groceryList.length > 0 && groceryList.map((recipe, idx) => (
+                            <div key={idx}>
+                                <h3>{recipe.recipe_title}</h3>
+                                <ul>
+                                    {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
+                                        <li key={index}>{ingredient.trim().replace(/@/g, ',')}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </ul>
+                </div>
+            {/* <DialogActions>
+                {!isLoading && <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                    <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
+                        <Button style={{ width: '50%', color: 'gray' }} onClick={() => setIsEditing(false)}>Cancel</Button>
+                        <Button variant="outlined" type="submit" style={{ width: '50%', color: '#DAA520', borderColor: '#DAA520' }}>Save</Button>
                     </div>
-
-                </DialogContent>
-                <DialogActions>
-                    {!isLoading && <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                        <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
-                            <Button style={{ width: '50%', color: 'gray' }} onClick={() => setIsEditing(false)}>Cancel</Button>
-                            <Button variant="outlined" type="submit" style={{ width: '50%', color: '#DAA520', borderColor: '#DAA520' }}>Save</Button>
-                        </div>
-                        <div className="second-row" style={{ width: '100%' }}>
-                            <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: '#DC143C' }} />}
-                                onClick={() => removeRecipe(id)} style={{ color: '#DC143C', borderColor: '#DC143C', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
-                                Delete Recipe
-                            </Button>
-                        </div>
-                    </div>}
-                </DialogActions> */}
-            </Dialog>
-        </div>
+                    <div className="second-row" style={{ width: '100%' }}>
+                        <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: '#DC143C' }} />}
+                            onClick={() => removeRecipe(id)} style={{ color: '#DC143C', borderColor: '#DC143C', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
+                            Delete Recipe
+                        </Button>
+                    </div>
+                </div>}
+            </DialogActions> */}
+        </Dialog>
+        </div >
     );
 }
 
