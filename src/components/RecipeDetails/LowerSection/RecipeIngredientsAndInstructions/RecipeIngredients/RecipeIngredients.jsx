@@ -30,11 +30,12 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
 
     const updateGroceryList = e => {
         e.preventDefault();
+        let newState;
         setInGroceryList(prevState => {
-            const newState = !prevState;
-            dispatch({ type: 'UPDATE_GROCERY_LIST', payload: { id, ingredients, title, isInGroceryList: newState } });
+            newState = !prevState;
             return newState;
-        });
+            });
+        dispatch({ type: 'UPDATE_GROCERY_LIST', payload: { id, ingredients, title, isInGroceryList: newState } });
     };
 
     const removeFromGroceryList = e => {
