@@ -15,6 +15,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import './RecipeIngredients.css';
 
@@ -98,6 +99,8 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                 <button onClick={e => updateGroceryList(e)}>Add ingredients to your grocery list</button>}</p>
             <Dialog open={isViewing}
                 onClose={e => toggleViewing(e)}
+                maxWidth="sm" // Set the maximum width to large
+                fullWidth={true}
                 PaperProps={{
                     component: 'form',
                     // onSubmit: (event) => {
@@ -108,7 +111,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                 }}>
                 <DialogTitle>Your grocery list</DialogTitle>
                 <div style={{ margin: '10px' }}>
-                <ul>
+                    <ul>
                         {groceryList.length > 0 && groceryList.map((recipe, idx) => (
                             <Accordion key={idx}>
                                 <AccordionSummary
@@ -121,7 +124,12 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                                 <AccordionDetails>
                                     <ul>
                                         {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
-                                            <li key={index}>{ingredient.trim().replace(/@/g, ',')}</li>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
+                                                <li key={index} style={{padding: '10px 0'}}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
+                                                {/* <Button onClick={e => dispatch({ type: 'REMOVE_FROM_GROCERY_LIST', payload: { id: recipe.recipe_id } })}> */}
+                                                <ClearIcon style={{padding: '10px 0'}} />
+                                                {/* </Button> */}
+                                            </div>
                                         ))}
                                     </ul>
                                 </AccordionDetails>
@@ -129,7 +137,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                         ))}
                     </ul>
                 </div>
-            {/* <DialogActions>
+                {/* <DialogActions>
                 {!isLoading && <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                     <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
                         <Button style={{ width: '50%', color: 'gray' }} onClick={() => setIsEditing(false)}>Cancel</Button>
@@ -143,7 +151,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                     </div>
                 </div>}
             </DialogActions> */}
-        </Dialog>
+            </Dialog>
         </div >
     );
 }
