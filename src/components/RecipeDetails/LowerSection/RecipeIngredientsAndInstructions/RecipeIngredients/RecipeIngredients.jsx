@@ -149,14 +149,16 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                                </AccordionSummary>
                                <AccordionDetails>
                                    <ul>
-                                       {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
-                                           <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
-                                               <li key={ingredient} style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
-                                               <ClearIcon style={{ padding: '10px 0' }}
-                                                   onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
-                                               />
-                                           </div>
-                                       ))}
+                                   {cleanIngredients(recipe.recipe_ingredients).slice(2).map((ingredient, index) => (
+    !/\\\\"/.test(ingredient) ?
+        <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
+            <li key={index} style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
+            <ClearIcon style={{ padding: '10px 0' }}
+                onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
+            />
+        </div> : null
+))}
+
                                    </ul>
                                </AccordionDetails>
                            </Accordion>
