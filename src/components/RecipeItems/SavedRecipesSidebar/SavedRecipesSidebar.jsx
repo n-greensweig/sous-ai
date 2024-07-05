@@ -16,13 +16,31 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Button, TextField, useTheme, useMediaQuery } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ClearIcon from '@mui/icons-material/Clear';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 function SavedRecipesSidebar() {
     // Hooks for dispatching actions and selecting a slice of the Redux store.
     const dispatch = useDispatch();
     const history = useHistory();
     const recipeLists = useSelector(store => store.recipeListsReducer);
     const recipeListPhotos = useSelector(store => store.recipeListPhotosReducer);
+    const groceryList = useSelector(store => store.groceryList);
 
+    // State to toggle the editing mode for the recipe details
+    const [isViewing, setIsViewing] = useState(false);
+
+    // Function to toggle the editing mode for the recipe details
+    const toggleViewing = e => {
+        if (isViewing) {
+            setIsViewing(false);
+        } else {
+            setIsViewing(true);
+        }
+    };
     // State hooks for managing the creation process and input value of the new recipe list.
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
     const [listName, setListName] = useState(''); // Stores the new recipe list's name.
@@ -93,6 +111,31 @@ function SavedRecipesSidebar() {
         }
     };
 
+    const cleanIngredients = (ingredientsString) => {
+        if (!ingredientsString) return [];
+        const cleanedString = ingredientsString
+            .replace(/\\/g, '') // Remove backslashes
+            .replace(/\"/g, '') // Remove quotes
+
+        const ingredientsArray = cleanedString.split(','); // Split by comma into an array
+        // console.log(ingredientsString);
+        if (ingredientsArray.length > 0) {
+            // Remove leading curly brace from the first item
+            ingredientsArray[0] = ingredientsArray[0].replace(/^{/, '');
+            // Remove trailing curly brace from the last item
+            ingredientsArray[ingredientsArray.length - 1] = ingredientsArray[ingredientsArray.length - 1].replace(/}$/, '');
+        }
+        return ingredientsArray;
+    };
+
+
+    const removeIngredientFromGroceryList = (e, recipe_id, ingredient, idx) => {
+        e.preventDefault();
+        const newGroceryItem = cleanIngredients(groceryList[idx].recipe_ingredients.replace(ingredient, ''));
+        console.log(newGroceryItem);
+        dispatch({ type: 'REMOVE_INGREDIENT_FROM_GROCERY_LIST', payload: { recipe_id, newGroceryItem } });
+    };
+
     return (
         isXsScreen || isSmScreen ? null :
             <div className='sidebar__container'>
@@ -136,6 +179,7 @@ function SavedRecipesSidebar() {
                         <AccessTimeIcon className='sidebar__icon' style={{ fill: activeItem === 'recent' ? '#767676' : 'black' }} /> Recently Viewed
                     </p>
                     <p
+                        onClick={e => toggleViewing(e)}
                         onMouseDown={() => handleSetActiveItem('grocery')}
                         onMouseUp={handleClearActiveItem}
                         onMouseLeave={handleClearActiveItem}
@@ -233,6 +277,44 @@ function SavedRecipesSidebar() {
                             </div>
                         </div>
                     </DialogActions>
+                </Dialog>
+                <Dialog open={isViewing}
+                    onClose={e => toggleViewing(e)}
+                    maxWidth="sm" // Set the maximum width to large
+                    fullWidth={true}
+                    PaperProps={{ component: 'form', }}>
+                    <DialogTitle>Your grocery list</DialogTitle>
+                    <div style={{ margin: '10px' }}>
+                        <ul>
+                            {groceryList.length > 0 && groceryList.map((recipe, idx) => (
+                                <Accordion key={idx}>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls={`panel${idx}-content`}
+                                        id={`panel${idx}-header`}
+                                    >
+                                        <h3>{recipe.recipe_title}</h3>
+                                    </AccordionSummary>
+                                    {/* Needs to be updated to reflect new grocery list ingredients */}
+                                    <AccordionDetails>
+                                        <ul>
+                                            {cleanIngredients(recipe.recipe_ingredients)
+                                                //    .slice(2)
+                                                .map((ingredient, index) => (
+                                                    ingredient !== '' ?
+                                                        <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
+                                                            <li key={index} style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
+                                                            <ClearIcon style={{ padding: '10px 0' }}
+                                                                onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
+                                                            />
+                                                        </div> : null
+                                                ))}
+                                        </ul>
+                                    </AccordionDetails>
+                                </Accordion>
+                            ))}
+                        </ul>
+                    </div>
                 </Dialog>
             </div>
     )

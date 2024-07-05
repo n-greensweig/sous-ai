@@ -130,7 +130,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                     </ul>
                 </div>
             </Dialog>
-        </div >
+        </div>
     );
 }
 
