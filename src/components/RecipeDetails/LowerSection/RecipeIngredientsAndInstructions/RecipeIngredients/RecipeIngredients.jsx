@@ -7,6 +7,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ClearIcon from '@mui/icons-material/Clear';
 import './RecipeIngredients.css';
 function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, replaceWithCommas, isInGroceryList, title, id }) {
@@ -15,6 +16,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
     const [inGroceryList, setInGroceryList] = useState(isInGroceryList);
     // ! Needs to be updated to reflect new grocery list ingredients
     const [groceryIngredients, setGroceryIngredients] = useState(ingredients);
+    const [expanded, setExpanded] = useState([]);
     const groceryList = useSelector(store => store.groceryList);
 
     // State to toggle the editing mode for the recipe details
@@ -63,10 +65,16 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
     const removeIngredientFromGroceryList = (e, recipe_id, ingredient, idx) => {
         e.preventDefault();
         const newGroceryItem = cleanIngredients(groceryList[idx].recipe_ingredients.replace(ingredient, ''));
-        console.log(newGroceryItem);
         dispatch({ type: 'REMOVE_INGREDIENT_FROM_GROCERY_LIST', payload: { recipe_id, newGroceryItem } });
     };
 
+    const removeRecipeFromGroceryList = (e, recipe_id) => {
+        e.preventDefault();
+        dispatch({ type: 'REMOVE_RECIPE_FROM_GROCERY_LIST', payload: { recipe_id: recipe_id } });
+    };
+    const handleExpandClick = (panel) => (event, isExpanded) => {
+        setExpanded(prevExpanded => isExpanded ? [...prevExpanded, panel] : prevExpanded.filter(item => item !== panel));
+    };
 
     return (
         <div className="ingredients" style={{
@@ -101,31 +109,34 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                 <div style={{ margin: '10px' }}>
                     <ul>
                         {groceryList.length > 0 && groceryList.map((recipe, idx) => (
-                            <Accordion key={idx}>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls={`panel${idx}-content`}
-                                    id={`panel${idx}-header`}
-                                >
-                                    <h3>{recipe.recipe_title}</h3>
-                                </AccordionSummary>
-                                {/* Needs to be updated to reflect new grocery list ingredients */}
-                                <AccordionDetails>
-                                    <ul>
-                                        {cleanIngredients(recipe.recipe_ingredients)
-                                            //    .slice(2)
-                                            .map((ingredient, index) => (
-                                                ingredient !== '' ?
-                                                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
-                                                        <li key={index} style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
-                                                        <ClearIcon style={{ padding: '10px 0' }}
-                                                            onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
-                                                        />
-                                                    </div> : null
-                                            ))}
-                                    </ul>
-                                </AccordionDetails>
-                            </Accordion>
+                            <Accordion key={idx} expanded={expanded.includes(idx)} onChange={handleExpandClick(idx)}>
+                            <AccordionSummary
+                                aria-controls={`panel${idx}-content`}
+                                id={`panel${idx}-header`}
+                            >
+                                <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                                    {expanded.includes(idx) ? <ExpandLessIcon style={{ cursor: 'pointer', marginRight: '8px' }} /> : <ExpandMoreIcon style={{ cursor: 'pointer', marginRight: '8px' }} />}
+                                    <h3 style={{ flex: 1 }}>{recipe.recipe_title}</h3>
+                                    <ClearIcon
+                                        onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}
+                                        style={{ cursor: 'pointer', marginLeft: '8px' }}
+                                    />
+                                </div>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <ul>
+                                    {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
+                                        ingredient !== '' ?
+                                            <div key={index} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
+                                                <li style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
+                                                <ClearIcon style={{ padding: '10px 0' }}
+                                                    onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
+                                                />
+                                            </div> : null
+                                    ))}
+                                </ul>
+                            </AccordionDetails>
+                        </Accordion>
                         ))}
                     </ul>
                 </div>

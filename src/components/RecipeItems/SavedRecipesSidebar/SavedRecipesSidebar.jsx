@@ -136,6 +136,11 @@ function SavedRecipesSidebar() {
         dispatch({ type: 'REMOVE_INGREDIENT_FROM_GROCERY_LIST', payload: { recipe_id, newGroceryItem } });
     };
 
+    const removeRecipeFromGroceryList = (e, recipe_id) => {
+        e.preventDefault();
+        dispatch({ type: 'REMOVE_RECIPE_FROM_GROCERY_LIST', payload: recipe_id });
+    };
+
     return (
         isXsScreen || isSmScreen ? null :
             <div className='sidebar__container'>
@@ -293,9 +298,13 @@ function SavedRecipesSidebar() {
                                         aria-controls={`panel${idx}-content`}
                                         id={`panel${idx}-header`}
                                     >
-                                        <h3>{recipe.recipe_title}</h3>
+                                        <span style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', }}>
+                                            <h3>{recipe.recipe_title}</h3>
+                                            <p 
+                                            onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}
+                                            style={{ textDecoration: 'underline', }}>Remove</p>
+                                        </span>
                                     </AccordionSummary>
-                                    {/* Needs to be updated to reflect new grocery list ingredients */}
                                     <AccordionDetails>
                                         <ul>
                                             {cleanIngredients(recipe.recipe_ingredients)

@@ -102,6 +102,7 @@ function RecipeItems(props) {
         } else if (id) {
             // If it's a user-created folder, set listName based on the ID
             dispatch({ type: 'FETCH_LIST_NAME_BY_ID', payload: id });
+            dispatch({ type: 'FETCH_GROCERY_LIST' });
         }
     }, [props.path, id, dispatch]);
 
