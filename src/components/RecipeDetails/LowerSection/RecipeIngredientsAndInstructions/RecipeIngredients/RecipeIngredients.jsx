@@ -49,7 +49,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
             .replace(/\"/g, '') // Remove quotes
 
         const ingredientsArray = cleanedString.split(','); // Split by comma into an array
-
+        // console.log(ingredientsString);
         if (ingredientsArray.length > 0) {
             // Remove leading curly brace from the first item
             ingredientsArray[0] = ingredientsArray[0].replace(/^{/, '');
@@ -62,7 +62,8 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
 
     const removeIngredientFromGroceryList = (e, recipe_id, ingredient, idx) => {
         e.preventDefault();
-        const newGroceryItem = groceryList[idx].recipe_ingredients.replace(ingredient, '');
+        const newGroceryItem = cleanIngredients(groceryList[idx].recipe_ingredients.replace(ingredient, ''));
+        console.log(newGroceryItem);
         dispatch({ type: 'REMOVE_INGREDIENT_FROM_GROCERY_LIST', payload: { recipe_id, newGroceryItem } });
     };
 
@@ -114,7 +115,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                                         {cleanIngredients(recipe.recipe_ingredients)
                                             //    .slice(2)
                                             .map((ingredient, index) => (
-                                                !/\\\\"/.test(ingredient) ?
+                                                ingredient !== '' ?
                                                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
                                                         <li key={index} style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
                                                         <ClearIcon style={{ padding: '10px 0' }}
