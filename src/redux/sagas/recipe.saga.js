@@ -275,9 +275,8 @@ function* getGroceryList() {
 
 
 function* removeItemFromGroceryList(action) {
-   console.log(action.payload.newGroceryItem);
    try {
-       yield axios.put(`/api/recipe/groceries/${action.payload.recipe_id}`, { ingredient: action.payload.newGroceryItem });
+       yield axios.put(`/api/recipe/groceries/${action.payload.recipe_id}`, { newGroceryItem: action.payload.newGroceryItem });
        yield put({ type: 'FETCH_GROCERY_LIST' });
    } catch (error) {
        console.error('Error removing item from grocery list:', error);

@@ -351,13 +351,11 @@ router.get('/folder/:id', rejectUnauthenticated, (req, res) => {
 
 // Remove ingredient from grocery list
 router.put('/groceries/:id', rejectUnauthenticated, (req, res) => {
-   console.log(req.params);
-   console.log(req.body.ingredient);
    let queryText = `
    UPDATE "grocery_list" SET "recipe_ingredients" = $1
    WHERE "user_id" = $2 AND "recipe_id" = $3;
    `;
-   pool.query(queryText, [req.body.ingredient, req.user.id, req.params.recipe_id])
+   pool.query(queryText, [req.body.newGroceryItem, req.user.id, req.params.id])
        .then(result => {
            res.sendStatus(201);
        })
