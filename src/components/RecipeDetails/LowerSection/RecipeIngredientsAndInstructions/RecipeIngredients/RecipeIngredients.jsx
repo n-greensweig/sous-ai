@@ -9,6 +9,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ClearIcon from '@mui/icons-material/Clear';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import './RecipeIngredients.css';
 function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, replaceWithCommas, isInGroceryList, title, id }) {
 
@@ -35,6 +36,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
         e.preventDefault();
         setInGroceryList(!inGroceryList);
         dispatch({ type: 'UPDATE_GROCERY_LIST', payload: { id, ingredients, title, isInGroceryList: !isInGroceryList } });
+        dispatch({ type: 'FETCH_GROCERY_LIST' });
     };
 
     // GET request to get recipe details for those in grocery list
@@ -115,12 +117,11 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                                 id={`panel${idx}-header`}
                             >
                                 <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                                    {expanded.includes(idx) ? <ExpandLessIcon style={{ cursor: 'pointer', marginRight: '8px' }} /> : <ExpandMoreIcon style={{ cursor: 'pointer', marginRight: '8px' }} />}
+                                    {expanded.includes(idx) ? <ExpandMoreIcon style={{ cursor: 'pointer', marginRight: '8px' }} /> : <KeyboardArrowRight style={{ cursor: 'pointer', marginRight: '8px' }} />}
                                     <h3 style={{ flex: 1 }}>{recipe.recipe_title}</h3>
-                                    <ClearIcon
+                                    <p
                                         onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}
-                                        style={{ cursor: 'pointer', marginLeft: '8px' }}
-                                    />
+                                        style={{ cursor: 'pointer', marginLeft: '8px', textDecoration: 'underline', }}>Remove</p>
                                 </div>
                             </AccordionSummary>
                             <AccordionDetails>
