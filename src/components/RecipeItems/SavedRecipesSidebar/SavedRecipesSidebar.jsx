@@ -21,6 +21,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ClearIcon from '@mui/icons-material/Clear';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 function SavedRecipesSidebar() {
     // Hooks for dispatching actions and selecting a slice of the Redux store.
@@ -32,6 +33,7 @@ function SavedRecipesSidebar() {
 
     // State to toggle the editing mode for the recipe details
     const [isViewing, setIsViewing] = useState(false);
+    const [expanded, setExpanded] = useState([]);
 
     // Function to toggle the editing mode for the recipe details
     const toggleViewing = e => {
@@ -65,6 +67,14 @@ function SavedRecipesSidebar() {
 
     // Toggles the isCreating state, controlling the visibility of the creation dialog.
     const toggleCreating = () => setIsCreating(!isCreating);
+
+    const removeRecipeFromGroceryList = (e, recipe_id) => {
+        e.preventDefault();
+        dispatch({ type: 'REMOVE_RECIPE_FROM_GROCERY_LIST', payload: { recipe_id: recipe_id } });
+    };
+    const handleExpandClick = (panel) => (event, isExpanded) => {
+        setExpanded(prevExpanded => isExpanded ? [...prevExpanded, panel] : prevExpanded.filter(item => item !== panel));
+    };
 
     // MUI theme hooks for responsive design
     const theme = useTheme();
@@ -134,11 +144,6 @@ function SavedRecipesSidebar() {
         const newGroceryItem = cleanIngredients(groceryList[idx].recipe_ingredients.replace(ingredient, ''));
         console.log(newGroceryItem);
         dispatch({ type: 'REMOVE_INGREDIENT_FROM_GROCERY_LIST', payload: { recipe_id, newGroceryItem } });
-    };
-
-    const removeRecipeFromGroceryList = (e, recipe_id) => {
-        e.preventDefault();
-        dispatch({ type: 'REMOVE_RECIPE_FROM_GROCERY_LIST', payload: recipe_id });
     };
 
     return (
@@ -288,36 +293,38 @@ function SavedRecipesSidebar() {
                     maxWidth="sm" // Set the maximum width to large
                     fullWidth={true}
                     PaperProps={{ component: 'form', }}>
-                    <DialogTitle>Your grocery list</DialogTitle>
+                    <DialogTitle><strong style={{ marginRight: '10px', }}>Your grocery list</strong> |
+                        <span style={{ marginLeft: '10px', }}>
+                            {groceryList.length === 1 ? `${groceryList.length} recipe` : `${groceryList.length} recipes`}
+                        </span>
+                    </DialogTitle>
                     <div style={{ margin: '10px' }}>
                         <ul>
                             {groceryList.length > 0 && groceryList.map((recipe, idx) => (
-                                <Accordion key={idx}>
+                                <Accordion key={idx} expanded={expanded.includes(idx)} onChange={handleExpandClick(idx)}>
                                     <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
                                         aria-controls={`panel${idx}-content`}
                                         id={`panel${idx}-header`}
                                     >
-                                        <span style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', }}>
-                                            <h3>{recipe.recipe_title}</h3>
-                                            <p 
-                                            onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}
-                                            style={{ textDecoration: 'underline', }}>Remove</p>
-                                        </span>
+                                        <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                                            {expanded.includes(idx) ? <ExpandMoreIcon style={{ cursor: 'pointer', marginRight: '8px' }} /> : <KeyboardArrowRight style={{ cursor: 'pointer', marginRight: '8px' }} />}
+                                            <h3 style={{ flex: 1 }}>{recipe.recipe_title}</h3>
+                                            <p
+                                                onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}
+                                                style={{ cursor: 'pointer', marginLeft: '8px', textDecoration: 'underline', }}>Remove</p>
+                                        </div>
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <ul>
-                                            {cleanIngredients(recipe.recipe_ingredients)
-                                                //    .slice(2)
-                                                .map((ingredient, index) => (
-                                                    ingredient !== '' ?
-                                                        <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
-                                                            <li key={index} style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
-                                                            <ClearIcon style={{ padding: '10px 0' }}
-                                                                onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
-                                                            />
-                                                        </div> : null
-                                                ))}
+                                            {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
+                                                ingredient !== '' ?
+                                                    <div key={index} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
+                                                        <li style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
+                                                        <ClearIcon style={{ padding: '10px 0' }}
+                                                            onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
+                                                        />
+                                                    </div> : null
+                                            ))}
                                         </ul>
                                     </AccordionDetails>
                                 </Accordion>

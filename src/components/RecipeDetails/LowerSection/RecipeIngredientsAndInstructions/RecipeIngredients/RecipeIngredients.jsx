@@ -7,7 +7,6 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ClearIcon from '@mui/icons-material/Clear';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import './RecipeIngredients.css';
@@ -15,7 +14,6 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
 
     const dispatch = useDispatch();
     const [inGroceryList, setInGroceryList] = useState(isInGroceryList);
-    // ! Needs to be updated to reflect new grocery list ingredients
     const [groceryIngredients, setGroceryIngredients] = useState(ingredients);
     const [expanded, setExpanded] = useState([]);
     const groceryList = useSelector(store => store.groceryList);
@@ -107,37 +105,41 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                 maxWidth="sm" // Set the maximum width to large
                 fullWidth={true}
                 PaperProps={{ component: 'form', }}>
-                <DialogTitle>Your grocery list</DialogTitle>
+                <DialogTitle><strong style={{ marginRight: '10px', }}>Your grocery list</strong> |
+                    <span style={{ marginLeft: '10px', }}>
+                        {groceryList.length === 1 ? `${groceryList.length} recipe` : `${groceryList.length} recipes`}
+                    </span>
+                </DialogTitle>
                 <div style={{ margin: '10px' }}>
                     <ul>
                         {groceryList.length > 0 && groceryList.map((recipe, idx) => (
                             <Accordion key={idx} expanded={expanded.includes(idx)} onChange={handleExpandClick(idx)}>
-                            <AccordionSummary
-                                aria-controls={`panel${idx}-content`}
-                                id={`panel${idx}-header`}
-                            >
-                                <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                                    {expanded.includes(idx) ? <ExpandMoreIcon style={{ cursor: 'pointer', marginRight: '8px' }} /> : <KeyboardArrowRight style={{ cursor: 'pointer', marginRight: '8px' }} />}
-                                    <h3 style={{ flex: 1 }}>{recipe.recipe_title}</h3>
-                                    <p
-                                        onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}
-                                        style={{ cursor: 'pointer', marginLeft: '8px', textDecoration: 'underline', }}>Remove</p>
-                                </div>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <ul>
-                                    {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
-                                        ingredient !== '' ?
-                                            <div key={index} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
-                                                <li style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
-                                                <ClearIcon style={{ padding: '10px 0' }}
-                                                    onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
-                                                />
-                                            </div> : null
-                                    ))}
-                                </ul>
-                            </AccordionDetails>
-                        </Accordion>
+                                <AccordionSummary
+                                    aria-controls={`panel${idx}-content`}
+                                    id={`panel${idx}-header`}
+                                >
+                                    <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                                        {expanded.includes(idx) ? <ExpandMoreIcon style={{ cursor: 'pointer', marginRight: '8px' }} /> : <KeyboardArrowRight style={{ cursor: 'pointer', marginRight: '8px' }} />}
+                                        <h3 style={{ flex: 1 }}>{recipe.recipe_title}</h3>
+                                        <p
+                                            onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}
+                                            style={{ cursor: 'pointer', marginLeft: '8px', textDecoration: 'underline', }}>Remove</p>
+                                    </div>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <ul>
+                                        {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
+                                            ingredient !== '' ?
+                                                <div key={index} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
+                                                    <li style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
+                                                    <ClearIcon style={{ padding: '10px 0' }}
+                                                        onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
+                                                    />
+                                                </div> : null
+                                        ))}
+                                    </ul>
+                                </AccordionDetails>
+                            </Accordion>
                         ))}
                     </ul>
                 </div>
