@@ -79,23 +79,6 @@ CREATE TABLE "images" (
 INSERT INTO "images" (
 "recipe_id", "user_id", "path")
 VALUES (1,1,'images/tomato-soup.png');
-
-SELECT 
-    "recipe_item".*,
-    COALESCE(
-        (SELECT "images"."path"
-         FROM "images"
-         WHERE "images"."recipe_id" = "recipe_item"."id"
-         ORDER BY "images"."created_at" DESC
-         LIMIT 1),
-        "recipe_item"."photo"
-    ) AS "display_photo"
-FROM 
-    "recipe_item"
-WHERE
-    "recipe_item"."user_id" = 1
-ORDER BY 
-    "recipe_item"."id" DESC;
     
 CREATE TABLE "recipe_list" (
 	"id" SERIAL PRIMARY KEY,
@@ -120,42 +103,6 @@ VALUES (1, 1, 11);
 ALTER TABLE "recipe_item"
 ADD COLUMN "last_viewed" TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
-SELECT 
-            "recipe_item".*,
-            COALESCE(
-                (SELECT "images"."path"
-                FROM "images"
-                WHERE "images"."recipe_id" = "recipe_item"."id"
-                ORDER BY "images"."created_at" DESC
-                LIMIT 1),
-                "recipe_item"."photo"
-            ) AS "display_photo", 
-            array_agg("recipe_list_recipes"."list_id") AS "list_id"
-        FROM 
-            "recipe_item"
-        LEFT JOIN 
-            "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
-        WHERE
-            "recipe_item"."user_id" = 1
-        GROUP BY 
-            "recipe_item"."id"
-        ORDER BY 
-            "recipe_item"."id" DESC;
-
-SELECT "recipe_item".*,
-            COALESCE(
-                (SELECT "images"."path"
-                FROM "images"
-                WHERE "images"."recipe_id" = "recipe_item"."id"
-                ORDER BY "images"."created_at" DESC
-                LIMIT 1),
-                "recipe_item"."photo"
-            ) AS "display_photo", 
-            array_agg("recipe_list_recipes"."list_id") AS "list_id"
-FROM "recipe_item"
-JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
-GROUP BY "recipe_item"."id"
-ORDER BY "recipe_item"."id" DESC;
 
 ALTER TABLE "recipe_list"
 ADD COLUMN "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
@@ -163,39 +110,16 @@ ADD COLUMN "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE "recipe_list_recipes"
 ADD COLUMN "added_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
- SELECT 
-            "recipe_item".*,
-        COALESCE(
-            (SELECT "images"."path"
-            FROM "images"
-            WHERE "images"."recipe_id" = "recipe_item"."id"
-            ORDER BY "images"."created_at" DESC
-            LIMIT 1),
-            "recipe_item"."photo"
-            ) AS "display_photo"
-        FROM 
-            "recipe_item"
-        JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
-        WHERE "recipe_item"."user_id" = 1 AND "recipe_list_recipes"."list_id" = 45 
-        ORDER BY 
-            "recipe_list_recipes"."added_at" DESC;
-            
-            SELECT "recipe_item".*,
-            COALESCE(
-                (SELECT "images"."path"
-                FROM "images"
-                WHERE "images"."recipe_id" = "recipe_item"."id"
-                ORDER BY "images"."created_at" DESC
-                LIMIT 1),
-                "recipe_item"."photo"
-            ) AS "display_photo", 
-            array_agg("recipe_list_recipes"."list_id") AS "list_id"
-FROM "recipe_item"
-JOIN "recipe_list_recipes" ON "recipe_list_recipes"."recipe_id" = "recipe_item"."id"
-WHERE "recipe_item"."user_id" = 1
-GROUP BY "recipe_item"."id", "recipe_list_recipes"."added_at"
-ORDER BY "recipe_list_recipes"."added_at" DESC;
-
--- Anything below this line needs to be updated in Heroku
 ALTER TABLE "recipe_item"
 ADD COLUMN "is_in_grocery_list" BOOLEAN DEFAULT FALSE;
+
+CREATE TABLE "grocery_list" (
+"id" SERIAL PRIMARY KEY,
+"user_id" INTEGER,
+"recipe_id" INTEGER NOT NULL REFERENCES "recipe_item" ("id"),
+"recipe_title" VARCHAR(256),
+"recipe_ingredients" VARCHAR(100000) NOT NULL,
+"viewable" BOOLEAN DEFAULT FALSE,
+"last_edited" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+UNIQUE ("recipe_id", "recipe_ingredients")
+);
