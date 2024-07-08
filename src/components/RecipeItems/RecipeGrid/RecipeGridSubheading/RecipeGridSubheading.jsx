@@ -52,9 +52,11 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     return (
         <div style={{
             display: 'flex', flexDirection: isXsScreen || isSmScreen ? 'column' : 'row',
-            justifyContent: 'space-between', alignItems: isXsScreen || isSmScreen ? 'flex-start' : 'center', 
+            justifyContent: isXsScreen || isSmScreen ? 'space-evenly' : 'space-between',
+            alignItems: isXsScreen || isSmScreen ? 'flex-start' : 'center',
             marginTop: isXsScreen || isSmScreen
-                ? '50px' : 0 }}>
+                ? '50px' : 0
+        }}>
             <div style={{ display: 'flex', flexDirection: 'column', }}>
                 <div style={{ display: 'flex', alignItems: 'center', }}>
                     <h2 style={{ marginLeft: 'inherit', color: '#222', marginBottom: '0px' }}>{listName}</h2>
@@ -95,7 +97,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
             </div>
             <div className="search__input" style={{
                 display: 'flex', flexDirection: 'row',
-                alignItems: 'center', position: isXsScreen || isSmScreen ? 'relative' : 'absolute', right: isXsScreen || isSmScreen ? 0 : '2%', 
+                alignItems: 'center', position: isXsScreen || isSmScreen ? 'relative' : 'absolute', right: isXsScreen || isSmScreen ? 0 : '2%',
                 margin: isXsScreen || isSmScreen ? '0px 0px 20px 0px' : 0,
             }}>
                 <SearchIcon className='icon--black search' />

@@ -53,8 +53,6 @@ function RecipeCard(props) {
     const [editedRecipeId, setEditedRecipeId] = useState(null);
     const [totalTime, setTotalTime] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
-    const [openDialog, setOpenDialog] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
     const recipeLists = useSelector(store => store.recipeListsReducer);
 
     // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.

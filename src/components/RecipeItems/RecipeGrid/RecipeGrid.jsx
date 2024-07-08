@@ -8,15 +8,19 @@ function RecipeGrid({ recipes, listName, numOfRecipes, searchQuery, setSearchQue
             style={{
                 marginTop: '0px', margin: '0 auto',
                 padding: '20px 10px', backgroundColor: '#FFF', flexGrow: 1,
-                width: isXsScreen || isSmScreen ? '100vw' : null, justifyContent: 'center'
+                width: isXsScreen || isSmScreen ? '100vw' : null, justifyContent: isXsScreen || isSmScreen ? 'left' : 'center',
             }}
         >
-            <div className='div__recipeGrid--container' style={{ display: 'flex', flexDirection: 'column', 
-            paddingLeft: isXsScreen || isSmScreen ? null : '2%', }}>
-                {listName && (
-                    <RecipeGridSubheading listName={listName} numOfRecipes={numOfRecipes} searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id}
-                    isXsScreen={isXsScreen} isSmScreen={isSmScreen} />
-                )}
+            <div className='div__recipeGrid--container' style={{
+                display: 'flex', flexDirection: 'column',
+                paddingLeft: isXsScreen || isSmScreen ? null : '10px',
+            }}>
+                <div style={{ marginLeft: '0px', }}>
+                    {listName && (
+                        <RecipeGridSubheading listName={listName} numOfRecipes={numOfRecipes} searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id}
+                            isXsScreen={isXsScreen} isSmScreen={isSmScreen} />
+                    )}
+                </div>
                 <RecipeGridCards recipes={recipes} listName={listName} isXsScreen={isXsScreen} isSmScreen={isSmScreen} />
             </div>
         </Grid>

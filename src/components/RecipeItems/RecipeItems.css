@@ -84,9 +84,11 @@
 .max-width-container {
    display: flex; /* Use flexbox layout */
    flex-direction: row; /* Arrange items in a row */
-   justify-content: center; /* Center the items horizontally */
+   justify-content: center;
+    /* Center the items horizontally */
    max-width: 1200px; /* Max width of the container */
-   margin: 0 auto; /* Center the container */
+   margin: 0 auto; 
+   /* Center the container */
    position: relative; /* For positioning the pseudo-element */
 }
 

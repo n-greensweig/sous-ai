@@ -203,7 +203,7 @@ function RecipeItems(props) {
                                             backgroundColor: document.title === 'Saved Recipes' ? '#F8F8F5' : 'inherit',
                                             fontWeight: document.title === 'Saved Recipes' ? 'bold' : 'normal',
                                         }}>
-                                        <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black' }} /> Saved Recipes
+                                        <BookmarkIcon className='sidebar__icon' style={{ fill: activeItem === 'saved' ? '#767676' : 'black', }} /> Saved Recipes
                                     </p>
                                     <p onClick={() => navigateTo('/recipe-box/cooked')}
                                         onMouseDown={() => handleSetActiveItem('cooked')}
@@ -243,8 +243,8 @@ function RecipeItems(props) {
                                         }}>
                                         <ListAltIcon className='sidebar__icon' style={{ fill: activeItem === 'grocery' ? '#767676' : 'black' }} /> Grocery List
                                     </p>
-                                    <span className='sidebar__span--your-folders sidebar__margin--right'>Your folders</span>
-                                    <div onClick={toggleCreating} className='div__icon__span--new-folder'>
+                                    <span className='sidebar__span--your-folders sidebar__margin--right' style={{ marginLeft: '5px', }}>Your folders</span>
+                                    <div onClick={toggleCreating} className='div__icon__span--new-folder' style={{ marginLeft: '10px', }}>
                                         <Button className='icon--gray-border'
                                         ><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
                                         <span className='span__new-folder'>New Folder</span>
@@ -255,6 +255,7 @@ function RecipeItems(props) {
                                             <div key={list.id} className="div__icon__p--folder div__color-change"
                                                 onDragOver={handleDragOver}
                                                 onDrop={(event) => handleDrop(event, list.id)}
+                                                style={{ marginLeft: '10px', }}
                                             >
                                                 <div className='sidebar__user-folders' style={{
                                                     display: 'flex', alignItems: 'center', cursor: 'pointer', boxSizing: 'border-box',
@@ -305,7 +306,9 @@ function RecipeItems(props) {
                                         toggleCreating(event);
                                     },
                                 }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid gray', }}>
+                                <div style={{
+                                    display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid gray',
+                                }}>
                                     <DialogTitle sx={{ paddingBottom: '0px', marginBottom: '0px', }}>New Folder</DialogTitle>
                                     <Button style={{ color: 'gray', textTransform: 'none', paddingBottom: '0px', marginBottom: '0px', }} onClick={() => setIsCreating(false)}>Cancel</Button>
                                 </div>
