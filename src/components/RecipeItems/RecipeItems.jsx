@@ -185,7 +185,7 @@ function RecipeItems(props) {
             <div>
                 <div className="max-width-container">
                     <SavedRecipesSidebar />
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', paddingLeft: isSmScreen || isXsScreen ? '0%' : '7%', }}>
                         {listName && (
                             <RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
                                 searchQuery={searchQuery} setSearchQuery={setSearchQuery}
