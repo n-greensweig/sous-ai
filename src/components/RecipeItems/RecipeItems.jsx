@@ -26,7 +26,7 @@ function RecipeItems(props) {
     const history = useHistory();
     const recipeLists = useSelector(store => store.recipeListsReducer);
     const recipeListPhotos = useSelector(store => store.recipeListPhotosReducer);
-    const groceryList = useSelector(store => store.groceryList);
+    const groceryList = useSelector(store => store.groceryListReducer);
     const [expanded, setExpanded] = useState([]);
     const [isViewing, setIsViewing] = useState(false);
 

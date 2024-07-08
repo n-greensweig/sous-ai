@@ -15,6 +15,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import './App.css';
 import RecipeItems from '../RecipeItems/RecipeItems';
 import RecipeDetails from '../RecipeDetails/RecipeDetails';
+import Preferences from '../Preferences/Preferences';
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,14 @@ function App() {
             path="/user"
           >
             <SousAI />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Preferences else shows LoginPage
+            exact
+            path="/preferences"
+          >
+            <Preferences />
           </ProtectedRoute>
 
           <Route

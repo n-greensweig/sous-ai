@@ -29,7 +29,7 @@ function SavedRecipesSidebar() {
     const history = useHistory();
     const recipeLists = useSelector(store => store.recipeListsReducer);
     const recipeListPhotos = useSelector(store => store.recipeListPhotosReducer);
-    const groceryList = useSelector(store => store.groceryList);
+    const groceryList = useSelector(store => store.groceryListReducer);
 
     // State to toggle the editing mode for the recipe details
     const [isViewing, setIsViewing] = useState(false);

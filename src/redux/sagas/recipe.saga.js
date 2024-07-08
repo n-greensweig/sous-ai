@@ -261,7 +261,6 @@ function* updateGroceries(action) {
     }
 }
 
-
 function* getGroceryList() {
     try {
         const response = yield axios.get('/api/recipe/groceries');
@@ -296,6 +295,40 @@ function* deleteRecipeFromGroceryList(action) {
     }
 }
 
+function* fetchUserPreferences() {
+    try {
+        const response = yield axios.get('/api/recipe/preferences');
+        yield put({ type: 'GET_USER_PREFERENCES', payload: response.data });
+    } catch (error) {
+        console.error('Error fetching user preferences:', error);
+        alert('Something went wrong.');
+    }
+}
+
+function* addUserPreference(action) {
+    try {
+        const { preference, currentPreferences } = action.payload;
+        const newPreferences = [...currentPreferences, preference];
+        yield axios.put('/api/recipe/preferences', { preferences: newPreferences });
+        yield put({ type: 'FETCH_USER_PREFERENCES' });
+    } catch (error) {
+        console.error('Error adding user preference:', error);
+        alert('Something went wrong.');
+    }
+}
+
+function* removeUserPreference(action) {
+    try {
+        const { preference, currentPreferences } = action.payload;
+        const newPreferences = currentPreferences.filter(pref => pref !== preference);
+        yield axios.put('/api/recipe/preferences', { preferences: newPreferences });
+        yield put({ type: 'FETCH_USER_PREFERENCES' });
+    } catch (error) {
+        console.error('Error removing user preference:', error);
+        alert('Something went wrong.');
+    }
+}
+
 
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
@@ -322,6 +355,9 @@ function* recipeSaga() {
     yield takeLatest('FETCH_GROCERY_LIST', getGroceryList);
     yield takeLatest('REMOVE_INGREDIENT_FROM_GROCERY_LIST', removeItemFromGroceryList);
     yield takeLatest('REMOVE_RECIPE_FROM_GROCERY_LIST', deleteRecipeFromGroceryList);
+    yield takeLatest('FETCH_USER_PREFERENCES', fetchUserPreferences);
+    yield takeLatest('ADD_USER_PREFERENCE', addUserPreference);
+    yield takeLatest('REMOVE_USER_PREFERENCE', removeUserPreference);
 }
 
 

@@ -16,7 +16,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
     const [inGroceryList, setInGroceryList] = useState(isInGroceryList);
     const [groceryIngredients, setGroceryIngredients] = useState(ingredients);
     const [expanded, setExpanded] = useState([]);
-    const groceryList = useSelector(store => store.groceryList);
+    const groceryList = useSelector(store => store.groceryListReducer);
 
     // State to toggle the editing mode for the recipe details
     const [isViewing, setIsViewing] = useState(false);

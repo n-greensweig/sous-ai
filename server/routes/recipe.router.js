@@ -108,6 +108,53 @@ router.post('/comments/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
+router.get('/preferences', rejectUnauthenticated, (req, res) => {
+    const queryText = 'SELECT preferences FROM recipe_preferences WHERE user_id = $1';
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            if (result.rows.length > 0) {
+                res.json(result.rows[0].preferences);
+            } else {
+                res.json([]);
+            }
+        })
+        .catch(error => {
+            console.error('Error getting preferences from DB:', error);
+            res.sendStatus(400);
+        });
+});
+
+router.put('/preferences', rejectUnauthenticated, (req, res) => {
+    const { preferences } = req.body;
+    const queryText = `
+        INSERT INTO recipe_preferences (user_id, preferences)
+        VALUES ($1, $2)
+        ON CONFLICT (user_id) DO UPDATE
+        SET preferences = EXCLUDED.preferences,
+            last_edited = CURRENT_TIMESTAMP;
+    `;
+    pool.query(queryText, [req.user.id, preferences])
+        .then(result => res.sendStatus(200))
+        .catch(error => {
+            console.error('Error updating preferences in DB:', error);
+            res.sendStatus(500);
+        });
+});
+
+
+router.delete('/preferences', rejectUnauthenticated, (req, res) => {
+    let queryText = `
+    DELETE FROM "recipe_preferences" WHERE "user_id" = $1;
+    `;
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.error('Error deleting preferences from DB:', error);
+            res.sendStatus(500);
+        });
+});
 
 // GET all recipes from the DB with optional search query, only those viewed within the last day
 router.get('/recent', rejectUnauthenticated, (req, res) => {
