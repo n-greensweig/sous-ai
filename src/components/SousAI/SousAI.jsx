@@ -39,8 +39,6 @@ function SousAI() {
   const [loading, setLoading] = useState(false); // Indicates whether a request is in progress
   const [recipeSaved, setRecipeSaved] = useState({}); // Indicates whether a recipe has been saved
   const userPreferences = useSelector(store => store.userPreferencesReducer);
-  // ! pick up here
-  console.log(userPreferences);
   const textareaRef = useRef(null);
 
   const adjustTextareaHeight = () => {
@@ -94,7 +92,7 @@ function SousAI() {
       method: 'POST',
       body: JSON.stringify({
         message: value,
-        // preferences: ['gluten-free'].join(', '),
+        preferences: userPreferences,
       }),
       headers: {
         'Content-type': 'application/json'

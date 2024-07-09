@@ -7,25 +7,25 @@ const router = express.Router();
 
 // Access API key from environment variables for security
 const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
-// const preferences = ['vegetarian', 'gluten-free'];
 
 // Define POST route for generating recipes with gpt-4o model
 router.post('/', rejectUnauthenticated, async (req, res) => {
     const { message, preferences } = req.body;
-  // Set up options for the API request to OpenAI, including authorization header
-  const options = {
-      method: 'POST',
-      headers: {
-          'Authorization': `Bearer ${API_KEY}`,
-          'Content-Type': 'application/json'
-      },
-      // JSON body for the API request specifying the gpt-4o model and the conversation context
-      body: JSON.stringify({
-          model: 'gpt-4o', // Specify using gpt-4-o model; update as needed for newer models
-          response_format: { type: "json_object" },
-          messages: [
-              // System message defining the assistant's behavior and constraints
-              { role: 'system', content: `You are a helpful assistant named Sous that generates recipes according to users' requests.
+    // Set up options for the API request to OpenAI, including authorization header
+    const options = {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${API_KEY}`,
+            'Content-Type': 'application/json'
+        },
+        // JSON body for the API request specifying the gpt-4o model and the conversation context
+        body: JSON.stringify({
+            model: 'gpt-4o', // Specify using gpt-4-o model; update as needed for newer models
+            response_format: { type: "json_object" },
+            messages: [
+                // System message defining the assistant's behavior and constraints
+                {
+                    role: 'system', content: `You are a helpful assistant named Sous that generates recipes according to users' requests.
               You kindly redirect all non-cooking related questions or comments back to the topic of cooking. If the user's request is not related 
               to cooking you providing a response in JSON format with the following key: non_cooking_response. Under no circumstances 
               are you allowed to use apostrophes. For example, you use phrases like "Here is your recipe." rather than "Here's your recipe."
@@ -43,27 +43,27 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
               celery, and water into the pot." The same is true for any part of your response. Thus, anywhere in your 'recipe_name', 'prep_time', 'cook_time', 
               'number_of_servings', or 'notes' responses where you would usually use a comma, you use the @ symbol instead.
 
-              Take these preferences into account when generating recipes: ${preferences}.
+              Take these preferences into account when generating recipes: ${preferences.join(', ')}.
               
               It is important that you only include the JSON data in your response when providing recipe info, no text 
               outside of the JSON object. Make sure to space your text in the JSON notes value in proper English with spaces after periods.
 
               However, you respond to any clarification questions or non-recipe-related questions as a normal human would, not in JSON format.
               ` },
-              // User message received from the request body
-              { role: 'user', content: message }
-          ],
-      })
-  };
+                // User message received from the request body
+                { role: 'user', content: message }
+            ],
+        })
+    };
 
-  // Attempt to make the API call and send back the response
-  try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', options);
-      const data = await response.json();
-      res.send(data); // Send the data received from OpenAI API to the client
-  } catch (error) {
-      console.error(error); // Log any errors encountered during the request
-  }
+    // Attempt to make the API call and send back the response
+    try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', options);
+        const data = await response.json();
+        res.send(data); // Send the data received from OpenAI API to the client
+    } catch (error) {
+        console.error(error); // Log any errors encountered during the request
+    }
 
 });
 
