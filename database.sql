@@ -123,3 +123,12 @@ CREATE TABLE "grocery_list" (
 "last_edited" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 UNIQUE ("recipe_id", "recipe_ingredients")
 );
+
+--Needs to be added to Heroku as of 7/8/2024
+CREATE TABLE "recipe_preferences" (
+    "id" SERIAL PRIMARY KEY,
+    "user_id" INTEGER UNIQUE,
+    "preferences" TEXT[] DEFAULT ARRAY[]::TEXT[],
+    "household_items" TEXT[] DEFAULT ARRAY[]::TEXT[],
+    "last_edited" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
