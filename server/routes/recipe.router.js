@@ -141,6 +141,41 @@ router.put('/preferences', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// GET user household items from the DB
+router.get('/household/items', rejectUnauthenticated, (req, res) => {
+    const queryText = 'SELECT household_items FROM recipe_preferences WHERE user_id = $1';
+    pool.query(queryText, [req.user.id])
+        .then(result => {
+            if (result.rows.length > 0) {
+                res.json(result.rows[0].household_items);
+            } else {
+                res.json([]);
+            }
+        })
+        .catch(error => {
+            console.error('Error getting household items from DB:', error);
+            res.sendStatus(400);
+        });
+});
+
+// PUT to update user household items in the DB
+router.put('/household/items', rejectUnauthenticated, (req, res) => {
+    const { items } = req.body;
+    const queryText = `
+        INSERT INTO recipe_preferences (user_id, household_items)
+        VALUES ($1, $2)
+        ON CONFLICT (user_id) DO UPDATE
+        SET household_items = EXCLUDED.household_items,
+            last_edited = CURRENT_TIMESTAMP;
+    `;
+    pool.query(queryText, [req.user.id, items])
+        .then(result => res.sendStatus(200))
+        .catch(error => {
+            console.error('Error updating household items in DB:', error);
+            res.sendStatus(500);
+        });
+});
+
 
 router.delete('/preferences', rejectUnauthenticated, (req, res) => {
     let queryText = `

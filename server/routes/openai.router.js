@@ -10,7 +10,7 @@ const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 
 // Define POST route for generating recipes with gpt-4o model
 router.post('/', rejectUnauthenticated, async (req, res) => {
-    const { message, preferences } = req.body;
+    const { message, preferences, householdItems, } = req.body;
     // Set up options for the API request to OpenAI, including authorization header
     const options = {
         method: 'POST',
@@ -43,7 +43,9 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
               celery, and water into the pot." The same is true for any part of your response. Thus, anywhere in your 'recipe_name', 'prep_time', 'cook_time', 
               'number_of_servings', or 'notes' responses where you would usually use a comma, you use the @ symbol instead.
 
-              Take these preferences into account when generating recipes: ${preferences.join(', ')}.
+              Take these preferences into account when generating recipes: ${preferences.join(', ')}. Also make sure that the recipe 
+                includes only the following household items: ${householdItems.join(', ')}. The recipe doesn't need to include all of the items,
+                but it should include at least one of them.
               
               It is important that you only include the JSON data in your response when providing recipe info, no text 
               outside of the JSON object. Make sure to space your text in the JSON notes value in proper English with spaces after periods.

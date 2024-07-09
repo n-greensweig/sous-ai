@@ -39,6 +39,7 @@ function SousAI() {
   const [loading, setLoading] = useState(false); // Indicates whether a request is in progress
   const [recipeSaved, setRecipeSaved] = useState({}); // Indicates whether a recipe has been saved
   const userPreferences = useSelector(store => store.userPreferencesReducer);
+  const userHouseholdItems = useSelector(store => store.userHouseholdItemsReducer);
   const textareaRef = useRef(null);
 
   const adjustTextareaHeight = () => {
@@ -93,6 +94,7 @@ function SousAI() {
       body: JSON.stringify({
         message: value,
         preferences: userPreferences,
+        householdItems: userHouseholdItems,
       }),
       headers: {
         'Content-type': 'application/json'
