@@ -22,10 +22,10 @@ import Snackbar from '@mui/material/Snackbar';
 // Component for displaying alert messages
 import Alert from '@mui/material/Alert';
 // Loader component for indicating loading state
-import { PacmanLoader } from 'react-spinners';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Header from '../Header/Header';
+import { useSelector } from 'react-redux';
 
 function SousAI() {
   // Redux hook for dispatching actions
@@ -38,6 +38,9 @@ function SousAI() {
   const [createdRecipes, setCreatedRecipes] = useState([]); // Stores recipes created in the session
   const [loading, setLoading] = useState(false); // Indicates whether a request is in progress
   const [recipeSaved, setRecipeSaved] = useState({}); // Indicates whether a recipe has been saved
+  const userPreferences = useSelector(store => store.userPreferencesReducer);
+  // ! pick up here
+  console.log(userPreferences);
   const textareaRef = useRef(null);
 
   const adjustTextareaHeight = () => {
@@ -150,6 +153,7 @@ function SousAI() {
       ));
       setValue('');
     }
+    dispatch({ type: 'FETCH_USER_PREFERENCES' });
   }, [message, currentTitle]);
 
   // MUI hooks for responsive design checks
