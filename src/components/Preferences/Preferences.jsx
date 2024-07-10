@@ -1,8 +1,7 @@
-import { Button, useTheme } from "@mui/material";
+import { Button, useTheme, useMediaQuery } from "@mui/material";
 import Header from "../Header/Header";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 function Preferences() {
     const dispatch = useDispatch();
     const userPreferences = useSelector(store => store.userPreferencesReducer);
@@ -11,46 +10,89 @@ function Preferences() {
     const [householdItemsToDisplay, setHouseholdItemsToDisplay] = useState([]);
 
     const preferences = [
-        'Dairy-free',
-        'Egg-free',
-        'Fish-free',
-        'Gluten-free',
-        'Halal',
-        'Keto',
-        'Kosher',
-        'Low-carb',
-        'Low-sodium',
-        'Mediterranean',
-        'Mustard-free',
-        'Non-GMO',
-        'Nut-free',
-        'Organic',
-        'Paleo',
-        'Peanut-free',
-        'Pescatarian',
-        'Sesame-free',
-        'Shellfish-free',
-        'Soy-free',
-        'Sugar-free',
-        'Sulfite-free',
-        'Tree-nut-free',
-        'Vegan',
-        'Vegetarian',
-        'Whole30',
-    ];
+        "Dairy-free",
+        "Egg-free",
+        "Gluten-free",
+        "Halal",
+        "Keto",
+        "Kosher",
+        "Low-carb",
+        "Low-fat",
+        "Low-sodium",
+        "Non-GMO",
+        "Nut-free",
+        "Organic",
+        "Paleo",
+        "Pescatarian",
+        "Soy-free",
+        "Sugar-free",
+        "Vegan",
+        "Vegetarian",
+        "Ben Greenfield-like diet",
+    ];    
 
     const householdItems = [
-        'Immersion blender',
-        'Air fryer',
-        'Oven',
-        'Microwave',
-        'Pressure cooker',
-        'Slow cooker',
-        'Stand mixer',
-        'Toaster',
-        'Blender',
-        'Food processor',
-    ];
+        "Air fryer",
+        "Blender",
+        "Bread maker",
+        "Bread slicer",
+        "Butter churn",
+        "Candy thermometer",
+        "Cast iron skillet",
+        "Cheese grater",
+        "Coffee grinder",
+        "Coffee maker",
+        "Crepe maker",
+        "Deep fryer",
+        "Electric can opener",
+        "Electric kettle",
+        "Fondue pot",
+        "Food processor",
+        "Food steamer",
+        "Grill",
+        "Handheld mixer",
+        "Hot pot",
+        "Ice cream maker",
+        "Immersion blender",
+        "Induction cooktop",
+        "Juicer",
+        "Mandoline",
+        "Meat grinder",
+        "Meat slicer",
+        "Milk frother",
+        "Microwave",
+        "Non-stick pan",
+        "Oven",
+        "Panini press",
+        "Pasta maker",
+        "Peeler",
+        "Pizza oven",
+        "Pizza stone",
+        "Popcorn maker",
+        "Potato masher",
+        "Pressure cooker",
+        "Rice cooker",
+        "Salad spinner",
+        "Sandwich maker",
+        "Sauce pan",
+        "Sausage stuffer",
+        "Slow cooker",
+        "Smoker",
+        "Snow cone machine",
+        "Sous vide",
+        "Spice grinder",
+        "Spiralizer",
+        "Stand mixer",
+        "Stockpot",
+        "Stovetop",
+        "Toaster",
+        "Toaster oven",
+        "Vacuum sealer",
+        "Waffle maker",
+        "Yogurt maker",
+        "Zester"
+    ];    
+
 
     const addUserPreference = (preference) => {
         if (!userPreferences.includes(preference)) {
@@ -110,10 +152,14 @@ function Preferences() {
         border: `2px solid ${primaryColor}`,
     };
 
+    const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
+    const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <div>
             <Header />
-            <div style={{ padding: theme.spacing(2), maxWidth: '1200px', margin: '0 auto', }}>
+            <div style={{ padding: theme.spacing(2), maxWidth: '1200px', margin: '0 auto',
+                 paddingTop: isXsScreen || isSmScreen ? '50px' : '0px', }}>
                 <p style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>Choose your dietary preferences:</p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: theme.spacing(1) }}>
                     {preferences.map((preference, index) => {

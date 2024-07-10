@@ -10,6 +10,7 @@ import { useState } from 'react';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Menu, MenuItem } from '@mui/material';
 import MobileNavbar from '../MobileNavbar/MobileNavbar';
+import { Link } from 'react-router-dom';
 /**
  * Renders a header component that is responsive and navigates to a specified route when clicked.
  * 
@@ -147,12 +148,10 @@ function Header() {
                                 MenuListProps={{
                                     'aria-labelledby': 'basic-button',
                                 }}>
-                                {/* <MenuItem onClick={handleClose}>
-                                    <Link className='navLink' to="/recipe-box">
+                                <MenuItem className='navLink' onClick={() => history.push('/preferences')}>
                                         Preferences
-                                    </Link>
                                 </MenuItem>
-                                <MenuItem onClick={handleClose}>
+                                {/* <MenuItem onClick={handleClose}>
                                     <Link className='navLink' to="/recipe-box">
                                         Submit a suggestion
                                     </Link>

@@ -10,10 +10,6 @@ import { Menu, MenuItem } from '@mui/material';
 // Import icons
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import SearchIcon from '@mui/icons-material/Search';
-import LogoutIcon from '@mui/icons-material/Logout';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import PersonIcon from '@mui/icons-material/Person';
 import './MobileNavbar.css';
@@ -103,7 +99,6 @@ function MobileNavbar() {
                     >
                         <i style={{ color: 'white', visibility: 'visible' }}></i>
                     </Button>
-                    {/* <SearchIcon className='icon__fill-black' /> */}
                 </div>
                 <div onClick={() => history.push('/')} style={{
                     display: 'flex', alignItems: 'center', width: '35%', height: '40px', justifyContent: 'center',
@@ -154,6 +149,7 @@ function MobileNavbar() {
                     {/* {showDropdown ? <KeyboardArrowDownIcon onClick={toggleDropdown} style={{ fontSize: '1.5rem', textAlign: 'end', fill: '#000', textDecoration: 'none' }} /> :
                         <KeyboardArrowRightIcon onClick={toggleDropdown} style={{ fontSize: '1.5rem', textAlign: 'end', fill: '#000', textDecoration: 'none' }} />} */}
                 </div>
+                <Link to="/preferences" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>Preferences</Link>
                 {/* {showDropdown && (
                     <ul>
                         <Link style={{ textDecoration: "none" }} to="/recipe-box/cooked" onClick={closeMenu}>
@@ -174,12 +170,10 @@ function MobileNavbar() {
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}>
-                {/* <MenuItem onClick={handleClose}>
-                    <Link className='navLink' to="/recipe-box">
-                        Preferences
-                    </Link>
+                <MenuItem className='navLink' onClick={() => history.push('/preferences')}>
+                    Preferences
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                {/* <MenuItem onClick={handleClose}>
                     <Link className='navLink' to="/recipe-box">
                         Submit a suggestion
                     </Link>
