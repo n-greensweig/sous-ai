@@ -28,7 +28,6 @@ function Preferences() {
         "Sugar-free",
         "Vegan",
         "Vegetarian",
-        "Ben Greenfield-like diet",
     ];    
 
     const householdItems = [
