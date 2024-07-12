@@ -258,7 +258,7 @@ function SousAI() {
                     :
                     // Renders user's avatar and name
                     <div id='name-pic' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                      <img className='avi' src={`images/avatars/user-avatar.png`}
+                      <img className='avi' src={`images/avatars/user-avatar.svg`}
                         height={'30'}
                         width={'30'}
                         style={{ borderRadius: '75%', marginRight: '15px' }}
