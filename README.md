@@ -36,12 +36,6 @@ After starting the application:
 5. Navigate into the 'Saved recipes' page to view your saved recipes
 
 ## Screenshots
-<!-- <img width="1440" alt="home" src="https://github.com/n-greensweig/sous-ai/assets/129970968/0c1ca0a6-7d44-467b-8add-a722c22bc0e1">
-<img width="1000" alt="user-page-1" src="https://github.com/n-greensweig/sous-ai/assets/129970968/6a977cef-412d-4768-92f9-dbb879711dc4">
-<img width="1000" alt="user-page-2" src="https://github.com/n-greensweig/sous-ai/assets/129970968/bf3c60dc-d901-42e0-ba85-424a3b4393ce">
-<img width="1000" alt="saved-recipes" src="https://github.com/n-greensweig/sous-ai/assets/129970968/fb009d17-48ae-44e1-a9ee-e5c9ef24fdf6">
-<img width="1000" alt="recipe-item-1" src="https://github.com/n-greensweig/sous-ai/assets/129970968/9e54f6dd-e52a-42b8-a101-74c0b5820403">
-<img width="1000" alt="recipe-item-2" src="https://github.com/n-greensweig/sous-ai/assets/129970968/e25ed9a8-b309-4d1e-b249-991a4e409770"> -->
 <img width="1440" alt="SousAI" src="public/images/readme-screenshots/sous_ai.png">
 <img width="1440" alt="Recipe box" src="public/images/readme-screenshots/recipe_items.png">
 <img width="1440" alt="Recipe details" src="public/images/readme-screenshots/recipe_details.png">
