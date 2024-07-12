@@ -10,11 +10,11 @@
 - [Acknowledgments](#Acknowledgments)
 
 ## Description
-SousAI is a web application that features a cutting-edge recipe-generating AI assistant and a personalized recipe box. With SousAI, users can:
+SousAI is a web application that features a recipe-generating AI assistant and a personalized recipe box. With SousAI, users can:
 
 - **Create Recipes:** Use Sous, the AI-powered recipe assistant, to generate unique and tailored recipes.
 - **Save and Personalize:** Save your favorite recipes to your personal recipe box, where you can add notes and photos for future reference.
-- **Customization:** Input your cooking devices, ingredients, and dietary preferences to receive recipes specifically tailored to your needs.
+- **Customization:** Input your cooking devices, ingredients, and dietary preferences to receive recipes specifically tailored to your desire.
 
 SousAI is hosted at [https://www.sousai.io/](https://www.sousai.io/) using AWS and Heroku. The app is built with React, Redux, Node.js, PostgreSQL, and OpenAI's API.
 
