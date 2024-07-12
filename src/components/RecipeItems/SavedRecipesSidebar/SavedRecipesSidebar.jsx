@@ -235,7 +235,7 @@ function SavedRecipesSidebar() {
                                             style={{ height: '40px', width: '40px', borderRadius: '4px', }}
                                         />
                                     ) : (
-                                        <img src={'images/empty-folder/empty-folder.jpeg'} alt={list.list_name} className="folder__photo"
+                                        <img src={'images/empty-folder/empty-folder.svg'} alt={list.list_name} className="folder__photo"
                                             style={{ height: '40px', width: '40px', borderRadius: '4px', }}
                                         />
                                     )}
