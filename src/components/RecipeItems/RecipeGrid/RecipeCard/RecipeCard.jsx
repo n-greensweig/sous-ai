@@ -88,6 +88,7 @@ function RecipeCard(props) {
 
     // Remove recipe
     const removeRecipe = () => {
+        dispatch({ type: 'REMOVE_RECIPE_FROM_GROCERY_LIST', payload: { recipe_id: props.recipe.id } });
         dispatch({ type: 'REMOVE_RECIPE', payload: props.recipe.id, });
     };
 
@@ -148,7 +149,7 @@ function RecipeCard(props) {
         e.dataTransfer.setData('title', props.recipe.title);
         e.dataTransfer.setData('isInGroceryList', props.recipe.isInGroceryList);
         e.dataTransfer.setData('text/plain', `https://www.sousai.io/#/recipes/${target}`); // Set the URL to drag
-    };    
+    };
 
     // Confirming props are loaded 
     if (!props.recipe) {
