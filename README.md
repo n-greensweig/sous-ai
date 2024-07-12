@@ -39,7 +39,7 @@ After starting the application:
 <img width="1440" alt="SousAI" src="public/images/readme-screenshots/sous_ai.png">
 <img width="1440" alt="Recipe box" src="public/images/readme-screenshots/recipe_items.png">
 <img width="1440" alt="Recipe details" src="public/images/readme-screenshots/recipe_details.png">
-<img width="1440" alt="User dietary preferences and household items" src="public/images/readme-screenshots/preferences.png.png">
+<img width="1440" alt="User dietary preferences and household items" src="public/images/readme-screenshots/preferences.png">
 
 ## Built With
 1. React.js - Frontend framework.

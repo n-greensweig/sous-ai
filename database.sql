@@ -17,7 +17,7 @@ CREATE TABLE "recipe_item" (
 	"prep_time" VARCHAR(256),
 	"cook_time" VARCHAR(256),
 	"number_of_servings" VARCHAR(256),
-	"photo" VARCHAR(1000) DEFAULT 'generic-plate.png',
+	"photo" VARCHAR(1000) DEFAULT 'generic-plate.svg',
 	"ingredients" VARCHAR(100000),
 	"instructions" VARCHAR(100000),
 	"notes" VARCHAR(10000),
@@ -31,7 +31,7 @@ CREATE TABLE "recipe_item" (
 ---- or escape apostrophes in the POST request
 INSERT INTO "recipe_item" ("user_id", "title", "prep_time", "cook_time", "number_of_servings", "photo", "ingredients", "instructions", "notes", "rating", "is_cooked")
 VALUES (
-1, 'Classic Tomato Soup', '10 minutes', '30 minutes', '4', 'soup.png', '1 tablespoon of olive oil
+1, 'Classic Tomato Soup', '10 minutes', '30 minutes', '4', 'soup.svg', '1 tablespoon of olive oil
 1 onion, chopped
 2 cloves of garlic, minced
 2 cans of diced tomatoes (14.5 ounces each)
@@ -78,7 +78,7 @@ CREATE TABLE "images" (
 -- Images sample data
 INSERT INTO "images" (
 "recipe_id", "user_id", "path")
-VALUES (1,1,'images/tomato-soup.png');
+VALUES (1,1,'images/tomato-soup.svg');
     
 CREATE TABLE "recipe_list" (
 	"id" SERIAL PRIMARY KEY,
