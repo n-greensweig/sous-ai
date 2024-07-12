@@ -69,7 +69,7 @@ function Header() {
                 <div className="header-content">
                     <div className='header--flex'>
                         <div className="header__logo" onClick={() => history.push('/')}>
-                            <img src="images/avatars/sous.png" className="header__img" alt="SousAI" />
+                            <img src="images/avatars/sous.svg" className="header__img" alt="SousAI" />
                         </div>
                         <div className="header__searchBar header__searchBar--main"
                             style={{

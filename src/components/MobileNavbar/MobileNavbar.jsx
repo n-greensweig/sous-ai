@@ -103,7 +103,7 @@ function MobileNavbar() {
                 <div onClick={() => history.push('/')} style={{
                     display: 'flex', alignItems: 'center', width: '35%', height: '40px', justifyContent: 'center',
                 }}>
-                    <img src="images/avatars/sous.png" className="header__img--mobile" alt="SousAI" />
+                    <img src="images/avatars/sous.svg" className="header__img--mobile" alt="SousAI" />
                     <p>&nbsp;| SousAI</p>
                 </div>
                 <div style={{ display: 'flex', }}>
