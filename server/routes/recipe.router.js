@@ -25,53 +25,53 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     let recipeJSON = JSON.parse(req.body.message);
     let recipePhoto;
     if (recipeJSON.recipe_name.includes('Smoothie')) {
-        recipePhoto = `images/food/smoothie.png`;
+        recipePhoto = `images/food/smoothie.svg`;
     } else if (recipeJSON.recipe_name.includes('Pizza')) {
-        recipePhoto = `images/food/pizza.png`;
+        recipePhoto = `images/food/pizza.svg`;
     } else if (recipeJSON.recipe_name.includes('Salad')) {
-        recipePhoto = `images/food/salad.png`;
+        recipePhoto = `images/food/salad.svg`;
     } else if (recipeJSON.recipe_name.includes('Soup')) {
-        recipePhoto = `images/food/soup.png`;
+        recipePhoto = `images/food/soup.svg`;
     } else if (recipeJSON.recipe_name.includes('Stew')) {
-        recipePhoto = `images/food/stew.png`;
+        recipePhoto = `images/food/stew.svg`;
     } else if (recipeJSON.recipe_name.includes('Cake')) {
-        recipePhoto = `images/food/cake.png`;
+        recipePhoto = `images/food/cake.svg`;
     } else if (recipeJSON.recipe_name.includes('Pie')) {
-        recipePhoto = `images/food/pie.png`;
+        recipePhoto = `images/food/pie.svg`;
     } else if (recipeJSON.recipe_name.includes('Taco')) {
-        recipePhoto = `images/food/tacos.png`;
+        recipePhoto = `images/food/tacos.svg`;
     } else if (recipeJSON.recipe_name.includes('Pasta') || recipeJSON.recipe_name.includes('Noodles')) {
-        recipePhoto = `images/food/pasta.png`;
+        recipePhoto = `images/food/pasta.svg`;
     } else if (recipeJSON.recipe_name.includes('Barbecue') || recipeJSON.recipe_name.includes('BBQ')) {
-        recipePhoto = `images/food/barbecue.png`;
+        recipePhoto = `images/food/barbecue.svg`;
     } else if (recipeJSON.recipe_name.includes('Chicken')) {
-        recipePhoto = `images/food/chicken.png`;
+        recipePhoto = `images/food/chicken.svg`;
     } else if (recipeJSON.recipe_name.includes('Steak')) {
-        recipePhoto = `images/food/steak.png`;
+        recipePhoto = `images/food/steak.svg`;
     } else if (recipeJSON.recipe_name.includes('Cheeseburger') || recipeJSON.recipe_name.includes('Burger')) {
-        recipePhoto = `images/food/burger.png`;
+        recipePhoto = `images/food/burger.svg`;
     } else if (recipeJSON.recipe_name.includes('Pork')) {
-        recipePhoto = `images/food/pork-chop.png`;
+        recipePhoto = `images/food/pork-chop.svg`;
     } else if (recipeJSON.recipe_name.includes('Bread')) {
-        recipePhoto = `images/food/bread.png`;
+        recipePhoto = `images/food/bread.svg`;
     } else if (recipeJSON.recipe_name.includes('Sandwich')) {
-        recipePhoto = `images/food/sandwich.png`;
+        recipePhoto = `images/food/sandwich.svg`;
     } else if (recipeJSON.recipe_name.includes('Eggs')) {
-        recipePhoto = `images/food/eggs.png`;
+        recipePhoto = `images/food/eggs.svg`;
     } else if (recipeJSON.recipe_name.includes('Oatmeal')) {
-        recipePhoto = `images/food/oatmeal.png`;
+        recipePhoto = `images/food/oatmeal.svg`;
     } else if (recipeJSON.recipe_name.includes('Rice')) {
-        recipePhoto = `images/food/rice.png`;
+        recipePhoto = `images/food/rice.svg`;
     } else if (recipeJSON.recipe_name.includes('Chili')) {
-        recipePhoto = `images/food/chili.png`;
+        recipePhoto = `images/food/chili.svg`;
     } else if (recipeJSON.recipe_name.includes('Salmon')) {
-        recipePhoto = `images/food/salmon.png`;
+        recipePhoto = `images/food/salmon.svg`;
     } else if (recipeJSON.recipe_name.includes('Seafood')) {
-        recipePhoto = `images/food/seafood.png`;
+        recipePhoto = `images/food/seafood.svg`;
     } else if (recipeJSON.recipe_name.includes('Charcuterie')) {
-        recipePhoto = `images/food/charcuterie.png`;
+        recipePhoto = `images/food/charcuterie.svg`;
     } else {
-        recipePhoto = `images/food/generic-plate.png`;
+        recipePhoto = `images/food/generic-plate.svg`;
     }
     let queryText = `
 INSERT INTO "recipe_item" ("user_id", "title", "prep_time", "cook_time",
