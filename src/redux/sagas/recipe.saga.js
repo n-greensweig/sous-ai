@@ -250,17 +250,6 @@ function* fetchListNameById(action) {
     }
 }
 
-
-function* updateGroceries(action) {
-    try {
-        axios.put('/api/recipe/groceries', action.payload);
-    } catch (error) {
-        console.error('Error updating groceries:', error);
-        alert('Something went wrong.');
-        throw error;
-    }
-}
-
 function* getGroceryList() {
     try {
         const response = yield axios.get('/api/recipe/groceries');
@@ -272,6 +261,16 @@ function* getGroceryList() {
     }
 }
 
+function* updateGroceries(action) {
+    try {
+        axios.put('/api/recipe/groceries', action.payload);
+        yield put({ type: 'FETCH_GROCERY_LIST' });
+    } catch (error) {
+        console.error('Error updating groceries:', error);
+        alert('Something went wrong.');
+        throw error;
+    }
+}
 
 function* removeItemFromGroceryList(action) {
     try {

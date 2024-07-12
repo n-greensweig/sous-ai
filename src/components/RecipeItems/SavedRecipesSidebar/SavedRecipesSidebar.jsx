@@ -94,8 +94,6 @@ function SavedRecipesSidebar() {
         handleClearActiveItem();
     };
 
-    const hasPhoto = [];
-
     // Function to handle the drag start event
     const handleDragStart = (event, target) => {
         if (target === 'saved') {
@@ -121,6 +119,27 @@ function SavedRecipesSidebar() {
         }
     };
 
+    const handleDropGroceryList = (event) => {
+        event.preventDefault();
+        const recipeId = event.dataTransfer.getData('recipeId');
+        const ingredients = event.dataTransfer.getData('ingredients');
+        const title = event.dataTransfer.getData('title');
+        const isInGroceryList = event.dataTransfer.getData('isInGroceryList') === 'true';
+
+        if (recipeId && ingredients && title) {
+            dispatch({
+                type: 'UPDATE_GROCERY_LIST', payload: {
+                    id: recipeId,
+                    ingredients,
+                    title,
+                    isInGroceryList: !isInGroceryList
+                }
+            });
+        }
+        dispatch({ type: 'FETCH_GROCERY_LIST' });
+    };
+
+
     const cleanIngredients = (ingredientsString) => {
         if (!ingredientsString) return [];
         const cleanedString = ingredientsString
@@ -128,7 +147,6 @@ function SavedRecipesSidebar() {
             .replace(/\"/g, '') // Remove quotes
 
         const ingredientsArray = cleanedString.split(','); // Split by comma into an array
-        // console.log(ingredientsString);
         if (ingredientsArray.length > 0) {
             // Remove leading curly brace from the first item
             ingredientsArray[0] = ingredientsArray[0].replace(/^{/, '');
@@ -194,6 +212,8 @@ function SavedRecipesSidebar() {
                         onMouseUp={handleClearActiveItem}
                         onMouseLeave={handleClearActiveItem}
                         onDragEnd={handleClearActiveItem}
+                        onDragOver={handleDragOver}
+                        onDrop={(event) => handleDropGroceryList(event)}
                         draggable
                         className='sidebar__margin--right'
                         style={{

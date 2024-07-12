@@ -14,6 +14,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
 
     const dispatch = useDispatch();
     const [inGroceryList, setInGroceryList] = useState(isInGroceryList);
+    console.log(inGroceryList);
     const [groceryIngredients, setGroceryIngredients] = useState(ingredients);
     const [expanded, setExpanded] = useState([]);
     const groceryList = useSelector(store => store.groceryListReducer);

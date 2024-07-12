@@ -520,16 +520,20 @@ DELETE FROM "comments" WHERE "user_id" = $1 AND "recipe_id" = $2 AND "id" = $3;
 
 // PUT request to update grocery list in the DB
 router.put('/groceries', rejectUnauthenticated, (req, res) => {
-    let queryText = `
-   UPDATE "recipe_item" SET "is_in_grocery_list" = $1
-   WHERE "user_id" = $2 AND "id" = $3;
-   `;
-    let secondQueryText = `
-   INSERT INTO "grocery_list" ("user_id", "recipe_id", "recipe_ingredients", "recipe_title")
-   VALUES ($1, $2, $3, $4);
-   `;
-    pool.query(queryText, [req.body.isInGroceryList, req.user.id, req.body.id])
-    pool.query(secondQueryText, [req.user.id, req.body.id, req.body.ingredients, req.body.title])
+    let queryTextOne = `
+    UPDATE "recipe_item" SET "is_in_grocery_list" = $1
+    WHERE "user_id" = $2 AND "id" = $3;
+    `
+    let queryTextTwo= `
+        INSERT INTO "grocery_list" ("user_id", "recipe_id", "recipe_ingredients", "recipe_title")
+        VALUES ($1, $2, $3, $4)
+        ON CONFLICT ("user_id", "recipe_id") DO UPDATE SET
+            "recipe_ingredients" = EXCLUDED.recipe_ingredients,
+            "recipe_title" = EXCLUDED.recipe_title,
+            "last_edited" = CURRENT_TIMESTAMP;
+    `;
+    pool.query(queryTextOne, [req.body.isInGroceryList, req.user.id, req.body.id]);
+    pool.query(queryTextTwo, [req.user.id, req.body.id, req.body.ingredients, req.body.title])
         .then(result => {
             res.sendStatus(200);
         })

@@ -54,6 +54,7 @@ function RecipeCard(props) {
     const [totalTime, setTotalTime] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const recipeLists = useSelector(store => store.recipeListsReducer);
+    const recipe = useSelector(store => store.recipeDetailsReducer);
 
     // Handles click events on recipe items, dispatching an action to set the selected recipe ID and navigating to the recipe's detail view.
     const handleClick = (id) => {
@@ -99,7 +100,6 @@ function RecipeCard(props) {
     // Add recipe to folder
     const addRecipeToFolder = (id) => {
         if (props.recipe.list_id.includes(id)) {
-            // console.log(`It's already in that folder!`)
         } else {
             dispatch({ type: 'ADD_RECIPE_TO_FOLDER', payload: { listId: id, recipeId: props.recipe.id, }, })
         };
@@ -142,9 +142,13 @@ function RecipeCard(props) {
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const handleDragStart = (e, target) => {
+        dispatch({ type: 'FETCH_DETAILS', payload: props.recipe.id });
         e.dataTransfer.setData('recipeId', props.recipe.id);
+        e.dataTransfer.setData('ingredients', props.recipe.ingredients);
+        e.dataTransfer.setData('title', props.recipe.title);
+        e.dataTransfer.setData('isInGroceryList', props.recipe.isInGroceryList);
         e.dataTransfer.setData('text/plain', `https://www.sousai.io/#/recipes/${target}`); // Set the URL to drag
-    };
+    };    
 
     // Confirming props are loaded 
     if (!props.recipe) {
@@ -155,8 +159,8 @@ function RecipeCard(props) {
 
         return (
             <FadeIn>
-                {/* <Paper> */}
-                <Card className="recipe-card-hover" style={{ cursor: 'pointer', }}
+                <Card
+                    className="recipe-card-hover" style={{ cursor: 'pointer', }}
                     sx={{
                         borderRadius: '1px', boxShadow: 'none', border: '1px solid #e6e6e6', width: isXsScreen || isSmScreen ? '160px' : '200px',
                         height: isXsScreen || isSmScreen ? '247px' : null,
@@ -279,7 +283,6 @@ function RecipeCard(props) {
                         </div>
                     </div>
                 </Card>
-                {/* </Paper> */}
             </FadeIn >
         )
     }

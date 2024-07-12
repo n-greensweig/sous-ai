@@ -124,7 +124,6 @@ CREATE TABLE "grocery_list" (
 UNIQUE ("recipe_id", "recipe_ingredients")
 );
 
---Needs to be added to Heroku as of 7/8/2024
 CREATE TABLE "recipe_preferences" (
     "id" SERIAL PRIMARY KEY,
     "user_id" INTEGER UNIQUE,
@@ -132,3 +131,7 @@ CREATE TABLE "recipe_preferences" (
     "household_items" TEXT[] DEFAULT ARRAY[]::TEXT[],
     "last_edited" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+--Needs to be added to Heroku as of 7/12/2024
+ALTER TABLE grocery_list
+ADD CONSTRAINT unique_user_recipe UNIQUE (user_id, recipe_id);

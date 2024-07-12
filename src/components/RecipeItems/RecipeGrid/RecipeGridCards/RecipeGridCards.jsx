@@ -1,4 +1,3 @@
-import { Grid } from "@mui/material";
 import RecipeCard from '../RecipeCard/RecipeCard';
 import './RecipeGridCards.css'; // Import CSS file for styling
 
@@ -7,7 +6,7 @@ function RecipeGridCards({ recipes, listName }) {
         <div className="recipe-grid-container">
             {recipes.map((recipe, index) => (
                 <div className="recipe-card" key={index}>
-                    <RecipeCard key={recipe.id} recipe={recipe} listName={listName} />
+                    <RecipeCard key={recipe.id} recipe={recipe} index={index} listName={listName} />
                 </div>
             ))}
         </div>
