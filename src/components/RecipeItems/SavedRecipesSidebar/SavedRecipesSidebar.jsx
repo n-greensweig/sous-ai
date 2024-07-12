@@ -34,6 +34,7 @@ function SavedRecipesSidebar() {
     // State to toggle the editing mode for the recipe details
     const [isViewing, setIsViewing] = useState(false);
     const [expanded, setExpanded] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     // Function to toggle the editing mode for the recipe details
     const toggleViewing = e => {
@@ -119,15 +120,17 @@ function SavedRecipesSidebar() {
         }
     };
 
-    const handleDropGroceryList = (event) => {
+    const handleDropGroceryList = async (event) => {
         event.preventDefault();
+        setIsLoading(true); // Show loading overlay
+
         const recipeId = event.dataTransfer.getData('recipeId');
         const ingredients = event.dataTransfer.getData('ingredients');
         const title = event.dataTransfer.getData('title');
         const isInGroceryList = event.dataTransfer.getData('isInGroceryList') === 'true';
 
         if (recipeId && ingredients && title) {
-            dispatch({
+            await dispatch({
                 type: 'UPDATE_GROCERY_LIST', payload: {
                     id: recipeId,
                     ingredients,
@@ -136,8 +139,11 @@ function SavedRecipesSidebar() {
                 }
             });
         }
-        dispatch({ type: 'FETCH_GROCERY_LIST' });
+        await dispatch({ type: 'FETCH_GROCERY_LIST' });
+
+        setIsLoading(false); // Hide loading overlay
     };
+
 
 
     const cleanIngredients = (ingredientsString) => {
@@ -167,6 +173,7 @@ function SavedRecipesSidebar() {
     return (
         isXsScreen || isSmScreen ? null :
             <div className='sidebar__container'>
+                {isLoading && <div className="loading-overlay">Loading...</div>}
                 <div className="sidebar-content">
                     <p className='sidebar__p--first sidebar__margin--right' onClick={() => navigateTo('/recipe-box')}
                         onMouseDown={() => handleSetActiveItem('saved')}
