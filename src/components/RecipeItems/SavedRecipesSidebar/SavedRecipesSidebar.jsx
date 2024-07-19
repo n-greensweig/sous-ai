@@ -166,7 +166,6 @@ function SavedRecipesSidebar() {
     const removeIngredientFromGroceryList = (e, recipe_id, ingredient, idx) => {
         e.preventDefault();
         const newGroceryItem = cleanIngredients(groceryList[idx].recipe_ingredients.replace(ingredient, ''));
-        console.log(newGroceryItem);
         dispatch({ type: 'REMOVE_INGREDIENT_FROM_GROCERY_LIST', payload: { recipe_id, newGroceryItem } });
     };
 

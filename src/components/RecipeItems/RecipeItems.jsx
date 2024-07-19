@@ -29,6 +29,7 @@ function RecipeItems(props) {
     const groceryList = useSelector(store => store.groceryListReducer);
     const [expanded, setExpanded] = useState([]);
     const [isViewing, setIsViewing] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const toggleViewing = e => {
         if (isViewing) {
@@ -129,18 +130,6 @@ function RecipeItems(props) {
     const fetchedListName = useSelector(store => store.recipeListNameReducer); // Assuming you have this in your store
     const numOfRecipes = recipes.length;
 
-    // useEffect(() => {
-    //     if (id) {
-    //         dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery } });
-    //     } else if (listToDisplay === 'Saved Recipes') {
-    //         dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
-    //     } else if (listToDisplay === 'Cooked Recipes') {
-    //         dispatch({ type: 'FETCH_COOKED_RECIPES', payload: searchQuery });
-    //     } else if (listToDisplay === 'Recently Viewed Recipes') {
-    //         dispatch({ type: 'FETCH_RECENT_RECIPES', payload: searchQuery });
-    //     }
-    // }, [searchQuery, listToDisplay, dispatch, id]);
-
     useEffect(() => {
         if (id && fetchedListName) {
             setListName(fetchedListName);
@@ -158,7 +147,6 @@ function RecipeItems(props) {
             .replace(/\"/g, '') // Remove quotes
 
         const ingredientsArray = cleanedString.split(','); // Split by comma into an array
-        // console.log(ingredientsString);
         if (ingredientsArray.length > 0) {
             // Remove leading curly brace from the first item
             ingredientsArray[0] = ingredientsArray[0].replace(/^{/, '');
@@ -181,6 +169,30 @@ function RecipeItems(props) {
     };
     const handleExpandClick = (panel) => (event, isExpanded) => {
         setExpanded(prevExpanded => isExpanded ? [...prevExpanded, panel] : prevExpanded.filter(item => item !== panel));
+    };
+
+    const handleDropGroceryList = async (event) => {
+        event.preventDefault();
+        setIsLoading(true); // Show loading overlay
+
+        const recipeId = event.dataTransfer.getData('recipeId');
+        const ingredients = event.dataTransfer.getData('ingredients');
+        const title = event.dataTransfer.getData('title');
+        const isInGroceryList = event.dataTransfer.getData('isInGroceryList') === 'true';
+
+        if (recipeId && ingredients && title) {
+            await dispatch({
+                type: 'UPDATE_GROCERY_LIST', payload: {
+                    id: recipeId,
+                    ingredients,
+                    title,
+                    isInGroceryList: !isInGroceryList
+                }
+            });
+        }
+        await dispatch({ type: 'FETCH_GROCERY_LIST' });
+
+        setIsLoading(false); // Hide loading overlay
     };
 
     return (
@@ -239,6 +251,8 @@ function RecipeItems(props) {
                                         onMouseUp={handleClearActiveItem}
                                         onMouseLeave={handleClearActiveItem}
                                         onDragEnd={handleClearActiveItem}
+                                        onDragOver={handleDragOver}
+                                        onDrop={(event) => handleDropGroceryList(event)}
                                         draggable
                                         className='sidebar__margin--right'
                                         style={{
