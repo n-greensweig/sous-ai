@@ -6,10 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 function Pantry() {
     const dispatch = useDispatch();
-    const userPreferences = useSelector(store => store.userPreferencesReducer);
-    const userHouseholdItems = useSelector(store => store.userHouseholdItemsReducer);
-    const [preferencesToDisplay, setPreferencesToDisplay] = useState([]);
-    const [householdItemsToDisplay, setHouseholdItemsToDisplay] = useState([]);
+    const userIngredients = useSelector(store => store.userIngredientsReducer);
+    const [ingredientsToDisplay, setIngredientsToDisplay] = useState([]);
     const [expandedSection, setExpandedSection] = useState(null);
 
     const pantryEssentials = [
@@ -2110,70 +2108,6 @@ function Pantry() {
         "SAMe"
     ];
 
-
-    const householdItems = [
-        "Air fryer",
-        "Blender",
-        "Bread maker",
-        "Bread slicer",
-        "Butter churn",
-        "Candy thermometer",
-        "Cast iron skillet",
-        "Cheese grater",
-        "Coffee grinder",
-        "Coffee maker",
-        "Crepe maker",
-        "Deep fryer",
-        "Electric can opener",
-        "Electric kettle",
-        "Fondue pot",
-        "Food processor",
-        "Food steamer",
-        "Grill",
-        "Handheld mixer",
-        "Hot pot",
-        "Ice cream maker",
-        "Immersion blender",
-        "Induction cooktop",
-        "Juicer",
-        "Mandoline",
-        "Meat grinder",
-        "Meat slicer",
-        "Milk frother",
-        "Microwave",
-        "Non-stick pan",
-        "Oven",
-        "Panini press",
-        "Pasta maker",
-        "Peeler",
-        "Pizza oven",
-        "Pizza stone",
-        "Popcorn maker",
-        "Potato masher",
-        "Pressure cooker",
-        "Rice cooker",
-        "Salad spinner",
-        "Sandwich maker",
-        "Sauce pan",
-        "Sausage stuffer",
-        "Slow cooker",
-        "Smoker",
-        "Snow cone machine",
-        "Sous vide",
-        "Spice grinder",
-        "Spiralizer",
-        "Stand mixer",
-        "Stockpot",
-        "Stovetop",
-        "Toaster",
-        "Toaster oven",
-        "Vacuum sealer",
-        "Waffle maker",
-        "Yogurt maker",
-        "Zester"
-    ];
-
-
     const sections = {
         pantryEssentials: pantryEssentials,
         vegetablesAndGreens: vegetablesAndGreens,
@@ -2207,31 +2141,9 @@ function Pantry() {
         setExpandedSection(expandedSection === section ? null : section);
     };
 
-    const addUserPreference = (preference) => {
-        if (!userPreferences.includes(preference)) {
-            dispatch({ type: 'ADD_USER_PREFERENCE', payload: { preference, currentPreferences: userPreferences } });
-        }
-    };
-
-    const removeUserPreference = (preference) => {
-        dispatch({ type: 'REMOVE_USER_PREFERENCE', payload: { preference, currentPreferences: userPreferences } });
-    };
-
-    const addUserHouseholdItem = (item) => {
-        if (!userHouseholdItems.includes(item)) {
-            dispatch({ type: 'ADD_USER_HOUSEHOLD_ITEM', payload: { item, currentHouseholdItems: userHouseholdItems } });
-        }
-    };
-
-    const removeUserHouseholdItem = (item) => {
-        dispatch({ type: 'REMOVE_USER_HOUSEHOLD_ITEM', payload: { item, currentHouseholdItems: userHouseholdItems } });
-    };
-
     useEffect(() => {
-        dispatch({ type: 'FETCH_USER_PREFERENCES' });
-        dispatch({ type: 'FETCH_USER_HOUSEHOLD_ITEMS' });
-        setPreferencesToDisplay(pantryEssentials);
-        setHouseholdItemsToDisplay(householdItems);
+        dispatch({ type: 'FETCH_USER_INGREDIENTS' }); // Fetch user ingredients
+        setIngredientsToDisplay(pantryEssentials); // Set ingredients to display to pantry essentials
     }, [dispatch]);
 
     const theme = useTheme();
@@ -2268,6 +2180,16 @@ function Pantry() {
     const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const addUserIngredient = (ingredient) => {
+        if (!userIngredients.includes(ingredient)) {
+            dispatch({ type: 'ADD_USER_INGREDIENT', payload: { item: ingredient, currentIngredients: userIngredients } });
+        }
+    };
+    
+    const removeUserIngredient = (ingredient) => {
+        dispatch({ type: 'REMOVE_USER_INGREDIENT', payload: { item: ingredient, currentIngredients: userIngredients } });
+    };
+
     return (
         <div>
             <Header />
@@ -2285,14 +2207,14 @@ function Pantry() {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: theme.spacing(1) }}>
-                                    {sections[section].slice(15).map((item, index) => {
-                                        const isSelected = userPreferences.includes(item);
+                                    {sections[section].map((item, index) => {
+                                        const isSelected = userIngredients.includes(item); // Check if item is in userHouseholdItems
                                         return (
                                             <Button
                                                 key={index}
                                                 variant="contained"
                                                 style={isSelected ? selectedButtonStyle : buttonStyle}
-                                                onClick={() => isSelected ? removeUserPreference(item) : addUserPreference(item)}
+                                                onClick={() => isSelected ? removeUserIngredient(item) : addUserIngredient(item)} // Use the updated functions
                                                 onMouseEnter={(e) => {
                                                     e.currentTarget.style.transform = 'scale(1.08)';
                                                     e.currentTarget.style.boxShadow = theme.shadows[4];
@@ -2309,35 +2231,11 @@ function Pantry() {
                                 </div>
                             </AccordionDetails>
                         </Accordion>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: theme.spacing(1), marginTop: theme.spacing(1) }}>
-                            {sections[section].slice(0, 15).map((item, index) => {
-                                const isSelected = userPreferences.includes(item);
-                                return (
-                                    <Button
-                                        key={index}
-                                        variant="contained"
-                                        style={isSelected ? selectedButtonStyle : buttonStyle}
-                                        onClick={() => isSelected ? removeUserPreference(item) : addUserPreference(item)}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.transform = 'scale(1.08)';
-                                            e.currentTarget.style.boxShadow = theme.shadows[4];
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.transform = isSelected ? 'scale(1.05)' : 'scale(1)';
-                                            e.currentTarget.style.boxShadow = theme.shadows[2];
-                                        }}
-                                    >
-                                        {item}
-                                    </Button>
-                                );
-                            })}
-                        </div>
                     </div>
                 ))}
             </div>
         </div>
-    );
-
+    );    
 }
 
 export default Pantry;

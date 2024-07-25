@@ -20,6 +20,33 @@ VALUES ($1, $2);
 });
 
 
+// Fetch user ingredients
+router.get('/user/ingredients', (req, res) => {
+    const queryText = `SELECT user_ingredients FROM recipe_preferences WHERE user_id = $1`;
+    pool.query(queryText, [req.user.id])
+        .then(result => res.send(result.rows[0].user_ingredients))
+        .catch(error => {
+            console.error('Error fetching user ingredients:', error);
+            res.sendStatus(500);
+        });
+});
+
+// Update user ingredients
+router.put('/user/ingredients', (req, res) => {
+    const { items } = req.body;
+    const queryText = `
+        UPDATE recipe_preferences
+        SET user_ingredients = $1
+        WHERE user_id = $2
+    `;
+    pool.query(queryText, [items, req.user.id])
+        .then(() => res.sendStatus(200))
+        .catch(error => {
+            console.error('Error updating user ingredients:', error);
+            res.sendStatus(500);
+        });
+});
+
 // POST saved recipe to the DB
 router.post('/', rejectUnauthenticated, (req, res) => {
     let recipeJSON = JSON.parse(req.body.message);

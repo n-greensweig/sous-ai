@@ -362,6 +362,40 @@ function* removeUserHouseholdItem(action) {
     }
 }
 
+function* fetchUserIngredients() {
+    try {
+        const response = yield axios.get('/api/recipe/user/ingredients');
+        yield put({ type: 'GET_USER_INGREDIENTS', payload: response.data });
+    } catch (error) {
+        console.error('Error fetching user ingredients:', error);
+        alert('Something went wrong.');
+    }
+}
+
+function* addUserIngredient(action) {
+    try {
+        const { item, currentIngredients } = action.payload;
+        const newIngredients = [...currentIngredients, item];
+        yield axios.put('/api/recipe/user/ingredients', { items: newIngredients });
+        yield put({ type: 'FETCH_USER_INGREDIENTS' });
+    } catch (error) {
+        console.error('Error adding user ingredient:', error);
+        alert('Something went wrong.');
+    }
+}
+
+function* removeUserIngredient(action) {
+    try {
+        const { item, currentIngredients } = action.payload;
+        const newIngredients = currentIngredients.filter(ingredient => ingredient !== item);
+        yield axios.put('/api/recipe/user/ingredients', { items: newIngredients });
+        yield put({ type: 'FETCH_USER_INGREDIENTS' });
+    } catch (error) {
+        console.error('Error removing user ingredient:', error);
+        alert('Something went wrong.');
+    }
+}
+
 
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
@@ -394,6 +428,9 @@ function* recipeSaga() {
     yield takeLatest('FETCH_USER_HOUSEHOLD_ITEMS', fetchUserHouseholdItems);
     yield takeLatest('ADD_USER_HOUSEHOLD_ITEM', addUserHouseholdItem);
     yield takeLatest('REMOVE_USER_HOUSEHOLD_ITEM', removeUserHouseholdItem);
+    yield takeLatest('FETCH_USER_INGREDIENTS', fetchUserIngredients);
+    yield takeLatest('ADD_USER_INGREDIENT', addUserIngredient);
+    yield takeLatest('REMOVE_USER_INGREDIENT', removeUserIngredient);
 }
 
 
