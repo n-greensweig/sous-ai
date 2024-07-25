@@ -314,7 +314,66 @@ function Pantry() {
         "Dried grape",
         "Dried coconut",
         "Raisin",
-      ];      
+    ];
+
+    const nutsAndSeeds = [
+        "Almond",
+        "Peanut",
+        "Walnut",
+        "Cashew",
+        "Pistachio",
+        "Hazelnut",
+        "Pecan",
+        "Macadamia",
+        "Brazil Nut",
+        "Chestnut",
+        "Pine Nut",
+        "Sunflower Seed",
+        "Pumpkin Seed",
+        "Sesame Seed",
+        "Chia Seed",
+        "Flaxseed",
+        "Hemp Seed",
+        "Poppy Seed",
+        "Safflower Seed",
+        "Mustard Seed",
+        "Coriander Seed",
+        "Caraway Seed",
+        "Fennel Seed",
+        "Cumin Seed",
+        "Nigella Seed",
+        "Fenugreek Seed",
+        "Celery Seed",
+        "Cardamom Seed",
+        "Basil Seed",
+        "Watermelon Seed",
+        "Cantaloupe Seed",
+        "Grape Seed",
+        "Cucumber Seed",
+        "Quinoa",
+        "Amaranth",
+        "Teff",
+        "Millet",
+        "Buckwheat",
+        "Barley",
+        "Sorghum",
+        "Oat",
+        "Wheat Berry",
+        "Spelt",
+        "Kamut",
+        "Einkorn",
+        "Farro",
+        "Rye Berry",
+        "Freekeh",
+        "Bulgar",
+        "Chufa",
+        "Lotus Seed",
+        "Gingko Nut",
+        "Sacha Inchi",
+        "Acorn",
+        "Breadnut",
+        "Jackfruit Seed",
+    ];
 
     const householdItems = [
         "Air fryer",
@@ -376,7 +435,7 @@ function Pantry() {
         "Waffle maker",
         "Yogurt maker",
         "Zester"
-    ];    
+    ];
 
 
     const addUserPreference = (preference) => {
@@ -443,8 +502,10 @@ function Pantry() {
     return (
         <div>
             <Header />
-            <div style={{ padding: theme.spacing(2), maxWidth: '1200px', margin: '0 auto',
-                 paddingTop: isXsScreen || isSmScreen ? '50px' : '0px', }}>
+            <div style={{
+                padding: theme.spacing(2), maxWidth: '1200px', margin: '0 auto',
+                paddingTop: isXsScreen || isSmScreen ? '50px' : '0px',
+            }}>
                 <p style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>Pantry essentials:</p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: theme.spacing(1) }}>
                     {pantryEssentials.map((pantryEssentials, index) => {
