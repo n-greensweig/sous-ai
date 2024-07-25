@@ -16,6 +16,7 @@ import './App.css';
 import RecipeItems from '../RecipeItems/RecipeItems';
 import RecipeDetails from '../RecipeDetails/RecipeDetails';
 import Preferences from '../Preferences/Preferences';
+import Pantry from '../Pantry/Pantry';
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +62,14 @@ function App() {
             path="/preferences"
           >
             <Preferences />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Pantry else shows LoginPage
+            exact
+            path="/pantry"
+          >
+            <Pantry />
           </ProtectedRoute>
 
           <Route

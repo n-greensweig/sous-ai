@@ -151,6 +151,9 @@ function Header() {
                                 <MenuItem className='navLink' onClick={() => history.push('/preferences')}>
                                         Preferences
                                 </MenuItem>
+                                <MenuItem className='navLink' onClick={() => history.push('/pantry')}>
+                                        Pantry
+                                </MenuItem>
                                 {/* <MenuItem onClick={handleClose}>
                                     <Link className='navLink' to="/recipe-box">
                                         Submit a suggestion
@@ -175,6 +178,7 @@ function Header() {
                         <button className='header__button hover' onClick={() => history.push('/')}>SousAI</button>
                         <button className='header__button hover' onClick={() => history.push('/recipe-box')}>Recipes</button>
                         <button className='header__button hover' onClick={() => history.push('/preferences')}>Preferences</button>
+                        <button className='header__button hover' onClick={() => history.push('/pantry')}>Pantry</button>
                         {/* <button className='header__button hover'>Occasions</button>
                         <button className='header__button hover'>About</button> */}
                     </div>

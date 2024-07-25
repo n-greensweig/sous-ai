@@ -150,6 +150,7 @@ function MobileNavbar() {
                         <KeyboardArrowRightIcon onClick={toggleDropdown} style={{ fontSize: '1.5rem', textAlign: 'end', fill: '#000', textDecoration: 'none' }} />} */}
                 </div>
                 <Link to="/preferences" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>Preferences</Link>
+                <Link to="/pantry" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>Pantry</Link>
                 {/* {showDropdown && (
                     <ul>
                         <Link style={{ textDecoration: "none" }} to="/recipe-box/cooked" onClick={closeMenu}>
