@@ -93,6 +93,7 @@ body {
 /* Styling for text area inputs with subtle background, no border, and shadow for depth */
 #dynamic-textarea {
   width: 100%;
+  margin-right: 10px;
   padding: 100px;
   font-size: 16px;
   min-height: 25px;

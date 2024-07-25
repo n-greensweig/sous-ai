@@ -103,8 +103,8 @@ function MobileNavbar() {
                 <div onClick={() => history.push('/')} style={{
                     display: 'flex', alignItems: 'center', width: '35%', height: '40px', justifyContent: 'center',
                 }}>
-                    <img src="images/avatars/sous.svg" className="header__img--mobile" alt="SousAI" />
-                    <p>&nbsp;| SousAI</p>
+                    <img src="images/avatars/sous.svg" className="header__img--mobile" alt="Sous" />
+                    <p>&nbsp;| Sous</p>
                 </div>
                 <div style={{ display: 'flex', }}>
                     <BookmarkIcon className='icon__fill-black icon__padding' onClick={() => {
@@ -141,7 +141,7 @@ function MobileNavbar() {
                 left
                 className='hide'
             >
-                <Link to="/" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>SousAI</Link>
+                <Link to="/" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>Sous</Link>
                 <div style={{ width: '100%', textAlign: 'left', alignItems: 'center', }}>
                     <Link to="/recipe-box" onClick={closeMenu} style={{ color: '#000', textDecoration: 'none', }}>
                         Saved Recipes

@@ -118,7 +118,7 @@ function SousAI() {
     }
   };
 
-  document.title = 'SousAI'; // Set the title of the page
+  document.title = 'Sous'; // Set the title of the page
 
   // Helper function to capitalize first letter of a string
   const capitalizeFirstLetter = str => str.replace(str.charAt(0), str.charAt(0).toUpperCase());
@@ -254,7 +254,7 @@ function SousAI() {
                         width={'30'}
                         style={{ borderRadius: '75%', marginRight: '15px' }}
                       />
-                      <strong>SousAI</strong>
+                      <strong>Sous</strong>
                     </div>
                     :
                     // Renders user's avatar and name
@@ -402,7 +402,7 @@ function SousAI() {
             </div>
             {/* Informational text about how the app operates */}
             <p className="info">
-              As of {month} {year}, SousAI operates on a message-by-message basis.<br />
+              As of {month} {year}, Sous operates on a message-by-message basis.<br />
               Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
             </p>
           </div>

@@ -69,7 +69,7 @@ function Header() {
                 <div className="header-content">
                     <div className='header--flex'>
                         <div className="header__logo" onClick={() => history.push('/')}>
-                            <img src="images/avatars/sous.svg" className="header__img" alt="SousAI" />
+                            <img src="images/avatars/sous.svg" className="header__img" alt="Sous" />
                         </div>
                         <div className="header__searchBar header__searchBar--main"
                             style={{
@@ -175,7 +175,7 @@ function Header() {
 
                     </div>
                     <div>
-                        <button className='header__button hover' onClick={() => history.push('/')}>SousAI</button>
+                        <button className='header__button hover' onClick={() => history.push('/')}>Sous</button>
                         <button className='header__button hover' onClick={() => history.push('/recipe-box')}>Recipes</button>
                         <button className='header__button hover' onClick={() => history.push('/preferences')}>Preferences</button>
                         <button className='header__button hover' onClick={() => history.push('/pantry')}>Pantry</button>
