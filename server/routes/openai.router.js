@@ -10,7 +10,7 @@ const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 
 // Define POST route for generating recipes with gpt-4o model
 router.post('/', rejectUnauthenticated, async (req, res) => {
-    const { message, preferences, householdItems, } = req.body;
+    const { message, preferences, householdItems, ingredients } = req.body;
     // Set up options for the API request to OpenAI, including authorization header
     const options = {
         method: 'POST',
@@ -46,6 +46,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
               Take these preferences into account when generating recipes: ${preferences.join(', ')}. Also make sure that the recipe 
                 includes only the following household items: ${householdItems.join(', ')}. The recipe doesn't need to include all of the items,
                 but it should include at least one of them.
+
+                Also assume that the user only has this ingredients: ${ingredients.join(', ')}. The recipe should include only these ingredients.
               
               It is important that you only include the JSON data in your response when providing recipe info, no text 
               outside of the JSON object. Make sure to space your text in the JSON notes value in proper English with spaces after periods.

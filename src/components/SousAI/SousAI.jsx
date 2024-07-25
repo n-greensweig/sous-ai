@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import { Button, useTheme, useMediaQuery } from '@mui/material';
 // MUI icons for button decorations
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'; // Unused import, consider removing
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -40,6 +39,7 @@ function SousAI() {
   const [recipeSaved, setRecipeSaved] = useState({}); // Indicates whether a recipe has been saved
   const userPreferences = useSelector(store => store.userPreferencesReducer);
   const userHouseholdItems = useSelector(store => store.userHouseholdItemsReducer);
+  const userIngredients = useSelector(store => store.userIngredientsReducer);
   const textareaRef = useRef(null);
 
   const adjustTextareaHeight = () => {
@@ -95,6 +95,7 @@ function SousAI() {
         message: value,
         preferences: userPreferences,
         householdItems: userHouseholdItems,
+        ingredients: userIngredients
       }),
       headers: {
         'Content-type': 'application/json'
