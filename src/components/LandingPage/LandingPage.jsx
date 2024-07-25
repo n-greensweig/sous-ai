@@ -8,6 +8,7 @@ import './LandingPage.css';
 // Import custom components for registration form and typewriter effect text
 import RegisterForm from '../RegisterForm/RegisterForm';
 import TypewriterText from '../TypewriterText/TypewriterText';
+import LoginPage from '../LoginPage/LoginPage';
 
 function LandingPage() {
   // State hook for dynamic page heading
@@ -55,16 +56,7 @@ function LandingPage() {
           <TypewriterText text={firstParagraphText} />
         </div>
         <div className="grid-col grid-col_4">
-          {/* Registration form for new users */}
-          <RegisterForm />
-
-          <center>
-            <h4 style={{ color: '#333' }}>Already a Member?</h4>
-            {/* Button for existing users to navigate to the login page */}
-            <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
-            </button>
-          </center>
+          <LoginPage />
         </div>
       </div>
     </div >
