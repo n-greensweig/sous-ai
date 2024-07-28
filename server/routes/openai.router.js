@@ -20,7 +20,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         },
         // JSON body for the API request specifying the gpt-4o model and the conversation context
         body: JSON.stringify({
-            model: 'gpt-4o', // Specify using gpt-4-o model; update as needed for newer models
+            model: 'gpt-4o-mini', // Specify using gpt-4-o model; update as needed for newer models
             response_format: { type: "json_object" },
             messages: [
                 // System message defining the assistant's behavior and constraints
