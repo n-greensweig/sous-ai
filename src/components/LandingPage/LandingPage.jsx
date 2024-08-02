@@ -33,7 +33,7 @@ function LandingPage() {
   return (
     <div className="container" style={{
       // Responsive styling for the container
-      backgroundColor: '#FFF',
+      backgroundColor: '#ecece6',
       display: isXsScreen || isSmScreen ? 'flex' : null,
       flexDirection: isXsScreen || isSmScreen ? 'column' : null,
       alignItems: isXsScreen || isSmScreen ? 'center' : null,
