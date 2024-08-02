@@ -1,0 +1,25 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #ecece6;
+  }
+  
+  .formFooter {
+    margin-top: 1rem;
+  }
+  
+  .linkButton {
+    background: none;
+    border: none;
+    color: #288c6e;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .linkButton:hover {
+    color: #23755a;
+  }  
