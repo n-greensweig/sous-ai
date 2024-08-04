@@ -27,7 +27,7 @@ function LandingPage() {
   const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   // Determine the text for the first paragraph based on screen size
-  const firstParagraphText = isXsScreen || isSmScreen ? `Welcome to SousAI! Let's get cooking.` :
+  const firstParagraphText = isXsScreen || isSmScreen ? `Welcome to SousAI! Let's cook.` :
     `Welcome to SousAI, your partner in the kitchen. We're here to help you find the perfect recipe for any occasion.`;
 
   return (
@@ -38,11 +38,14 @@ function LandingPage() {
       flexDirection: isXsScreen || isSmScreen ? 'column' : null,
       alignItems: isXsScreen || isSmScreen ? 'center' : null,
       paddingBottom: isXsScreen || isSmScreen ? '20%' : null,
+      padding: isXsScreen || isSmScreen ? null: '3% 0% 20% 0%',
     }}>
       <h2 style={{
         // Responsive styling for the heading
         color: '#333', paddingLeft: isXsScreen || isSmScreen ? null : '10px',
         fontSize: isXsScreen || isSmScreen ? null : '54px',
+        padding: isXsScreen || isSmScreen ? '20px 0px' : null,
+        margin: isXsScreen || isSmScreen ? null : '0px 20px',
       }}>{heading}</h2>
 
       <div className="grid" style={{
@@ -50,7 +53,7 @@ function LandingPage() {
         display: isXsScreen || isSmScreen ? 'flex' : null,
         flexDirection: isXsScreen || isSmScreen ? 'column' : null,
         alignItems: isXsScreen || isSmScreen ? 'center' : null,
-
+        margin: isXsScreen || isSmScreen ? null : '0px 20px',
       }}>
         <div className="grid-col grid-col_8">
           {/* Dynamic TypewriterText component displaying responsive text */}
