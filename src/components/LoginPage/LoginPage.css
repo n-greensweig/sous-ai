@@ -1,9 +1,10 @@
 .pageContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     min-height: 100vh;
+    padding-top: 0px !important;
     background-color: #ecece6;
   }
   

@@ -50,6 +50,7 @@ function LandingPage() {
         display: isXsScreen || isSmScreen ? 'flex' : null,
         flexDirection: isXsScreen || isSmScreen ? 'column' : null,
         alignItems: isXsScreen || isSmScreen ? 'center' : null,
+
       }}>
         <div className="grid-col grid-col_8">
           {/* Dynamic TypewriterText component displaying responsive text */}

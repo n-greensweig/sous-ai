@@ -111,6 +111,7 @@ Form Treatment
   width: 400px;
   max-width: 100%;
   padding: 25px;
+  margin-top: 7% !important;
   margin: 0 auto;
   border-radius: 3px;
 }

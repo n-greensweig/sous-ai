@@ -19,7 +19,7 @@ function TypewriterText({ text }) {
     return () => clearInterval(typingInterval); // Cleanup to clear the interval on component unmount.
   }, [text, currentIndex]); // Effect dependencies to restart the animation if the text changes.
 
-  return <p style={{color: '#333'}}>{displayText}</p>;
+  return <p style={{color: '#333', }}>{displayText}</p>;
 }
 
 export default TypewriterText;
