@@ -90,6 +90,7 @@ function MobileNavbar() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '5px' }}>
                 <div>
                     <Button
+                        aria-label={menuOpen ? 'Opened menu' : 'Closed menu'}
                         style={{ ...styles.bmBurgerButton, position: 'relative', zIndex: 999 }}
                         onClick={toggleMenu}
                         startIcon={menuOpen ?

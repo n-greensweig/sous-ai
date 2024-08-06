@@ -263,7 +263,7 @@ function RecipeItems(props) {
                                     </p>
                                     <span className='sidebar__span--your-folders sidebar__margin--right' style={{ marginLeft: '5px', }}>Your folders</span>
                                     <div onClick={toggleCreating} className='div__icon__span--new-folder' style={{ marginLeft: '10px', }}>
-                                        <Button className='icon--gray-border'
+                                        <Button className='icon--gray-border' aria-label='new-folder'
                                         ><AddIcon className='sidebar__icon sidebar__icon--add' /></Button>
                                         <span className='span__new-folder'>New Folder</span>
                                     </div>
@@ -292,11 +292,11 @@ function RecipeItems(props) {
                                                 >
                                                     {photo ? (
                                                         <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo"
-                                                            style={{ height: '40px', width: '40px', borderRadius: '4px', }}
+                                                            style={{ height: '40px', width: '30px', borderRadius: '4px', }}
                                                         />
                                                     ) : (
                                                         <img src={'images/empty-folder/empty-folder.svg'} alt={list.list_name} className="folder__photo"
-                                                            style={{ height: '40px', width: '40px', borderRadius: '4px', }}
+                                                            style={{ height: '40px', width: '30px', borderRadius: '4px', }}
                                                         />
                                                     )}
                                                     <p onClick={() => {

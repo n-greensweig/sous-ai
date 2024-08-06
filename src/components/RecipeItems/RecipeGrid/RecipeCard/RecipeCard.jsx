@@ -251,7 +251,7 @@ function RecipeCard(props) {
                                                     horizontal: 'right',
                                                 }}>
                                                 {recipeLists.map((folder, i) => (
-                                                    <div className="dropdownButton" ><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button></div>
+                                                    <div className="dropdownButton"  key={props.recipe.id}><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button></div>
                                                 ))}
 
                                             </Popover>
