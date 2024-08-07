@@ -54,6 +54,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
             display: 'flex', flexDirection: isXsScreen || isSmScreen ? 'column' : 'row',
             justifyContent: isXsScreen || isSmScreen ? 'space-evenly' : 'space-between',
             alignItems: isXsScreen || isSmScreen ? 'flex-start' : 'center',
+            marginBottom: isXsScreen || isSmScreen ? null : '3%',
             marginTop: isXsScreen || isSmScreen
                 ? '50px' : 0
         }}>
