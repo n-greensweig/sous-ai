@@ -10,7 +10,8 @@ const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 
 // Define POST route for generating recipes with gpt-4o model
 router.post('/', rejectUnauthenticated, async (req, res) => {
-    const { message, preferences, householdItems, ingredients } = req.body;
+    const { message, preferences, householdItems, ingredients, previousChats, } = req.body;
+    console.log(JSON.stringify(previousChats));
     // Set up options for the API request to OpenAI, including authorization header
     const options = {
         method: 'POST',
@@ -42,7 +43,10 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
               "2 garlic cloves, minced". Similarly, you can say, "Add carrots@ celery@ and water into the pot," but you can never say, "Add carrots,
               celery, and water into the pot." The same is true for any part of your response. Thus, anywhere in your 'recipe_name', 'prep_time', 'cook_time', 
               'number_of_servings', or 'notes' responses where you would usually use a comma, you use the @ symbol instead.
-
+              
+              The user may ask follow-up questions to previous prompts they've given you. 
+              Please keep track of the context of the conversation according to this format: ${JSON.stringify(previousChats)}.
+              
               Take these preferences into account when generating recipes: ${preferences.join(', ')}. Ensure that the recipe incorporates at least one of the following household items: ${householdItems.join(', ')}. While the recipe should consider these household items, it is not required to use all of them. It can also include other ingredients not listed among the household items.
 
               Additionally, assume that the user has these ingredients available: ${ingredients.join(', ')}. The recipe should use these ingredients but is not limited to them. It can include other ingredients as well.

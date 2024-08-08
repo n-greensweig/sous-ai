@@ -95,7 +95,8 @@ function SousAI() {
         message: value,
         preferences: userPreferences,
         householdItems: userHouseholdItems,
-        ingredients: userIngredients
+        ingredients: userIngredients,
+        previousChats: previousChats,
       }),
       headers: {
         'Content-type': 'application/json'
@@ -104,6 +105,7 @@ function SousAI() {
     try {
       const response = await fetch('/completions', options); // Fetch API call
       const data = await response.json(); // Parsing response data
+      console.log(previousChats);
       setMessage(data.choices[0].message); // Setting message from response
       // setPreviousChats(prev => [...prev, {
       //   role: 'assistant',
@@ -401,10 +403,10 @@ function SousAI() {
               </form>
             </div>
             {/* Informational text about how the app operates */}
-            <p className="info">
+            {/* <p className="info">
               As of {month} {year}, Sous operates on a message-by-message basis.<br />
               Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
-            </p>
+            </p> */}
           </div>
         </div>
       </section >
