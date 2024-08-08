@@ -58,6 +58,9 @@ function SousAI() {
     adjustTextareaHeight();
   }, [value]); // Call adjustTextareaHeight whenever 'value' changes
 
+  useEffect(() => {
+    document.body.style.zoom = '100%';
+  }, []);
 
   // Date utilities for displaying current month and year
   const today = new Date();
