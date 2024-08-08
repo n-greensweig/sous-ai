@@ -58,7 +58,8 @@ function RecipeNotes({ isXsScreen, isSmScreen, comments, dispatch, id }) {
                 paddingBottom: '0px',
                 fontWeight: 'bold',
                 borderTop: '2px solid black',
-                textAlign: isSmScreen || isXsScreen ? 'left' : null
+                textAlign: isSmScreen || isXsScreen ? 'left' : null,
+                marginBottom: '6%',
             }}>RECIPE NOTES</p>
 
             {

@@ -1,5 +1,4 @@
 import "./RecipePrepAndCookTime.css";
-
 function RecipePrepAndCookTime({ prepTime, cookTime, replaceWithCommas }) {
     // Utility function to format time strings in minutes to hours and minutes
     const formatTime = timeString => {
@@ -25,13 +24,13 @@ function RecipePrepAndCookTime({ prepTime, cookTime, replaceWithCommas }) {
     return (
         <div className="recipe-time">
             {prepTime && (
-                <p className="recipe-time__prep">
+                <p className="recipe-time__prep" style={{marginTop: '10%'}}>
                     Prep Time
                     <span className="recipe-time__value">{formatTime(replaceWithCommas(prepTime).split(' ')[0])}</span>
                 </p>
             )}
             {cookTime && (
-                <p className="recipe-time__cook">
+                <p className="recipe-time__cook" style={{marginBottom: '10%'}}>
                     Cook Time
                     <span className="recipe-time__value">{formatTime(replaceWithCommas(cookTime).split(' ')[0])}</span>
                 </p>

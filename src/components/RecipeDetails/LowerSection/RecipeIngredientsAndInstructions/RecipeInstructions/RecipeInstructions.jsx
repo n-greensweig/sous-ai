@@ -7,7 +7,8 @@ function RecipeInstructions({ instructions, isXsScreen, isSmScreen, replaceWithC
             <p style={{
                 borderTop: isSmScreen || isXsScreen ? '2px solid black' : null,
                 color: 'black', fontWeight: 'bold',
-                textAlign: isSmScreen || isXsScreen ? 'left' : null, marginTop: isSmScreen || isXsScreen ? '0px' : null
+                textAlign: isSmScreen || isXsScreen ? 'left' : null, marginTop: isSmScreen || isXsScreen ? '0px' : null,
+                marginBottom: '3%',
             }}><span style={{ borderTop: isSmScreen || isXsScreen ? null : '2px solid black', fontSize: '1.1rem' }}>INSTRUCTIONS</span></p>
             <ol style={{ listStyleType: 'none', paddingLeft: '0px', marginRight: isSmScreen || isXsScreen ? null : '10%' }}>
                 {Array.isArray(instructions) && instructions.map((instruction, index) => instruction.length > 2 ?

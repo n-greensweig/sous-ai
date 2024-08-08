@@ -188,7 +188,7 @@ function RecipeDetails() {
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <div>
+        <div className="details__container">
             <Header />
             <SnackbarComponent open={open} handleClose={handleClose} vertical={vertical} horizontal={horizontal} />
             <div style={isEditing ? null : { paddingBottom: '2%', marginTop: '5%' }}>
@@ -206,7 +206,7 @@ function RecipeDetails() {
                             replaceWithCommas={replaceWithCommas} imageList={imageList} comments={comments}
                             title={title} />
 
-                        <AutoScroll type={'scroll-up'} />
+                        {/* <AutoScroll type={'scroll-up'} /> */}
                     </div>
                 </div>
             </div>

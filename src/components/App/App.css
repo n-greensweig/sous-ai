@@ -1,8 +1,13 @@
+@font-face {
+  font-family: libreFranklin;
+  src: url(../fonts/LibreFranklin-VariableFont_wght.ttf)
+}
 *, *::before, *::after {
   /* ! Great to know for the future: snaps to page and gets rid of white space */
   /* box-sizing: inherit; */
   margin: 0;
   padding: 0;
+  font-family: libreFranklin;
 }
 
 html {

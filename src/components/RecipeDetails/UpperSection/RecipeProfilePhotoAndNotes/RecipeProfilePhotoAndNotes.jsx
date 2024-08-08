@@ -12,7 +12,7 @@ function RecipeProfilePhotoAndNotes({ isXsScreen, isSmScreen, imageList, image, 
             <div className="notes">
                 <p style={{
                     color: 'black', marginTop: '10px', fontSize: '.9rem',
-                    margin: isSmScreen || isXsScreen ? '20px' : null,
+                    margin: '20px 0px',
                     justifyContent: 'space-evenly'
                 }}>{notes ? replaceWithCommas(notes) : ''}</p>
             </div>

@@ -6,7 +6,8 @@ function UpperSection({ title, isEditing, toggleEditing, isSmScreen, isXsScreen,
     return (
         <section className="upper-section" style={{
             display: 'flex', flexDirection: 'row', alignItems: 'center',
-            flexWrap: 'wrap', justifyContent: isSmScreen || isXsScreen ? 'center' : 'space-between'
+            flexWrap: 'wrap', justifyContent: isSmScreen || isXsScreen ? 'center' : 'space-between',
+            paddingTop: isXsScreen || isSmScreen ? '13%' : null
         }}>
             <RecipeTitleAndEditButton title={title} isEditing={isEditing} toggleEditing={toggleEditing} isSmScreen={isSmScreen} isXsScreen={isXsScreen} />
             <DialogComponent isEditing={isEditing} setIsEditing={setIsEditing} toggleEditing={toggleEditing}

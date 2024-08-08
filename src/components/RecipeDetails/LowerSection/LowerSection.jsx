@@ -13,7 +13,7 @@ function LowerSection({ prepTime, cookTime, isCooked, setIsCooked, id, dispatch,
                     <RecipePrepAndCookTime cookTime={cookTime} replaceWithCommas={replaceWithCommas} />
                     <RecipeCooked isCooked={isCooked} setIsCooked={setIsCooked} id={id} dispatch={dispatch} />
                     <RecipeRating rating={rating} setRating={setRating} id={id} dispatch={dispatch} />
-                    <AutoScroll type={'scroll-down'} />
+                    {/* <AutoScroll type={'scroll-down'} /> */}
                 </div>
             </div>
 

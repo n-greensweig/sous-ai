@@ -16,7 +16,8 @@ function RecipePhotos({ imageList, isSmScreen, isXsScreen}) {
                 color: 'black', marginTop: '0px',
                 paddingBottom: '0px',
                 fontWeight: 'bold',
-                textAlign: isSmScreen || isXsScreen ? 'left' : null
+                textAlign: isSmScreen || isXsScreen ? 'left' : null,
+                marginBottom: '6%',
             }}>RECIPE PHOTOS</p>
             <div className="user-photos"
                 style={{
