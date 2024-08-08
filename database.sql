@@ -17,7 +17,7 @@ CREATE TABLE "recipe_item" (
 	"prep_time" VARCHAR(256),
 	"cook_time" VARCHAR(256),
 	"number_of_servings" VARCHAR(256),
-	"photo" VARCHAR(1000) DEFAULT 'generic-plate.svg',
+	"photo" VARCHAR(1000) DEFAULT 'generic-plate.png',
 	"ingredients" VARCHAR(100000),
 	"instructions" VARCHAR(100000),
 	"notes" VARCHAR(10000),
@@ -31,7 +31,7 @@ CREATE TABLE "recipe_item" (
 ---- or escape apostrophes in the POST request
 INSERT INTO "recipe_item" ("user_id", "title", "prep_time", "cook_time", "number_of_servings", "photo", "ingredients", "instructions", "notes", "rating", "is_cooked")
 VALUES (
-1, 'Classic Tomato Soup', '10 minutes', '30 minutes', '4', 'soup.svg', '1 tablespoon of olive oil
+1, 'Classic Tomato Soup', '10 minutes', '30 minutes', '4', 'soup.png', '1 tablespoon of olive oil
 1 onion, chopped
 2 cloves of garlic, minced
 2 cans of diced tomatoes (14.5 ounces each)
@@ -78,7 +78,7 @@ CREATE TABLE "images" (
 -- Images sample data
 INSERT INTO "images" (
 "recipe_id", "user_id", "path")
-VALUES (1,1,'images/tomato-soup.svg');
+VALUES (1,1,'images/tomato-soup.png');
     
 CREATE TABLE "recipe_list" (
 	"id" SERIAL PRIMARY KEY,
@@ -132,6 +132,17 @@ CREATE TABLE "recipe_preferences" (
     "last_edited" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
---Needs to be added to Heroku as of 7/12/2024
+
 ALTER TABLE grocery_list
 ADD CONSTRAINT unique_user_recipe UNIQUE (user_id, recipe_id);
+
+ALTER TABLE recipe_preferences
+ADD COLUMN "user_ingredients" TEXT[] DEFAULT ARRAY[]::TEXT[];
+
+--Anything below this line needs to be added to Heroku as of 8/8/2024
+CREATE TABLE "threads" (
+"id" SERIAL PRIMARY KEY,
+"user_id" INTEGER,
+"conversation" TEXT[] DEFAULT ARRAY[]::TEXT[],
+"updated_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
