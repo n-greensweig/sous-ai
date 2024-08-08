@@ -25,7 +25,6 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Header from '../Header/Header';
 import { useSelector } from 'react-redux';
-
 function SousAI() {
   // Redux hook for dispatching actions
   const dispatch = useDispatch();
