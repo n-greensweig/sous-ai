@@ -75,7 +75,7 @@ function Pantry() {
         "Bok choy",
         "Okra",
     ];
-    
+
     const mushrooms = [
         "Button mushroom",
         "Shiitake mushroom",
@@ -100,7 +100,7 @@ function Pantry() {
         "Chaga mushroom",
         "Lion's Mane mushroom",
     ];
-    
+
     const fruits = [
         "Apple",
         "Banana",
@@ -143,7 +143,7 @@ function Pantry() {
         "Rhubarb",
         "Raisin",
     ];
-    
+
     const nutsAndSeeds = [
         "Almond",
         "Peanut",
@@ -177,7 +177,7 @@ function Pantry() {
         "Buckwheat",
         "Barley",
     ];
-    
+
     const cheeses = [
         "Cheddar",
         "Mozzarella",
@@ -217,7 +217,7 @@ function Pantry() {
         "Queso de bola",
         "Queso Chihuahua",
     ];
-    
+
     const meats = [
         "Beef",
         "Ground beef",
@@ -295,7 +295,7 @@ function Pantry() {
         "Alligator sausage",
         "Frog legs",
     ];
-    
+
     const meatAndDairySubstitutes = [
         "Tofu",
         "Tempeh",
@@ -327,7 +327,7 @@ function Pantry() {
         "Cashew ice cream",
         "Hemp ice cream",
     ];
-    
+
     const seafood = [
         "Salmon",
         "Smoked salmon",
@@ -371,7 +371,7 @@ function Pantry() {
         "Bluefin tuna",
         "Mahi mahi",
     ];
-    
+
     const herbsAndSpices = [
         "Salt",
         "Basil",
@@ -445,7 +445,7 @@ function Pantry() {
         "Clove buds",
         "Seafood seasoning",
     ];
-    
+
     const sugarsAndSweeteners = [
         "White sugar",
         "Brown sugar",
@@ -466,7 +466,7 @@ function Pantry() {
         "Corn syrup",
         "Molasses",
     ];
-    
+
     const bakingIngredients = [
         "All-purpose flour",
         "Bread flour",
@@ -509,7 +509,7 @@ function Pantry() {
         "Unsweetened chocolate",
         "Nutella",
     ];
-    
+
     const premadeDoughsAndWrappers = [
         "Pizza dough",
         "Pie crust",
@@ -526,7 +526,7 @@ function Pantry() {
         "Gyoza wrappers",
         "Tamale wrappers",
     ];
-    
+
     const grainsAndCereals = [
         "Rice",
         "Brown rice",
@@ -551,7 +551,7 @@ function Pantry() {
         "Instant oats",
         "Quick oats",
     ];
-    
+
     const legumes = [
         "Black beans",
         "Navy beans",
@@ -579,7 +579,7 @@ function Pantry() {
         "Sugar snap peas",
         "Field peas",
     ];
-    
+
     const pastas = [
         "Spaghetti",
         "Fettuccine",
@@ -610,7 +610,7 @@ function Pantry() {
         "Soba",
         "Udon"
     ];
-    
+
     const breadsAndSaltySnacks = [
         "White bread",
         "Whole wheat bread",
@@ -663,7 +663,7 @@ function Pantry() {
         "Matzo",
         "Roti",
     ];
-    
+
     const oilsAndFats = [
         "Olive oil",
         "Extra virgin olive oil",
@@ -701,7 +701,7 @@ function Pantry() {
         "Cocoa butter",
         "Shea butter",
     ];
-    
+
     const dressingsAndVinegars = [
         "Ranch dressing",
         "Caesar dressing",
@@ -722,7 +722,7 @@ function Pantry() {
         "Aioli",
         "Tahini",
     ];
-    
+
     const condiments = [
         "Ketchup",
         "Mustard",
@@ -751,7 +751,7 @@ function Pantry() {
         "Remoulade",
         "Cocktail sauce"
     ];
-    
+
     const cannedFoods = [
         "Canned tomatoes",
         "Canned corn",
@@ -779,7 +779,7 @@ function Pantry() {
         "Canned jam",
         "Canned jelly",
     ];
-    
+
     const saucesSpreadsAndDips = [
         "Hummus",
         "Mayonnaise",
@@ -846,7 +846,7 @@ function Pantry() {
         "Gochujang",
         "Miso",
     ];
-    
+
     const wineBeerAndSpirits = [
         "Red wine",
         "White wine",
@@ -898,7 +898,7 @@ function Pantry() {
         "Canadian whiskey",
         "Japanese whiskey"
     ];
-    
+
     const beverages = [
         "Water",
         "Sparkling water",
@@ -969,7 +969,7 @@ function Pantry() {
         "Milkshake",
         "Kombucha",
     ];
-    
+
     const supplements = [
         "Vanilla protein powder",
         "Chocolate protein powder",
@@ -980,7 +980,7 @@ function Pantry() {
         "Collagen",
         "Creatine",
         "Ashwagandha",
-    ];    
+    ];
 
     const sections = {
         vegetablesAndGreens: vegetablesAndGreens,
@@ -1056,7 +1056,7 @@ function Pantry() {
             dispatch({ type: 'ADD_USER_INGREDIENT', payload: { item: ingredient, currentIngredients: userIngredients } });
         }
     };
-    
+
     const removeUserIngredient = (ingredient) => {
         dispatch({ type: 'REMOVE_USER_INGREDIENT', payload: { item: ingredient, currentIngredients: userIngredients } });
     };
@@ -1070,7 +1070,7 @@ function Pantry() {
             }}>
                 {Object.keys(sections).map((section, idx) => (
                     <div key={idx}>
-                        <Accordion expanded={expandedSection === section} onChange={() => toggleExpandedSection(section)}>
+                        <Accordion expanded={expandedSection === section} onChange={() => toggleExpandedSection(section)} sx={{ marginBottom: '10px' }}>
                             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
                                     {section.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
@@ -1079,7 +1079,7 @@ function Pantry() {
                             <AccordionDetails>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: theme.spacing(1) }}>
                                     {sections[section].map((item, index) => {
-                                        const isSelected = userIngredients.includes(item); // Check if item is in userHouseholdItems
+                                        const isSelected = userIngredients.includes(item); // Check if item is in userIngredients
                                         return (
                                             <Button
                                                 key={index}
@@ -1106,7 +1106,7 @@ function Pantry() {
                 ))}
             </div>
         </div>
-    );    
+    );
 }
 
 export default Pantry;
