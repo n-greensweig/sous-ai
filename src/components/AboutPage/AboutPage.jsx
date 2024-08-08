@@ -1,21 +1,8 @@
-import React from 'react';
 import Header from '../Header/Header';
-import { useTheme, useMediaQuery } from '@mui/material';
-
-// This is one of our simplest components
-// It doesn't have local state,
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is'
-
+import './AboutPage.css';
 function AboutPage() {
-
-  // Check the screen size for responsive design
-  const theme = useTheme();
-  const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
-  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
   return (
-    <div style={{ marginTop: isXsScreen || isSmScreen ? '15%' : '5%' }}>
+    <div className='about__container-wrapper'>
       <Header text='About' to={'/about'} />
       <div className="container">
         <div>
@@ -41,7 +28,7 @@ function AboutPage() {
           <h3>Our Vision</h3>
           <p>We envision a world where meals are an opportunity to connect, learn, and create joy. SousAI aims to facilitate the warmth and love that comes from shared meals and conversations.</p>
           <h3>Contact Us</h3>
-          <p style={{ paddingBottom: isXsScreen || isSmScreen ? '18%' : '8%' }}>For support, feedback, or sharing your SousAI stories, contact us at ngreensweig@gmail.com.</p>
+          <p className='about__p-feedback'>For support, feedback, or sharing your Sous stories, contact us at ngreensweig@gmail.com.</p>
 
         </div>
       </div>

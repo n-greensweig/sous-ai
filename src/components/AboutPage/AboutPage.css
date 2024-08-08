@@ -1,0 +1,14 @@
+.about__container-wrapper {
+    margin-top: 5%;
+}
+.about__p-feedback {
+    padding-bottom: 8%;
+}
+@media screen and (max-width: 768px) {
+    .about__container-wrapper {
+        margin-top: 15%;
+    }
+    .about__p-feedback {
+        padding-bottom: 18%;
+    }
+}
