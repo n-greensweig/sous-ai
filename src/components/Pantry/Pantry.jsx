@@ -9,7 +9,6 @@ function Pantry() {
     const userIngredients = useSelector(store => store.userIngredientsReducer);
     const [ingredientsToDisplay, setIngredientsToDisplay] = useState([]);
     const [expandedSection, setExpandedSection] = useState(null);
-
     const vegetablesAndGreens = [
         "Scallion",
         "Red onion",
@@ -100,7 +99,6 @@ function Pantry() {
         "Chaga mushroom",
         "Lion's Mane mushroom",
     ];
-
     const fruits = [
         "Apple",
         "Banana",
@@ -1066,8 +1064,9 @@ function Pantry() {
             <Header />
             <div style={{
                 padding: theme.spacing(2), maxWidth: '1200px', margin: '20px auto',
-                paddingTop: isXsScreen || isSmScreen ? '50px' : '0px',
+                paddingTop: isXsScreen || isSmScreen ? '50px' : '0px', justifyContent: 'center', alignItems: 'center'
             }}>
+                <h2 style={{ color: 'black', marginBottom: '10px' }}>Pantry</h2>
                 {Object.keys(sections).map((section, idx) => (
                     <div key={idx}>
                         <Accordion expanded={expandedSection === section} onChange={() => toggleExpandedSection(section)} sx={{ marginBottom: '10px' }}>
