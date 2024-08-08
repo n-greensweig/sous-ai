@@ -1,9 +1,94 @@
-.div__dropdownButton {
+.recipe-grid__popover-button-containerdropdownButton {
     display: flex;
     flex-direction: column;
     justify-content: left;
     align-items: left;
 }
-.recipe-card-hover:hover {
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* Shadow for cards */
+
+.recipe-grid__card--container {
+    cursor: pointer;
+    border-radius: 1px;
+    box-shadow: none;
+    border: 1px solid #e6e6e6;
+    width: 200px;
+    height: 247px;
+    &:hover {
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.MuiCardMedia-root.recipe-grid__card--media {
+    height: 130px;
+}
+
+.MuiCardContent-root.recipe-grid__card--content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: clip;
+}
+
+.MuiTypography-root.recipe-grid__card--recipe-title {
+    font-family: inter;
+    color: black;
+    font-size: 18px;
+    margin: 0px;
+    margin-left: 0px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.recipe-grid__card--time-and-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-left: 5px;
+    margin: 0px;
+}
+
+.recipe-grid__card--time-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-left: 5px;
+    margin: 0px;
+}
+
+.MuiTypography-root.recipe-grid__card--time-detail {
+    align-items: baseline;
+    justify-content: center;
+    font-family: inter;
+    color: black;
+    font-size: 13px;
+    margin-top: 5px;
+    overflow: auto;
+}
+.MuiSvgIcon-root.icon-white {
+    fill: #fff;
+}
+.in-view {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+}
+.hidden {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+@media screen and (max-width: 768px) {
+    .recipe-grid__card--container {
+        width: 160px;
+        height: none;
+    }
+
+    .MuiTypography-root.recipe-grid__card--time-detail {
+        font-size: 16px;
+    }
 }
