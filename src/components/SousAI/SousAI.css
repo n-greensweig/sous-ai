@@ -162,6 +162,7 @@ textarea::placeholder {
   display: flex;
   flex-direction: row;
   height: fit-content;
+  margin-bottom: 5%;
 }
 
 /* Styling for the feed container to allow scrolling of content */
