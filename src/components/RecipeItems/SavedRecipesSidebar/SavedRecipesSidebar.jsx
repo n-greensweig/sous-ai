@@ -170,7 +170,6 @@ function SavedRecipesSidebar() {
     };
 
     return (
-        isXsScreen || isSmScreen ? null :
             <div className='sidebar__container'>
                 {isLoading && <div className="loading-overlay">Loading...</div>}
                 <div className="recipe-items__sidebar--content">

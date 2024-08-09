@@ -205,78 +205,76 @@ function RecipeItems(props) {
                                 searchQuery={searchQuery} setSearchQuery={setSearchQuery}
                                 isXsScreen={isXsScreen} isSmScreen={isSmScreen} id={id} />)}
                         <div>
-                            {isXsScreen || isSmScreen ?
-                                <div className="recipe-items__sidebar--content">
-                                    <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right ${document.title === 'Saved Recipes' ? 'white-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}
-                                        onMouseDown={() => handleSetActiveItem('saved')}
-                                        onMouseUp={handleClearActiveItem} onDragEnd={handleClearActiveItem} draggable>
-                                        <BookmarkIcon className={`recipe-items__sidebar--icon ${activeItem === 'saved' ? 'gray-fill' : 'black-fill'}`} /> Saved Recipes
-                                    </p>
-                                    <p onClick={() => navigateTo('/recipe-box/cooked')}
-                                        onMouseDown={() => handleSetActiveItem('cooked')}
-                                        onMouseUp={handleClearActiveItem}
-                                        onDragEnd={handleClearActiveItem}
-                                        draggable
-                                        className={`recipe-items__sidebar--margin-right ${document.title === 'Cooked Recipes' ? 'white-background-bold' : 'inherit-background'}`}>
-                                        <CheckCircleIcon className={`recipe-items__sidebar--icon ${activeItem === 'cooked' ? 'gray-fill' : 'black-fill'}`} /> Cooked Recipes
-                                    </p>
-                                    <p onClick={() => navigateTo('/recipe-box/recent')}
-                                        onMouseDown={() => handleSetActiveItem('recent')}
-                                        onMouseUp={handleClearActiveItem}
-                                        onDragEnd={handleClearActiveItem}
-                                        draggable
-                                        className={`recipe-items__sidebar--margin-right ${document.title === 'Recently Viewed Recipes' ? 'white-background-bold' : 'inherit-background'}`}>
-                                        <AccessTimeIcon className={`recipe-items__sidebar--icon ${activeItem === 'recent' ? 'gray-fill' : 'black-fill'}`} /> Recently Viewed
-                                    </p>
-                                    <p
-                                        onClick={e => toggleViewing(e)}
-                                        onMouseDown={() => handleSetActiveItem('grocery')}
-                                        onMouseUp={handleClearActiveItem}
-                                        onMouseLeave={handleClearActiveItem}
-                                        onDragEnd={handleClearActiveItem}
-                                        onDragOver={handleDragOver}
-                                        onDrop={(event) => handleDropGroceryList(event)}
-                                        draggable
-                                        className='recipe-items__sidebar--margin-right'>
-                                        <ListAltIcon className='recipe-items__sidebar--icon' /> Grocery List
-                                    </p>
-                                    <span className='recipe-items__sidebar-span--your-folders recipe-items__sidebar--margin-right'>Your folders</span>
-                                    <div onClick={toggleCreating} className='recipe-items__div-icon-span--new-folder'>
-                                        <Button className='icon--gray-border' aria-label='new-folder'
-                                        ><AddIcon className='recipe-items__sidebar--icon recipe-items__sidebar--icon-add' /></Button>
-                                        <span className='span__new-folder'>New Folder</span>
-                                    </div>
-                                    {recipeLists && recipeLists.map((list) => {
-                                        const photo = recipeListPhotos.find(photo => photo.list_id.includes(list.id));
-                                        return (
-                                            <div key={list.id} className="recipe-items__sidebar--lists-wrapper"
-                                                onDragOver={handleDragOver} onDrop={(event) => handleDrop(event, list.id)}>
-                                                <div className={`recipe-items__sidebar--user-folders ${document.title.includes(list.list_name) ? 'white-background-bold' : 'inherit-background'}`}
-                                                    onClick={() => {
-                                                        document.title = `Your Recipe Box - ${list.list_name}`;
-                                                        history.push(`/recipe-box/${list.id}`);
-                                                    }}
-                                                    draggable
-                                                    onMouseDown={() => handleSetActiveItem(list.list_name)}
-                                                    onMouseUp={handleClearActiveItem}
-                                                    onDragStart={event => handleDragStart(event, `${list.id}`)}
-                                                    onDragEnd={handleClearActiveItem}
-                                                >
-                                                    {photo ? (
-                                                        <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo" />
-                                                    ) : (
-                                                        <img src={'images/empty-folder/empty-folder.svg'} alt={list.list_name} className="folder__photo" />
-                                                    )}
-                                                    <p className="recipe-items__sidebar--folder-name" onClick={() => {
-                                                        document.title = `Your Recipe Box - ${list.list_name}`;
-                                                        history.push(`/recipe-box/${list.id}`);
-                                                    }}>{list.list_name}</p>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
+                            <div className="recipe-items__sidebar--content mobile">
+                                <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right ${document.title === 'Saved Recipes' ? 'white-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}
+                                    onMouseDown={() => handleSetActiveItem('saved')}
+                                    onMouseUp={handleClearActiveItem} onDragEnd={handleClearActiveItem} draggable>
+                                    <BookmarkIcon className={`recipe-items__sidebar--icon ${activeItem === 'saved' ? 'gray-fill' : 'black-fill'}`} /> Saved Recipes
+                                </p>
+                                <p onClick={() => navigateTo('/recipe-box/cooked')}
+                                    onMouseDown={() => handleSetActiveItem('cooked')}
+                                    onMouseUp={handleClearActiveItem}
+                                    onDragEnd={handleClearActiveItem}
+                                    draggable
+                                    className={`recipe-items__sidebar--margin-right ${document.title === 'Cooked Recipes' ? 'white-background-bold' : 'inherit-background'}`}>
+                                    <CheckCircleIcon className={`recipe-items__sidebar--icon ${activeItem === 'cooked' ? 'gray-fill' : 'black-fill'}`} /> Cooked Recipes
+                                </p>
+                                <p onClick={() => navigateTo('/recipe-box/recent')}
+                                    onMouseDown={() => handleSetActiveItem('recent')}
+                                    onMouseUp={handleClearActiveItem}
+                                    onDragEnd={handleClearActiveItem}
+                                    draggable
+                                    className={`recipe-items__sidebar--margin-right ${document.title === 'Recently Viewed Recipes' ? 'white-background-bold' : 'inherit-background'}`}>
+                                    <AccessTimeIcon className={`recipe-items__sidebar--icon ${activeItem === 'recent' ? 'gray-fill' : 'black-fill'}`} /> Recently Viewed
+                                </p>
+                                <p
+                                    onClick={e => toggleViewing(e)}
+                                    onMouseDown={() => handleSetActiveItem('grocery')}
+                                    onMouseUp={handleClearActiveItem}
+                                    onMouseLeave={handleClearActiveItem}
+                                    onDragEnd={handleClearActiveItem}
+                                    onDragOver={handleDragOver}
+                                    onDrop={(event) => handleDropGroceryList(event)}
+                                    draggable
+                                    className='recipe-items__sidebar--margin-right'>
+                                    <ListAltIcon className='recipe-items__sidebar--icon' /> Grocery List
+                                </p>
+                                <span className='recipe-items__sidebar-span--your-folders recipe-items__sidebar--margin-right'>Your folders</span>
+                                <div onClick={toggleCreating} className='recipe-items__div-icon-span--new-folder'>
+                                    <Button className='icon--gray-border' aria-label='new-folder'
+                                    ><AddIcon className='recipe-items__sidebar--icon recipe-items__sidebar--icon-add' /></Button>
+                                    <span className='span__new-folder'>New Folder</span>
                                 </div>
-                                : null}
+                                {recipeLists && recipeLists.map((list) => {
+                                    const photo = recipeListPhotos.find(photo => photo.list_id.includes(list.id));
+                                    return (
+                                        <div key={list.id} className="recipe-items__sidebar--lists-wrapper"
+                                            onDragOver={handleDragOver} onDrop={(event) => handleDrop(event, list.id)}>
+                                            <div className={`recipe-items__sidebar--user-folders ${document.title.includes(list.list_name) ? 'white-background-bold' : 'inherit-background'}`}
+                                                onClick={() => {
+                                                    document.title = `Your Recipe Box - ${list.list_name}`;
+                                                    history.push(`/recipe-box/${list.id}`);
+                                                }}
+                                                draggable
+                                                onMouseDown={() => handleSetActiveItem(list.list_name)}
+                                                onMouseUp={handleClearActiveItem}
+                                                onDragStart={event => handleDragStart(event, `${list.id}`)}
+                                                onDragEnd={handleClearActiveItem}
+                                            >
+                                                {photo ? (
+                                                    <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo" />
+                                                ) : (
+                                                    <img src={'images/empty-folder/empty-folder.svg'} alt={list.list_name} className="folder__photo" />
+                                                )}
+                                                <p className="recipe-items__sidebar--folder-name" onClick={() => {
+                                                    document.title = `Your Recipe Box - ${list.list_name}`;
+                                                    history.push(`/recipe-box/${list.id}`);
+                                                }}>{list.list_name}</p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                             {/* Dialog for creating a new recipe folder. */}
                             <Dialog open={isCreating}
                                 onClose={toggleCreating}
