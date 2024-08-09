@@ -1,8 +1,57 @@
-/* Defines the style for the '.card-content' class, typically used within '.card' for content area. 
-   It sets the margin to 0px to ensure the content area aligns neatly within the card.
-   The height is explicitly set to 90px to standardize the size of the content area across cards, 
-   maintaining a uniform appearance. The 'overflow: auto' property ensures that any content exceeding 
-   the height limit is accessible through scrolling, making this setup flexible for varying amounts of content. */
+.recipe-items__container {
+   margin: 0 auto;
+   margin-top: 1%;
+}
+
+.recipe-items__body--grid-wrapper {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   padding-left: 7%;
+}
+
+/* Centered container with max width for the recipe cards content */
+.recipe-items__body--max-width {
+   display: flex;
+   /* Use flexbox layout */
+   flex-direction: row;
+   /* Arrange items in a row */
+   justify-content: center;
+   /* Center the items horizontally */
+   max-width: 1200px;
+   /* Max width of the container */
+   margin: 0 auto;
+   /* Center the container */
+   position: relative;
+   /* For positioning the pseudo-element */
+}
+
+/* Full-width color behind the max-width-container */
+.recipe-items__body--max-width::before {
+   content: '';
+   /* Required for pseudo-elements */
+   display: block;
+   position: absolute;
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   background-color: inherit;
+   /* Use the same background as the parent */
+   z-index: -1;
+   /* Ensure it's behind the content */
+}
+
+.white-background {
+   background-color: #FFF;
+   font-weight: bold;
+}
+
+.inherit-background {
+   background-color: inherit;
+   font-weight: normal;
+}
+
 .card-content {
    margin: 0px;
    height: 90px;
@@ -32,6 +81,7 @@
    background-color: #FFF;
    padding: none;
    margin: none;
+
    &:hover {
       border: 1px solid #000;
    }
@@ -44,21 +94,122 @@
    margin: none;
    border: none;
 }
-.icon--gray {
-   fill: #ced0cb !important;
+
+.folder__photo {
+   height: 40px;
+   width: 30px;
+   border-radius: 4px;
+
 }
+
+.recipe-items__sidebar--folder-name {
+   cursor: pointer;
+}
+
+.recipe-items__sidebar--dialog-header {
+   display: flex;
+   justify-content: space-between;
+   border-bottom: 1px solid gray;
+}
+
+.MuiTypography-root.recipe-items__sidebar--dialog-title {
+   padding-bottom: 0px;
+   margin-bottom: 0px;
+}
+
+.MuiButtonBase-root.recipe-items__sidebar--dialog-header-button {
+   color: gray;
+   text-transform: none;
+   padding-bottom: 0px;
+   margin-bottom: 0px;
+}
+
+.MuiInputBase-root.ecipe-items__sidebar--dialog-textfield {
+   padding: 1px;
+}
+
+.recipe-items__sidebar--dialog-actions {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 100%;
+}
+
+.recipe-items__sidebar--dialog-actions {
+   width: 100%;
+   margin-bottom: 20px;
+}
+
+.MuiButtonBase-root.recipe-items__sidebar--button-create-new-folder {
+   width: 50%;
+   background-color: #df321b;
+   color: white;
+   border: 1px solid #df321b;
+   border-radius: 5%;
+   text-transform: none;
+
+   &:hover {
+      background-color: #df321b;
+   }
+}
+
+.grocery-list-title {
+   margin-right: 10px;
+}
+
+.grocery-list-count {
+   margin-left: 10px;
+}
+
+.grocery-list-accordion {
+   margin: 10px;
+}
+
+.grocery-list-summary {
+   display: flex;
+   align-items: center;
+   width: 100%;
+}
+
+.MuiSvgIcon-root.grocery-list-summary-icon {
+   cursor: pointer;
+   margin-right: 8px;
+}
+.grocery-list__recipe-title {
+   flex: 1;
+}
+.grocery-list__remove-button {
+   cursor: pointer; 
+   margin-left: 8px; 
+   text-decoration: underline;
+}
+.grocery-list__clear-icon-container {
+   display: flex;
+   justify-content: space-between;
+   border-bottom: 1px solid #d3d3d3;
+}
+.grocery-list__ingredient,
+.MuiSvgIcon-root.grocery-list__clear-icon {
+   padding: 10px 0;
+}
+
 /* Styles for the input field */
 .search__input input {
    padding: 10px;
-   width: 100%; /* Adjust as needed */
-   box-sizing: border-box; /* Ensures padding doesn't affect the total width */
+   width: 100%;
+   /* Adjust as needed */
+   box-sizing: border-box;
+   /* Ensures padding doesn't affect the total width */
 }
 
 /* Removes border and outline when the input is focused */
 .search__input input:focus {
-   border: none; /* Removes the border */
-   outline: none; /* Removes the outline */
+   border: none;
+   /* Removes the border */
+   outline: none;
+   /* Removes the outline */
 }
+
 .search {
    width: 24px !important;
    padding: 0% !important;
@@ -73,34 +224,20 @@
 }
 
 .recipe-grid__popover-button:hover {
-   background-color: rgb(0,0,0,0.1);
+   background-color: rgb(0, 0, 0, 0.1);
 }
+
 /* Existing styles for full-width background color */
 .full-width-background {
    background-color: #FFF;
 }
 
-/* Centered container with max width for the recipe cards content */
-.max-width-container {
-   display: flex; /* Use flexbox layout */
-   flex-direction: row; /* Arrange items in a row */
-   justify-content: center;
-    /* Center the items horizontally */
-   max-width: 1200px; /* Max width of the container */
-   margin: 0 auto; 
-   /* Center the container */
-   position: relative; /* For positioning the pseudo-element */
-}
+@media screen and (max-width: 768px) {
+   .recipe-items__container {
+      margin-top: 0%;
+   }
 
-/* Full-width color behind the max-width-container */
-.max-width-container::before {
-   content: ''; /* Required for pseudo-elements */
-   display: block;
-   position: absolute;
-   left: 0;
-   right: 0;
-   top: 0;
-   bottom: 0;
-   background-color: inherit; /* Use the same background as the parent */
-   z-index: -1; /* Ensure it's behind the content */
+   .recipe-items__body--grid-wrapper {
+      padding-left: 0%;
+   }
 }

@@ -8,15 +8,20 @@
     flex-direction: column;
 }
 
-.sidebar-content {
+.recipe-items__sidebar--content {
     margin-top: 30px;
 }
 
-.sidebar__icon {
+.MuiSvgIcon-root.recipe-items__sidebar--icon {
     margin-right: 16px;
 }
-
-.sidebar__icon.sidebar__icon--add {
+.MuiSvgIcon-root.gray-fill {
+    fill: #767676
+}
+.MuiSvgIcon-root.black-fill {
+    fill: #000
+}
+.recipe-items__sidebar--icon.recipe-items__sidebar--icon-add {
     margin: 0px !important;
     padding: 0px !important;
 
@@ -26,29 +31,33 @@
 }
 
 .sidebar__container p:hover,
-.sidebar__icon:hover,
-.sidebar__user-folders:hover {
+.recipe-items__sidebar--icon:hover,
+.recipe-items__sidebar--user-folders:hover {
     cursor: pointer !important;
     background-color: #F8F8F5 !important;
 }
 
 .sidebar__container p:active,
-.sidebar__user-folders:active {
+.recipe-items__sidebar--user-folders:active {
     color: #767676 !important;
 }
 
-.sidebar__user-folders {
+.recipe-items__sidebar--user-folders {
     padding: 4px !important;
     border-radius: 4px !important;
+    display: flex; 
+    align-items: center; 
+    cursor: pointer; 
+    box-sizing: border-box;
 }
 
-.sidebar__margin--right {
+.recipe-items__sidebar--margin-right {
     margin-right: 8px !important;
     padding: 13px 9px 12px 8px !important;
     border-radius: 4px !important;
 }
 
-.sidebar__span--your-folders {
+.recipe-items__sidebar-span--your-folders {
     text-transform: uppercase;
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
@@ -60,11 +69,12 @@
         background-color: inherit;
     }
 }
-.div__icon__p--folder {
+.recipe-items__sidebar--lists-wrapper {
     margin-top: 8px;
     margin-right: 8px;
+    margin-left: 10px;
 }
-.sidebar-content p {
+.recipe-items__sidebar--content p {
     display: flex;
     padding: 8px;
     margin: 0px;
@@ -75,7 +85,7 @@
     margin: 0px;
 }
 
-.div__icon__span--new-folder {
+.recipe-items__div-icon-span--new-folder {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -83,6 +93,7 @@
     padding: 4px !important;
     border-radius: 4px;
     margin-right: 8px !important;
+    margin-left: 10px;
     &:active {
         background-color: #F8F8F5;
     }
