@@ -10,7 +10,6 @@ import { useState } from 'react';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Menu, MenuItem } from '@mui/material';
 import MobileNavbar from '../MobileNavbar/MobileNavbar';
-import { Link } from 'react-router-dom';
 /**
  * Renders a header component that is responsive and navigates to a specified route when clicked.
  * 
@@ -154,22 +153,10 @@ function Header() {
                                 <MenuItem className='navLink' onClick={() => history.push('/pantry')}>
                                         Pantry
                                 </MenuItem>
-                                {/* <MenuItem onClick={handleClose}>
-                                    <Link className='navLink' to="/recipe-box">
-                                        Submit a suggestion
-                                    </Link>
-                                </MenuItem>
-                                <MenuItem onClick={handleClose}>
-                                    <Link className='navLink' to="/recipe-box">
-                                        Report a bug
-                                    </Link>
-                                </MenuItem> */}
-                                <MenuItem onClick={handleClose}>
-                                    <Button onClick={() => dispatch({ type: 'LOGOUT' })} className="header__button">
-                                        {/* <LogoutIcon /> */}
-                                        Logout</Button>
-                                </MenuItem>
-
+                                <MenuItem className='navLink' onClick={() => {
+                                    handleClose();
+                                    dispatch({ type: 'LOGOUT' })}
+                                }>Logout</MenuItem>
                             </Menu>
                         </div>
 

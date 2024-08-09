@@ -147,21 +147,9 @@ function MobileNavbar() {
                     <Link to="/recipe-box" onClick={closeMenu} style={{ color: '#000', textDecoration: 'none', }}>
                         Saved Recipes
                     </Link>
-                    {/* {showDropdown ? <KeyboardArrowDownIcon onClick={toggleDropdown} style={{ fontSize: '1.5rem', textAlign: 'end', fill: '#000', textDecoration: 'none' }} /> :
-                        <KeyboardArrowRightIcon onClick={toggleDropdown} style={{ fontSize: '1.5rem', textAlign: 'end', fill: '#000', textDecoration: 'none' }} />} */}
                 </div>
                 <Link to="/preferences" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>Preferences</Link>
                 <Link to="/pantry" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>Pantry</Link>
-                {/* {showDropdown && (
-                    <ul>
-                        <Link style={{ textDecoration: "none" }} to="/recipe-box/cooked" onClick={closeMenu}>
-                            <li className='dropdown-item'>Cooked recipes</li>
-                        </Link>
-                        <Link style={{ textDecoration: "none" }} to="/recipe-box/recent" onClick={closeMenu}>
-                            <li className='dropdown-item'>Recently viewed recipes</li>
-                        </Link>
-                    </ul>
-                )} */}
             </BurgerMenu>
             <Menu
                 id="basic-menu"
@@ -175,21 +163,11 @@ function MobileNavbar() {
                 <MenuItem className='navLink' onClick={() => history.push('/preferences')}>
                     Preferences
                 </MenuItem>
-                {/* <MenuItem onClick={handleClose}>
-                    <Link className='navLink' to="/recipe-box">
-                        Submit a suggestion
-                    </Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <Link className='navLink' to="/recipe-box">
-                        Report a bug
-                    </Link>
-                </MenuItem> */}
-                <MenuItem onClick={handleClose}>
-                    <Button onClick={() => dispatch({ type: 'LOGOUT' })} style={{ textTransform: 'none', }} className="header__button">
-                        {/* <LogoutIcon /> */}
-                        Logout</Button>
-                </MenuItem>
+                <MenuItem className='navLink' onClick={() => {
+                    handleClose();
+                    dispatch({ type: 'LOGOUT' })
+                }
+                }>Logout</MenuItem>
 
             </Menu>
         </header >
