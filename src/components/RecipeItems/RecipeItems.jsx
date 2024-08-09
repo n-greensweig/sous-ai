@@ -124,7 +124,7 @@ function RecipeItems(props) {
             dispatch({ type: 'FETCH_GROCERY_LIST' });
             dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery } });
         }
-    }, [props.path, id, dispatch, searchQuery, listToDisplay]);
+    }, [props.path, id, dispatch, listToDisplay]);
 
     const recipes = useSelector(store => store.recipeReducer);
     const fetchedListName = useSelector(store => store.recipeListNameReducer); // Assuming you have this in your store

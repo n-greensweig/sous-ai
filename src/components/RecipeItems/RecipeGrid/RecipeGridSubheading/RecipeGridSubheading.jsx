@@ -13,6 +13,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { TextField } from '@mui/material';
+import './RecipeGridSubheading.css';
 function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQuery, id, isXsScreen, isSmScreen }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
@@ -98,17 +99,18 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
             </div>
             <div className="search__input" style={{
                 display: 'flex', flexDirection: 'row',
-                alignItems: 'center', position: isXsScreen || isSmScreen ? 'relative' : 'absolute', right: isXsScreen || isSmScreen ? 0 : '2%',
-                margin: isXsScreen || isSmScreen ? '0px 0px 20px 0px' : 0,
+                alignItems: 'center', position: isXsScreen || isSmScreen ? 'relative' : 'absolute',
+                right: isXsScreen || isSmScreen ? 0 : '2%', margin: isXsScreen || isSmScreen ? '0px 0px 20px 0px' : 0,
             }}>
-                <SearchIcon className='icon--black search' />
+                <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
                 <input
+                    className='recipe-grid__subheading--search-bar'
                     type="text"
                     placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    value={searchQuery}
-                />
-                {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' /> : null}
+                    onKeyDown={(e) => e.key === 'Enter' ? dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) : null}
+                    value={searchQuery} />
+                {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray recipe-grid__subheading--search-bar-cancel' /> : null}
             </div>
             {/* Dialog for creating a new recipe folder. */}
             <Dialog open={isCreating}

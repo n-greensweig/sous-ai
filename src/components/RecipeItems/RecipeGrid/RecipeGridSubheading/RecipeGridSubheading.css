@@ -1,0 +1,9 @@
+.MuiSvgIcon-root.recipe-grid__subheading--search-bar-cancel {
+    margin-right: 10px;
+}
+.MuiSvgIcon-root.recipe-grid__subheading--search-bar-search {
+    margin-left: 10px;
+}
+.recipe-grid__subheading--search-bar {
+    margin: 0px;
+}

@@ -86,9 +86,9 @@ function Header() {
                                     onChange={(event) => setSearchQuery(event.target.value)}
                                 />
                             </div>
-                                {searchQuery ? (
-                                    <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray header__search-bar--cancel-icon' />
-                                ) : null}
+                            {searchQuery ? (
+                                <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray header__search-bar--cancel-icon' />
+                            ) : null}
 
                         </div>
                         <Button onClick={() => navigateTo('/recipe-box')}
