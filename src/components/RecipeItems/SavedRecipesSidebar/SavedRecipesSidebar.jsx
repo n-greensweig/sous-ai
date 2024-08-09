@@ -229,8 +229,8 @@ function SavedRecipesSidebar() {
                     </p>
                     <span className='recipe-items__sidebar-span--your-folders recipe-items__sidebar--margin-right'>Your folders</span>
                     <div onClick={toggleCreating} className='recipe-items__div-icon-span--new-folder'>
-                        <Button className='icon--gray-border'
-                        ><AddIcon className='recipe-items__sidebar--icon recipe-items__sidebar--icon--add' /></Button>
+                    <Button className='icon--gray-border' aria-label='new-folder'
+                                    ><AddIcon className='recipe-items__sidebar--icon recipe-items__sidebar--icon-add' /></Button>
                         <span className='span__new-folder'>New Folder</span>
                     </div>
                     {recipeLists && recipeLists.map((list) => {
