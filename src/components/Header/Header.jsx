@@ -1,4 +1,4 @@
-import { useTheme, useMediaQuery, Button } from '@mui/material';
+import { useTheme, useMediaQuery, Button, TextField } from '@mui/material';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import './Header.css';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -75,12 +75,9 @@ function Header() {
                                 display: 'flex', flexDirection: 'row',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                            }}
-                        >
+                            }}>
                             <div className="header__container">
-                                <button className="button--icon">
-                                    <SearchIcon className='icon--black' />
-                                </button>
+                                <SearchIcon className='icon--black' />
                                 <input
                                     value={searchQuery}
                                     type="text"
@@ -88,10 +85,10 @@ function Header() {
                                     className="header__searchBar"
                                     onChange={(event) => setSearchQuery(event.target.value)}
                                 />
-                                {searchQuery ? (
-                                    <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray' />
-                                ) : null}
                             </div>
+                                {searchQuery ? (
+                                    <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray header__search-bar--cancel-icon' />
+                                ) : null}
 
                         </div>
                         <Button onClick={() => navigateTo('/recipe-box')}
@@ -148,14 +145,15 @@ function Header() {
                                     'aria-labelledby': 'basic-button',
                                 }}>
                                 <MenuItem className='navLink' onClick={() => history.push('/preferences')}>
-                                        Preferences
+                                    Preferences
                                 </MenuItem>
                                 <MenuItem className='navLink' onClick={() => history.push('/pantry')}>
-                                        Pantry
+                                    Pantry
                                 </MenuItem>
                                 <MenuItem className='navLink' onClick={() => {
                                     handleClose();
-                                    dispatch({ type: 'LOGOUT' })}
+                                    dispatch({ type: 'LOGOUT' })
+                                }
                                 }>Logout</MenuItem>
                             </Menu>
                         </div>
