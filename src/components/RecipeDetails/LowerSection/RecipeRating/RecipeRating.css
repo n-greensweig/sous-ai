@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 0;
+    margin-bottom: 10px;
 }
 .recipe-details__reicpe-rating-container--clear-button {
     cursor: pointer;
