@@ -1,0 +1,23 @@
+.recipe-details__recipe-rating-container {
+    margin-bottom: 10%;
+}
+.recipe-details__recipe-rating-container--top-section {
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0;
+}
+.recipe-details__reicpe-rating-container--clear-button {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+}
+.recipe-rating {
+    cursor: pointer;
+    margin-top: 0px;
+}
+.recipe-rating > span > .MuiSvgIcon-root {
+    fill: #df321b;
+}
