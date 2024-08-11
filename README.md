@@ -21,7 +21,7 @@ SousAI is hosted at [https://www.sousai.io/](https://www.sousai.io/) using AWS a
 ## Installation
 1. Create a database named ```sous_ai```
 2. Fork and clone this repository
-3. The queries in the database.sql file are set up to create all necessary tables and populate the needed data to allow the app to run correctly. The project is built on PostgreSQL, so you will need to have PostgreSQL installed for the app to work. We recommend using Postico to run those queries as that was used to create the queries.
+3. The queries in the database.sql file are set up to create all necessary tables and populate the needed data to allow the app to run correctly. The project is built on PostgreSQL, so you will need to have PostgreSQL installed for the app to work. We use Postico to run those queries.
 4. Open up your editor of choice and run an ```npm install```
 5. Run ```npm run server``` in your terminal
 6. Run ```npm run client``` in your terminal
