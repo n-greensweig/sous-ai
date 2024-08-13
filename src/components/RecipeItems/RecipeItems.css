@@ -227,11 +227,6 @@
    background-color: rgb(0, 0, 0, 0.1);
 }
 
-/* Existing styles for full-width background color */
-.full-width-background {
-   background-color: #FFF;
-}
-
 @media screen and (max-width: 768px) {
    .recipe-items__container {
       margin-top: 0%;
