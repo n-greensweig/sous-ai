@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Libre Franklin';
-    src: url('../fonts/static/LibreFranklin-Regular.ttf') format('truetype'); /* Adjust the file path and name as needed */
+    src: url(../../../public/fonts/LibreFranklin-VariableFont_wght.ttf);
     font-weight: normal;
     font-style: normal;
   }

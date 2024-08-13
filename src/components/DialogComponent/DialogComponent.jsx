@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BarLoader } from 'react-spinners';
-
+import './DialogComponent.css';
 function DialogComponent({ isEditing, setIsEditing, toggleEditing, isLoading, onFileChange,
     imagePath, title, setTitle, id, saveEditedTitle, removeRecipe }) {
     return (
@@ -26,48 +26,36 @@ function DialogComponent({ isEditing, setIsEditing, toggleEditing, isLoading, on
                 <DialogContentText>
                     New recipe title
                 </DialogContentText>
-                <TextField autoFocus
+                <TextField className='recipe-details-edit-recipe-dialog--text-field' autoFocus
                     margin="dense"
                     id="title"
                     name="title"
                     fullWidth
                     variant="standard"
                     defaultValue={title}
-                    onChange={e => setTitle(e.target.value)}
-                    style={{ padding: '1px' }} />
+                    onChange={e => setTitle(e.target.value)} />
 
-                <div style={{ margin: '10px' }}>
-                    <p style={{ marginBottom: 0 }}>Upload a photo of this recipe!</p>
-                    <form style={{ marginTop: 0 }}>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={onFileChange}
-                        />
-                        {isLoading && <BarLoader color="#DAA520" />}
+                <div className='recipe-details__dialog-content-wrapper'>
+                    <p className='recipe-details__dialog-content--upload'>Upload a photo of this recipe!</p>
+                    <form className='recipe-details__dialog-content--form'>
+                        <input type="file" accept="image/*" onChange={onFileChange} />
+                        {isLoading && <BarLoader className='bar-loader' color="black" />}
                         <br />
-                        {
-                            // Image preview
-                            imagePath === '' ? (
-                                null
-                            ) : (
-                                <img style={{ maxWidth: '150px' }} src={imagePath} />
-                            )
-                        }
+                        {/* Image preview */}
+                        {imagePath === '' ? null : <img className='image-upload-preview' src={imagePath} />}
                         <br />
                     </form>
                 </div>
-
             </DialogContent>
             <DialogActions>
-                {!isLoading && <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                    <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
-                        <Button style={{ width: '50%', color: 'gray' }} onClick={() => setIsEditing(false)}>Cancel</Button>
-                        <Button variant="outlined" type="submit" style={{ width: '50%', color: '#DAA520', borderColor: '#DAA520' }}>Save</Button>
+                {!isLoading && <div className='recipe-details__dialog--buttons'>
+                    <div className='recipe-details__dialog--buttons-first-row'>
+                        <Button className='recipe-details__dialog--buttons-cancel' onClick={() => setIsEditing(false)}>Cancel</Button>
+                        <Button className='recipe-details__dialog--buttons-save' variant='outlined' type='submit'>Save</Button>
                     </div>
-                    <div className="second-row" style={{ width: '100%' }}>
-                        <Button variant="outlined" startIcon={<DeleteIcon style={{ fill: '#DC143C' }} />}
-                            onClick={() => removeRecipe(id)} style={{ color: '#DC143C', borderColor: '#DC143C', flexGrow: '1', width: '100%', alignSelf: 'stretch' }}>
+                    <div className='recipe-details__dialog--buttons-second-row'>
+                        <Button className='recipe-details__dialog--buttons-delete' variant='outlined' startIcon={<DeleteIcon className='recipe-details__dialog--icon-delete' />}
+                            onClick={() => removeRecipe(id)}>
                             Delete Recipe
                         </Button>
                     </div>
@@ -76,5 +64,4 @@ function DialogComponent({ isEditing, setIsEditing, toggleEditing, isLoading, on
         </Dialog>
     );
 }
-
 export default DialogComponent;

@@ -1,6 +1,6 @@
 @font-face {
   font-family: libreFranklin;
-  src: url(../fonts/LibreFranklin-VariableFont_wght.ttf)
+  src: url(../../../public/fonts/LibreFranklin-VariableFont_wght.ttf);
 }
 *, *::before, *::after {
   /* ! Great to know for the future: snaps to page and gets rid of white space */

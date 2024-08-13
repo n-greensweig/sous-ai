@@ -1,0 +1,50 @@
+.MuiInputBase-root.recipe-details-edit-recipe-dialog--text-field {
+    padding: 1px;
+}
+.recipe-details__dialog-content-wrapper {
+    margin: 10px;
+}
+.recipe-details__dialog-content--upload {
+    margin-bottom: 0px;
+}
+.recipe-details__dialog-content--form {
+    margin-top: 0px;
+}
+.image-upload-preview {
+    max-width: 150px;
+}
+.recipe-details__dialog--buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.recipe-details__dialog--buttons-first-row {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.recipe-details__dialog--buttons-second-row {
+    width: 100%;
+}
+.MuiButtonBase-root.recipe-details__dialog--buttons-cancel {
+    width: 50%;
+    color: gray;
+    text-transform: none;
+}
+.MuiButtonBase-root.recipe-details__dialog--buttons-save {
+    width: 50%;
+    color: #DAA520;
+    border-color: #DAA520;
+    text-transform: none;
+}
+svg.MuiSvgIcon-root.recipe-details__dialog--icon-delete {
+    fill: #DC143C;
+}
+.recipe-details__dialog--buttons-delete {
+    color: #DC143C;
+    border-color: #DC143C;
+    flex-grow: 1;
+    width: 100%;
+    align-self: stretch;
+    text-transform: none;
+}
