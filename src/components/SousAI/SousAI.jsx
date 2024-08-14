@@ -217,7 +217,7 @@ function SousAI() {
         key={vertical + horizontal}
       >
         <Alert
-          icon={<CheckCircleOutlineIcon style={{ fill: 'white' }} />} // Custom icon color
+          icon={<CheckCircleOutlineIcon className='fill-white' />} // Custom icon color
           action={
             <IconButton
               size="small"
@@ -225,7 +225,7 @@ function SousAI() {
               color="inherit"
               onClick={handleClose}
             >
-              <CloseIcon style={{ fill: 'white' }} />
+              <CloseIcon className='fill-white' />
             </IconButton>
           }
           onClose={handleClose}
@@ -238,8 +238,8 @@ function SousAI() {
       </Snackbar>
 
       {/* Main content area */}
-      <section className='main' style={{ color: '#374151', }}>
-        <div className='section__chat' style={{ paddingTop: isXsScreen || isSmScreen ? '60px' : null, }}>
+      <section className='main'>
+        <div className='section__chat'>
           {isXsScreen || isSmScreen ? null : <h1>Sous</h1>}
           <ul className='feed'>
             {/* Maps over currentChat to render chat messages */}
@@ -249,25 +249,15 @@ function SousAI() {
                   {/* Conditional rendering based on the role of the message sender */}
                   {capitalizeFirstLetter(chatMessage.role) === 'Assistant' ?
                     // Renders assistant's avatar and name
-                    <div id='name-pic' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                      <img className='avi' src={`images/avatars/sous.svg`}
-                        height={'30'}
-                        width={'30'}
-                        style={{ borderRadius: '75%', marginRight: '15px' }}
-                      />
+                    <div id='name-pic' className='display-flex flex-row align-center'>
+                      <img className='sous__avi' src={`images/avatars/sous.svg`} />
                       <strong>Sous</strong>
-                    </div>
-                    :
+                    </div> :
                     // Renders user's avatar and name
-                    <div id='name-pic' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                      <img className='avi' src={`images/avatars/user-avatar.svg`}
-                        height={'30'}
-                        width={'30'}
-                        style={{ borderRadius: '75%', marginRight: '15px' }}
-                      />
+                    <div id='name-pic' className='display-flex flex-row align-center'>
+                      <img className='sous__avi' src={`images/avatars/user-avatar.svg`} />
                       <strong>You</strong>
-                    </div>
-                  }
+                    </div>}
                 </p>
 
                 <p>
@@ -298,7 +288,7 @@ function SousAI() {
                     ? null
                     : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).ingredients
                       ? (
-                        <div style={{ margin: '15px 0' }}>
+                        <div className='sous__ingredients-list'>
                           <strong>Ingredients:</strong>
                           <ul>
                             {JSON.parse(chatMessage.content).ingredients.map((ingredient, index) => (
@@ -306,12 +296,9 @@ function SousAI() {
                             ))}
                           </ul>
                         </div>
-                      )
-                      : null
-                  }
+                      ) : null}
                   {/* Conditional rendering for cooking instructions */}
-                  {
-                    chatMessage.role === 'user'
+                  {chatMessage.role === 'user'
                       ? null
                       : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).instructions
                         ? (
@@ -323,9 +310,7 @@ function SousAI() {
                               ))}
                             </ol>
                           </div>
-                        )
-                        : null
-                  }
+                        ) : null}
                 </p>
                 {/* Button to save the recipe if it's from the assistant and is in JSON format */}
                 {chatMessage.role === 'assistant' && !JSON.parse(chatMessage.content).non_cooking_response ? (
@@ -353,19 +338,14 @@ function SousAI() {
               </li>
             ))}
           </ul>
-
-
           {/* Input form for new recipe requests */}
-          <div className='bottom-section' style={{
-            marginBottom: isXsScreen || isSmScreen ? '3%' : null,
-            display: isXsScreen || isSmScreen ? 'fixed' : null,
-          }}>
-          {/* Loader animation to indicate that a recipe is being prepared */}
-          {loading && <div id='skeleton'>
-            <SkeletonTheme baseColor='#e0e0e0' highlightColor='#f0f0f0'>
-              <Skeleton count={3} />
-            </SkeletonTheme>
-          </div>}
+          <div className='sous__bottom-section'>
+            {/* Loader animation to indicate that a recipe is being prepared */}
+            {loading && <div id='skeleton'>
+              <SkeletonTheme baseColor='#e0e0e0' highlightColor='#f0f0f0'>
+                <Skeleton count={3} />
+              </SkeletonTheme>
+            </div>}
             <div className="input-container">
               <form onSubmit={getMessages} id='sous-form'>
                 <textarea
@@ -377,39 +357,29 @@ function SousAI() {
                     setValue(e.target.value);
                     adjustTextareaHeight(); // Adjust the height after setting the new value
                   }}
-                  style={{ padding: '0px 41px 0px 10px', }}
                   onKeyDown={(e) => {
                     // Check if Enter key is pressed without the Shift key
                     if (e.key === 'Enter' && !e.shiftKey) {
                       e.preventDefault(); // Prevent the default action to avoid a new line
                       getMessages(e); // Call the function directly or use the form's submit method
-                    }
-                  }}
+                    }}}
                   placeholder='What would you like to cook today?'
-                  required
-                />
+                  required />
                 {/* Submit button changes based on whether input value is present and not loading */}
                 {value.trim() && !loading
-                  ? <Button style={{ backgroundColor: '#333333', }}
-                    sx={{ minWidth: '33px', }}
-                    type='submit' id='submit'>
-                    <ArrowUpwardIcon className='up-icon' sx={{ fill: '#FFF', justifyContent: 'center', }} />
+                  ? <Button id='submit' className='sous__submit--button-typing' type='submit'>
+                    <ArrowUpwardIcon className='up-icon justify-center fill-white' />
                   </Button>
-                  : <Button sx={{ minWidth: '33px', }} disabled type='submit' id='submit'>
-                    <ArrowUpwardIcon className='up-icon' sx={{ justifyContent: 'center' }} />
+                  : <Button disabled type='submit' id='submit'>
+                    <ArrowUpwardIcon className='up-icon justify-center' />
                   </Button>
                 }
               </form>
             </div>
-            {/* Informational text about how the app operates */}
-            {/* <p className="info">
-              As of {month} {year}, Sous operates on a message-by-message basis.<br />
-              Each interaction is independent, and the app does not have the ability to reference prior messages in the conversation.
-            </p> */}
           </div>
         </div>
-      </section >
-    </div >
+      </section>
+    </div>
   );
 }
 

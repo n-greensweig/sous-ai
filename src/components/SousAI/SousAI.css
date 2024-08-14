@@ -54,6 +54,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
+  color: #374151;
 }
 
 .section__chat {
@@ -66,6 +67,13 @@ body {
   width: 100%;
 }
 
+.sous__avi {
+  height: 30px;
+  width: 30px;
+  border-radius: 75%;
+  margin-right: style
+}
+
 /* Small text section, likely for captions or disclaimers, with smaller font size */
 .info {
   color: #7F7F7F;
@@ -74,7 +82,7 @@ body {
 }
 
 /* Bottom section for additional content or actions, centered */
-.bottom-section {
+.sous__bottom-section {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -94,7 +102,7 @@ body {
 #dynamic-textarea {
   width: 100%;
   margin-right: 10px;
-  padding: 100px;
+  padding: 0px 41px 0px 10px;
   font-size: 16px;
   min-height: 25px;
   border-radius: 8px;
@@ -110,6 +118,10 @@ body {
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
+.sous__ingredients-list {
+  margin: 15px 0;
+}
+
 textarea:focus {
   outline: none;
 }
@@ -120,6 +132,15 @@ textarea::placeholder {
 
 /* Adjust input container and textarea styles for better usability on mobile devices */
 @media (max-width: 768px) {
+  .section__chat {
+    padding-top: 60px;
+  }
+
+  .sous__bottom-section {
+    margin-bottom: 3%;
+    display: fixed;
+  }
+
   .input-container {
     max-width: 95%;
     /* Enhance responsiveness by reducing max-width */
@@ -133,7 +154,7 @@ textarea::placeholder {
 }
 
 /* Submit button styling, transparent with custom sizing and cursor change on hover */
-#submit {
+.MuiButtonBase-root#submit {
   background-color: transparent;
   border-radius: 5px;
   margin-bottom: 5px;
@@ -143,6 +164,11 @@ textarea::placeholder {
   align-self: flex-end;
   margin-left: -45px;
   cursor: pointer;
+  min-width: 33px;
+}
+
+.MuiButtonBase-root.sous__submit--button-typing {
+  background-color: #333 !important;
 }
 
 /* Changes submit button appearance on hover to indicate interactivity */
@@ -190,6 +216,7 @@ textarea::placeholder {
   border: 1px solid #333333;
   border-radius: 5px;
 }
+
 /* Visual cue for interactivity on the save recipe button */
 #save-recipe-button:hover {
   cursor: pointer;

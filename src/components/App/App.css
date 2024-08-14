@@ -57,6 +57,9 @@ img {
 .MuiSvgIcon-root.fill-black {
   fill: black;
 }
+.MuiSvgIcon-root.fill-white {
+  fill: white;
+}
 .width-100 {
   width: 100%;
 }
@@ -69,10 +72,10 @@ img {
 .color-black {
   color: black;
 }
-.column {
+.flex-column {
   flex-direction: column;
 }
-.row {
+.flex-row {
   flex-direction: row;
 }
 /* --------------------------------------------------------------------------------
