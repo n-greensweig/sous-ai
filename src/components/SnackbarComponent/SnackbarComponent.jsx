@@ -4,7 +4,6 @@ import IconButton from '@mui/material/IconButton';
 import Fade from '@mui/material/Fade';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-
 function SnackbarComponent({ open, handleClose, vertical, horizontal }) {
     return (
         <Snackbar
@@ -13,28 +12,22 @@ function SnackbarComponent({ open, handleClose, vertical, horizontal }) {
             onClose={handleClose}
             autoHideDuration={1500}
             TransitionComponent={Fade} // Using Fade transition
-            key={vertical + horizontal}
-        >
+            key={vertical + horizontal}>
             <Alert
-                icon={<CheckCircleOutlineIcon style={{ fill: 'white' }} />}
-                action={
-                    <IconButton
+                icon={<CheckCircleOutlineIcon className='fill-white' />}
+                action={<IconButton
                         size="small"
                         aria-label="close"
                         color="inherit"
-                        onClick={handleClose}
-                    >
-                        <CloseIcon style={{ fill: 'white' }} />
-                    </IconButton>
-                }
+                        onClick={handleClose}>
+                        <CloseIcon className='fill-white' />
+                    </IconButton>}
                 onClose={handleClose}
                 severity="error"
-                variant="filled"
-            >
+                variant="filled">
                 Recipe deleted!
             </Alert>
         </Snackbar>
     )
 }
-
 export default SnackbarComponent;
