@@ -5,9 +5,24 @@
     align-self: center;
     margin-bottom: 10px;
 }
+
 .auto-scroll__span {
-    display: 'flex';
-    flex-direction: 'row';
-    align-items: 'center';
-    text-decoration: 'underline';
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: underline;
+}
+
+.recipe-details__auto-scroll-one {
+    margin-top: 3%;
+}
+
+.recipe-details__auto-scroll-two {
+    margin-bottom: 15%;
+    text-decoration: underline;
+}
+
+.MuiSvgIcon-root.icon-black.auto-scroll__icon {
+    margin-left: 3px;
+    fill: black;
 }
