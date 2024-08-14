@@ -1,0 +1,9 @@
+.recipe-details__p--cooked {
+    margin-bottom: 10%;
+}
+.recipe-details__p--cooked > span {
+    gap: 4px;
+}
+.recipe-details__p--cooked > span > svg {
+    font-size: 200%;
+}
