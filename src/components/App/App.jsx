@@ -8,7 +8,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import SousAI from '../SousAI/SousAI';
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -70,17 +69,8 @@ function App() {
           >
             <RecipeDetails user={user} />
           </Route>
-
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows RecipeItems else shows LoginPage
             exact
             path="/recipe-box"
           >
@@ -88,7 +78,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows cooked recipes else shows LoginPage
             exact
             path="/recipe-box/cooked"
           >
@@ -96,7 +86,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows recently viewed else shows LoginPage
             exact
             path="/recipe-box/recent"
           >
@@ -104,7 +94,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows recipes from folder else shows LoginPage
             exact
             path="/recipe-box/:id"
           >
@@ -158,8 +148,6 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        {/* <Footer /> */}
-        {/* <Nav /> */}
       </div>
     </Router>
   );

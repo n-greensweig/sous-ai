@@ -12,6 +12,7 @@ import UpperSection from "./UpperSection/UpperSection";
 import AutoScroll from "../AutoScroll/AutoScroll";
 import LowerSection from "./LowerSection/LowerSection";
 import Header from "../Header/Header";
+import MobileNavbar from "../MobileNavbar/MobileNavbar";
 // Function component for RecipeDetails
 function RecipeDetails({ user }) {
 
@@ -188,7 +189,7 @@ function RecipeDetails({ user }) {
 
     return (
         <>
-            {user.id ? null : <Header />}
+            {user.id ? null : isXsScreen || isSmScreen ? <MobileNavbar /> : <Header />}
             <div className="details__container">
                 <SnackbarComponent open={open} handleClose={handleClose} vertical={vertical} horizontal={horizontal} />
                 <div style={isEditing ? null : { paddingBottom: '2%', marginTop: '5%' }}>
