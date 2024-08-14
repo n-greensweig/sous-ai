@@ -2,7 +2,10 @@
   font-family: libreFranklin;
   src: url(../../../public/fonts/LibreFranklin-VariableFont_wght.ttf);
 }
-*, *::before, *::after {
+
+*,
+*::before,
+*::after {
   /* ! Great to know for the future: snaps to page and gets rid of white space */
   /* box-sizing: inherit; */
   margin: 0;
@@ -39,71 +42,107 @@ img {
   display: inline-block;
   max-width: 100%;
 }
-.display-flex {
+
+*.display-flex {
   display: flex;
 }
+
 .align-fs {
   align-items: flex-start;
 }
+
 .align-center {
   align-items: center;
+}
+
+.justify-fe {
+  justify-content: flex-end;
 }
 .justify-sb {
   justify-content: space-between;
 }
+
 .justify-se {
   justify-content: space-evenly;
 }
+
 .justify-center {
   justify-content: center;
 }
-.color-white {
-  color: #fff !important;
+
+.justify-end {
+  justify-content: end;
+}
+
+*.color-white {
+  color: #fff;
+}
+*.color-black {
+  color: #000;
 }
 .MuiSvgIcon-root.fill-black {
   fill: black;
 }
+
 .MuiSvgIcon-root.fill-white {
   fill: white;
 }
+
 .width-100 {
   width: 100%;
 }
+
 .text-left {
   text-align: left;
 }
+
 .no-decoration {
   text-decoration: none;
 }
+
 *.no-transform {
   text-transform: none;
 }
+
 .color-black {
   color: black;
 }
+
 .flex-column {
   flex-direction: column;
 }
+
 .flex-row {
   flex-direction: row;
 }
+
 *.pointer {
   cursor: pointer;
 }
+
 *.color-717171 {
   color: #717171;
 }
+
 *.color-222 {
   color: #222;
 }
+
 *.mt-0 {
   margin-top: 0;
 }
+
 *.mb-0 {
   margin-bottom: 0;
 }
+*.pt-0 {
+  padding-top: 0;
+}
 *.pb-0 {
   padding-bottom: 0;
+}
+.bold {
+  font-weight: bold;
 }
 /* --------------------------------------------------------------------------------
 Container
@@ -113,6 +152,7 @@ Container
   padding: auto 20px;
   background-color: #ecece6;
 }
+
 .landing-page__heading,
 .landing-page__typewriter-text {
   color: #333;
@@ -152,33 +192,41 @@ input {
   margin-bottom: 10px;
   color: #111;
 }
+
 @media screen and (min-width: 768px) {
   .landing-page__container {
     padding: 3% 0% 20% 0%;
   }
+
   .landing-page__heading {
     padding-left: 10px;
     font-size: 54px;
   }
+
   .landing-page__heading,
   .landing-page__subheading {
     margin: 0px 20px;
   }
 }
+
 @media screen and (max-width: 768px) {
   .landing-page__container {
     padding-bottom: 20%;
   }
+
   .landing-page__heading {
     padding: 20px 0px;
   }
+
   .mobile-only-flex {
     display: flex;
   }
+
   .mobile-only-column,
   .ingredients-instructions {
     flex-direction: column;
   }
+
   .mobile-only-align-center {
     align-items: center;
   }

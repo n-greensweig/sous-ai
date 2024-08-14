@@ -3,11 +3,9 @@ import TextField from '@mui/material/TextField';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from "react";
 import swal from 'sweetalert';
-
-function RecipeNotes({ isXsScreen, isSmScreen, comments, dispatch, id }) {
-
+import './RecipeNotes.css';
+function RecipeNotes({ comments, dispatch, id }) {
     const [newComment, setNewComment] = useState([]);
-
     // Function to add a comment to a recipe
     const addComment = (comment, id) => {
         if (comment.trim()) {
@@ -16,7 +14,6 @@ function RecipeNotes({ isXsScreen, isSmScreen, comments, dispatch, id }) {
             setNewComment('');
         }
     };
-
     // Format date in M/D/YYYY format
     const formatDate = date => {
         const newDate = new Date(date);
@@ -25,7 +22,6 @@ function RecipeNotes({ isXsScreen, isSmScreen, comments, dispatch, id }) {
         const y = newDate.getFullYear();
         return `${m}/${d}/${y}`;
     };
-
     // Remove comment from DB onClick of button
     const removeComment = (recipeId, id) => {
         swal({
@@ -42,71 +38,29 @@ function RecipeNotes({ isXsScreen, isSmScreen, comments, dispatch, id }) {
                 }
             });
     };
-
     return (
-        <div id="recipe-notes" style={{
-            display: 'flex',
-            flex: '1',
-            flexDirection: 'column',
-            margin: isSmScreen || isXsScreen ? '0 10% 5% 10%' : null,
-            marginRight: '50px',
-            justifyContent: 'flex-end', alignSelf: 'flex-start',
-            width: isSmScreen || isXsScreen ? '80%' : null,
-        }}>
-            <p style={{
-                color: 'black', marginTop: isSmScreen || isXsScreen ? '30px' : '0px',
-                paddingBottom: '0px',
-                fontWeight: 'bold',
-                borderTop: '2px solid black',
-                textAlign: isSmScreen || isXsScreen ? 'left' : null,
-                marginBottom: '6%',
-            }}>RECIPE NOTES</p>
+        <div id='recipe-notes-container' className='display-flex flex-column justify-fe'>
+            <p className='recipe-notes__subheader pb-0 bold'>RECIPE NOTES</p>
 
-            {
-                comments.map(comment => <p
-                    id={comment.id}
-                    style={{
-                        color: 'black',
-                        borderBottom: '1px solid lightgray',
-                        marginTop: '0px',
-                        paddingTop: '0px',
-                        padding: '10px 0px',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                    }}>
-                    <span style={{ width: '65%' }}>{comment.comment}</span>
-                    <span style={{ fontSize: '.8rem', }}><i>Commented on {formatDate(comment.commented_at)}</i></span>
-                    <Button style={{
-                        padding: '0px', alignSelf: 'flex-start',
-                        display: 'flex', flexDirection: 'row', justifyContent: 'end'
-                    }}
-                        onClick={() => removeComment(comment.id, id)}
-                    >
-                        <DeleteIcon style={{ fontSize: '', padding: '0px' }} />
+            {comments.map(comment => <p id={comment.id}
+                    className='recipe-details__comments-wrapper display-flex flex-row justify-sb align-fs color-black mt-0 pt-0'>
+                    <span className='recipe-details__comments--comment-text'>{comment.comment}</span>
+                    <span className='recipe-details__comments--comment-timestamp'><i>Commented on {formatDate(comment.commented_at)}</i></span>
+                    <Button className='recipe-details__comments--button-delete display-flex flex-row justify-end' onClick={() => removeComment(comment.id, id)}>
+                        <DeleteIcon className='recipe-details__comments--icon-delete' />
                     </Button>
                 </p>)
             }
-            <div style={{
-                display: 'flex', flexDirection: 'row', width: '100%'
-            }}>
-                <form style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} onSubmit={() => addComment(newComment, id)}>
-
-                    <TextField label="Add a recipe note" variant="outlined"
-                        className="custom-textfield"
-                        style={{ width: '90%', }}
-                        value={newComment}
+            <div className='width-100 display-flex flex-row'>
+                <form className='width-100 display-flex flex-row justify-sb' onSubmit={() => addComment(newComment, id)}>
+                    <TextField label='Add a recipe note' variant='outlined'
+                        className='recipe-details__comments--text-field custom-textfield' value={newComment}
                         onChange={e => setNewComment(e.target.value)} />
-
-                    <Button variant="outlined"
-                        type="submit"
-                        style={{ color: '#DAA520', border: '1px solid #DAA520', borderColor: '#DAA520' }}
-                    >Save note</Button>
+                    <Button className='recipe-details__comments--button-save' variant='outlined'
+                        type='submit'>Save note</Button>
                 </form>
             </div>
         </div>
     );
 }
-
 export default RecipeNotes;

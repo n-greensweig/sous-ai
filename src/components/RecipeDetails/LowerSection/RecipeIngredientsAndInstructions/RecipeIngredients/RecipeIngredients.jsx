@@ -120,7 +120,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                                             aria-controls={`panel${idx}-content`}
                                             id={`panel${idx}-header`}
                                         >
-                                            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                                            <div className='display-flex align-center width-100'>
                                                 {expanded.includes(idx) ? <ExpandMoreIcon style={{ cursor: 'pointer', marginRight: '8px' }} /> : <KeyboardArrowRight style={{ cursor: 'pointer', marginRight: '8px' }} />}
                                                 <h3 style={{ flex: 1 }}>{recipe.recipe_title}</h3>
                                                 <p
@@ -132,7 +132,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
                                             <ul>
                                                 {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
                                                     ingredient !== '' ?
-                                                        <div key={index} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #d3d3d3', }}>
+                                                        <div key={index} className='display-flex justify-sb' style={{ borderBottom: '1px solid #d3d3d3', }}>
                                                             <li style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
                                                             <ClearIcon style={{ padding: '10px 0' }}
                                                                 onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}

@@ -9,7 +9,7 @@ function RecipeNotesAndPhoto({ imageList, isXsScreen, isSmScreen, comments, disp
             alignItems: 'flex-start', justifyContent: 'space-between', width: '100%',
         }}>
             <RecipePhotos imageList={imageList} isXsScreen={isXsScreen} isSmScreen={isSmScreen} />
-            <RecipeNotes isXsScreen={isXsScreen} isSmScreen={isSmScreen} comments={comments} dispatch={dispatch} id={id} />
+            <RecipeNotes comments={comments} dispatch={dispatch} id={id} />
         </div>
     );
 }

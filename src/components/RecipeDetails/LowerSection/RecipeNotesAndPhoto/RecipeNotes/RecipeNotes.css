@@ -1,0 +1,57 @@
+#recipe-notes-container {
+    flex: 1;
+    margin-right: 50px;
+    align-self: flex-start;
+}
+.recipe-notes__subheader {
+    margin-top: 0px;
+    border-top: 2px solid black;
+    margin-bottom: 6%;
+}
+.recipe-details__comments-wrapper {
+    border-bottom: 1px solid lightgray;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+}
+
+.recipe-details__comments--comment-text {
+    width: 65%;
+}
+
+.recipe-details__comments--comment-timestamp {
+    font-size: .8rem;
+}
+
+.MuiButtonBase-root.recipe-details__comments--button-delete {
+    padding: 0px;
+    align-self: flex-start;
+}
+
+.MuiSvgIcon-root.recipe-details__comments--icon-delete {
+    padding: 0px;
+}
+.recipe-details__comments--text-field {
+    width: 90%;
+}
+.recipe-details__comments--text-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: inherit;
+}
+
+.recipe-details__comments--text-field .MuiInputLabel-outlined.Mui-focused {
+    color: inherit; 
+}
+.MuiButtonBase-root.recipe-details__comments--button-save {
+    color: #DAA520; 
+    border: 1px solid #DAA520;
+    border-color: #DAA520;
+}
+@media screen and (max-width: 768px) {
+    #recipe-notes-container {
+        margin: 0 10% 5% 10%;
+        width: 80%;
+    }
+    .recipe-notes__subheader {
+        margin-top: 30px;
+        text-align: left;
+    }
+}
