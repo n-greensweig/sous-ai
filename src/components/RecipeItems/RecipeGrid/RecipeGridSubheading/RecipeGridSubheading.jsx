@@ -14,7 +14,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { TextField } from '@mui/material';
 import './RecipeGridSubheading.css';
-function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQuery, id, isXsScreen, isSmScreen }) {
+function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQuery, id }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
     const [newListName, setNewListName] = useState(listName); // Stores the new recipe list's name.

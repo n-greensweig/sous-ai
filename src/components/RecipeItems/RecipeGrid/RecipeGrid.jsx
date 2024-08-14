@@ -9,8 +9,7 @@ function RecipeGrid({ recipes, listName, numOfRecipes, searchQuery, setSearchQue
             <div className='recipe-grid__subcontainer'>
                 <div className='recipe-grid__subheading-wrapper'>
                     {listName && (
-                        <RecipeGridSubheading listName={listName} numOfRecipes={numOfRecipes} searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id}
-                            isXsScreen={isXsScreen} isSmScreen={isSmScreen} />
+                        <RecipeGridSubheading listName={listName} numOfRecipes={numOfRecipes} searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id} />
                     )}
                 </div>
                 <RecipeGridCards recipes={recipes} listName={listName} isXsScreen={isXsScreen} isSmScreen={isSmScreen} />
