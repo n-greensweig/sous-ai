@@ -77,7 +77,8 @@ Container
   padding: auto 20px;
   background-color: #ecece6;
 }
-.landing-page__heading {
+.landing-page__heading,
+.landing-page__typewriter-text {
   color: #333;
 }
 
