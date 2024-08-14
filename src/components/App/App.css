@@ -69,6 +69,12 @@ img {
 .color-black {
   color: black;
 }
+.column {
+  flex-direction: column;
+}
+.row {
+  flex-direction: row;
+}
 /* --------------------------------------------------------------------------------
 Container
 -------------------------------------------------------------------------------- */
@@ -139,7 +145,8 @@ input {
   .mobile-only-flex {
     display: flex;
   }
-  .mobile-only-column {
+  .mobile-only-column,
+  .ingredients-instructions {
     flex-direction: column;
   }
   .mobile-only-align-center {

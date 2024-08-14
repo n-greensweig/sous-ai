@@ -23,33 +23,18 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
 
     // Toggles the isCreating state, controlling the visibility of the creation dialog.
     const toggleCreating = () => setIsCreating(!isCreating);
-
-    const handlePopover = (e) => {
-        setAnchorEl(e.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const saveRecipeListName = (newListName) => {
-        dispatch({ type: 'UPDATE_RECIPE_LIST_NAME', payload: { id, newListName } });
-    };
-
+    const handlePopover = (e) => setAnchorEl(e.currentTarget);
+    const handleClose = () => setAnchorEl(null);
+    const saveRecipeListName = (newListName) => dispatch({ type: 'UPDATE_RECIPE_LIST_NAME', payload: { id, newListName } });
     const deleteRecipeList = () => {
         dispatch({ type: 'REMOVE_RECIPE_LIST', payload: id });
         history.push('/recipe-box');
         dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
     };
-
     const open = Boolean(anchorEl);
     const popoverID = open ? 'simple-popover' : undefined;
-
     useEffect(() => {
-        // console.log('listName:', listName);
     }, [listName]);
-
-
     return (
         <div style={{
             display: 'flex', flexDirection: isXsScreen || isSmScreen ? 'column' : 'row',

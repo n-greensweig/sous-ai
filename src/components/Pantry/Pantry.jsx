@@ -1105,5 +1105,4 @@ function Pantry() {
         </div>
     );
 }
-
 export default Pantry;
