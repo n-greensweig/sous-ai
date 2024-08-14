@@ -36,19 +36,12 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     useEffect(() => {
     }, [listName]);
     return (
-        <div style={{
-            display: 'flex', flexDirection: isXsScreen || isSmScreen ? 'column' : 'row',
-            justifyContent: isXsScreen || isSmScreen ? 'space-evenly' : 'space-between',
-            alignItems: isXsScreen || isSmScreen ? 'flex-start' : 'center',
-            marginBottom: isXsScreen || isSmScreen ? null : '3%',
-            marginTop: isXsScreen || isSmScreen
-                ? '50px' : 0
-        }}>
-            <div style={{ display: 'flex', flexDirection: 'column', }}>
-                <div style={{ display: 'flex', alignItems: 'center', }}>
-                    <h2 style={{ marginLeft: 'inherit', color: '#222', marginBottom: '0px' }}>{listName}</h2>
+        <div className={'recipe-grid__subheading--wrapper display-flex'}>
+            <div className='display-flex flex-column'>
+                <div className='display-flex align-center'>
+                    <h2 className='recipe-grid__subheading--recipe-folder-name color-222 mb-0'>{listName}</h2>
                     {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed Recipes' ?
-                        <MoreHorizIcon onClick={handlePopover} sx={{ color: '#717171', marginLeft: '5px', cursor: 'pointer', marginTop: 'auto' }} /> : null}
+                        <MoreHorizIcon className='pointer color-717171' onClick={handlePopover} sx={{ marginLeft: '5px', marginTop: 'auto' }} /> : null}
                     <Popover
                         id={popoverID}
                         open={open}
@@ -60,37 +53,33 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                         }}
                     >
                         <div>
-                            <Typography onClick={toggleCreating} sx={{
-                                borderBottom: '1px solid #ccc', padding: '10px', cursor: 'pointer', color: '#222', fontFamily: 'inherit',
+                            <Typography className='pointer color-222' onClick={toggleCreating} sx={{
+                                borderBottom: '1px solid #ccc', padding: '10px', fontFamily: 'inherit',
                                 '&:hover': {
                                     backgroundColor: '#c0c0c0',
                                 },
                             }}>
-                                <button style={{ cursor: 'pointer', color: '#222' }}>Rename</button>
+                                <button className='pointer color-222'>Rename</button>
                             </Typography>
-                            <Typography onClick={deleteRecipeList} sx={{
-                                padding: '10px', cursor: 'pointer', color: '#222', fontFamily: 'inherit',
+                            <Typography className='pointer color-222' onClick={deleteRecipeList} sx={{
+                                padding: '10px', fontFamily: 'inherit',
                                 '&:hover': {
                                     backgroundColor: '#c0c0c0',
                                 },
                             }}>
-                                <button style={{ cursor: 'pointer' }}>Delete</button>
+                                <button className='pointer'>Delete</button>
                             </Typography>
                         </div>
                     </Popover>
                 </div>
-                {numOfRecipes > 0 ? <p style={{ marginTop: 0, color: '#717171', }}>{numOfRecipes} {numOfRecipes === 1 ? 'recipe' : 'recipes'}</p> :
-                    <p style={{ marginTop: 0, color: '#717171', }}>No recipes yet</p>}
+                {numOfRecipes > 0 ? <p className='mt-0 color-717171'>{numOfRecipes} {numOfRecipes === 1 ? 'recipe' : 'recipes'}</p> :
+                    <p className='mt-0 color-717171'>No recipes yet</p>}
             </div>
-            <div className="search__input" style={{
-                display: 'flex', flexDirection: 'row',
-                alignItems: 'center', position: isXsScreen || isSmScreen ? 'relative' : 'absolute',
-                right: isXsScreen || isSmScreen ? 0 : '2%', margin: isXsScreen || isSmScreen ? '0px 0px 20px 0px' : 0,
-            }}>
+            <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
                 <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
                 <input
                     className='recipe-grid__subheading--search-bar'
-                    type="text"
+                    type='text'
                     placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' ? dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) : null}
@@ -108,28 +97,28 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                         toggleCreating(event);
                     },
                 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid gray', }}>
-                    <DialogTitle sx={{ paddingBottom: '0px', marginBottom: '0px', }}>Rename Folder</DialogTitle>
-                    <Button style={{ color: 'gray', textTransform: 'none', paddingBottom: '0px', marginBottom: '0px', }} onClick={() => setIsCreating(false)}>Cancel</Button>
+                <div className='recipe-grid__subheading--dialog-wrapper display-flex justify-sb'>
+                    <DialogTitle className='mb-0 pb-0'>Rename Folder</DialogTitle>
+                    <Button className='recipe-grid__subheading--button-cancel no-transform mb-0 pb-0' onClick={() => setIsCreating(false)}>Cancel</Button>
                 </div>
                 <DialogContent>
-                    <TextField autoFocus
-                        margin="dense"
-                        id="title"
-                        name="title"
+                    <TextField
+                        autoFocus
+                        className='recipe-grid__subheading--dialog-textfield'
+                        id='Folder title'
+                        name='Folder title'
                         fullWidth
-                        variant="standard"
+                        variant='standard'
                         defaultValue={listName}
                         onChange={e => setNewListName(e.target.value)}
-                        value={newListName}
-                        style={{ padding: '1px' }} />
+                        value={newListName} />
                 </DialogContent>
                 <DialogActions>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                        <div className="first-row" style={{ width: '100%', marginBottom: '20px' }}>
+                    <div className='display-flex flex-column align-center width-100'>
+                        <div className='recipe-grid__subheading--actions-first-row width-100'>
                             {/* Buttons for cancelling or saving the new recipe folder. */}
-                            <Button onClick={() => saveRecipeListName(newListName)}
-                                variant="outlined" type="submit" style={{ width: '50%', backgroundColor: '#df321b', color: 'white', border: '1px solid #df321b', borderRadius: '5%', textTransform: 'none' }}>Rename</Button>
+                            <Button className='recipe-grid__subheading__button-rename-folder width-100 no-transform color-white' onClick={() => saveRecipeListName(newListName)}
+                                variant='outlined' type='submit'>Rename</Button>
                         </div>
                     </div>
                 </DialogActions>

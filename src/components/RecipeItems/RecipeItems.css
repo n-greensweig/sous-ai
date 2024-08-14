@@ -72,28 +72,6 @@
    justify-content: space-between;
 }
 
-.search__input {
-   width: 300px;
-   height: 50px;
-   border: 1px solid #CCC;
-   border-radius: 3px;
-   background-color: #FFF;
-   padding: none;
-   margin: none;
-
-   &:hover {
-      border: 1px solid #000;
-   }
-}
-
-.search__input>input {
-   width: 100%;
-   height: 40px;
-   padding: none;
-   margin: none;
-   border: none;
-}
-
 .folder__photo {
    height: 40px;
    width: 30px;
@@ -190,23 +168,6 @@
 .grocery-list__ingredient,
 .MuiSvgIcon-root.grocery-list__clear-icon {
    padding: 10px 0;
-}
-
-/* Styles for the input field */
-.search__input input {
-   padding: 10px;
-   width: 100%;
-   /* Adjust as needed */
-   box-sizing: border-box;
-   /* Ensures padding doesn't affect the total width */
-}
-
-/* Removes border and outline when the input is focused */
-.search__input input:focus {
-   border: none;
-   /* Removes the border */
-   outline: none;
-   /* Removes the outline */
 }
 
 .search {

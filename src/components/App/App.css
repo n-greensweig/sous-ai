@@ -42,11 +42,17 @@ img {
 .display-flex {
   display: flex;
 }
+.align-fs {
+  align-items: flex-start;
+}
 .align-center {
   align-items: center;
 }
 .justify-sb {
   justify-content: space-between;
+}
+.justify-se {
+  justify-content: space-evenly;
 }
 .justify-center {
   justify-content: center;
@@ -69,6 +75,9 @@ img {
 .no-decoration {
   text-decoration: none;
 }
+*.no-transform {
+  text-transform: none;
+}
 .color-black {
   color: black;
 }
@@ -77,6 +86,24 @@ img {
 }
 .flex-row {
   flex-direction: row;
+}
+*.pointer {
+  cursor: pointer;
+}
+*.color-717171 {
+  color: #717171;
+}
+*.color-222 {
+  color: #222;
+}
+*.mt-0 {
+  margin-top: 0;
+}
+*.mb-0 {
+  margin-bottom: 0;
+}
+*.pb-0 {
+  padding-bottom: 0;
 }
 /* --------------------------------------------------------------------------------
 Container

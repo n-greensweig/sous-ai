@@ -1,9 +1,100 @@
+.recipe-grid__subheading--wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3%;
+    margin-top: 0px;
+}
+
 .MuiSvgIcon-root.recipe-grid__subheading--search-bar-cancel {
     margin-right: 10px;
 }
+
 .MuiSvgIcon-root.recipe-grid__subheading--search-bar-search {
     margin-left: 10px;
 }
+
 .recipe-grid__subheading--search-bar {
     margin: 0px;
+}
+
+.MuiButtonBase-root.recipe-grid__subheading__button-rename-folder {
+    background-color: #df321b;
+    border: 1px solid #df321b;
+    border-radius: 5%;
+}
+
+.recipe-grid__subheading--actions-first-row {
+    margin-bottom: 20px;
+}
+
+.MuiInputBase-input.recipe-grid__subheading--dialog-textfield {
+    padding: 1px;
+}
+
+.recipe-grid__subheading--recipe-folder-name {
+    margin-left: inherit;
+}
+
+.recipe-grid__subheading--dialog-wrapper {
+    border-bottom: 1px solid gray;
+}
+
+.MuiButtonBase-root.recipe-grid__subheading--button-cancel {
+    color: gray;
+}
+
+.recipe-grid__subheading--search-input {
+    width: 300px;
+    height: 50px;
+    border: 1px solid #CCC;
+    border-radius: 3px;
+    background-color: #FFF;
+    padding: none;
+    margin: none;
+    position: absolute;
+    right: 2%;
+    &:hover {
+       border: 1px solid #000;
+    }
+ }
+ 
+ .recipe-grid__subheading--search-input>input {
+    width: 100%;
+    height: 40px;
+    padding: none;
+    margin: none;
+    border: none;
+ }
+ 
+ /* Styles for the input field */
+ .recipe-grid__subheading--search-input input {
+    padding: 10px;
+    width: 100%;
+    /* Adjust as needed */
+    box-sizing: border-box;
+    /* Ensures padding doesn't affect the total width */
+ }
+ 
+ /* Removes border and outline when the input is focused */
+ .recipe-grid__subheading--search-input input:focus {
+    border: none;
+    /* Removes the border */
+    outline: none;
+    /* Removes the outline */
+ }
+
+@media screen and (max-width: 768px) {
+    .recipe-grid__subheading--wrapper {
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        margin-bottom: inherit;
+        margin-top: 50px;
+    }
+    .recipe-grid__subheading--search-input {
+        position: relative;
+        right: 0;
+        margin: 0px 0px 20px 0px;
+    }
 }
