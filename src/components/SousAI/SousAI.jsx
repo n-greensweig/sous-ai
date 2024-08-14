@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 // Hook from redux for dispatching actions
 import { useDispatch } from 'react-redux';
 // MUI components for UI design
-import { Button, useTheme, useMediaQuery } from '@mui/material';
+import { Button } from '@mui/material';
 // MUI icons for button decorations
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -43,7 +43,6 @@ function SousAI() {
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (!textarea) return;
-
     textarea.style.height = 'auto'; // Reset the height so the scrollHeight measurement is correct
     const maxHeight = 200; // Maximum height before scrolling
     const scrollHeight = textarea.scrollHeight;
@@ -160,11 +159,6 @@ function SousAI() {
     dispatch({ type: 'FETCH_USER_PREFERENCES' });
   }, [message, currentTitle]);
 
-  // MUI hooks for responsive design checks
-  const theme = useTheme();
-  const isXsScreen = useMediaQuery(theme.breakpoints.down('xs')); // Checks for extra-small screens
-  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm')); // Checks for small screens
-
   // Filters chat history for messages belonging to the current chat session
   const currentChat = previousChats.filter(previousChat => previousChat.title === currentTitle);
   // Extracts unique titles from chat history for navigation purposes
@@ -223,16 +217,12 @@ function SousAI() {
               size="small"
               aria-label="close"
               color="inherit"
-              onClick={handleClose}
-            >
+              onClick={handleClose}>
               <CloseIcon className='fill-white' />
-            </IconButton>
-          }
+            </IconButton>}
           onClose={handleClose}
           severity="success" // Indicates the nature of the alert
-          variant="filled"
-        >
-          {/* Message displayed in the alert */}
+          variant="filled">
           Recipe saved!
         </Alert>
       </Snackbar>
@@ -240,7 +230,7 @@ function SousAI() {
       {/* Main content area */}
       <section className='main'>
         <div className='section__chat'>
-          {isXsScreen || isSmScreen ? null : <h1>Sous</h1>}
+          <h2 className='sous__subtitle'>Sous</h2>
           <ul className='feed'>
             {/* Maps over currentChat to render chat messages */}
             {currentChat?.map((chatMessage, index) => (
@@ -259,7 +249,6 @@ function SousAI() {
                       <strong>You</strong>
                     </div>}
                 </p>
-
                 <p>
                   {/* Conditional rendering for recipe content, including parsing JSON if needed */}
                   {chatMessage.role === 'user'
@@ -287,8 +276,7 @@ function SousAI() {
                   {chatMessage.role === 'user'
                     ? null
                     : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).ingredients
-                      ? (
-                        <div className='sous__ingredients-list'>
+                      ? (<div className='sous__ingredients-list'>
                           <strong>Ingredients:</strong>
                           <ul>
                             {JSON.parse(chatMessage.content).ingredients.map((ingredient, index) => (

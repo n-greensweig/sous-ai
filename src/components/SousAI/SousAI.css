@@ -130,29 +130,6 @@ textarea::placeholder {
   color: #999;
 }
 
-/* Adjust input container and textarea styles for better usability on mobile devices */
-@media (max-width: 768px) {
-  .section__chat {
-    padding-top: 60px;
-  }
-
-  .sous__bottom-section {
-    margin-bottom: 3%;
-    display: fixed;
-  }
-
-  .input-container {
-    max-width: 95%;
-    /* Enhance responsiveness by reducing max-width */
-  }
-
-  textarea {
-    font-size: 16px;
-    /* Adjust font size for smaller screens */
-    padding: 10px 15px;
-  }
-}
-
 /* Submit button styling, transparent with custom sizing and cursor change on hover */
 .MuiButtonBase-root#submit {
   background-color: transparent;
@@ -253,4 +230,30 @@ span {
   min-width: 350px;
   max-width: 812px;
   margin-bottom: 10px;
+}
+
+/* Adjust input container and textarea styles for better usability on mobile devices */
+@media (max-width: 768px) {
+  .sous__subtitle {
+    display: none;
+  }
+  .section__chat {
+    padding-top: 60px;
+  }
+
+  .sous__bottom-section {
+    margin-bottom: 3%;
+    display: fixed;
+  }
+
+  .input-container {
+    max-width: 95%;
+    /* Enhance responsiveness by reducing max-width */
+  }
+
+  textarea {
+    font-size: 16px;
+    /* Adjust font size for smaller screens */
+    padding: 10px 15px;
+  }
 }
