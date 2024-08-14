@@ -18,36 +18,20 @@ function MobileNavbar() {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    // const [showDropdown, setShowDropdown] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [activeItem, setActiveItem] = useState(null);
-    // const toggleDropdown = () => setShowDropdown(!showDropdown);
     const toggleMenu = () => setMenuOpen(!menuOpen);
-
     const handleStateChange = state => setMenuOpen(state.isOpen);
-    const closeMenu = () => {
-        setMenuOpen(false);
-        // setShowDropdown(false);
-    };
-
+    const closeMenu = () => setMenuOpen(false);
     const open = Boolean(anchorEl);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleSetActiveItem = (itemId) => {
-        setActiveItem(itemId);
-    };
-    const handleClearActiveItem = () => {
-        setActiveItem(null);
-    };
-    const handleClose = () => {
-        setAnchorEl(null)
-    };
+    const handleClick = (event) => setAnchorEl(event.currentTarget);
+    const handleSetActiveItem = (itemId) => setActiveItem(itemId);
+    const handleClearActiveItem = () => setActiveItem(null);
+    const handleClose = () => setAnchorEl(null);
 
     // Define styles for the burger menu
-    var styles = {
+    let styles = {
         bmBurgerButton: {
             position: 'relative',
             width: '20px',
@@ -83,10 +67,8 @@ function MobileNavbar() {
             background: 'rgba(0, 0, 0, 0.3)'
         }
     };
-
-
     return (
-        <header className="fixed-header" style={{ height: '50px', alignItems: 'center', }}>
+        <header className='mobile-header'>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '5px' }}>
                 <div>
                     <Button

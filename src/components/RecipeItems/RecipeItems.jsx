@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTheme, useMediaQuery } from "@mui/material";
-import Header from '../Header/Header';
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
 import RecipeGrid from "./RecipeGrid/RecipeGrid";
 import './RecipeItems.css';
@@ -195,7 +194,6 @@ function RecipeItems(props) {
 
     return (
         <div className="recipe-items__container">
-            <Header />
             <div>
                 <div className="recipe-items__body--max-width">
                     <SavedRecipesSidebar />

@@ -1,5 +1,4 @@
 import { Button, useTheme, useMediaQuery } from "@mui/material";
-import Header from "../Header/Header";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 function Preferences() {
@@ -156,7 +155,6 @@ function Preferences() {
 
     return (
         <div>
-            <Header />
             <div style={{ padding: theme.spacing(2), maxWidth: '1200px', margin: '0 auto',
                  paddingTop: isXsScreen || isSmScreen ? '50px' : '0px', }}>
                 <p style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>Choose your dietary preferences:</p>

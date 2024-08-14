@@ -1,4 +1,3 @@
-import Header from "../Header/Header";
 import { Button, useTheme, useMediaQuery, Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useEffect, useState } from "react";
@@ -1061,7 +1060,6 @@ function Pantry() {
 
     return (
         <div>
-            <Header />
             <div style={{
                 padding: theme.spacing(2), maxWidth: '1200px', margin: '20px auto',
                 paddingTop: isXsScreen || isSmScreen ? '50px' : '0px', justifyContent: 'center', alignItems: 'center'

@@ -1,9 +1,7 @@
-import Header from '../Header/Header';
 import './AboutPage.css';
 function AboutPage() {
   return (
     <div className='about__container-wrapper'>
-      <Header text='About' to={'/about'} />
       <div className="container">
         <div>
 

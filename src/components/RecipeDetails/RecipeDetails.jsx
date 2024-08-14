@@ -11,8 +11,6 @@ import SnackbarComponent from "../SnackbarComponent/SnackbarComponent";
 import UpperSection from "./UpperSection/UpperSection";
 import AutoScroll from "../AutoScroll/AutoScroll";
 import LowerSection from "./LowerSection/LowerSection";
-import Header from "../Header/Header";
-
 // Function component for RecipeDetails
 function RecipeDetails() {
 
@@ -189,7 +187,6 @@ function RecipeDetails() {
 
     return (
         <div className="details__container">
-            <Header />
             <SnackbarComponent open={open} handleClose={handleClose} vertical={vertical} horizontal={horizontal} />
             <div style={isEditing ? null : { paddingBottom: '2%', marginTop: '5%' }}>
                 <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>

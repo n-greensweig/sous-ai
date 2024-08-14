@@ -3,7 +3,7 @@
     src: url(../../../public/fonts/LibreFranklin-VariableFont_wght.ttf);
     font-weight: normal;
     font-style: normal;
-  }
+}
 
 .header {
     position: sticky;
@@ -14,26 +14,31 @@
     border-bottom: 1px solid #d3d3d3;
     font-family: 'Libre Franklin', sans-serif !important;
 }
+
 .header-content {
     margin: 0 auto;
     max-width: 1200px;
     justify-content: space-between;
     align-items: center;
 }
+
 .header--flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5%;
 }
+
 .header__logo {
     cursor: pointer;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 20%;
-    flex-shrink: 0; /* Prevent the logo from shrinking */
+    flex-shrink: 0;
+    /* Prevent the logo from shrinking */
 }
+
 .header__img {
     width: 25%;
     height: auto;
@@ -41,17 +46,20 @@
     border-radius: 75%;
     margin-right: 1%;
 }
+
 .header__logo strong {
     padding-left: 1%;
     height: 100%;
 }
+
 .header__container {
     width: 90%;
     display: flex;
     align-items: center;
     height: 32px;
 }
-.header__searchBar {
+
+.header__search-bar {
     flex-grow: 1;
     padding: 8px 12px;
     font-size: 1.2rem;
@@ -62,32 +70,55 @@
     font-size: 1.2rem;
     outline: none;
 }
-.header__searchBar--main {
+
+.header__search-bar--wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
     &:focus,
     &:active,
     &:hover {
         border: 1px solid #222;
     }
 }
+.MuiSvgIcon-root.fill-red {
+    fill: #df321b;
+}
+.MuiSvgIcon-root.fill-gray {
+    fill: #767676
+}
+.MuiSvgIcon-root.fill-black {
+    fill: black
+}
+
 button {
     /* Resetting or overriding default styles */
     border: none;
     background: none;
-    color: inherit; /* Inherits the color from the parent */
-    font-family: inherit; /* Inherits the font-family from the parent */
-    font-size: inherit; /* Inherits the font-size from the parent */
+    color: inherit;
+    /* Inherits the color from the parent */
+    font-family: inherit;
+    /* Inherits the font-family from the parent */
+    font-size: inherit;
+    /* Inherits the font-size from the parent */
 }
+
 .header__button {
     color: #222 !important;
+
     &:not(.hover):hover {
         color: #767676 !important;
         background-color: inherit !important;
         cursor: pointer;
+
         &:active {
             color: #df321b !important;
         }
     }
 }
+
 .hover {
     border-bottom: 4px solid transparent;
     background-color: none;
@@ -96,17 +127,25 @@ button {
     margin-right: 3.5%;
     letter-spacing: .02em;
 }
+
 .hover:hover {
     border-bottom: 4px solid #df321b;
     background-color: none;
     cursor: pointer;
 }
+
 button {
     padding-bottom: .75%;
 }
+
 .button__recipe-box {
     text-transform: none !important;
     font-weight: 600 !important;
     letter-spacing: .02rem !important;
     line-height: 100% !important;
+}
+@media screen and (max-width: 768px) {
+    .header {
+        display: none;
+    }
 }

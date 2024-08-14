@@ -23,7 +23,6 @@ import Alert from '@mui/material/Alert';
 // Loader component for indicating loading state
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import Header from '../Header/Header';
 import { useSelector } from 'react-redux';
 function SousAI() {
   // Redux hook for dispatching actions
@@ -240,8 +239,6 @@ function SousAI() {
 
       {/* Main content area */}
       <section className='main' style={{ color: '#374151', }}>
-        {/* Page title */}
-        <Header />
         <div className='section__chat' style={{ paddingTop: isXsScreen || isSmScreen ? '60px' : null, }}>
           {isXsScreen || isSmScreen ? null : <h1>Sous</h1>}
           <ul className='feed'>
