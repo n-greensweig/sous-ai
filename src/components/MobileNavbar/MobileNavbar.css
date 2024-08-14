@@ -5,6 +5,7 @@ ul {
     overflow: hidden;
     color: #000 !important;
 }
+
 .dropdown-item {
     color: #000 !important;
 }
@@ -15,26 +16,36 @@ ul {
     cursor: pointer;
     border-radius: 75%;
 }
-.icon__fill-black {
-    fill: rgb(34, 34, 34) !important;
+
+.MuiSvgIcon-root.mobile__header-icon {
+    padding: 10px 5px;
 }
-.icon__padding {
-    padding: 10px 5px !important;
-    /* margin: 50px !important; */
-}
+
 .mobile-header {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: white; /* Adjust as necessary */
-    z-index: 1000; /* Ensure it's above other elements */
+    background-color: white;
+    /* Adjust as necessary */
+    z-index: 1000;
+    /* Ensure it's above other elements */
     border-bottom: 1px solid #d3d3d3;
     height: 50px;
     align-items: center;
-    display:inherit;
-  }
-  @media screen and (min-width: 768px) {
+    display: inherit;
+}
+
+.mobile-header__wrapper {
+    margin-top: 5px;
+}
+.mobile-header__icon-wrapper {
+    width: 35%;
+    height: 40px;
+}
+
+
+@media screen and (min-width: 768px) {
     .mobile-header {
-      display: none;
+        display: none;
     }
-  }
+}

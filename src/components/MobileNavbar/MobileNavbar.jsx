@@ -2,20 +2,16 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch } from 'react-redux';
-
 import { Button } from '@mui/material';
 import { slide as BurgerMenu } from 'react-burger-menu'; // Import the slide animation
 import { Menu, MenuItem } from '@mui/material';
-
 // Import icons
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import PersonIcon from '@mui/icons-material/Person';
 import './MobileNavbar.css';
-
 function MobileNavbar() {
-
     const history = useHistory();
     const dispatch = useDispatch();
     const [menuOpen, setMenuOpen] = useState(false);
@@ -69,33 +65,31 @@ function MobileNavbar() {
     };
     return (
         <header className='mobile-header'>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '5px' }}>
+            <div className='mobile-header__wrapper display-flex align-center justify-sb'>
                 <div>
                     <Button
                         aria-label={menuOpen ? 'Opened menu' : 'Closed menu'}
                         style={{ ...styles.bmBurgerButton, position: 'relative', zIndex: 999 }}
                         onClick={toggleMenu}
                         startIcon={menuOpen ?
-                            <MenuOpenIcon className='icon__fill-black' style={{ color: 'white', }} /> :
-                            <MenuIcon className='icon__fill-black' style={{ color: 'white', }} />
+                            <MenuOpenIcon className='fill-black' /> :
+                            <MenuIcon className='fill-black' />
                         }
                     >
-                        <i style={{ color: 'white', visibility: 'visible' }}></i>
                     </Button>
                 </div>
-                <div onClick={() => history.push('/')} style={{
-                    display: 'flex', alignItems: 'center', width: '35%', height: '40px', justifyContent: 'center',
-                }}>
+                <div className='mobile-header__icon-wrapper display-flex align-center justify-center' onClick={() => history.push('/')}>
                     <img src="images/avatars/sous.svg" className="header__img--mobile" alt="Sous" />
                     <p>&nbsp;| Sous</p>
                 </div>
-                <div style={{ display: 'flex', }}>
-                    <BookmarkIcon className='icon__fill-black icon__padding' onClick={() => {
+                <div className='display-flex'>
+                    <BookmarkIcon className='mobile__header-icon fill-black' onClick={() => {
                         history.push('/recipe-box');
                         dispatch({ type: 'FETCH_RECIPES' });
-                    }} />
-                    <PersonIcon id="basic-button"
-                        className='icon__fill-black icon__padding header__button--red'
+                        }} />
+                    <PersonIcon
+                        id="basic-button"
+                        className='mobile__header-icon fill-black'
                         aria-controls={open ? 'basic-menu' : undefined}
                         aria-haspopup="menu"
                         aria-expanded={open ? 'true' : undefined}
@@ -105,33 +99,18 @@ function MobileNavbar() {
                         onMouseDown={() => handleSetActiveItem('person')}
                         onMouseUp={handleClearActiveItem}
                         onDragEnd={handleClearActiveItem}
-                        draggable
-                        sx={{
-                            fill: activeItem === 'person' ? '#df321b' :
-                                activeItem === 'person-hover' ? '#767676' : 'black',
-                            '&:hover': {
-                                backgroundColor: 'transparent',
-                            }
-                        }} />
+                        draggable />
                 </div>
             </div>
 
             {/* Burger Menu on left side of page */}
-            <BurgerMenu
-                isOpen={menuOpen}
-                onStateChange={handleStateChange}
-                styles={styles}
-                left
-                className='hide'
-            >
-                <Link to="/" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>Sous</Link>
-                <div style={{ width: '100%', textAlign: 'left', alignItems: 'center', }}>
-                    <Link to="/recipe-box" onClick={closeMenu} style={{ color: '#000', textDecoration: 'none', }}>
+            <BurgerMenu isOpen={menuOpen} onStateChange={handleStateChange} styles={styles} left className='hide'>
+                <Link to="/" onClick={closeMenu} className='width-100 text-left no-decoration'>Sous</Link>
+                    <Link to="/recipe-box" onClick={closeMenu} className='width-100 text-left no-decoration'>
                         Saved Recipes
                     </Link>
-                </div>
-                <Link to="/preferences" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>Preferences</Link>
-                <Link to="/pantry" onClick={closeMenu} style={{ width: '100%', textAlign: 'left', textDecoration: 'none' }}>Pantry</Link>
+                <Link to="/preferences" onClick={closeMenu} className='width-100 text-left no-decoration'>Preferences</Link>
+                <Link to="/pantry" onClick={closeMenu} className='width-100 text-left no-decoration'>Pantry</Link>
             </BurgerMenu>
             <Menu
                 id="basic-menu"
@@ -147,7 +126,7 @@ function MobileNavbar() {
                 </MenuItem>
                 <MenuItem className='navLink' onClick={() => {
                     handleClose();
-                    dispatch({ type: 'LOGOUT' })
+                    dispatch({ type: 'LOGOUT' });
                 }
                 }>Logout</MenuItem>
 
