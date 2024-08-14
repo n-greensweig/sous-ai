@@ -41,8 +41,8 @@
    /* Ensure it's behind the content */
 }
 
-.white-background {
-   background-color: #FFF;
+.paper-background-bold {
+   background-color: #F8F8F5;
    font-weight: bold;
 }
 
@@ -227,6 +227,9 @@
 }
 
 @media screen and (max-width: 768px) {
+   .recipe-items__body--max-width {
+      flex-direction: column-reverse;
+   }
    .recipe-items__container {
       margin-top: 0%;
    }

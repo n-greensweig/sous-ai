@@ -191,7 +191,6 @@ function RecipeItems(props) {
         await dispatch({ type: 'FETCH_GROCERY_LIST' });
         setIsLoading(false); // Hide loading overlay
     };
-
     return (
         <div className="recipe-items__container">
             <div>
@@ -204,7 +203,7 @@ function RecipeItems(props) {
                                 isXsScreen={isXsScreen} isSmScreen={isSmScreen} id={id} />)}
                         <div>
                             <div className="recipe-items__sidebar--content mobile">
-                                <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right ${document.title === 'Saved Recipes' ? 'white-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}
+                                <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right ${document.title === 'Saved Recipes' ? 'paper-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}
                                     onMouseDown={() => handleSetActiveItem('saved')}
                                     onMouseUp={handleClearActiveItem} onDragEnd={handleClearActiveItem} draggable>
                                     <BookmarkIcon className={`recipe-items__sidebar--icon ${activeItem === 'saved' ? 'gray-fill' : 'black-fill'}`} /> Saved Recipes
@@ -214,7 +213,7 @@ function RecipeItems(props) {
                                     onMouseUp={handleClearActiveItem}
                                     onDragEnd={handleClearActiveItem}
                                     draggable
-                                    className={`recipe-items__sidebar--margin-right ${document.title === 'Cooked Recipes' ? 'white-background-bold' : 'inherit-background'}`}>
+                                    className={`recipe-items__sidebar--margin-right ${document.title === 'Cooked Recipes' ? 'paper-background-bold' : 'inherit-background'}`}>
                                     <CheckCircleIcon className={`recipe-items__sidebar--icon ${activeItem === 'cooked' ? 'gray-fill' : 'black-fill'}`} /> Cooked Recipes
                                 </p>
                                 <p onClick={() => navigateTo('/recipe-box/recent')}
@@ -222,7 +221,7 @@ function RecipeItems(props) {
                                     onMouseUp={handleClearActiveItem}
                                     onDragEnd={handleClearActiveItem}
                                     draggable
-                                    className={`recipe-items__sidebar--margin-right ${document.title === 'Recently Viewed Recipes' ? 'white-background-bold' : 'inherit-background'}`}>
+                                    className={`recipe-items__sidebar--margin-right ${document.title === 'Recently Viewed Recipes' ? 'paper-background-bold' : 'inherit-background'}`}>
                                     <AccessTimeIcon className={`recipe-items__sidebar--icon ${activeItem === 'recent' ? 'gray-fill' : 'black-fill'}`} /> Recently Viewed
                                 </p>
                                 <p
@@ -235,7 +234,7 @@ function RecipeItems(props) {
                                     onDrop={(event) => handleDropGroceryList(event)}
                                     draggable
                                     className='recipe-items__sidebar--margin-right'>
-                                    <ListAltIcon className='recipe-items__sidebar--icon' /> Grocery List
+                                    <ListAltIcon className='recipe-items__sidebar--icon black-fill' /> Grocery List
                                 </p>
                                 <span className='recipe-items__sidebar-span--your-folders recipe-items__sidebar--margin-right'>Your folders</span>
                                 <div onClick={toggleCreating} className='recipe-items__div-icon-span--new-folder'>
@@ -248,7 +247,7 @@ function RecipeItems(props) {
                                     return (
                                         <div key={list.id} className="recipe-items__sidebar--lists-wrapper"
                                             onDragOver={handleDragOver} onDrop={(event) => handleDrop(event, list.id)}>
-                                            <div className={`recipe-items__sidebar--user-folders ${document.title.includes(list.list_name) ? 'white-background-bold' : 'inherit-background'}`}
+                                            <div className={`recipe-items__sidebar--user-folders ${document.title.includes(list.list_name) ? 'paper-background-bold' : 'inherit-background'}`}
                                                 onClick={() => {
                                                     document.title = `Your Recipe Box - ${list.list_name}`;
                                                     history.push(`/recipe-box/${list.id}`);
