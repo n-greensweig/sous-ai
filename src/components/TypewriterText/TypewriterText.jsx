@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
 // A component that simulates a typewriter effect for the given text prop.
 function TypewriterText({ text }) {
   const [displayText, setDisplayText] = useState(''); // Holds the part of the text displayed so far.
   const [currentIndex, setCurrentIndex] = useState(0); // Tracks the current position in the input text.
-
   useEffect(() => {
     // Creates an interval that updates displayText by adding one character from text at each step.
     const typingInterval = setInterval(() => {

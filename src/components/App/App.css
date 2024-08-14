@@ -73,72 +73,12 @@ img {
 Container
 -------------------------------------------------------------------------------- */
 
-.container {
+.landing-page__container {
   padding: auto 20px;
+  background-color: #ecece6;
 }
-
-/* --------------------------------------------------------------------------------
-Button
--------------------------------------------------------------------------------- */
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-color: #f8f8f8;
-  border-width: 1px 1px 3px;
-  border-radius: 4px;
-  background-color: #DAA520;
-  color: #f8f8f8;
-  font-size: 1.1rem;
-  outline: 0;
-  cursor: pointer;
-}
-
-.btn_sizeMin {
-  min-height: 50px;
-  min-width: 100px;
-}
-
-.btn_sizeSm {
-  padding: 10px 15px;
-  font-size: 0.8rem;
-  background-color: #fff;
-  color: #DAA520;
-}
-
-.btn_sizeFull {
-  display: block;
-  width: 100%;
-}
-
-.btn:hover {
-  background-color: rgb(246, 241, 241);
-  color: #DAA520;
-  text-decoration: none;
-}
-
-.btn_sizeSm:hover {
-  background-color: #CCCCCC;
-  color: #DAA520;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-/* This line makes the "Register" and "Login" buttons look like links */
-.btn_asLink {
-  padding: 0;
-  border-width: 0;
-  border-bottom: 1px solid #333;
-  border-radius: 0;
-  background: none;
-  font: inherit;
+.landing-page__heading {
   color: #333;
-}
-
-.btn_asLink:hover {
-  background-color: transparent;
-  border-color: lightblue;
-  color: lightblue;
 }
 
 /* --------------------------------------------------------------------------------
@@ -174,4 +114,34 @@ input {
   margin: 5px;
   margin-bottom: 10px;
   color: #111;
+}
+@media screen and (min-width: 768px) {
+  .landing-page__container {
+    padding: 3% 0% 20% 0%;
+  }
+  .landing-page__heading {
+    padding-left: 10px;
+    font-size: 54px;
+  }
+  .landing-page__heading,
+  .landing-page__subheading {
+    margin: 0px 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .landing-page__container {
+    padding-bottom: 20%;
+  }
+  .landing-page__heading {
+    padding: 20px 0px;
+  }
+  .mobile-only-flex {
+    display: flex;
+  }
+  .mobile-only-column {
+    flex-direction: column;
+  }
+  .mobile-only-align-center {
+    align-items: center;
+  }
 }

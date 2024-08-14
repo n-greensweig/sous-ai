@@ -21,7 +21,6 @@ import Header from '../Header/Header';
 import MobileNavbar from '../MobileNavbar/MobileNavbar';
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
 
   useEffect(() => {
@@ -31,8 +30,8 @@ function App() {
   return (
     <Router>
       <div>
-        <Header />
-        <MobileNavbar />
+        {user.id ? <Header /> : null}
+        {user.id ? <MobileNavbar /> : null}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
