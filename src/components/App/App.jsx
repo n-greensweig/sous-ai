@@ -68,7 +68,7 @@ function App() {
             exact
             path="/recipes/:id"
           >
-            <RecipeDetails />
+            <RecipeDetails user={user} />
           </Route>
 
           <ProtectedRoute

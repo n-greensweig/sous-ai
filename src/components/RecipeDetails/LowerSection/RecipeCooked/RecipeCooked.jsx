@@ -1,7 +1,6 @@
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 function RecipeCooked({ isCooked, setIsCooked, id, dispatch}) {
-
     // Function to toggle the cooked state of the recipe
     const toggleCooked = (e, cooked) => {
         e.preventDefault();
@@ -9,7 +8,6 @@ function RecipeCooked({ isCooked, setIsCooked, id, dispatch}) {
         const action = { type: 'UPDATE_COOKED', payload: { id, isCooked: cooked } };
         dispatch(action);
     };
-
     return (
         <div>
             <strong>Have you cooked this?</strong>

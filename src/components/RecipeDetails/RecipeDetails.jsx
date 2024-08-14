@@ -11,8 +11,9 @@ import SnackbarComponent from "../SnackbarComponent/SnackbarComponent";
 import UpperSection from "./UpperSection/UpperSection";
 import AutoScroll from "../AutoScroll/AutoScroll";
 import LowerSection from "./LowerSection/LowerSection";
+import Header from "../Header/Header";
 // Function component for RecipeDetails
-function RecipeDetails() {
+function RecipeDetails({ user }) {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -186,28 +187,29 @@ function RecipeDetails() {
     const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <div className="details__container">
-            <SnackbarComponent open={open} handleClose={handleClose} vertical={vertical} horizontal={horizontal} />
-            <div style={isEditing ? null : { paddingBottom: '2%', marginTop: '5%' }}>
-                <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
-                    <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
-                        <UpperSection title={title} isEditing={isEditing} toggleEditing={toggleEditing}
-                            isSmScreen={isSmScreen} isXsScreen={isXsScreen} isLoading={isLoading}
-                            onFileChange={onFileChange} imagePath={imagePath} setTitle={setTitle} id={id}
-                            saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} imageList={imageList}
-                            image={image} notes={notes} replaceWithCommas={replaceWithCommas} setIsEditing={setIsEditing} />
-
-                        <LowerSection prepTime={prepTime} cookTime={cookTime} isCooked={isCooked} setIsCooked={setIsCooked}
-                            id={id} dispatch={dispatch} rating={rating} setRating={setRating} ingredients={ingredients}
-                            instructions={instructions} servings={servings} isInGroceryList={isInGroceryList} isXsScreen={isXsScreen} isSmScreen={isSmScreen}
-                            replaceWithCommas={replaceWithCommas} imageList={imageList} comments={comments}
-                            title={title} />
-
-                        {/* <AutoScroll type={'scroll-up'} /> */}
+        <>
+            {user.id ? null : <Header />}
+            <div className="details__container">
+                <SnackbarComponent open={open} handleClose={handleClose} vertical={vertical} horizontal={horizontal} />
+                <div style={isEditing ? null : { paddingBottom: '2%', marginTop: '5%' }}>
+                    <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
+                        <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
+                            <UpperSection title={title} isEditing={isEditing} toggleEditing={toggleEditing}
+                                isSmScreen={isSmScreen} isXsScreen={isXsScreen} isLoading={isLoading}
+                                onFileChange={onFileChange} imagePath={imagePath} setTitle={setTitle} id={id}
+                                saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} imageList={imageList}
+                                image={image} notes={notes} replaceWithCommas={replaceWithCommas} setIsEditing={setIsEditing} user={user} />
+                            <LowerSection prepTime={prepTime} cookTime={cookTime} isCooked={isCooked} setIsCooked={setIsCooked}
+                                id={id} dispatch={dispatch} rating={rating} setRating={setRating} ingredients={ingredients}
+                                instructions={instructions} servings={servings} isInGroceryList={isInGroceryList} isXsScreen={isXsScreen} isSmScreen={isSmScreen}
+                                replaceWithCommas={replaceWithCommas} imageList={imageList} comments={comments}
+                                title={title} user={user} />
+                            {/* <AutoScroll type={'scroll-up'} /> */}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
