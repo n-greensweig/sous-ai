@@ -190,11 +190,11 @@ function RecipeDetails({ user }) {
     return (
         <>
             {user.id ? null : isXsScreen || isSmScreen ? <MobileNavbar /> : <Header />}
-            <div className="details__container">
+            <div>
                 <SnackbarComponent open={open} handleClose={handleClose} vertical={vertical} horizontal={horizontal} />
-                <div style={isEditing ? null : { paddingBottom: '2%', marginTop: '5%' }}>
-                    <div className="details-body" style={{ display: 'flex', flexDirection: 'column', marginLeft: isSmScreen || isXsScreen ? '0%' : '10%' }}>
-                        <div className="sections-container" style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className={`${isEditing ? null : 'recipe-details__wrapper'}`}>
+                    <div className='recipe-details__body display-flex flex-column'>
+                        <div className='sections-container display-flex flex-column'>
                             <UpperSection title={title} isEditing={isEditing} toggleEditing={toggleEditing}
                                 isSmScreen={isSmScreen} isXsScreen={isXsScreen} isLoading={isLoading}
                                 onFileChange={onFileChange} imagePath={imagePath} setTitle={setTitle} id={id}

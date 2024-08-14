@@ -1,4 +1,12 @@
-.star__black {
-    fill: black;
-    color: black;
+.recipe-details__wrapper {
+    padding-bottom: 2%;
+    margin-top: 5%;
+}
+.recipe-details__body {
+    margin-left: 10%;
+}
+@media screen and (max-width: 768px) {
+    .recipe-details__body {
+        margin-left: 0%;
+    }
 }
