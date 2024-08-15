@@ -1,13 +1,14 @@
 .user-preferences__wrapper {
     padding-top: 0px;
 }
+
 .user-perferences__p--choose-preferences,
 .user-perferences__p--select-household-items {
     font-size: 1.2rem;
 }
 
-@media screen and (min-width: 768px) {
-    .user-preferences__wrapper {
-        padding-top: 50px;
+@media screen and (max-width: 768px) {
+    div.user-preferences__wrapper {
+        margin-top: 50px;
     }
 }

@@ -102,7 +102,6 @@ function MobileNavbar() {
                         draggable />
                 </div>
             </div>
-
             {/* Burger Menu on left side of page */}
             <BurgerMenu isOpen={menuOpen} onStateChange={handleStateChange} styles={styles} left className='hide'>
                 <Link to="/" onClick={closeMenu} className='width-100 text-left no-decoration'>Sous</Link>
@@ -121,8 +120,17 @@ function MobileNavbar() {
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}>
-                <MenuItem className='navLink' onClick={() => history.push('/preferences')}>
+                <MenuItem className='navLink' onClick={() => {
+                    handleClose();
+                    history.push('/preferences');
+                }}>
                     Preferences
+                </MenuItem>
+                <MenuItem className='navLink' onClick={() => {
+                    handleClose();
+                    history.push('/pantry');
+                }}>
+                    Pantry
                 </MenuItem>
                 <MenuItem className='navLink' onClick={() => {
                     handleClose();

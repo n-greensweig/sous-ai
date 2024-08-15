@@ -1055,7 +1055,6 @@ function Pantry() {
     };
 
     return (
-        <div>
             <div className='user-pantry__wrapper max-width-1200 justify-center align-center' style={{ padding: theme.spacing(2), }}>
                 <h2 className='user-pantry__subheading color-black'>Pantry</h2>
                 {Object.keys(sections).map((section, idx) => (
@@ -1090,7 +1089,6 @@ function Pantry() {
                         </Accordion>
                     </div>))}
             </div>
-        </div>
     );
 }
 export default Pantry;

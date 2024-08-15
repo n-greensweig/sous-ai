@@ -40,7 +40,7 @@
 svg.MuiSvgIcon-root.recipe-details__dialog--icon-delete {
     fill: #DC143C;
 }
-.recipe-details__dialog--buttons-delete {
+.MuiButtonBase-root.recipe-details__dialog--buttons-delete {
     color: #DC143C;
     border-color: #DC143C;
     flex-grow: 1;

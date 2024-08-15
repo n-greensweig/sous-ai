@@ -1,4 +1,4 @@
-import { Button, useTheme, useMediaQuery } from "@mui/material";
+import { Button, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import './Preferences.css';
@@ -151,11 +151,7 @@ function Preferences() {
         border: `2px solid ${primaryColor}`,
     };
 
-    const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
-    const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
     return (
-        <div>
             <div className='user-preferences__wrapper max-width-1200 margin-0-auto' style={{ padding: theme.spacing(2), }}>
                 <p className='user-perferences__p--choose-preferences bold'>Choose your dietary preferences:</p>
                 <div className='display-flex flex-wrap' style={{ gap: theme.spacing(1) }}>
@@ -203,7 +199,6 @@ function Preferences() {
                             </Button>);})}
                 </div>
             </div>
-        </div>
     );
 }
 
