@@ -22,6 +22,11 @@
     background-color: #df321b;
     border: 1px solid #df321b;
     border-radius: 5%;
+    &:hover {
+        background-color: #fff;
+        color: #df321b !important;
+        border: 1px solid #df321b;
+    }
 }
 
 .recipe-grid__subheading--actions-first-row {
@@ -42,6 +47,27 @@
 
 .MuiButtonBase-root.recipe-grid__subheading--button-cancel {
     color: gray;
+}
+
+.MuiTypography-root.recipe-grid__subheading--button-rename-folder {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    font-family: inherit;
+    &:hover {
+        background-color: #c0c0c0;
+    }
+}
+.MuiTypography-root.recipe-grid__subheading--button-delete-folder {
+    padding: 10px;
+    font-family: inherit;
+    &:hover {
+        background-color: #c0c0c0;
+    }
+}
+
+.MuiSvgIcon-root.recipe-grid__subheading--icon-more {
+    margin-left: 5px;
+    margin-top: auto;
 }
 
 .recipe-grid__subheading--search-input {

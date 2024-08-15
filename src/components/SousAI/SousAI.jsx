@@ -277,49 +277,38 @@ function SousAI() {
                     ? null
                     : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).ingredients
                       ? (<div className='sous__ingredients-list'>
-                          <strong>Ingredients:</strong>
-                          <ul>
-                            {JSON.parse(chatMessage.content).ingredients.map((ingredient, index) => (
-                              <li key={index}>{replaceWithCommas(ingredient)}</li>
-                            ))}
-                          </ul>
-                        </div>
+                        <strong>Ingredients:</strong>
+                        <ul>
+                          {JSON.parse(chatMessage.content).ingredients.map((ingredient, index) => (
+                            <li key={index}>{replaceWithCommas(ingredient)}</li>
+                          ))}
+                        </ul>
+                      </div>
                       ) : null}
                   {/* Conditional rendering for cooking instructions */}
                   {chatMessage.role === 'user'
-                      ? null
-                      : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).instructions
-                        ? (
-                          <div>
-                            <strong>Instructions:</strong>
-                            <ol>
-                              {JSON.parse(chatMessage.content).instructions.map((instruction, index) => (
-                                <li key={index}>{replaceWithCommas(instruction)}</li>
-                              ))}
-                            </ol>
-                          </div>
-                        ) : null}
+                    ? null
+                    : isJSON(chatMessage.content) && JSON.parse(chatMessage.content).instructions
+                      ? (
+                        <div>
+                          <strong>Instructions:</strong>
+                          <ol>
+                            {JSON.parse(chatMessage.content).instructions.map((instruction, index) => (
+                              <li key={index}>{replaceWithCommas(instruction)}</li>
+                            ))}
+                          </ol>
+                        </div>
+                      ) : null}
                 </p>
                 {/* Button to save the recipe if it's from the assistant and is in JSON format */}
                 {chatMessage.role === 'assistant' && !JSON.parse(chatMessage.content).non_cooking_response ? (
                   <Button
+                    className={`sous__save--button no-transform ${recipeSaved[index] ? 'recipe-saved' : 'recipe-not-saved'}`}
                     variant="contained"
-                    startIcon={recipeSaved[index] ? <CheckCircleIcon sx={{ fill: 'white' }} /> : <BookmarkIcon sx={{ fill: 'white' }} />}
+                    startIcon={recipeSaved[index] ? <CheckCircleIcon className='fill-white' /> : <BookmarkIcon className='fill-white' />}
                     color={recipeSaved[index] ? "success" : "primary"}
                     disabled={!!recipeSaved[index]}
-                    onClick={() => saveRecipe(index)}
-                    sx={{
-                      marginTop: '10px',
-                      textTransform: 'none',
-                      backgroundColor: recipeSaved[index] ? '#66BB6A' : '#81C784',
-                      '&:hover': {
-                        backgroundColor: recipeSaved[index] ? '#4CAF50' : '#66BB6A',
-                      },
-                      '&:disabled': {
-                        backgroundColor: '#A5D6A7',
-                      }
-                    }}
-                  >
+                    onClick={() => saveRecipe(index)}>
                     {recipeSaved[index] ? 'Recipe Saved' : 'Save Recipe'}
                   </Button>
                 ) : null}
@@ -350,7 +339,8 @@ function SousAI() {
                     if (e.key === 'Enter' && !e.shiftKey) {
                       e.preventDefault(); // Prevent the default action to avoid a new line
                       getMessages(e); // Call the function directly or use the form's submit method
-                    }}}
+                    }
+                  }}
                   placeholder='What would you like to cook today?'
                   required />
                 {/* Submit button changes based on whether input value is present and not loading */}

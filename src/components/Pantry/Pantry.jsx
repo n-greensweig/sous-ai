@@ -1,4 +1,4 @@
-import { Button, useTheme, useMediaQuery, Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
+import { Button, useTheme, Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -1044,9 +1044,6 @@ function Pantry() {
         border: `2px solid ${primaryColor}`,
     };
 
-    const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
-    const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
     const addUserIngredient = (ingredient) => {
         if (!userIngredients.includes(ingredient)) {
             dispatch({ type: 'ADD_USER_INGREDIENT', payload: { item: ingredient, currentIngredients: userIngredients } });
@@ -1063,7 +1060,7 @@ function Pantry() {
                 <h2 className='user-pantry__subheading color-black'>Pantry</h2>
                 {Object.keys(sections).map((section, idx) => (
                     <div key={idx}>
-                        <Accordion expanded={expandedSection === section} onChange={() => toggleExpandedSection(section)} sx={{ marginBottom: '10px' }}>
+                        <Accordion className='pantry-accordion' expanded={expandedSection === section} onChange={() => toggleExpandedSection(section)}>
                             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className='user-pantry__section-heading bold'>
                                     {section.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}

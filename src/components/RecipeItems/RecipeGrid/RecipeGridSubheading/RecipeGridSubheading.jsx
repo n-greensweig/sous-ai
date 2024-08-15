@@ -41,7 +41,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                 <div className='display-flex align-center'>
                     <h2 className='recipe-grid__subheading--recipe-folder-name color-222 mb-0'>{listName}</h2>
                     {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed Recipes' ?
-                        <MoreHorizIcon className='pointer color-717171' onClick={handlePopover} sx={{ marginLeft: '5px', marginTop: 'auto' }} /> : null}
+                        <MoreHorizIcon className='recipe-grid__subheading--icon-more pointer color-717171' onClick={handlePopover} /> : null}
                     <Popover
                         id={popoverID}
                         open={open}
@@ -50,23 +50,12 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                         anchorOrigin={{
                             vertical: 'bottom',
                             horizontal: 'left',
-                        }}
-                    >
+                        }}>
                         <div>
-                            <Typography className='pointer color-222' onClick={toggleCreating} sx={{
-                                borderBottom: '1px solid #ccc', padding: '10px', fontFamily: 'inherit',
-                                '&:hover': {
-                                    backgroundColor: '#c0c0c0',
-                                },
-                            }}>
+                            <Typography className='recipe-grid__subheading--button-rename-folder pointer color-222' onClick={toggleCreating}>
                                 <button className='pointer color-222'>Rename</button>
                             </Typography>
-                            <Typography className='pointer color-222' onClick={deleteRecipeList} sx={{
-                                padding: '10px', fontFamily: 'inherit',
-                                '&:hover': {
-                                    backgroundColor: '#c0c0c0',
-                                },
-                            }}>
+                            <Typography className='recipe-grid__subheading--button-delete-folder pointer color-222' onClick={deleteRecipeList}>
                                 <button className='pointer'>Delete</button>
                             </Typography>
                         </div>

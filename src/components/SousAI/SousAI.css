@@ -232,6 +232,24 @@ span {
   margin-bottom: 10px;
 }
 
+.MuiButtonBase-root.sous__save--button {
+  margin-top: 10px;
+}
+.MuiButtonBase-root.recipe-saved {
+  background-color: #66BB6A;
+  &:hover {
+    background-color: #4CAF50;
+  }
+  &:disabled {
+    background-color: #A5D6A7;
+  }
+}
+.MuiButtonBase-root.recipe-not-saved {
+  background-color: #81C784;
+  &:hover {
+    background-color: #66BB6A;
+  }
+}
 /* Adjust input container and textarea styles for better usability on mobile devices */
 @media (max-width: 768px) {
   .sous__subtitle {

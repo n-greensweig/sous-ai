@@ -84,7 +84,7 @@ img {
 }
 
 *.color-white {
-  color: #fff;
+  color: #fff !important;
 }
 
 *.color-black {
@@ -115,7 +115,7 @@ img {
 }
 
 *.no-transform {
-  text-transform: none;
+  text-transform: none !important;
 }
 
 .color-black {
