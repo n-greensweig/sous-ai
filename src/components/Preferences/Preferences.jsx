@@ -1,6 +1,7 @@
 import { Button, useTheme, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import './Preferences.css';
 function Preferences() {
     const dispatch = useDispatch();
     const userPreferences = useSelector(store => store.userPreferencesReducer);
@@ -155,10 +156,9 @@ function Preferences() {
 
     return (
         <div>
-            <div style={{ padding: theme.spacing(2), maxWidth: '1200px', margin: '0 auto',
-                 paddingTop: isXsScreen || isSmScreen ? '50px' : '0px', }}>
-                <p style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>Choose your dietary preferences:</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: theme.spacing(1) }}>
+            <div className='user-preferences__wrapper max-width-1200 margin-0-auto' style={{ padding: theme.spacing(2), }}>
+                <p className='user-perferences__p--choose-preferences bold'>Choose your dietary preferences:</p>
+                <div className='display-flex flex-wrap' style={{ gap: theme.spacing(1) }}>
                     {preferences.map((preference, index) => {
                         const isSelected = userPreferences.includes(preference);
                         return (
@@ -181,8 +181,8 @@ function Preferences() {
                         );
                     })}
                 </div>
-                <p style={{ fontSize: '1.2rem', fontWeight: 'bold', marginTop: theme.spacing(4) }}>Select your household items:</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: theme.spacing(1) }}>
+                <p className='user-perferences__p--select-household-items bold' style={{ marginTop: theme.spacing(4) }}>Select your household items:</p>
+                <div className='display-flex flex-wrap' style={{ gap: theme.spacing(1) }}>
                     {householdItems.map((item, index) => {
                         const isSelected = userHouseholdItems.includes(item);
                         return (
@@ -198,12 +198,9 @@ function Preferences() {
                                 onMouseLeave={(e) => {
                                     e.currentTarget.style.transform = isSelected ? 'scale(1.05)' : 'scale(1)';
                                     e.currentTarget.style.boxShadow = theme.shadows[2];
-                                }}
-                            >
+                                }}>
                                 {item}
-                            </Button>
-                        );
-                    })}
+                            </Button>);})}
                 </div>
             </div>
         </div>

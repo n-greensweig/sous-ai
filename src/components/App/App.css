@@ -46,12 +46,15 @@ img {
 *.display-flex {
   display: flex;
 }
+
 .flex-wrap {
   flex-wrap: wrap;
 }
+
 .flex-1 {
   flex: 1;
 }
+
 .align-fs {
   align-items: flex-start;
 }
@@ -63,6 +66,7 @@ img {
 .justify-fe {
   justify-content: flex-end;
 }
+
 .justify-sb {
   justify-content: space-between;
 }
@@ -82,9 +86,11 @@ img {
 *.color-white {
   color: #fff;
 }
+
 *.color-black {
   color: #000;
 }
+
 .MuiSvgIcon-root.fill-black {
   fill: black;
 }
@@ -140,24 +146,31 @@ img {
 *.mb-0 {
   margin-bottom: 0;
 }
+
 *.pt-0 {
   padding-top: 0;
 }
+
 *.pb-0 {
   padding-bottom: 0;
 }
+
 .bold {
   font-weight: bold;
 }
+
 .underline {
   text-decoration: underline;
 }
+
 .of-cover {
   object-fit: cover;
 }
+
 .list-none {
   list-style-type: none;
 }
+
 /* --------------------------------------------------------------------------------
 Container
 -------------------------------------------------------------------------------- */
@@ -170,6 +183,14 @@ Container
 .landing-page__heading,
 .landing-page__typewriter-text {
   color: #333;
+}
+
+.max-width-1200 {
+  max-width: 1200px;
+}
+
+.margin-0-auto {
+  margin: 0 auto;
 }
 
 /* --------------------------------------------------------------------------------

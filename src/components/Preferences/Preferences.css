@@ -1,0 +1,9 @@
+.user-preferences__wrapper {
+    padding-top: 0px;
+}
+
+@media screen and (min-width: 768px) {
+    .user-preferences__wrapper {
+        padding-top: 50px;
+    }
+}
