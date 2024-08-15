@@ -1,0 +1,18 @@
+.recipe-details__profile-photo-and-notes-container {
+    max-width: 30%;
+    margin-right: 10%;
+}
+.recipe-details__profile-photo-and-notes--p-notes {
+    margin-top: 10px;
+    font-size: .9rem;
+    margin: 20px 0px;
+}
+@media screen and (max-width: 768px) {
+    .recipe-details__profile-photo-and-notes-container {
+        max-width: 100%;
+        margin-right: 0%;
+    }
+    .recipe-details__profile-photo-and-notes--p-notes {
+        padding: 0px 20px;
+    }
+}

@@ -1,9 +1,7 @@
+import './RecipeTitle.css';
 function RecipeTitle({ title, isSmScreen, isXsScreen}) {
     return (
-        <p style={{
-            color: 'black', fontWeight: 'bold', fontSize: isSmScreen || isXsScreen ? '44px' : '40px',
-            textAlign: 'center', marginBottom: isSmScreen || isXsScreen ? '10px' : '5px'
-        }}> {title ? title : ''}</p>
+        <p className='recipe-details__recipe-title text-center color-black bold'> {title ? title : ''}</p>
     );
 }
 

@@ -1,0 +1,10 @@
+.MuiButtonBase-root.recipe-edit-button {
+    border-color: white;
+    color: gray;
+}
+
+@media screen and (max-width: 768px) {
+    .MuiButtonBase-root.recipe-edit-button {
+        margin-bottom: 5%;
+    }
+}

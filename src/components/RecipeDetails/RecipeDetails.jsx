@@ -196,8 +196,7 @@ function RecipeDetails({ user }) {
                     <div className='recipe-details__body display-flex flex-column'>
                         <div className='sections-container display-flex flex-column'>
                             <UpperSection title={title} isEditing={isEditing} toggleEditing={toggleEditing}
-                                isSmScreen={isSmScreen} isXsScreen={isXsScreen} isLoading={isLoading}
-                                onFileChange={onFileChange} imagePath={imagePath} setTitle={setTitle} id={id}
+                                isLoading={isLoading} onFileChange={onFileChange} imagePath={imagePath} setTitle={setTitle} id={id}
                                 saveEditedTitle={saveEditedTitle} removeRecipe={removeRecipe} imageList={imageList}
                                 image={image} notes={notes} replaceWithCommas={replaceWithCommas} setIsEditing={setIsEditing} user={user} />
                             <LowerSection prepTime={prepTime} cookTime={cookTime} isCooked={isCooked} setIsCooked={setIsCooked}

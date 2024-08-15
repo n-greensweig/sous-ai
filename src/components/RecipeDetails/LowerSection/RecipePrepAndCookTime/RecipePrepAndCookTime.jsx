@@ -22,21 +22,21 @@ function RecipePrepAndCookTime({ prepTime, cookTime, replaceWithCommas }) {
         }
     };
     return (
-        <div className="recipe-time">
+        <div className='recipe-time'>
             {prepTime && (
-                <p className="recipe-time__prep" style={{marginTop: '10%'}}>
+                <p className='recipe-time__prep'>
                     Prep Time
-                    <span className="recipe-time__value">{formatTime(replaceWithCommas(prepTime).split(' ')[0])}</span>
+                    <span className='recipe-time__value'>{formatTime(replaceWithCommas(prepTime).split(' ')[0])}</span>
                 </p>
             )}
             {cookTime && (
-                <p className="recipe-time__cook" style={{marginBottom: '10%'}}>
+                <p className='recipe-time__cook'>
                     Cook Time
-                    <span className="recipe-time__value">{formatTime(replaceWithCommas(cookTime).split(' ')[0])}</span>
+                    <span className='recipe-time__value'>{formatTime(replaceWithCommas(cookTime).split(' ')[0])}</span>
                 </p>
             )}
             {!prepTime && !cookTime && (
-                <p className="recipe-time">No prep or cook time available.</p>
+                <p className='recipe-time'>No prep or cook time available.</p>
             )}
         </div>
     );

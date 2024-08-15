@@ -3,10 +3,12 @@
     font-size: .9rem;
 }
 .recipe-time__prep {
+    margin-top: 10%;
     margin-bottom: 0px;
 }
 .recipe-time__cook {
     margin-top: 0px;
+    margin-bottom: 10%;
 }
 .recipe-time__prep,
 .recipe-time__cook {

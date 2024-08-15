@@ -1,0 +1,11 @@
+.recipe-details__recipe-title {
+    font-size: 40px;
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .recipe-details__recipe-title {
+        font-size: 44px;
+        margin-bottom: 10px;
+    }
+}
