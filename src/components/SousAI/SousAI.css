@@ -47,10 +47,12 @@ body {
 .history li:hover {
   background-color: #E0E0E0;
 }
-
+.sous__subtitle {
+  margin-top: 20px;
+}
 /* Main content area styling, centered with flexible layout */
 .main {
-  height: 100vh;
+  height: 85vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -63,8 +65,9 @@ body {
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  /* border: 2px solid blue; */
 }
 
 .sous__avi {
@@ -88,6 +91,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* border: 2px solid red; */
 }
 
 /* Container for input elements, ensuring they stay within a certain width range */
@@ -252,6 +256,9 @@ span {
 }
 /* Adjust input container and textarea styles for better usability on mobile devices */
 @media (max-width: 768px) {
+  .main {
+    height: 100vh;
+  }
   .sous__subtitle {
     display: none;
   }
