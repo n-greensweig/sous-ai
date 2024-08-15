@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ClearIcon from '@mui/icons-material/Clear';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import './RecipeIngredients.css';
-function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, replaceWithCommas, isInGroceryList, title, id, user }) {
+function RecipeIngredients({ ingredients, servings, replaceWithCommas, isInGroceryList, title, id, user }) {
 
     const dispatch = useDispatch();
     const [inGroceryList, setInGroceryList] = useState(isInGroceryList);
@@ -43,6 +43,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
             dispatch({ type: 'FETCH_GROCERY_LIST' });
             setInGroceryList(isInGroceryList);
         }
+        console.log(isInGroceryList, user.id);
     }, [user.id, dispatch, isInGroceryList, groceryIngredients]);
 
 
@@ -82,7 +83,7 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
             <ul className='recipe-details__ingredients-list list-none'>
                 {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} className='recipe-details__ingredients--li color-black'>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
             </ul>
-            {typeof user.id === 'Number' ? <><p>{inGroceryList ? <span>Added! <button className='pointer underline' onClick={e => toggleViewing(e)}>Open grocery list</button></span> :
+            {typeof user.id === 'number' ? <><p>{inGroceryList ? <span>Added! <button className='pointer underline' onClick={e => toggleViewing(e)}>Open grocery list</button></span> :
                 <button className='underline' onClick={e => updateGroceryList(e)}>Add ingredients to your grocery list</button>}</p>
                 <Dialog open={isViewing}
                     onClose={e => toggleViewing(e)}
