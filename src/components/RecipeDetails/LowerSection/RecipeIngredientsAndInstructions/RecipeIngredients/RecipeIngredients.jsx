@@ -10,7 +10,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ClearIcon from '@mui/icons-material/Clear';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import './RecipeIngredients.css';
-import Header from '../../../../Header/Header';
 function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, replaceWithCommas, isInGroceryList, title, id, user }) {
 
     const dispatch = useDispatch();
@@ -62,8 +61,6 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
         }
         return ingredientsArray;
     };
-
-
     const removeIngredientFromGroceryList = (e, recipe_id, ingredient, idx) => {
         e.preventDefault();
         const newGroceryItem = cleanIngredients(groceryList[idx].recipe_ingredients.replace(ingredient, ''));
@@ -77,78 +74,54 @@ function RecipeIngredients({ ingredients, servings, isSmScreen, isXsScreen, repl
     const handleExpandClick = (panel) => (event, isExpanded) => {
         setExpanded(prevExpanded => isExpanded ? [...prevExpanded, panel] : prevExpanded.filter(item => item !== panel));
     };
-
     return (
-            <div className="ingredients" style={{
-                borderTop: isSmScreen || isXsScreen ? '2px solid black' : null,
-                marginRight: isSmScreen || isXsScreen ? null : '30px', alignSelf: isSmScreen || isXsScreen ? 'center' : null,
-                width: isSmScreen || isXsScreen ? '80%' : null,
-            }}>
-                <p style={{
-                    color: 'black', fontWeight: 'bold', marginTop: isSmScreen || isXsScreen ? '10px' : null,
-                    textAlign: isSmScreen || isXsScreen ? 'left' : null, marginTop: isSmScreen || isXsScreen ? '0px' : null,
-                    marginBottom: '6%'
-                }}><span style={{
-                    borderTop: isSmScreen || isXsScreen ? null : '2px solid black',
-                    fontSize: '1.1rem'
-                }}>INGREDIENTS</span></p>
-
-
-                <p style={{ color: 'black', textAlign: isSmScreen || isXsScreen ? 'left' : null, marginBottom: '4%' }}><strong>Yield:</strong> {!servings ? '' : isNaN(servings) ? servings : <span>{servings} servings</span>}</p>
-
-
-                <ul style={{ listStyleType: 'none', paddingLeft: '0px', textAlign: isSmScreen || isXsScreen ? 'left' : null }}>
-                    {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} style={{ color: "black", marginBottom: '10px' }}>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
-                </ul>
-                {typeof user.id === 'Number' ? <><p>{inGroceryList ? <span>Added! <button className='link' onClick={e => toggleViewing(e)}>Open grocery list</button></span> :
-                    <button style={{ textDecoration: 'underline' }} onClick={e => updateGroceryList(e)}>Add ingredients to your grocery list</button>}</p>
-                    <Dialog open={isViewing}
-                        onClose={e => toggleViewing(e)}
-                        maxWidth="sm" // Set the maximum width to large
-                        fullWidth={true}
-                        PaperProps={{ component: 'form', }}>
-                        <DialogTitle><strong style={{ marginRight: '10px', }}>Your grocery list</strong> |
-                            <span style={{ marginLeft: '10px', }}>
-                                {groceryList.length === 1 ? `${groceryList.length} recipe` : `${groceryList.length} recipes`}
-                            </span>
-                        </DialogTitle>
-                        <div style={{ margin: '10px' }}>
-                            <ul>
-                                {groceryList.length > 0 && groceryList.map((recipe, idx) => (
-                                    <Accordion key={idx} expanded={expanded.includes(idx)} onChange={handleExpandClick(idx)}>
-                                        <AccordionSummary
-                                            aria-controls={`panel${idx}-content`}
-                                            id={`panel${idx}-header`}
-                                        >
-                                            <div className='display-flex align-center width-100'>
-                                                {expanded.includes(idx) ? <ExpandMoreIcon style={{ cursor: 'pointer', marginRight: '8px' }} /> : <KeyboardArrowRight style={{ cursor: 'pointer', marginRight: '8px' }} />}
-                                                <h3 style={{ flex: 1 }}>{recipe.recipe_title}</h3>
-                                                <p
-                                                    onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}
-                                                    style={{ cursor: 'pointer', marginLeft: '8px', textDecoration: 'underline', }}>Remove</p>
-                                            </div>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <ul>
-                                                {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
-                                                    ingredient !== '' ?
-                                                        <div key={index} className='display-flex justify-sb' style={{ borderBottom: '1px solid #d3d3d3', }}>
-                                                            <li style={{ padding: '10px 0' }}>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
-                                                            <ClearIcon style={{ padding: '10px 0' }}
-                                                                onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
-                                                            />
-                                                        </div> : null
-                                                ))}
-                                            </ul>
-                                        </AccordionDetails>
-                                    </Accordion>
-                                ))}
-                            </ul>
-                        </div>
-                    </Dialog></> : null}
-            </div>
-    );
+        <div className='recipe-details__ingredients'>
+            <p className='recipe-details__ingredients-subheader color-black bold'>
+                <span>INGREDIENTS</span></p>
+            <p className='recipe-details__ingredients--p-servings color-black'><strong>Yield:</strong> {!servings ? '' : isNaN(servings) ? servings : <span>{servings} servings</span>}</p>
+            <ul className='recipe-details__ingredients-list list-none'>
+                {Array.isArray(ingredients) && ingredients.map((ingredient, index) => ingredient.length > 2 ? <li key={index} className='recipe-details__ingredients--li color-black'>{replaceWithCommas(ingredient.replace(/"|\\n/g, '').trim())}</li> : '')}
+            </ul>
+            {typeof user.id === 'Number' ? <><p>{inGroceryList ? <span>Added! <button className='pointer underline' onClick={e => toggleViewing(e)}>Open grocery list</button></span> :
+                <button className='underline' onClick={e => updateGroceryList(e)}>Add ingredients to your grocery list</button>}</p>
+                <Dialog open={isViewing}
+                    onClose={e => toggleViewing(e)}
+                    maxWidth="sm" // Set the maximum width to large
+                    fullWidth={true}
+                    PaperProps={{ component: 'form', }}>
+                    <DialogTitle><strong className='recipe-details__p--your-grocery-list'>Your grocery list</strong> |
+                        <span>
+                            {groceryList.length === 1 ? `${groceryList.length} recipe` : `${groceryList.length} recipes`}
+                        </span>
+                    </DialogTitle>
+                    <div className='recipe-details__grocery-list-wrapper'>
+                        <ul>
+                            {groceryList.length > 0 && groceryList.map((recipe, idx) => (
+                                <Accordion key={idx} expanded={expanded.includes(idx)} onChange={handleExpandClick(idx)}>
+                                    <AccordionSummary aria-controls={`panel${idx}-content`} id={`panel${idx}-header`}>
+                                        <div className='display-flex align-center width-100'>
+                                            {expanded.includes(idx) ? <ExpandMoreIcon className='pointer' /> : <KeyboardArrowRight className='pointer' />}
+                                            <h3 className='flex-1'>{recipe.recipe_title}</h3>
+                                            <p className='recipe-details__grocery-list--p-remove pointer underline'
+                                                onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}>Remove</p>
+                                        </div>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <ul>
+                                            {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
+                                                ingredient !== '' ?
+                                                    <div key={index} className='recipe-details__grocery-list--ingredient display-flex justify-sb'>
+                                                        <li className='recipe-details__grocery-list--ingredient-li'>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
+                                                        <ClearIcon
+                                                            onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
+                                                        />
+                                                    </div> : null))}
+                                        </ul>
+                                    </AccordionDetails>
+                                </Accordion>))}
+                        </ul>
+                    </div>
+                </Dialog></> : null}
+        </div>);
 }
-
-
 export default RecipeIngredients;

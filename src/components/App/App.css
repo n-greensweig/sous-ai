@@ -49,6 +49,9 @@ img {
 .flex-wrap {
   flex-wrap: wrap;
 }
+.flex-1 {
+  flex: 1;
+}
 .align-fs {
   align-items: flex-start;
 }
@@ -146,8 +149,14 @@ img {
 .bold {
   font-weight: bold;
 }
+.underline {
+  text-decoration: underline;
+}
 .of-cover {
   object-fit: cover;
+}
+.list-none {
+  list-style-type: none;
 }
 /* --------------------------------------------------------------------------------
 Container
