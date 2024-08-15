@@ -1,0 +1,15 @@
+.user-pantry__wrapper {
+    padding-top: 0px;
+    margin: 20px auto;
+}
+.user-pantry__subheading {
+    margin-bottom: 10px;
+}
+.user-pantry__section-heading {
+    font-size: 1.2rem;
+}
+@media screen and (max-width: 768px) {
+    .user-pantry__wrapper {
+        padding-top: 50px;
+    }
+}

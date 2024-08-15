@@ -2,11 +2,10 @@ import { Button, useTheme, useMediaQuery, Accordion, AccordionSummary, Accordion
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import './Pantry.css';
 function Pantry() {
     const dispatch = useDispatch();
     const userIngredients = useSelector(store => store.userIngredientsReducer);
-    const [ingredientsToDisplay, setIngredientsToDisplay] = useState([]);
     const [expandedSection, setExpandedSection] = useState(null);
     const vegetablesAndGreens = [
         "Scallion",
@@ -1060,21 +1059,18 @@ function Pantry() {
 
     return (
         <div>
-            <div style={{
-                padding: theme.spacing(2), maxWidth: '1200px', margin: '20px auto',
-                paddingTop: isXsScreen || isSmScreen ? '50px' : '0px', justifyContent: 'center', alignItems: 'center'
-            }}>
-                <h2 style={{ color: 'black', marginBottom: '10px' }}>Pantry</h2>
+            <div className='user-pantry__wrapper max-width-1200 justify-center align-center' style={{ padding: theme.spacing(2), }}>
+                <h2 className='user-pantry__subheading color-black'>Pantry</h2>
                 {Object.keys(sections).map((section, idx) => (
                     <div key={idx}>
                         <Accordion expanded={expandedSection === section} onChange={() => toggleExpandedSection(section)} sx={{ marginBottom: '10px' }}>
                             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                                <Typography className='user-pantry__section-heading bold'>
                                     {section.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: theme.spacing(1) }}>
+                                <div className='display-flex flex-wrap' style={{ gap: theme.spacing(1) }}>
                                     {sections[section].map((item, index) => {
                                         const isSelected = userIngredients.includes(item); // Check if item is in userIngredients
                                         return (
@@ -1090,17 +1086,12 @@ function Pantry() {
                                                 onMouseLeave={(e) => {
                                                     e.currentTarget.style.transform = isSelected ? 'scale(1.05)' : 'scale(1)';
                                                     e.currentTarget.style.boxShadow = theme.shadows[2];
-                                                }}
-                                            >
-                                                {item}
-                                            </Button>
-                                        );
+                                                }}>{item}</Button>);
                                     })}
                                 </div>
                             </AccordionDetails>
                         </Accordion>
-                    </div>
-                ))}
+                    </div>))}
             </div>
         </div>
     );
