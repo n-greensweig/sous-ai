@@ -1,0 +1,32 @@
+.recipe-photos__container {
+    flex: 1;
+    margin-right: 10%;
+    align-self: flex-start;
+}
+.recipe-notes__subheader {
+    margin-bottom: 6%;
+}
+.recipe-details__user-photos {
+    gap: 16px;
+    max-width: 1400px;
+}
+.recipe-details__user-photo {
+    width: 250px;
+    height: 250px;
+}
+.recipe-details__p--no-images {
+    color: #888;
+}
+@media screen and (max-width: 768px) {
+    .recipe-photos__container {
+        margin: 0 10%;
+        width: 80%;
+    }
+    .recipe-notes__subheader {
+        text-align: left;
+    }
+    .recipe-details__user-photo {
+        width: 150px;
+        height: 150px;
+    }
+}

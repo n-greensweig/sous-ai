@@ -1,0 +1,9 @@
+.notes-photo-container {
+    margin-top: 30px;
+    flex-direction: row;
+}
+@media screen and (max-width: 768px) {
+    .notes-photo-container {
+        flex-direction: column;
+    }
+}

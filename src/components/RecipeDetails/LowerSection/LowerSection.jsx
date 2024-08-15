@@ -19,7 +19,7 @@ function LowerSection({ prepTime, cookTime, isCooked, setIsCooked, id, dispatch,
             <RecipeIngredientsAndInstructions ingredients={ingredients} instructions={instructions}
                 servings={servings} isInGroceryList={isInGroceryList} isXsScreen={isXsScreen}
                 isSmScreen={isSmScreen} replaceWithCommas={replaceWithCommas} title={title} id={id} user={user} />
-            {user.id ? <RecipeNotesAndPhoto imageList={imageList} isXsScreen={isXsScreen} isSmScreen={isSmScreen} comments={comments} dispatch={dispatch} id={id} /> : null}
+            {user.id ? <RecipeNotesAndPhoto imageList={imageList} comments={comments} dispatch={dispatch} id={id} /> : null}
         </section>
     )
 }

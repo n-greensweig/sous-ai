@@ -46,7 +46,9 @@ img {
 *.display-flex {
   display: flex;
 }
-
+.flex-wrap {
+  flex-wrap: wrap;
+}
 .align-fs {
   align-items: flex-start;
 }
@@ -143,6 +145,9 @@ img {
 }
 .bold {
   font-weight: bold;
+}
+.of-cover {
+  object-fit: cover;
 }
 /* --------------------------------------------------------------------------------
 Container
