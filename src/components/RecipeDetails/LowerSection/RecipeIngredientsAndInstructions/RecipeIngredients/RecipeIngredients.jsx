@@ -43,7 +43,6 @@ function RecipeIngredients({ ingredients, servings, replaceWithCommas, isInGroce
             dispatch({ type: 'FETCH_GROCERY_LIST' });
             setInGroceryList(isInGroceryList);
         }
-        console.log(isInGroceryList, user.id);
     }, [user.id, dispatch, isInGroceryList, groceryIngredients]);
 
 

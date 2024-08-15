@@ -4,11 +4,12 @@ import RecipeRating from "./RecipeRating/RecipeRating";
 import AutoScroll from "../../AutoScroll/AutoScroll";
 import RecipeIngredientsAndInstructions from "./RecipeIngredientsAndInstructions/RecipeIngredientsAndInstructions";
 import RecipeNotesAndPhoto from "./RecipeNotesAndPhoto/RecipeNotesAndPhoto";
+import './LowerSection.css';
 function LowerSection({ prepTime, cookTime, isCooked, setIsCooked, id, dispatch, rating, setRating, ingredients, instructions, servings, isXsScreen, isSmScreen, replaceWithCommas, imageList, comments, isInGroceryList, title, user }) {
     return (
-        <section className="lower-section">
+        <section className='lower-section'>
             <div className={`display-flex flex-row align-center ${isXsScreen || isSmScreen ? 'justify-center' : 'justify-sb'}`}>
-                <div style={{ alignSelf: 'flex-start', borderTop: '1px solid #888' }}>
+                <div className='recipe-details__lower-section-wrapper'>
                     <RecipePrepAndCookTime prepTime={prepTime} replaceWithCommas={replaceWithCommas} />
                     <RecipePrepAndCookTime cookTime={cookTime} replaceWithCommas={replaceWithCommas} />
                     {user.id ? <RecipeCooked isCooked={isCooked} setIsCooked={setIsCooked} id={id} dispatch={dispatch} /> : null}

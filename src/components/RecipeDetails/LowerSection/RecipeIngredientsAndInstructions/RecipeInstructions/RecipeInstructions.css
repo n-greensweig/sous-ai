@@ -1,0 +1,32 @@
+.recipe-instructions__container {
+    padding: 0 10%;
+    margin-bottom: 3%;
+}
+.recipe-details__instructions-subheader > span {
+    font-size: 1.1rem;
+    border-top: 2px solid black;
+}
+.recipe-instructions__instruction-list {
+    padding-left: 0px;
+    margin-right: 10%;
+}
+.recipe-instructions__instruction-li {
+    margin-bottom: 1rem;
+}
+@media screen and (max-width: 768px) {
+    .recipe-instructions__container {
+        text-align: left;
+        margin-top: 10px;
+    }
+    .recipe-details__instructions-subheader {
+        border-top: 2px solid black;
+        text-align: left;
+        margin-top: 0px;
+    }
+    .recipe-details__instructions-subheader > span {
+        border-top: none;
+    }
+    .recipe-instructions__instruction-list {
+        margin-right: 0%;
+    }
+}

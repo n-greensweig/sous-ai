@@ -42,7 +42,7 @@ function RecipeNotes({ comments, dispatch, id }) {
         <div id='recipe-notes-container' className='display-flex flex-column justify-fe'>
             <p className='recipe-notes__subheader pb-0 bold'>RECIPE NOTES</p>
 
-            {comments.map(comment => <p id={comment.id}
+            {comments.map(comment => <p key={comment.id} id={comment.id}
                     className='recipe-details__comments-wrapper display-flex flex-row justify-sb align-fs color-black mt-0 pt-0'>
                     <span className='recipe-details__comments--comment-text'>{comment.comment}</span>
                     <span className='recipe-details__comments--comment-timestamp'><i>Commented on {formatDate(comment.commented_at)}</i></span>

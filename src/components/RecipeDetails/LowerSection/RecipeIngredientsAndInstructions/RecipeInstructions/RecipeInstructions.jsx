@@ -1,19 +1,12 @@
-function RecipeInstructions({ instructions, isXsScreen, isSmScreen, replaceWithCommas }) {
+import './RecipeInstructions.css';
+function RecipeInstructions({ instructions, replaceWithCommas }) {
     return (
-        <div className="instructions" style={{
-            textAlign: isSmScreen || isXsScreen ? 'left' : null,
-            padding: '0 10%', marginTop: isSmScreen || isXsScreen ? '10px' : null
-        }}>
-            <p style={{
-                borderTop: isSmScreen || isXsScreen ? '2px solid black' : null,
-                color: 'black', fontWeight: 'bold',
-                textAlign: isSmScreen || isXsScreen ? 'left' : null, marginTop: isSmScreen || isXsScreen ? '0px' : null,
-                marginBottom: '3%',
-            }}><span style={{ borderTop: isSmScreen || isXsScreen ? null : '2px solid black', fontSize: '1.1rem' }}>INSTRUCTIONS</span></p>
-            <ol style={{ listStyleType: 'none', paddingLeft: '0px', marginRight: isSmScreen || isXsScreen ? null : '10%' }}>
+        <div className='recipe-instructions__container'>
+            <p className='recipe-details__instructions-subheader color-black bold'><span>INSTRUCTIONS</span></p>
+            <ol className='recipe-instructions__instruction-list list-none'>
                 {Array.isArray(instructions) && instructions.map((instruction, index) => instruction.length > 2 ?
-                    <li key={index} style={{ color: "black", display: 'flex', flexDirection: 'column', marginBottom: '1rem' }}>
-                        <span style={{ color: 'black', fontWeight: 'bold' }}>
+                    <li key={index} className='recipe-instructions__instruction-li color-black display-flex flex-column'>
+                        <span className='color-black bold'>
                             Step {index + 1}
                         </span>
                         {<span>{replaceWithCommas(instruction.replace(/"|\\n/g, '').trim())}</span>}
