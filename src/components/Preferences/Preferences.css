@@ -1,6 +1,10 @@
 .user-preferences__wrapper {
     padding-top: 0px;
 }
+.user-perferences__p--choose-preferences,
+.user-perferences__p--select-household-items {
+    font-size: 1.2rem;
+}
 
 @media screen and (min-width: 768px) {
     .user-preferences__wrapper {
