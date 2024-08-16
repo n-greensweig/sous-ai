@@ -52,53 +52,53 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     let recipeJSON = JSON.parse(req.body.message);
     let recipePhoto;
     if (recipeJSON.recipe_name.includes('Smoothie')) {
-        recipePhoto = `images/food/smoothie.svg`;
+        recipePhoto = `images/food/smoothie.webp`;
     } else if (recipeJSON.recipe_name.includes('Pizza')) {
-        recipePhoto = `images/food/pizza.svg`;
+        recipePhoto = `images/food/pizza.webp`;
     } else if (recipeJSON.recipe_name.includes('Salad')) {
-        recipePhoto = `images/food/salad.svg`;
+        recipePhoto = `images/food/salad.webp`;
     } else if (recipeJSON.recipe_name.includes('Soup')) {
-        recipePhoto = `images/food/soup.svg`;
+        recipePhoto = `images/food/soup.webp`;
     } else if (recipeJSON.recipe_name.includes('Stew')) {
-        recipePhoto = `images/food/stew.svg`;
+        recipePhoto = `images/food/stew.webp`;
     } else if (recipeJSON.recipe_name.includes('Cake')) {
-        recipePhoto = `images/food/cake.svg`;
+        recipePhoto = `images/food/cake.webp`;
     } else if (recipeJSON.recipe_name.includes('Pie')) {
-        recipePhoto = `images/food/pie.svg`;
+        recipePhoto = `images/food/pie.webp`;
     } else if (recipeJSON.recipe_name.includes('Taco')) {
-        recipePhoto = `images/food/tacos.svg`;
+        recipePhoto = `images/food/tacos.webp`;
     } else if (recipeJSON.recipe_name.includes('Pasta') || recipeJSON.recipe_name.includes('Noodles')) {
-        recipePhoto = `images/food/pasta.svg`;
+        recipePhoto = `images/food/pasta.webp`;
     } else if (recipeJSON.recipe_name.includes('Barbecue') || recipeJSON.recipe_name.includes('BBQ')) {
-        recipePhoto = `images/food/barbecue.svg`;
+        recipePhoto = `images/food/barbecue.webp`;
     } else if (recipeJSON.recipe_name.includes('Chicken')) {
-        recipePhoto = `images/food/chicken.svg`;
+        recipePhoto = `images/food/chicken.webp`;
     } else if (recipeJSON.recipe_name.includes('Steak')) {
-        recipePhoto = `images/food/steak.svg`;
+        recipePhoto = `images/food/steak.webp`;
     } else if (recipeJSON.recipe_name.includes('Cheeseburger') || recipeJSON.recipe_name.includes('Burger')) {
-        recipePhoto = `images/food/burger.svg`;
+        recipePhoto = `images/food/burger.webp`;
     } else if (recipeJSON.recipe_name.includes('Pork')) {
-        recipePhoto = `images/food/pork-chop.svg`;
+        recipePhoto = `images/food/pork-chop.webp`;
     } else if (recipeJSON.recipe_name.includes('Bread')) {
-        recipePhoto = `images/food/bread.svg`;
+        recipePhoto = `images/food/bread.webp`;
     } else if (recipeJSON.recipe_name.includes('Sandwich')) {
-        recipePhoto = `images/food/sandwich.svg`;
+        recipePhoto = `images/food/sandwich.webp`;
     } else if (recipeJSON.recipe_name.includes('Eggs')) {
-        recipePhoto = `images/food/eggs.svg`;
+        recipePhoto = `images/food/eggs.webp`;
     } else if (recipeJSON.recipe_name.includes('Oatmeal')) {
-        recipePhoto = `images/food/oatmeal.svg`;
+        recipePhoto = `images/food/oatmeal.webp`;
     } else if (recipeJSON.recipe_name.includes('Rice')) {
-        recipePhoto = `images/food/rice.svg`;
+        recipePhoto = `images/food/rice.webp`;
     } else if (recipeJSON.recipe_name.includes('Chili')) {
-        recipePhoto = `images/food/chili.svg`;
+        recipePhoto = `images/food/chili.webp`;
     } else if (recipeJSON.recipe_name.includes('Salmon')) {
-        recipePhoto = `images/food/salmon.svg`;
+        recipePhoto = `images/food/salmon.webp`;
     } else if (recipeJSON.recipe_name.includes('Seafood')) {
-        recipePhoto = `images/food/seafood.svg`;
+        recipePhoto = `images/food/seafood.webp`;
     } else if (recipeJSON.recipe_name.includes('Charcuterie')) {
-        recipePhoto = `images/food/charcuterie.svg`;
+        recipePhoto = `images/food/charcuterie.webp`;
     } else {
-        recipePhoto = `images/food/generic-plate.svg`;
+        recipePhoto = `images/food/generic-plate.webp`;
     }
     let queryText = `
 INSERT INTO "recipe_item" ("user_id", "title", "prep_time", "cook_time",
