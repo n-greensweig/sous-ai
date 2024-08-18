@@ -79,8 +79,7 @@ function MobileNavbar() {
                     </Button>
                 </div>
                 <div className='mobile-header__icon-wrapper display-flex align-center justify-center' onClick={() => history.push('/')}>
-                    <img src="images/avatars/sous.svg" className="header__img--mobile" alt="Sous" />
-                    <p>&nbsp;| Sous</p>
+                    <p>Sous</p>
                 </div>
                 <div className='display-flex'>
                     <BookmarkIcon className='mobile__header-icon fill-black' onClick={() => {
