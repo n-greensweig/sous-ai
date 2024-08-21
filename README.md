@@ -1,4 +1,4 @@
-# SousAI: A Full-stack Recipes App
+# Sous: A Full-stack Recipes App
 
 ## Table of Contents
 - [Description](#Description)
@@ -10,13 +10,13 @@
 - [Acknowledgments](#Acknowledgments)
 
 ## Description
-SousAI is a web application that features a recipe-generating AI assistant and a personalized recipe box. With SousAI, users can:
+Sous is a web application that features a recipe-generating AI assistant and a personalized recipe box. With Sous, users can:
 
 - **Create Recipes:** Use Sous, the AI-powered recipe assistant, to generate unique and tailored recipes.
 - **Save and Personalize:** Save your favorite recipes to your personal recipe box, where you can add notes and photos for future reference.
-- **Customization:** Input your cooking devices, ingredients, and dietary preferences to receive recipes specifically tailored to your desire.
+- **Customize:** Input your cooking devices, ingredients, and dietary preferences to receive recipes specifically tailored to your desire.
 
-SousAI is hosted at [https://www.sousai.io/](https://www.sousai.io/) using AWS and Heroku. The app is built with React, Redux, Node.js, PostgreSQL, and OpenAI's API.
+Sous is hosted at [https://www.sousai.io/](https://www.sousai.io/) using AWS and Heroku. The app is built with React, Redux, Node.js, PostgreSQL, and OpenAI's API.
 
 ## Installation
 1. Create a database named ```sous_ai```
@@ -30,13 +30,13 @@ SousAI is hosted at [https://www.sousai.io/](https://www.sousai.io/) using AWS a
 ## Usage
 After starting the application:
 1. Register a new account for the app
-2. Navigate into the SousAI view once signed-in to the app
-3. Request a recipe of your choice using the input field at the bottom of the SousAI page
+2. Navigate into the Sous view once signed-in to the app
+3. Request a recipe of your choice using the input field at the bottom of the Sous page
 4. Save a recipe that appeals to you using the button at the bottom of the recipe
 5. Navigate into the 'Saved recipes' page to view your saved recipes
 
 ## Screenshots
-<img width="1440" alt="SousAI" src="public/images/readme-screenshots/sous_ai.png">
+<img width="1440" alt="Sous" src="public/images/readme-screenshots/sous_ai.png">
 <img width="1440" alt="Recipe box" src="public/images/readme-screenshots/recipe_items.png">
 <img width="1440" alt="Recipe details" src="public/images/readme-screenshots/recipe_details.png">
 <img width="1440" alt="User dietary preferences and household items" src="public/images/readme-screenshots/preferences.png">
