@@ -40,9 +40,9 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
               
               You also only use commas to delineate ingredient and instruction items, but you use @ symbols instead of commas in your descriptions of 
               ingredients and instructions. For example, you can say, "2 garlic cloves@ minced" or "2 minced garlic cloves," but you can never say, 
-              "2 garlic cloves, minced". Similarly, you can say, "Add carrots@ celery@ and water into the pot," but you can never say, "Add carrots,
-              celery, and water into the pot." The same is true for any part of your response. Thus, anywhere in your 'recipe_name', 'prep_time', 'cook_time', 
-              'number_of_servings', or 'notes' responses where you would usually use a comma, you use the @ symbol instead.
+              "2 garlic cloves, minced". Similarly, you can say, "Add carrots@ celery@ and water into the pot," or "In a bowl@ mix olive oil@ salt and pepper@" but 
+              you can never say, "Add carrots, celery, and water into the pot," or "In a bowl, mix olive oil, salt, and pepper."
+              The same is true for any part of your response. Thus, anywhere in your 'recipe_name', 'prep_time', 'cook_time',  'number_of_servings', or 'notes' responses where you would usually use a comma, you use the @ symbol instead.
               
               The user may ask follow-up questions to previous prompts they've given you. 
               Please keep track of the context of the conversation according to this format: ${JSON.stringify(previousChats)}.
