@@ -139,7 +139,8 @@ function RecipeCard(props) {
         e.dataTransfer.setData('ingredients', props.recipe.ingredients);
         e.dataTransfer.setData('title', props.recipe.title);
         e.dataTransfer.setData('isInGroceryList', props.recipe.isInGroceryList);
-        e.dataTransfer.setData('text/plain', `https://www.sousai.io/#/recipes/${target}`); // Set the URL to drag
+        console.log(target);
+        e.dataTransfer.setData('text/plain', `https://www.sousai.io/recipes/${target}`); // Set the URL to drag
     };
 
     // Confirming props are loaded 
@@ -154,8 +155,7 @@ function RecipeCard(props) {
                 <Card
                     className="recipe-grid__card--container"
                     draggable
-                    onDragStart={e => handleDragStart(e, props.recipe.id)}
-                >
+                    onDragStart={e => handleDragStart(e, props.recipe.id)}>
                     <div key={props.recipe.id}>
                         <div onClick={() => handleClick(props.recipe.id)}>
                             <CardMedia className="recipe-grid__card--media" image={`${props.recipe.display_photo}`} alt={`${props.recipe.title} dish`} />

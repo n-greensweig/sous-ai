@@ -76,13 +76,13 @@ function RecipeItems(props) {
     // Function to handle the drag start event
     const handleDragStart = (event, target) => {
         if (target === 'saved') {
-            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box'); // Set the URL to drag
+            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/recipe-box'); // Set the URL to drag
         } else if (target === 'cooked') {
-            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box/cooked'); // Set the URL to drag
+            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/recipe-box/cooked'); // Set the URL to drag
         } else if (target === 'recent') {
-            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box/recent'); // Set the URL to drag
+            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/recipe-box/recent'); // Set the URL to drag
         } else {
-            event.dataTransfer.setData('text/plain', `https://www.sousai.io/#/recipe-box/${target}`); // Set the URL to drag
+            event.dataTransfer.setData('text/plain', `https://www.sousai.io/recipe-box/${target}`); // Set the URL to drag
         }
     };
 
