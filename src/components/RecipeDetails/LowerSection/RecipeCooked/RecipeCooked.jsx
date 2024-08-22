@@ -15,7 +15,7 @@ function RecipeCooked({ isCooked, setIsCooked, id, dispatch }) {
             <p className='recipe-details__p--cooked pointer'>
                 {!isCooked ? (<span className='display-flex align-center' onClick={e => toggleCooked(e, true)}>
                     <CheckCircleOutlineIcon className='fill-black' /> Mark as cooked
-                </span>) : (<span onClick={e => toggleCooked(e, false)}>
+                </span>) : (<span className='display-flex align-center' onClick={e => toggleCooked(e, false)}>
                     <CheckCircleIcon className='fill-black' /> Yes I have
                 </span>)}
             </p>
