@@ -218,7 +218,7 @@ function SavedRecipesSidebar() {
                                 {photo ? (
                                     <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo" />
                                 ) : (
-                                    <img src={'images/empty-folder/empty-folder.svg'} alt={list.list_name} className="folder__photo" />
+                                    <img src={'images/empty-folder/empty-folder.webp'} alt={list.list_name} className="folder__photo" />
                                 )}
                                 <p className="recipe-items__sidebar--folder-name" onClick={() => {
                                     document.title = `Your Recipe Box - ${list.list_name}`;
