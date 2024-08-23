@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -34,6 +35,9 @@ app.use('/photos', imageRouter);
 
 // Serve static files
 app.use(express.static('build'));
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // App Set //
 const PORT = process.env.PORT || 5000;
