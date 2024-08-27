@@ -28,7 +28,7 @@ function Header() {
     // Function to handle the drag start event
     const handleDragStart = (event, target) => {
         if (target === 'saved') {
-            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/recipe-box'); // Set the URL to drag
+            event.dataTransfer.setData('text/plain', 'https://www.sousai.io/#/recipe-box'); // Set the URL to drag
         }
     };
     return (

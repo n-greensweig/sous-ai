@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
         })
         .catch((error) => {
             // Log and respond with an error status if the query fails
-            console.log(`Error making database query ${queryText}`, error);
+            console.error(`Error making database query ${queryText}`, error);
             res.sendStatus(500);
         });
 });
@@ -44,12 +44,12 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     pool.query(queryText, [recipeID, userID, path])
         .then((result) => {
             // Log success and send a created status back to the client
-            console.log(`Added image to the database`, path);
+            console.error(`Added image to the database`, path);
             res.sendStatus(201);
         })
         .catch((error) => {
             // Log and respond with an error status if the query fails
-            console.log(`Error making database query ${queryText}`, error);
+            console.error(`Error making database query ${queryText}`, error);
             res.sendStatus(500);
         });
 });

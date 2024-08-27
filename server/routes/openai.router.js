@@ -11,7 +11,6 @@ const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 // Define POST route for generating recipes with gpt-4o model
 router.post('/', rejectUnauthenticated, async (req, res) => {
     const { message, preferences, householdItems, ingredients, previousChats, } = req.body;
-    console.log(JSON.stringify(previousChats));
     // Set up options for the API request to OpenAI, including authorization header
     const options = {
         method: 'POST',

@@ -25,7 +25,7 @@ router.post('/register', async (req, res, next) => {
   pool.query(queryText, [username, password])
     .then(() => res.sendStatus(201))
     .catch((err) => {
-      console.log('User registration failed: ', err);
+      console.error('User registration failed: ', err);
       res.sendStatus(500);
     });
 });
