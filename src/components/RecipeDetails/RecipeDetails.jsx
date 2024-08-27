@@ -47,11 +47,13 @@ function RecipeDetails({ user }) {
             setIsLoading(true); // Start loading
             const formData = new FormData();
             formData.append('file', fileToUpload);
+            console.log('file to upload', fileToUpload);
             formData.append('upload_preset', process.env.REACT_APP_PRESET);
 
             let postUrl = `https://api.cloudinary.com/v1_1/` + process.env.REACT_APP_CLOUD_NAME + `/image/upload`;
             axios.post(postUrl, formData)
                 .then(response => {
+                    console.log(response);
                     setImagePath(response.data.url);
                 })
                 .catch(error => {
@@ -70,8 +72,9 @@ function RecipeDetails({ user }) {
     const sendPhotoToServer = e => {
         e.preventDefault();
         if (imagePath) {
+            console.log(imagePath);
             // Send image path to server
-            axios.post('/photos', { recipeID: id, path: imagePath })
+            axios.post('/photos', { recipeID: id, path: imagePath.replace('http://', 'https://') })
                 .then(response => {
                     setImagePath('');
                     getImageList();
