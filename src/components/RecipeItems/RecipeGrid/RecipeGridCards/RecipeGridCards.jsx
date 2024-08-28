@@ -1,6 +1,5 @@
 import RecipeCard from '../RecipeCard/RecipeCard';
-import './RecipeGridCards.css'; // Import CSS file for styling
-
+import './RecipeGridCards.css';
 function RecipeGridCards({ recipes, listName }) {
     return (
         <div className="recipe-grid-container">
