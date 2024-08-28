@@ -89,7 +89,7 @@ function RecipeIngredients({ ingredients, servings, replaceWithCommas, isInGroce
                     maxWidth="sm" // Set the maximum width to large
                     fullWidth={true}
                     PaperProps={{ component: 'form', }}>
-                    <DialogTitle><strong className='recipe-details__p--your-grocery-list'>Your grocery list</strong> |
+                    <DialogTitle><strong className='recipe-details__p--your-grocery-list'>Your grocery list</strong> | &nbsp;
                         <span>
                             {groceryList.length === 1 ? `${groceryList.length} recipe` : `${groceryList.length} recipes`}
                         </span>
@@ -110,7 +110,7 @@ function RecipeIngredients({ ingredients, servings, replaceWithCommas, isInGroce
                                         <ul>
                                             {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
                                                 ingredient !== '' ?
-                                                    <div key={index} className='recipe-details__grocery-list--ingredient display-flex justify-sb'>
+                                                    <div key={index} className='recipe-details__grocery-list--ingredient display-flex justify-sb align-center'>
                                                         <li className='recipe-details__grocery-list--ingredient-li'>{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
                                                         <ClearIcon
                                                             onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
