@@ -7,10 +7,9 @@
 *::before,
 *::after {
   /* ! Great to know for the future: snaps to page and gets rid of white space */
-  /* box-sizing: inherit; */
   margin: 0;
   padding: 0;
-  font-family: libreFranklin;
+  font-family: libreFranklin, sans-serif;
 }
 
 html {
