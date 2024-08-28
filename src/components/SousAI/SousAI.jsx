@@ -103,7 +103,7 @@ function SousAI() {
       }
     };
     try {
-      const response = await fetch('/completions', options); // Fetch API call
+      const response = await fetch('/api/completions', options); // Fetch API call
       const data = await response.json(); // Parsing response data
       setMessage(data.choices[0].message); // Setting message from response
       // setPreviousChats(prev => [...prev, {

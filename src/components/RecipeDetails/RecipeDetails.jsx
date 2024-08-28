@@ -74,7 +74,7 @@ function RecipeDetails({ user }) {
         if (imagePath) {
             console.log(imagePath);
             // Send image path to server
-            axios.post('/photos', { recipeID: id, path: imagePath.replace('http://', 'https://') })
+            axios.post('/api/photos', { recipeID: id, path: imagePath.replace('http://', 'https://') })
                 .then(response => {
                     setImagePath('');
                     getImageList();
@@ -88,7 +88,7 @@ function RecipeDetails({ user }) {
 
     // Function to fetch image list
     const getImageList = () => {
-        axios.get(`/photos/${id}`)
+        axios.get(`/api/photos/${id}`)
             .then(response => {
                 setImageList(response.data);
             })
