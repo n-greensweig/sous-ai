@@ -23,11 +23,6 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector(store => store.user);
 
-  let viewport = document.querySelector('meta[name="viewport"]');
-  if (viewport) {
-    viewport.content = "initial-scale=1";
-  }
-
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);

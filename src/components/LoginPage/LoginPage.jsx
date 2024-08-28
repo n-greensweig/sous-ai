@@ -13,8 +13,7 @@ function LoginPage() {
         <button
           type="button"
           className="linkButton"
-          onClick={() => history.push('/registration')}
-        >
+          onClick={() => history.push('/registration')}>
           Register
         </button>
       </div>

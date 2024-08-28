@@ -15,6 +15,10 @@ function LoginForm() {
         type: 'LOGIN',
         payload: { username, password },
       });
+      let viewport = document.querySelector('meta[name="viewport"]');
+      if (viewport) {
+        viewport.content = "initial-scale=1";
+      }
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
