@@ -3,6 +3,7 @@
     src: url(../../../public/fonts/LibreFranklin-VariableFont_wght.ttf);
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 .header {
@@ -12,7 +13,6 @@
     background-color: #FFF;
     width: 100%;
     border-bottom: 1px solid #d3d3d3;
-    font-family: 'Libre Franklin', sans-serif !important;
 }
 
 .header-content {
