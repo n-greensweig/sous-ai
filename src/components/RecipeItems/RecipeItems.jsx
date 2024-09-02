@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useTheme, useMediaQuery } from "@mui/material";
 import SavedRecipesSidebar from "./SavedRecipesSidebar/SavedRecipesSidebar";
 import RecipeGrid from "./RecipeGrid/RecipeGrid";
 import './RecipeItems.css';
@@ -11,7 +10,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import AddIcon from '@mui/icons-material/Add';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'; import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -19,6 +18,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import './RecipeItems.css';
 function RecipeItems(props) {
     const { id } = useParams();
+    const path = props.path;
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
     const [listToDisplay, setListToDisplay] = useState(document.title);
@@ -99,22 +99,22 @@ function RecipeItems(props) {
     };
 
     useEffect(() => {
-        if (props.path === '/recipe-box') {
+        if (path === '/recipe-box' || path === '/recipe-box/all') {
             document.title = 'Saved Recipes';
             setListToDisplay('Saved Recipes');
             setListName('Saved Recipes');
             dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
-        } else if (props.path === '/recipe-box/cooked') {
+        } else if (path === '/recipe-box/cooked') {
             document.title = 'Cooked Recipes';
             setListToDisplay('Cooked Recipes');
             setListName('Cooked Recipes');
             dispatch({ type: 'FETCH_COOKED_RECIPES', payload: searchQuery });
-        } else if (props.path === '/recipe-box/recent') {
+        } else if (path === '/recipe-box/recent') {
             document.title = 'Recently Viewed Recipes';
             setListToDisplay('Recently Viewed Recipes');
             setListName('Recently Viewed Recipes');
             dispatch({ type: 'FETCH_RECENT_RECIPES', payload: searchQuery });
-        } else if (props.path === '/recipe-box/grocery') {
+        } else if (path === '/recipe-box/grocery') {
             document.title = 'Grocery List';
             setListToDisplay('Grocery List');
             setListName('Grocery List');
@@ -124,7 +124,7 @@ function RecipeItems(props) {
             dispatch({ type: 'FETCH_GROCERY_LIST' });
             dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery } });
         }
-    }, [props.path, id, dispatch, listToDisplay]);
+    }, [path, id, dispatch, listToDisplay]);
 
     const recipes = useSelector(store => store.recipeReducer);
     const fetchedListName = useSelector(store => store.recipeListNameReducer); // Assuming you have this in your store
@@ -135,10 +135,6 @@ function RecipeItems(props) {
             setListName(fetchedListName);
         }
     }, [fetchedListName, id]);
-
-    const theme = useTheme();
-    const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
-    const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const cleanIngredients = (ingredientsString) => {
         if (!ingredientsString) return [];
@@ -198,155 +194,161 @@ function RecipeItems(props) {
                     <SavedRecipesSidebar />
                     <div className="recipe-items__body--grid-wrapper">
                         {listName && (
-                            <RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
-                                searchQuery={searchQuery} setSearchQuery={setSearchQuery}
-                                isXsScreen={isXsScreen} isSmScreen={isSmScreen} id={id} />)}
-                        <Button onClick={() => history.push('/recipe-box/all')}>See all saved recipes</Button>
-                        <div>
-                            <div className="recipe-items__sidebar--content mobile">
-                                <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right ${document.title === 'Saved Recipes' ? 'paper-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}
-                                    onMouseDown={() => handleSetActiveItem('saved')}
-                                    onMouseUp={handleClearActiveItem} onDragEnd={handleClearActiveItem} draggable>
-                                    <BookmarkIcon className={`recipe-items__sidebar--icon ${activeItem === 'saved' ? 'gray-fill' : 'black-fill'}`} /> Saved Recipes
-                                </p>
-                                <p onClick={() => navigateTo('/recipe-box/cooked')}
-                                    onMouseDown={() => handleSetActiveItem('cooked')}
-                                    onMouseUp={handleClearActiveItem}
-                                    onDragEnd={handleClearActiveItem}
-                                    draggable
-                                    className={`recipe-items__sidebar--margin-right ${document.title === 'Cooked Recipes' ? 'paper-background-bold' : 'inherit-background'}`}>
-                                    <CheckCircleIcon className={`recipe-items__sidebar--icon ${activeItem === 'cooked' ? 'gray-fill' : 'black-fill'}`} /> Cooked Recipes
-                                </p>
-                                <p onClick={() => navigateTo('/recipe-box/recent')}
-                                    onMouseDown={() => handleSetActiveItem('recent')}
-                                    onMouseUp={handleClearActiveItem}
-                                    onDragEnd={handleClearActiveItem}
-                                    draggable
-                                    className={`recipe-items__sidebar--margin-right ${document.title === 'Recently Viewed Recipes' ? 'paper-background-bold' : 'inherit-background'}`}>
-                                    <AccessTimeIcon className={`recipe-items__sidebar--icon ${activeItem === 'recent' ? 'gray-fill' : 'black-fill'}`} /> Recently Viewed
-                                </p>
-                                <p
-                                    onClick={e => toggleViewing(e)}
-                                    onMouseDown={() => handleSetActiveItem('grocery')}
-                                    onMouseUp={handleClearActiveItem}
-                                    onMouseLeave={handleClearActiveItem}
-                                    onDragEnd={handleClearActiveItem}
-                                    onDragOver={handleDragOver}
-                                    onDrop={(event) => handleDropGroceryList(event)}
-                                    draggable
-                                    className='recipe-items__sidebar--margin-right'>
-                                    <ListAltIcon className='recipe-items__sidebar--icon black-fill' /> Grocery List
-                                </p>
-                                <span className='recipe-items__sidebar-span--your-folders recipe-items__sidebar--margin-right'>Your folders</span>
-                                <div onClick={toggleCreating} className='recipe-items__div-icon-span--new-folder'>
-                                    <Button className='icon--gray-border' aria-label='new-folder'
-                                    ><AddIcon className='recipe-items__sidebar--icon recipe-items__sidebar--icon-add' /></Button>
-                                    <span className='span__new-folder'>New Folder</span>
-                                </div>
-                                {recipeLists && recipeLists.map((list) => {
-                                    const photo = recipeListPhotos.find(photo => photo.list_id.includes(list.id));
-                                    return (
-                                        <div key={list.id} className="recipe-items__sidebar--lists-wrapper"
-                                            onDragOver={handleDragOver} onDrop={(event) => handleDrop(event, list.id)}>
-                                            <div className={`recipe-items__sidebar--user-folders ${document.title.includes(list.list_name) ? 'paper-background-bold' : 'inherit-background'}`}
-                                                onClick={() => {
-                                                    document.title = `Your Recipe Box - ${list.list_name}`;
-                                                    history.push(`/recipe-box/${list.id}`);
-                                                }}
-                                                draggable
-                                                onMouseDown={() => handleSetActiveItem(list.list_name)}
-                                                onMouseUp={handleClearActiveItem}
-                                                onDragStart={event => handleDragStart(event, `${list.id}`)}
-                                                onDragEnd={handleClearActiveItem}
-                                            >
-                                                {photo ? (
-                                                    <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo" />
-                                                ) : (
-                                                    <img src={'images/empty-folder/empty-folder.webp'} alt={list.list_name} className="folder__photo" />
-                                                )}
-                                                <p className="recipe-items__sidebar--folder-name" onClick={() => {
-                                                    document.title = `Your Recipe Box - ${list.list_name}`;
-                                                    history.push(`/recipe-box/${list.id}`);
-                                                }}>{list.list_name}</p>
-                                            </div>
+                            <>
+                                {path !== '/recipe-box' ? <Button className='recipe-items__button--back' startIcon={<ArrowBackIosIcon />} onClick={() => history.push('/recipe-box')}>Recipe Box</Button> : null}
+                                <RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
+                                    searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id} path={path} />
+                            </>
+                        )}
+                        {path === '/recipe-box' ?
+                            <>
+                                <Button className='recipe-items__button--see-all' onClick={() => history.push('/recipe-box/all')}>See all saved recipes</Button>
+                                <div>
+                                    <div className="recipe-items__sidebar--content mobile">
+                                        <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right ${document.title === 'Saved Recipes' ? 'paper-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}
+                                            onMouseDown={() => handleSetActiveItem('saved')}
+                                            onMouseUp={handleClearActiveItem} onDragEnd={handleClearActiveItem} draggable>
+                                            <BookmarkIcon className={`recipe-items__sidebar--icon ${activeItem === 'saved' ? 'gray-fill' : 'black-fill'}`} /> Saved Recipes
+                                        </p>
+                                        <p onClick={() => navigateTo('/recipe-box/cooked')}
+                                            onMouseDown={() => handleSetActiveItem('cooked')}
+                                            onMouseUp={handleClearActiveItem}
+                                            onDragEnd={handleClearActiveItem}
+                                            draggable
+                                            className={`recipe-items__sidebar--margin-right ${document.title === 'Cooked Recipes' ? 'paper-background-bold' : 'inherit-background'}`}>
+                                            <CheckCircleIcon className={`recipe-items__sidebar--icon ${activeItem === 'cooked' ? 'gray-fill' : 'black-fill'}`} /> Cooked Recipes
+                                        </p>
+                                        <p onClick={() => navigateTo('/recipe-box/recent')}
+                                            onMouseDown={() => handleSetActiveItem('recent')}
+                                            onMouseUp={handleClearActiveItem}
+                                            onDragEnd={handleClearActiveItem}
+                                            draggable
+                                            className={`recipe-items__sidebar--margin-right ${document.title === 'Recently Viewed Recipes' ? 'paper-background-bold' : 'inherit-background'}`}>
+                                            <AccessTimeIcon className={`recipe-items__sidebar--icon ${activeItem === 'recent' ? 'gray-fill' : 'black-fill'}`} /> Recently Viewed
+                                        </p>
+                                        <p
+                                            onClick={e => toggleViewing(e)}
+                                            onMouseDown={() => handleSetActiveItem('grocery')}
+                                            onMouseUp={handleClearActiveItem}
+                                            onMouseLeave={handleClearActiveItem}
+                                            onDragEnd={handleClearActiveItem}
+                                            onDragOver={handleDragOver}
+                                            onDrop={(event) => handleDropGroceryList(event)}
+                                            draggable
+                                            className='recipe-items__sidebar--margin-right'>
+                                            <ListAltIcon className='recipe-items__sidebar--icon black-fill' /> Grocery List
+                                        </p>
+                                        <span className='recipe-items__sidebar-span--your-folders recipe-items__sidebar--margin-right'>Your folders</span>
+                                        <div onClick={toggleCreating} className='recipe-items__div-icon-span--new-folder'>
+                                            <Button className='icon--gray-border' aria-label='new-folder'
+                                            ><AddIcon className='recipe-items__sidebar--icon recipe-items__sidebar--icon-add' /></Button>
+                                            <span className='span__new-folder'>New Folder</span>
                                         </div>
-                                    );
-                                })}
-                            </div>
-                            {/* Dialog for creating a new recipe folder. */}
-                            <Dialog open={isCreating}
-                                onClose={toggleCreating}
-                                PaperProps={{
-                                    component: 'form',
-                                    onSubmit: (event) => {
-                                        event.preventDefault();
-                                        saveRecipeList(listName);
-                                        toggleCreating(event);
-                                    },
-                                }}>
-                                <div className="recipe-items__sidebar--dialog-header">
-                                    <DialogTitle className="recipe-items__sidebar--dialog-title">New Folder</DialogTitle>
-                                    <Button className="recipe-items__sidebar--dialog-header-button" onClick={() => setIsCreating(false)}>Cancel</Button>
-                                </div>
-                                <DialogContent>
-                                    <TextField
-                                        className='recipe-items__sidebar--dialog-textfield'
-                                        autoFocus
-                                        margin="dense"
-                                        id="title"
-                                        name="title"
-                                        fullWidth
-                                        variant="standard"
-                                        defaultValue={listName}
-                                        placeholder='Enter folder name'
-                                        onChange={e => setListName(e.target.value)} />
-                                </DialogContent>
-                                <DialogActions>
-                                    <div className="recipe-items__sidebar--dialog-actions">
-                                        <div className="recipe-items__sidebar--dialog-actions-first-row">
-                                            <Button className="recipe-items__sidebar--button-create-new-folder" variant="outlined" type="submit">Create</Button>
-                                        </div>
-                                    </div>
-                                </DialogActions>
-                            </Dialog>
-                            <Dialog open={isViewing}
-                                onClose={e => toggleViewing(e)}
-                                maxWidth="sm" // Set the maximum width to large
-                                fullWidth={true}
-                                PaperProps={{ component: 'form', }}>
-                                <DialogTitle><strong className="grocery-list-title">Your grocery list</strong> |
-                                    <span className="grocery-list-count">{groceryList.length === 1 ? `${groceryList.length} recipe` : `${groceryList.length} recipes`}</span>
-                                </DialogTitle>
-                                <div className="grocery-list-accordion">
-                                    <ul>
-                                        {groceryList.length > 0 && groceryList.map((recipe, idx) => (
-                                            <Accordion key={idx} expanded={expanded.includes(idx)} onChange={handleExpandClick(idx)}>
-                                                <AccordionSummary
-                                                    aria-controls={`panel${idx}-content`}
-                                                    id={`panel${idx}-header`}>
-                                                    <div className="grocery-list-summary">
-                                                        {expanded.includes(idx) ? <ExpandMoreIcon className="grocery-list-summary-icon" /> : <KeyboardArrowRight className="grocery-list-summary-icon" />}
-                                                        <h3 className="grocery-list__recipe-title">{recipe.recipe_title}</h3>
-                                                        <p className="grocery-list__remove-button" onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}>Remove</p>
+                                        {recipeLists && recipeLists.map((list) => {
+                                            const photo = recipeListPhotos.find(photo => photo.list_id.includes(list.id));
+                                            return (
+                                                <div key={list.id} className="recipe-items__sidebar--lists-wrapper"
+                                                    onDragOver={handleDragOver} onDrop={(event) => handleDrop(event, list.id)}>
+                                                    <div className={`recipe-items__sidebar--user-folders ${document.title.includes(list.list_name) ? 'paper-background-bold' : 'inherit-background'}`}
+                                                        onClick={() => {
+                                                            document.title = `Your Recipe Box - ${list.list_name}`;
+                                                            history.push(`/recipe-box/${list.id}`);
+                                                        }}
+                                                        draggable
+                                                        onMouseDown={() => handleSetActiveItem(list.list_name)}
+                                                        onMouseUp={handleClearActiveItem}
+                                                        onDragStart={event => handleDragStart(event, `${list.id}`)}
+                                                        onDragEnd={handleClearActiveItem}
+                                                    >
+                                                        {photo ? (
+                                                            <img key={photo.id} src={photo.display_photo} alt={list.list_name} className="folder__photo" />
+                                                        ) : (
+                                                            <img src={'images/empty-folder/empty-folder.webp'} alt={list.list_name} className="folder__photo" />
+                                                        )}
+                                                        <p className="recipe-items__sidebar--folder-name" onClick={() => {
+                                                            document.title = `Your Recipe Box - ${list.list_name}`;
+                                                            history.push(`/recipe-box/${list.id}`);
+                                                        }}>{list.list_name}</p>
                                                     </div>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <ul>
-                                                        {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
-                                                            ingredient !== '' ?
-                                                                <div className="grocery-list__clear-icon-container" key={index}>
-                                                                    <li className="grocery-list__ingredient">{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
-                                                                    <ClearIcon className="grocery-list__clear-icon"
-                                                                        onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
-                                                                    />
-                                                                </div> : null))}
-                                                    </ul>
-                                                </AccordionDetails>
-                                            </Accordion>))}
-                                    </ul>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                    {/* Dialog for creating a new recipe folder. */}
+                                    <Dialog open={isCreating}
+                                        onClose={toggleCreating}
+                                        PaperProps={{
+                                            component: 'form',
+                                            onSubmit: (event) => {
+                                                event.preventDefault();
+                                                saveRecipeList(listName);
+                                                toggleCreating(event);
+                                            },
+                                        }}>
+                                        <div className="recipe-items__sidebar--dialog-header">
+                                            <DialogTitle className="recipe-items__sidebar--dialog-title">New Folder</DialogTitle>
+                                            <Button className="recipe-items__sidebar--dialog-header-button" onClick={() => setIsCreating(false)}>Cancel</Button>
+                                        </div>
+                                        <DialogContent>
+                                            <TextField
+                                                className='recipe-items__sidebar--dialog-textfield'
+                                                autoFocus
+                                                margin="dense"
+                                                id="title"
+                                                name="title"
+                                                fullWidth
+                                                variant="standard"
+                                                defaultValue={listName}
+                                                placeholder='Enter folder name'
+                                                onChange={e => setListName(e.target.value)} />
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <div className="recipe-items__sidebar--dialog-actions">
+                                                <div className="recipe-items__sidebar--dialog-actions-first-row">
+                                                    <Button className="recipe-items__sidebar--button-create-new-folder" variant="outlined" type="submit">Create</Button>
+                                                </div>
+                                            </div>
+                                        </DialogActions>
+                                    </Dialog>
+                                    <Dialog open={isViewing}
+                                        onClose={e => toggleViewing(e)}
+                                        maxWidth="sm" // Set the maximum width to large
+                                        fullWidth={true}
+                                        PaperProps={{ component: 'form', }}>
+                                        <DialogTitle><strong className="grocery-list-title">Your grocery list</strong> |
+                                            <span className="grocery-list-count">{groceryList.length === 1 ? `${groceryList.length} recipe` : `${groceryList.length} recipes`}</span>
+                                        </DialogTitle>
+                                        <div className="grocery-list-accordion">
+                                            <ul>
+                                                {groceryList.length > 0 && groceryList.map((recipe, idx) => (
+                                                    <Accordion key={idx} expanded={expanded.includes(idx)} onChange={handleExpandClick(idx)}>
+                                                        <AccordionSummary
+                                                            aria-controls={`panel${idx}-content`}
+                                                            id={`panel${idx}-header`}>
+                                                            <div className="grocery-list-summary">
+                                                                {expanded.includes(idx) ? <ExpandMoreIcon className="grocery-list-summary-icon" /> : <KeyboardArrowRight className="grocery-list-summary-icon" />}
+                                                                <h3 className="grocery-list__recipe-title">{recipe.recipe_title}</h3>
+                                                                <p className="grocery-list__remove-button" onClick={(e) => removeRecipeFromGroceryList(e, recipe.recipe_id)}>Remove</p>
+                                                            </div>
+                                                        </AccordionSummary>
+                                                        <AccordionDetails>
+                                                            <ul>
+                                                                {cleanIngredients(recipe.recipe_ingredients).map((ingredient, index) => (
+                                                                    ingredient !== '' ?
+                                                                        <div className="grocery-list__clear-icon-container" key={index}>
+                                                                            <li className="grocery-list__ingredient">{ingredient.trim().replace(/@/g, ',').split(',')[0]}</li>
+                                                                            <ClearIcon className="grocery-list__clear-icon"
+                                                                                onClick={(e) => removeIngredientFromGroceryList(e, recipe.recipe_id, ingredient, idx)}
+                                                                            />
+                                                                        </div> : null))}
+                                                            </ul>
+                                                        </AccordionDetails>
+                                                    </Accordion>))}
+                                            </ul>
+                                        </div>
+                                    </Dialog>
                                 </div>
-                            </Dialog>
-                        </div>
+                            </> : null}
                     </div>
                 </div>
             </div>

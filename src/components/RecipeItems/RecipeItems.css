@@ -9,6 +9,19 @@
    padding-left: 7%;
    overflow: hidden;
 }
+.MuiButtonBase-root.recipe-items__button--back {
+   margin-top: 100px;
+   justify-content: left;
+   text-transform: none;
+   color: inherit;
+}
+.MuiButtonBase-root.recipe-items__button--see-all {
+   text-transform: none;
+   color: inherit;
+   border: 1px solid black;
+   width: 50%;
+   border-radius: 25%;
+}
 
 /* Centered container with max width for the recipe cards content */
 .recipe-items__body--max-width {
