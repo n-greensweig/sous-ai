@@ -6,6 +6,16 @@
     margin-top: 0px;
 }
 
+.MuiButtonBase-root.recipe-grid-subhheading__button-go {
+    background-color: #df321b;
+    border: 1px solid #df321b;
+    border-radius: 25px;
+    height: 50px;
+    width: 100px;
+    margin-left: 10px;
+    display: none;
+}
+
 .MuiSvgIcon-root.recipe-grid__subheading--search-bar-cancel {
     margin-right: 10px;
 }
@@ -123,5 +133,8 @@
         position: relative;
         right: 0;
         margin: 0px 0px 20px 0px;
+    }
+    .MuiButtonBase-root.recipe-grid-subhheading__button-go {
+        display: block;
     }
 }

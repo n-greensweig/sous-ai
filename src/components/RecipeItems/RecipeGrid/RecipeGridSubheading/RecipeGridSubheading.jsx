@@ -39,9 +39,9 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     return (
         <div className={'recipe-grid__subheading--wrapper display-flex'}>
             <div className='display-flex flex-column'>
-            {path !== '/recipe-box' ? <Button className='recipe-items__button--back' startIcon={<ArrowBackIosIcon />} onClick={() => history.push('/recipe-box')}>Recipe Box</Button> : null}
+                {path !== '/recipe-box' ? <Button className='recipe-items__button--back' startIcon={<ArrowBackIosIcon />} onClick={() => history.push('/recipe-box')}>Recipe Box</Button> : null}
                 <div className='display-flex align-center'>
-                    <h2 className='recipe-grid__subheading--recipe-folder-name color-222 mb-0'>{listName}</h2>
+                    {path === '/recipe-box' ? null : <h2 className='recipe-grid__subheading--recipe-folder-name color-222 mb-0'>{listName}</h2>}
                     {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed Recipes' ?
                         <MoreHorizIcon className='recipe-grid__subheading--icon-more pointer color-717171' onClick={handlePopover} /> : null}
                     <Popover
@@ -63,20 +63,25 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                         </div>
                     </Popover>
                 </div>
-                {numOfRecipes > 0 ? <p className='mt-0 color-717171'>{numOfRecipes} {numOfRecipes === 1 ? 'recipe' : 'recipes'}</p> :
+                {path === '/recipe-box' ? null : numOfRecipes > 0 ? <p className='mt-0 color-717171'>{numOfRecipes} {numOfRecipes === 1 ? 'recipe' : 'recipes'}</p> :
                     <p className='mt-0 color-717171'>No recipes yet</p>}
             </div>
-            <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
-                <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
-                <input
-                    className='recipe-grid__subheading--search-bar'
-                    type='text'
-                    placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' ? dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) : null}
-                    value={searchQuery} />
-                {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray recipe-grid__subheading--search-bar-cancel' /> : null}
-            </div>
+            {path === '/recipe-box/cooked' || path === '/recipe-box/recent' ? null :
+                <div className='display-flex'>
+                    <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
+                        <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
+                        <input
+                            className='recipe-grid__subheading--search-bar'
+                            type='text'
+                            placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' ? dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) : null}
+                            value={searchQuery} />
+                        {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray recipe-grid__subheading--search-bar-cancel' /> : null}
+                    </div>
+                    <Button className='no-transform color-white recipe-grid-subhheading__button-go' onClick={() => { dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) }}>Go</Button>
+                </div>}
+            {path === '/recipe-box' ? <h3 className='color-black'>Saved Recipes</h3> : null}
             {/* Dialog for creating a new recipe folder. */}
             <Dialog open={isCreating}
                 onClose={toggleCreating}
