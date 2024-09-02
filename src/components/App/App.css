@@ -139,7 +139,7 @@ img {
 }
 
 *.color-222 {
-  color: #222;
+  color: #222 !important;
 }
 
 *.mt-0 {

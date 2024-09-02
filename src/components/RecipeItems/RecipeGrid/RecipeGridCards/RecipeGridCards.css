@@ -15,11 +15,10 @@
 @media (max-width: 768px) {
     .recipe-grid-container.flex {
         display: flex;
-        margin-top: 175px;
-        grid-template-columns: repeat(2, 1fr); /* Two cards per row on mobile */
     }
+    .recipe-grid-container.flex,
     .recipe-grid-container {
-        margin-top: 175px;
+        margin-top: 215px;
         grid-template-columns: repeat(2, 1fr); /* Two cards per row on mobile */
     }
 }

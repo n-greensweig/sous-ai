@@ -15,10 +15,10 @@
    margin-top: 20px;
 }
 .MuiButtonBase-root.recipe-items__button--back {
-   margin-top: 100px;
    justify-content: left;
    text-transform: none;
    color: inherit;
+   margin-bottom: 12px;
 }
 .MuiButtonBase-root.recipe-items__button--see-all {
    text-transform: none;

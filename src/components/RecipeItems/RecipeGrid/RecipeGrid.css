@@ -16,6 +16,8 @@
 .recipe-grid__subcontainer {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .recipe-grid__subheading-wrapper {
@@ -25,5 +27,6 @@
 @media screen and (max-width: 768px) {
     .MuiGrid-root.recipe-grid__container {
         width: 100vw;
+        padding-top: 0px;
     }
 }

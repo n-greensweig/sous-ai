@@ -194,16 +194,13 @@ function RecipeItems(props) {
                     <SavedRecipesSidebar />
                     <div className="recipe-items__body--grid-wrapper">
                         {listName && (
-                            <>
-                                {path !== '/recipe-box' ? <Button className='recipe-items__button--back' startIcon={<ArrowBackIosIcon />} onClick={() => history.push('/recipe-box')}>Recipe Box</Button> : null}
-                                <RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
+                            <><RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
                                     searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id} path={path} />
-                            </>
-                        )}
+                            </>)}
                         {path === '/recipe-box' ?
                             <>
                             <div className='recipe-items__container--see-all'>
-                                <Button className='recipe-items__button--see-all' onClick={() => history.push('/recipe-box/all')}>See all saved recipes</Button>
+                                <Button className='recipe-items__button--see-all color-222' onClick={() => history.push('/recipe-box/all')}>See all saved recipes</Button>
                             </div>
                                 <div>
                                     <div className="recipe-items__sidebar--content mobile">

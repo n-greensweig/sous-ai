@@ -13,8 +13,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { TextField } from '@mui/material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import './RecipeGridSubheading.css';
-function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQuery, id }) {
+function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQuery, id, path }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
     const [newListName, setNewListName] = useState(listName); // Stores the new recipe list's name.
@@ -38,6 +39,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
     return (
         <div className={'recipe-grid__subheading--wrapper display-flex'}>
             <div className='display-flex flex-column'>
+            {path !== '/recipe-box' ? <Button className='recipe-items__button--back' startIcon={<ArrowBackIosIcon />} onClick={() => history.push('/recipe-box')}>Recipe Box</Button> : null}
                 <div className='display-flex align-center'>
                     <h2 className='recipe-grid__subheading--recipe-folder-name color-222 mb-0'>{listName}</h2>
                     {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed Recipes' ?

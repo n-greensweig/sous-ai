@@ -5,7 +5,7 @@
     align-items: left;
 }
 
-.recipe-grid__card--container {
+.MuiPaper-root.recipe-grid__card--container {
     cursor: pointer;
     border-radius: 1px;
     box-shadow: none;
