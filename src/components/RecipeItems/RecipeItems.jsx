@@ -201,6 +201,7 @@ function RecipeItems(props) {
                             <RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
                                 searchQuery={searchQuery} setSearchQuery={setSearchQuery}
                                 isXsScreen={isXsScreen} isSmScreen={isSmScreen} id={id} />)}
+                        <Button onClick={() => history.push('/recipe-box/all')}>See all saved recipes</Button>
                         <div>
                             <div className="recipe-items__sidebar--content mobile">
                                 <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right ${document.title === 'Saved Recipes' ? 'paper-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}

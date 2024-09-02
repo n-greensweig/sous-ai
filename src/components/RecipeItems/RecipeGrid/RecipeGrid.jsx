@@ -6,12 +6,12 @@ function RecipeGrid({ recipes, listName, numOfRecipes, searchQuery, setSearchQue
     return (
         <Grid container spacing={2}
             className={`recipe-grid__container ${numOfRecipes === 0 ? 'padding-left-ten' : null} ${numOfRecipes !== 0 ? 'recipe-grid__container--center' : ''}`}>
-            <div className='recipe-grid__subcontainer'>
                 <div className='recipe-grid__subheading-wrapper'>
                     {listName && (
                         <RecipeGridSubheading listName={listName} numOfRecipes={numOfRecipes} searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id} />
                     )}
                 </div>
+            <div className='recipe-grid__subcontainer'>
                 <RecipeGridCards recipes={recipes} listName={listName} isXsScreen={isXsScreen} isSmScreen={isSmScreen} />
             </div>
         </Grid>

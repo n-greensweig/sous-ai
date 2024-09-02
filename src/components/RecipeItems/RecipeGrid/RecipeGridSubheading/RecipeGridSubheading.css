@@ -117,6 +117,7 @@
         align-items: flex-start;
         margin-bottom: inherit;
         margin-top: 50px;
+        position: fixed;
     }
     .recipe-grid__subheading--search-input {
         position: relative;

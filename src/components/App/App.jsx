@@ -78,6 +78,13 @@ function App() {
           >
             <RecipeItems path={'/recipe-box'} />
           </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows RecipeItems else shows LoginPage
+            exact
+            path="/recipe-box/all"
+          >
+            <RecipeItems path={'/recipe-box/all'} />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows cooked recipes else shows LoginPage

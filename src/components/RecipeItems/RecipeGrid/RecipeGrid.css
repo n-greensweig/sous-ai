@@ -6,6 +6,7 @@
     flex-grow: 1;
     min-height: 5vh;
     justify-content: left;
+    overflow-x: scroll;
 }
 
 .padding-left-ten {
@@ -21,17 +22,8 @@
     margin-left: 0px;
 }
 
-@media screen and (min-width: 768px) {
-    .recipe-grid__subcontainer {
-        padding-left: 10px;
-    }
-}
-
 @media screen and (max-width: 768px) {
     .MuiGrid-root.recipe-grid__container {
         width: 100vw;
-    }
-    .MuiGrid-root.recipe-grid__container--center {
-        justify-content: center;
     }
 }

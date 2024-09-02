@@ -12,8 +12,10 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .recipe-grid-container {
+        display: flex;
+        margin-top: 175px;
         grid-template-columns: repeat(2, 1fr); /* Two cards per row on mobile */
     }
 }
