@@ -18,7 +18,7 @@
     }
     .recipe-grid-container.flex,
     .recipe-grid-container {
-        margin-top: 215px;
+        margin-top: 195px;
         grid-template-columns: repeat(2, 1fr); /* Two cards per row on mobile */
     }
 }

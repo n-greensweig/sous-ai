@@ -3,16 +3,13 @@
 }
 
 .recipe-items__body--grid-wrapper {
-   display: flex;
-   flex-direction: column;
    width: 100%;
-   padding-left: 7%;
+   padding-left: 3.5%;
    overflow: hidden;
 }
 .recipe-items__container--see-all {
    display: flex;
    justify-content: center;
-   margin-top: 20px;
 }
 .MuiButtonBase-root.recipe-items__button--back {
    justify-content: left;
@@ -24,7 +21,7 @@
    text-transform: none;
    color: inherit;
    border: 1px solid black;
-   width: 50%;
+   width: 93%;
    border-radius: 20px;
 }
 
