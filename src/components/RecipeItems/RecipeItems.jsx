@@ -202,7 +202,9 @@ function RecipeItems(props) {
                         )}
                         {path === '/recipe-box' ?
                             <>
+                            <div className='recipe-items__container--see-all'>
                                 <Button className='recipe-items__button--see-all' onClick={() => history.push('/recipe-box/all')}>See all saved recipes</Button>
+                            </div>
                                 <div>
                                     <div className="recipe-items__sidebar--content mobile">
                                         <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right ${document.title === 'Saved Recipes' ? 'paper-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}

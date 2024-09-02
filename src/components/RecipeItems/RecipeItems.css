@@ -9,6 +9,11 @@
    padding-left: 7%;
    overflow: hidden;
 }
+.recipe-items__container--see-all {
+   display: flex;
+   justify-content: center;
+   margin-top: 20px;
+}
 .MuiButtonBase-root.recipe-items__button--back {
    margin-top: 100px;
    justify-content: left;
@@ -20,7 +25,7 @@
    color: inherit;
    border: 1px solid black;
    width: 50%;
-   border-radius: 25%;
+   border-radius: 20px;
 }
 
 /* Centered container with max width for the recipe cards content */
@@ -211,5 +216,13 @@
 
    .recipe-items__body--grid-wrapper {
       padding-left: 0%;
+   }
+}
+@media screen and (min-width: 768px) {
+   .MuiButtonBase-root.recipe-items__button--back {
+      display: none;
+   }
+   .recipe-items__container--see-all {
+      display: none;
    }
 }
