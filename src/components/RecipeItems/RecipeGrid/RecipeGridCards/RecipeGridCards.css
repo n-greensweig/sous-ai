@@ -16,10 +16,15 @@
     .recipe-grid-container.flex {
         display: flex;
     }
-    .recipe-grid-container.flex,
+    /* .recipe-grid-container.flex, */
     .recipe-grid-container {
-        margin-top: 195px;
         grid-template-columns: repeat(2, 1fr); /* Two cards per row on mobile */
+    }
+    .mt-175 {
+        margin-top: 175px;
+    }
+    .mt-225 {
+        margin-top: 245px;
     }
 }
 
