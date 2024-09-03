@@ -67,8 +67,8 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                     <p className='mt-0 color-717171'>No recipes yet</p>}
             </div>
             {path === '/recipe-box/cooked' || path === '/recipe-box/recent' ? null :
-                <div className='display-flex'>
-                    <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
+                <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
+                    {/* <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'> */}
                         <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
                         <input
                             className='recipe-grid__subheading--search-bar'
@@ -78,10 +78,11 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                             onKeyDown={(e) => e.key === 'Enter' ? dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) : null}
                             value={searchQuery} />
                         {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray recipe-grid__subheading--search-bar-cancel' /> : null}
-                    </div>
+                    {/* </div> */}
                     <Button className='no-transform color-white recipe-grid-subhheading__button-go' onClick={() => { dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) }}>Go</Button>
-                </div>}
-            {path === '/recipe-box' ? <h3 className='color-black'>Saved Recipes</h3> : null}
+                </div>
+            }
+            {/* {path === '/recipe-box' ? <h3 className='color-black'>Saved Recipes</h3> : null} */}
             {/* Dialog for creating a new recipe folder. */}
             <Dialog open={isCreating}
                 onClose={toggleCreating}
