@@ -68,21 +68,18 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
             </div>
             {path === '/recipe-box/cooked' || path === '/recipe-box/recent' ? null :
                 <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
-                    {/* <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'> */}
-                        <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
-                        <input
-                            className='recipe-grid__subheading--search-bar'
-                            type='text'
-                            placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' ? dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) : null}
-                            value={searchQuery} />
-                        {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray recipe-grid__subheading--search-bar-cancel' /> : null}
-                    {/* </div> */}
+                    <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
+                    <input
+                        className='recipe-grid__subheading--search-bar'
+                        type='text'
+                        placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' ? dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) : null}
+                        value={searchQuery} />
+                    {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray recipe-grid__subheading--search-bar-cancel' /> : null}
                     <Button className='no-transform color-white recipe-grid-subhheading__button-go' onClick={() => { dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) }}>Go</Button>
                 </div>
             }
-            {/* {path === '/recipe-box' ? <h3 className='color-black'>Saved Recipes</h3> : null} */}
             {/* Dialog for creating a new recipe folder. */}
             <Dialog open={isCreating}
                 onClose={toggleCreating}
