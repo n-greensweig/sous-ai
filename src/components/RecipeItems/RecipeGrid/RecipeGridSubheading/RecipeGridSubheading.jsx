@@ -41,7 +41,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
             <div className='display-flex flex-column'>
                 {path !== '/recipe-box' ? <Button className='recipe-items__button--back' startIcon={<ArrowBackIosIcon />} onClick={() => history.push('/recipe-box')}>Recipe Box</Button> : null}
                 <div className='display-flex align-center'>
-                    {path === '/recipe-box' ? null : <h2 className='recipe-grid__subheading--recipe-folder-name color-222 mb-0'>{listName}</h2>}
+                    {<h2 className='recipe-grid__subheading--recipe-folder-name color-222 mb-0'>{listName}</h2>}
                     {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed Recipes' ?
                         <MoreHorizIcon className='recipe-grid__subheading--icon-more pointer color-717171' onClick={handlePopover} /> : null}
                     <Popover
@@ -63,7 +63,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                         </div>
                     </Popover>
                 </div>
-                {path === '/recipe-box' ? null : numOfRecipes > 0 ? <p className='mt-0 color-717171'>{numOfRecipes} {numOfRecipes === 1 ? 'recipe' : 'recipes'}</p> :
+                {numOfRecipes > 0 ? <p className={`mt-0 color-717171 ${path === '/recipe-box' ? 'hide-mobile-saved' : null}`}>{numOfRecipes} {numOfRecipes === 1 ? 'recipe' : 'recipes'}</p> :
                     <p className='mt-0 color-717171'>No recipes yet</p>}
             </div>
             {path === '/recipe-box/cooked' || path === '/recipe-box/recent' ? null :

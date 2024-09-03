@@ -137,4 +137,7 @@
     .MuiButtonBase-root.recipe-grid-subhheading__button-go {
         display: block;
     }
+    .hide-mobile-saved {
+        display: none;
+    }
 }
