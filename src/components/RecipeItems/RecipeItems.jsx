@@ -30,6 +30,10 @@ function RecipeItems(props) {
     const [expanded, setExpanded] = useState([]);
     const [isViewing, setIsViewing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [recipeGridIsMounted, setRecipeGridIsMounted] = useState(false);
+    const recipes = useSelector(store => store.recipeReducer);
+    const fetchedListName = useSelector(store => store.recipeListNameReducer);
+    const numOfRecipes = recipes.length;
 
     const toggleViewing = e => {
         if (isViewing) {
@@ -98,44 +102,6 @@ function RecipeItems(props) {
         }
     };
 
-    useEffect(() => {
-        if (path === '/recipe-box' || path === '/recipe-box/all') {
-            document.title = 'Saved Recipes';
-            setListToDisplay('Saved Recipes');
-            setListName('Saved Recipes');
-            dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
-        } else if (path === '/recipe-box/cooked') {
-            document.title = 'Cooked Recipes';
-            setListToDisplay('Cooked Recipes');
-            setListName('Cooked Recipes');
-            dispatch({ type: 'FETCH_COOKED_RECIPES', payload: searchQuery });
-        } else if (path === '/recipe-box/recent') {
-            document.title = 'Recently Viewed Recipes';
-            setListToDisplay('Recently Viewed Recipes');
-            setListName('Recently Viewed Recipes');
-            dispatch({ type: 'FETCH_RECENT_RECIPES', payload: searchQuery });
-        } else if (path === '/recipe-box/grocery') {
-            document.title = 'Grocery List';
-            setListToDisplay('Grocery List');
-            setListName('Grocery List');
-        } else if (id) {
-            // If it's a user-created folder, set listName based on the ID
-            dispatch({ type: 'FETCH_LIST_NAME_BY_ID', payload: id });
-            dispatch({ type: 'FETCH_GROCERY_LIST' });
-            dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery } });
-        }
-    }, [path, id, dispatch, listToDisplay]);
-
-    const recipes = useSelector(store => store.recipeReducer);
-    const fetchedListName = useSelector(store => store.recipeListNameReducer); // Assuming you have this in your store
-    const numOfRecipes = recipes.length;
-
-    useEffect(() => {
-        if (id && fetchedListName) {
-            setListName(fetchedListName);
-        }
-    }, [fetchedListName, id]);
-
     const cleanIngredients = (ingredientsString) => {
         if (!ingredientsString) return [];
         const cleanedString = ingredientsString
@@ -187,6 +153,42 @@ function RecipeItems(props) {
         await dispatch({ type: 'FETCH_GROCERY_LIST' });
         setIsLoading(false); // Hide loading overlay
     };
+
+    useEffect(() => {
+        if (path === '/recipe-box' || path === '/recipe-box/all') {
+            document.title = 'Saved Recipes';
+            setListToDisplay('Saved Recipes');
+            setListName('Saved Recipes');
+            dispatch({ type: 'FETCH_RECIPES', payload: searchQuery });
+        } else if (path === '/recipe-box/cooked') {
+            document.title = 'Cooked Recipes';
+            setListToDisplay('Cooked Recipes');
+            setListName('Cooked Recipes');
+            dispatch({ type: 'FETCH_COOKED_RECIPES', payload: searchQuery });
+        } else if (path === '/recipe-box/recent') {
+            document.title = 'Recently Viewed Recipes';
+            setListToDisplay('Recently Viewed Recipes');
+            setListName('Recently Viewed Recipes');
+            dispatch({ type: 'FETCH_RECENT_RECIPES', payload: searchQuery });
+        } else if (path === '/recipe-box/grocery') {
+            document.title = 'Grocery List';
+            setListToDisplay('Grocery List');
+            setListName('Grocery List');
+        } else if (id) {
+            // If it's a user-created folder, set listName based on the ID
+            dispatch({ type: 'FETCH_LIST_NAME_BY_ID', payload: id });
+            dispatch({ type: 'FETCH_GROCERY_LIST' });
+            dispatch({ type: 'FETCH_RECIPES_FROM_FOLDER', payload: { id, searchQuery } });
+        }
+    }, [path, id, dispatch, listToDisplay]);
+
+
+    useEffect(() => {
+        if (id && fetchedListName) {
+            setListName(fetchedListName);
+        }
+    }, [fetchedListName, id]);
+
     return (
         <div className="recipe-items__container">
             <div>
@@ -195,13 +197,15 @@ function RecipeItems(props) {
                     <div className="recipe-items__body--grid-wrapper">
                         {listName && (
                             <><RecipeGrid recipes={recipes} listName={listName} numOfRecipes={numOfRecipes}
-                                    searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id} path={path} />
+                                searchQuery={searchQuery} setSearchQuery={setSearchQuery} id={id} path={path}
+                                onMount={() => setRecipeGridIsMounted(true)}
+                            />
                             </>)}
-                        {path === '/recipe-box' ?
+                        {path === '/recipe-box' && recipeGridIsMounted ?
                             <>
-                            <div className='recipe-items__container--see-all'>
-                                <Button className='recipe-items__button--see-all color-222' onClick={() => history.push('/recipe-box/all')}>See all saved recipes</Button>
-                            </div>
+                                <div className='recipe-items__container--see-all'>
+                                    <Button className='recipe-items__button--see-all color-222' onClick={() => history.push('/recipe-box/all')}>See all saved recipes</Button>
+                                </div>
                                 <div>
                                     <div className="recipe-items__sidebar--content mobile">
                                         <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right hide-mobile ${document.title === 'Saved Recipes' ? 'paper-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}
