@@ -10,6 +10,7 @@
 .recipe-items__container--see-all {
    display: flex;
    justify-content: center;
+   margin-top: 3%;
 }
 .MuiButtonBase-root.recipe-items__button--back {
    justify-content: left;
@@ -23,6 +24,8 @@
    border: 1px solid black;
    width: 93%;
    border-radius: 20px;
+   position: absolute;
+   margin-top: 1%;
 }
 
 /* Centered container with max width for the recipe cards content */

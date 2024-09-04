@@ -204,7 +204,7 @@ function RecipeItems(props) {
                             </div>
                                 <div>
                                     <div className="recipe-items__sidebar--content mobile">
-                                        <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right ${document.title === 'Saved Recipes' ? 'paper-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}
+                                        <p className={`recipe-items__sidebar--p-first recipe-items__sidebar--margin-right hide-mobile ${document.title === 'Saved Recipes' ? 'paper-background-bold' : 'inherit-background'}`} onClick={() => navigateTo('/recipe-box')}
                                             onMouseDown={() => handleSetActiveItem('saved')}
                                             onMouseUp={handleClearActiveItem} onDragEnd={handleClearActiveItem} draggable>
                                             <BookmarkIcon className={`recipe-items__sidebar--icon ${activeItem === 'saved' ? 'gray-fill' : 'black-fill'}`} /> Saved Recipes

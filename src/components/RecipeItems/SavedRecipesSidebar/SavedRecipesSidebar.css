@@ -9,7 +9,7 @@
 }
 
 .recipe-items__sidebar--content {
-    margin-top: 30px;
+    margin-top: 32px;
 }
 
 .MuiSvgIcon-root.recipe-items__sidebar--icon {
@@ -135,6 +135,9 @@
 @media screen and (max-width: 768px) {
     .sidebar__container {
         display: none;
+    }
+    .recipe-items__sidebar--content {
+        margin-top: 50px;
     }
 }
 @media screen and (min-width: 768px) {
