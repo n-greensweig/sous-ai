@@ -41,7 +41,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
             <div className='display-flex flex-column'>
                 {path !== '/recipe-box' ? <Button className='recipe-items__button--back' startIcon={<ArrowBackIosIcon />} onClick={() => history.push('/recipe-box')}>Recipe Box</Button> : null}
                 <div className='display-flex align-center'>
-                    {<h2 className='recipe-grid__subheading--recipe-folder-name color-222 mb-0'>{listName}</h2>}
+                    {<h2 className={`recipe-grid__subheading--recipe-folder-name color-222 mb-0 ${path === '/recipe-box' ? 'hide-mobile' : null}`}>{listName}</h2>}
                     {listName !== 'Saved Recipes' && listName !== 'Cooked Recipes' && listName !== 'Recently Viewed Recipes' ?
                         <MoreHorizIcon className='recipe-grid__subheading--icon-more pointer color-717171' onClick={handlePopover} /> : null}
                     <Popover
@@ -80,6 +80,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                     <Button className='no-transform color-white recipe-grid-subhheading__button-go' onClick={() => { dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) }}>Go</Button>
                 </div>
             }
+            <h3 className='color-black show-mobile'>Saved Recipes</h3>
             {/* Dialog for creating a new recipe folder. */}
             <Dialog open={isCreating}
                 onClose={toggleCreating}

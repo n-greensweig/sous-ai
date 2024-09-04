@@ -248,6 +248,9 @@ input {
   .landing-page__subheading {
     margin: 0px 20px;
   }
+  .show-mobile {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -270,5 +273,8 @@ input {
 
   .mobile-only-align-center {
     align-items: center;
+  }
+  .hide-mobile {
+    display: none;
   }
 }
