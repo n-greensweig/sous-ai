@@ -15,12 +15,16 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { TextField } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import './RecipeGridSubheading.css';
+import { useMediaQuery, useTheme } from '@mui/material';
 function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQuery, id, path }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [isCreating, setIsCreating] = useState(false); // Controls the dialog's visibility.
     const [newListName, setNewListName] = useState(listName); // Stores the new recipe list's name.
     const dispatch = useDispatch();
     const history = useHistory();
+    const theme = useTheme();
+    const isXsScreen = useMediaQuery(theme.breakpoints.down('xs'));
+    const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     // Toggles the isCreating state, controlling the visibility of the creation dialog.
     const toggleCreating = () => setIsCreating(!isCreating);
@@ -66,19 +70,35 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                 {numOfRecipes > 0 ? <p className={`mt-0 color-717171 ${path === '/recipe-box' ? 'hide-mobile-saved' : null}`}>{numOfRecipes} {numOfRecipes === 1 ? 'recipe' : 'recipes'}</p> :
                     <p className='mt-0 color-717171'>No recipes yet</p>}
             </div>
-            {path === '/recipe-box/cooked' || path === '/recipe-box/recent' ? null :
-                <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
-                    <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
-                    <input
-                        className='recipe-grid__subheading--search-bar'
-                        type='text'
-                        placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter' ? dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) : null}
-                        value={searchQuery} />
-                    {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray recipe-grid__subheading--search-bar-cancel' /> : null}
-                    <Button className='no-transform color-white recipe-grid-subhheading__button-go' onClick={() => { dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) }}>Go</Button>
-                </div>
+            {isXsScreen || isSmScreen ? <div className='display-flex'>
+                {path === '/recipe-box/cooked' || path === '/recipe-box/recent' ? null :
+                    <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
+                        <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
+                        <input
+                            className='recipe-grid__subheading--search-bar'
+                            type='text'
+                            placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' ? dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) : null}
+                            value={searchQuery} />
+                        {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray recipe-grid__subheading--search-bar-cancel' /> : null}
+                    </div>
+                }
+                <Button className='no-transform color-white recipe-grid-subhheading__button-go' onClick={() => { dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) }}>Go</Button>
+            </div> :
+                path === '/recipe-box/cooked' || path === '/recipe-box/recent' ? null :
+                    <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
+                        <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
+                        <input
+                            className='recipe-grid__subheading--search-bar'
+                            type='text'
+                            placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' ? dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) : null}
+                            value={searchQuery} />
+                        {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray recipe-grid__subheading--search-bar-cancel' /> : null}
+                        <Button className='no-transform color-white recipe-grid-subhheading__button-go' onClick={() => { dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) }}>Go</Button>
+                    </div>
             }
             <h3 className={`color-black ${path === '/recipe-box' ? 'show-mobile' : 'hide-mobile'}`}>Saved Recipes</h3>
             {/* Dialog for creating a new recipe folder. */}

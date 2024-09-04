@@ -275,6 +275,6 @@ input {
     align-items: center;
   }
   .hide-mobile {
-    display: none;
+    display: none !important;
   }
 }
