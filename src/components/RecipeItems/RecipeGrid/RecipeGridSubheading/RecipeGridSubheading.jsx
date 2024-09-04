@@ -80,7 +80,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                     <Button className='no-transform color-white recipe-grid-subhheading__button-go' onClick={() => { dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) }}>Go</Button>
                 </div>
             }
-            <h3 className='color-black show-mobile'>Saved Recipes</h3>
+            <h3 className={`color-black ${path === '/recipe-box' ? 'show-mobile' : 'hide-mobile'}`}>Saved Recipes</h3>
             {/* Dialog for creating a new recipe folder. */}
             <Dialog open={isCreating}
                 onClose={toggleCreating}
