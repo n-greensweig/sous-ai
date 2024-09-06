@@ -160,7 +160,7 @@ function RecipeCard(props) {
                             <CardMedia className="recipe-grid__card--media" image={`${props.recipe.display_photo}`} alt={`${props.recipe.title} dish`} />
                             {/* <img loading='lazy' className="recipe-grid__card--media" image={`${props.recipe.display_photo}`} alt={`${props.recipe.title} dish`} /> */}
                             <CardContent className="recipe-grid__card--content">
-                                <Typography className="recipe-grid__card--recipe-title" variant="h4">{props.recipe.title}</Typography>
+                                <Typography className="recipe-grid__card--recipe-title" variant="h3">{props.recipe.title}</Typography>
                             </CardContent>
                         </div>
                         <div className="recipe-grid__card--time-and-options">
