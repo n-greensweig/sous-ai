@@ -42,6 +42,7 @@ function Header() {
                         <div className="header__container">
                             <SearchIcon className='icon--black' />
                             <input
+                                id='header__search-bar'
                                 value={searchQuery}
                                 type="text"
                                 placeholder="What would you like to cook?"

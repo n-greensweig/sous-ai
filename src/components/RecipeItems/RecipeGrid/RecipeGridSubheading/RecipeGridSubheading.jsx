@@ -75,6 +75,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                     <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
                         <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
                         <input
+                            id='recipe-grid__subheading--search-bar'
                             className='recipe-grid__subheading--search-bar'
                             type='text'
                             placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}
@@ -84,7 +85,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                         {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray recipe-grid__subheading--search-bar-cancel' /> : null}
                     </div>
                 }
-                <Button className={`no-transform color-white recipe-grid-subhheading__button-go ${path ==='/recipe-box/cooked' || path === '/recipe-box/recent' ? 'hide-mobile' : null}`} onClick={() => { dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) }}>Go</Button>
+                <Button className={`no-transform color-white recipe-grid-subhheading__button-go ${path === '/recipe-box/cooked' || path === '/recipe-box/recent' ? 'hide-mobile' : null}`} onClick={() => { dispatch({ type: 'FETCH_RECIPES', payload: searchQuery }) }}>Go</Button>
             </div> :
                 path === '/recipe-box/cooked' || path === '/recipe-box/recent' ? null :
                     <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
