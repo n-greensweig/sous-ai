@@ -40,6 +40,12 @@ function FadeIn({ children }) {
 
 function RecipeCard(props) {
 
+    // Use useInView hook to track when the card is in view
+    const { ref, inView } = useInView({
+        triggerOnce: true, // Only trigger the image load once
+        threshold: 0.1,    // Load the image when 10% of the card is visible
+    });
+
     // Initialize dispatch and history for Redux actions and navigation.
     const { id } = useParams(); // Get the list ID from URL parameter
     const dispatch = useDispatch();
@@ -107,8 +113,11 @@ function RecipeCard(props) {
     // Ensure recipes display correct time.
     useEffect(() => {
         formatTime();
-    }, [])
+    }, []);
 
+    // Preload logic: apply eager loading for the first two images
+    const imgLoadingType = props.index < 2 ? 'eager' : 'lazy';
+    const imgFetchPriority = props.index < 2 ? 'high' : 'low';
 
     // Utility function to format time strings in minutes to hours and minutes
     const formatTime = () => {
@@ -150,66 +159,76 @@ function RecipeCard(props) {
     } else {
 
         return (
-            <FadeIn>
-                <Card
-                    className="recipe-grid__card--container"
-                    draggable
-                    onDragStart={e => handleDragStart(e, props.recipe.id)}>
-                    <div key={props.recipe.id}>
-                        <div onClick={() => handleClick(props.recipe.id)}>
-                            <CardMedia className="recipe-grid__card--media" image={`${props.recipe.display_photo}`} alt={`${props.recipe.title} dish`} />
-                            {/* <img loading='lazy' className="recipe-grid__card--media" image={`${props.recipe.display_photo}`} alt={`${props.recipe.title} dish`} /> */}
-                            <CardContent className="recipe-grid__card--content">
-                                <Typography className="recipe-grid__card--recipe-title" variant="h3">{props.recipe.title}</Typography>
-                            </CardContent>
-                        </div>
-                        <div className="recipe-grid__card--time-and-options">
-                            <div onClick={() => handleClick(props.recipe.id)} className="recipe-grid__card--time-container">
-                                <Typography className="recipe-grid__card--time-detail" variant="h4">{totalTime}</Typography>
+                <FadeIn>
+                    <Card
+                        className="recipe-grid__card--container"
+                        draggable
+                        onDragStart={e => handleDragStart(e, props.recipe.id)}
+                        ref={ref} >
+                        <div key={props.recipe.id}>
+                            <div onClick={() => handleClick(props.recipe.id)}>
+                                {/* <CardMedia className="recipe-grid__card--media" image={`${props.recipe.display_photo}`} alt={`${props.recipe.title} dish`} /> */}
+                                {/* <img loading='lazy' className="recipe-grid__card--media" image={`${props.recipe.display_photo}`} alt={`${props.recipe.title} dish`} /> */}
+                                {inView && (
+                                <img 
+                                loading={imgLoadingType}
+                                fetchPriority={imgFetchPriority}
+                                className="recipe-grid__card--media" 
+                                src={`${props.recipe.display_photo}`} 
+                                alt={`${props.recipe.title} dish`} 
+                            />
+                            )}
+                                <CardContent className="recipe-grid__card--content">
+                                    <Typography className="recipe-grid__card--recipe-title" variant="h3">{props.recipe.title}</Typography>
+                                </CardContent>
                             </div>
-                            <CardActions>
-                                {document.title === 'Cooked Recipes' || document.title === 'Recently Viewed Recipes' ?
-                                    <BookmarkIcon /> : <MoreHorizIcon className='icon--black header__button' onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }} />}
-                                <Popover id={popoverID} open={open} anchorEl={anchorEl} onClose={handleClose}
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'left',
-                                    }}>
-                                    <ul className="recipe-grid__popover">
-                                        <div className="recipe-grid__popover-button">
-                                            <button onClick={handleFolderPopover}>Add to folder</button>
-                                            <Popover
-                                                open={openFolder}
-                                                anchorEl={anchorFolder}
-                                                onClose={handleFolderPopoverClose}
-                                                anchorOrigin={{
-                                                    vertical: 'bottom',
-                                                    horizontal: 'right',
-                                                }}>
-                                                {recipeLists.map((folder, i) => (
-                                                    <div className="recipe-grid__popover-button" key={props.recipe.id}><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button></div>
-                                                ))}
+                            <div className="recipe-grid__card--time-and-options">
+                                <div onClick={() => handleClick(props.recipe.id)} className="recipe-grid__card--time-container">
+                                    <Typography className="recipe-grid__card--time-detail" variant="h4">{totalTime}</Typography>
+                                </div>
+                                <CardActions>
+                                    {document.title === 'Cooked Recipes' || document.title === 'Recently Viewed Recipes' ?
+                                        <BookmarkIcon /> : <MoreHorizIcon className='icon--black header__button' onClick={(event) => { handlePopover(event); setEditedRecipeId(props.recipe.id) }} />}
+                                    <Popover id={popoverID} open={open} anchorEl={anchorEl} onClose={handleClose}
+                                        anchorOrigin={{
+                                            vertical: 'bottom',
+                                            horizontal: 'left',
+                                        }}>
+                                        <ul className="recipe-grid__popover">
+                                            <div className="recipe-grid__popover-button">
+                                                <button onClick={handleFolderPopover}>Add to folder</button>
+                                                <Popover
+                                                    open={openFolder}
+                                                    anchorEl={anchorFolder}
+                                                    onClose={handleFolderPopoverClose}
+                                                    anchorOrigin={{
+                                                        vertical: 'bottom',
+                                                        horizontal: 'right',
+                                                    }}>
+                                                    {recipeLists.map((folder, i) => (
+                                                        <div className="recipe-grid__popover-button" key={props.recipe.id}><button onClick={() => addRecipeToFolder(folder.id)} key={i}>{folder.list_name}</button></div>
+                                                    ))}
 
-                                            </Popover>
-                                        </div>
-                                        <div className="recipe-grid__popover-button-container">
-                                            <button className="recipe-grid__popover-button" onClick={() => removeRecipe()}>Unsave from Recipe Box</button>
-                                            {document.title.includes('Your Recipe Box') ?
-                                                <button className="recipe-grid__popover-button" onClick={() => removeRecipeFromUserFolder()} >Remove from this folder</button> : null}
-                                        </div>
-                                    </ul>
-                                </Popover>
-                                <Snackbar open={confirmFolder} autoHideDuration={1500} onClose={handleClose}>
-                                    <Alert onClose={handleClose} severity="success" variant="filled"
-                                        icon={<CheckCircleOutlineIcon className="icon-white" />}
-                                        action={<IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-                                            <CloseIcon className="icon-white" />
-                                        </IconButton>}>Recipe Added!</Alert></Snackbar></CardActions>
+                                                </Popover>
+                                            </div>
+                                            <div className="recipe-grid__popover-button-container">
+                                                <button className="recipe-grid__popover-button" onClick={() => removeRecipe()}>Unsave from Recipe Box</button>
+                                                {document.title.includes('Your Recipe Box') ?
+                                                    <button className="recipe-grid__popover-button" onClick={() => removeRecipeFromUserFolder()} >Remove from this folder</button> : null}
+                                            </div>
+                                        </ul>
+                                    </Popover>
+                                    <Snackbar open={confirmFolder} autoHideDuration={1500} onClose={handleClose}>
+                                        <Alert onClose={handleClose} severity="success" variant="filled"
+                                            icon={<CheckCircleOutlineIcon className="icon-white" />}
+                                            action={<IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                                                <CloseIcon className="icon-white" />
+                                            </IconButton>}>Recipe Added!</Alert></Snackbar></CardActions>
+                            </div>
                         </div>
-                    </div>
-                </Card>
-            </FadeIn>
+                    </Card>
+                </FadeIn>
         )
-    }
+}
 }
 export default RecipeCard;

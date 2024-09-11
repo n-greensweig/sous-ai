@@ -36,7 +36,9 @@ function Header() {
             <div className="header-content">
                 <div className='header--flex'>
                     <div className="header__logo" onClick={() => history.push('/')}>
-                        <img src="images/avatars/sous.svg" className="header__img" alt="Sous" />
+                        <img
+                         loading='lazy'
+                         src="images/avatars/sous.svg" className="header__img" alt="Sous" />
                     </div>
                     <div className="header__search-bar header__search-bar--wrapper">
                         <div className="header__container">
