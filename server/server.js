@@ -23,27 +23,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Passport Session Configuration //
 app.use(sessionMiddleware);
 
-// Start up passport sessions
+// start up passport sessions
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Set cache control headers for fonts
-app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
-  next();
-});
-
-// Serve static files
-app.use(express.static(path.join(__dirname, 'build')));
-
-// Routes
+/* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/recipe', recipeRouter);
 app.use('/api/completions', openaiRouter);
 app.use('/api/photos', imageRouter);
 
-// Catch-all route for serving index.html
-app.get('*', (req, res) => {
+// Serve static files
+app.use(express.static('build'));
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
