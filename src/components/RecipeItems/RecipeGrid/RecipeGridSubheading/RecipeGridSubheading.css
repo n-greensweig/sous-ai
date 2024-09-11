@@ -32,6 +32,7 @@
     background-color: #df321b;
     border: 1px solid #df321b;
     border-radius: 5%;
+
     &:hover {
         background-color: #fff;
         color: #df321b !important;
@@ -63,13 +64,16 @@
     border-bottom: 1px solid #ccc;
     padding: 10px;
     font-family: inherit;
+
     &:hover {
         background-color: #c0c0c0;
     }
 }
+
 .MuiTypography-root.recipe-grid__subheading--button-delete-folder {
     padding: 10px;
     font-family: inherit;
+
     &:hover {
         background-color: #c0c0c0;
     }
@@ -90,35 +94,52 @@
     margin: none;
     position: absolute;
     right: 2%;
+
     &:hover {
-       border: 1px solid #000;
+        border: 1px solid #000;
     }
- }
- 
- .recipe-grid__subheading--search-input>input {
+}
+
+.recipe-grid__subheading--search-input>input {
     width: 100%;
     height: 40px;
     padding: none;
     margin: none;
     border: none;
- }
- 
- /* Styles for the input field */
- .recipe-grid__subheading--search-input input {
+}
+
+/* Styles for the input field */
+.recipe-grid__subheading--search-input input {
     padding: 10px;
     width: 100%;
     /* Adjust as needed */
     box-sizing: border-box;
     /* Ensures padding doesn't affect the total width */
- }
- 
- /* Removes border and outline when the input is focused */
- .recipe-grid__subheading--search-input input:focus {
+}
+
+/* Removes border and outline when the input is focused */
+.recipe-grid__subheading--search-input input:focus {
     border: none;
     /* Removes the border */
     outline: none;
     /* Removes the outline */
- }
+}
+
+@media screen and (min-width: 360px) and (max-width: 374px) {
+    .recipe-grid__subheading--search-input-wrapper {
+        width: 82%;
+    }
+}
+@media screen and (min-width: 375px) and (max-width: 400px) {
+    .recipe-grid__subheading--search-input-wrapper {
+        width: 86%;
+    }
+}
+@media screen and (min-width: 401px) and (max-width: 415px) {
+    .recipe-grid__subheading--search-input-wrapper {
+        width: 95%;
+    }
+}
 
 @media screen and (max-width: 768px) {
     .recipe-grid__subheading--wrapper {
@@ -129,14 +150,17 @@
         margin-top: 70px;
         position: absolute;
     }
+
     .recipe-grid__subheading--search-input {
         position: relative;
         right: 0;
         margin: 0px 0px 20px 0px;
     }
+
     .MuiButtonBase-root.recipe-grid-subhheading__button-go {
         display: block;
     }
+
     .hide-mobile-saved {
         display: none;
     }

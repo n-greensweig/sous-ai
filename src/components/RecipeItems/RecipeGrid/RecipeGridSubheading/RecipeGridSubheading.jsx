@@ -70,7 +70,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                 {numOfRecipes > 0 ? <p className={`mt-0 color-717171 ${path === '/recipe-box' ? 'hide-mobile-saved' : null}`}>{numOfRecipes} {numOfRecipes === 1 ? 'recipe' : 'recipes'}</p> :
                     <p className='mt-0 color-717171'>No recipes yet</p>}
             </div>
-            {isXsScreen || isSmScreen ? <div className='display-flex'>
+            {isXsScreen || isSmScreen ? <div className='display-flex recipe-grid__subheading--search-input-wrapper'>
                 {path === '/recipe-box/cooked' || path === '/recipe-box/recent' ? null :
                     <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
                         <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
