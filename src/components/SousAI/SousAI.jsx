@@ -340,10 +340,10 @@ function SousAI() {
                   required />
                 {/* Submit button changes based on whether input value is present and not loading */}
                 {value.trim() && !loading
-                  ? <Button id='submit' className='sous__submit--button-typing' type='submit'>
+                  ? <Button id='submit' aria-label='sous-submit' className='sous__submit--button-typing' type='submit'>
                     <ArrowUpwardIcon className='up-icon justify-center fill-white' />
                   </Button>
-                  : <Button disabled type='submit' id='submit'>
+                  : <Button disabled id='submit' aria-label='sous-submit' type='submit'>
                     <ArrowUpwardIcon className='up-icon justify-center' />
                   </Button>
                 }

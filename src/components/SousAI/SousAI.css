@@ -108,6 +108,7 @@ body {
   border-radius: 8px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   align-content: center;
   resize: none;
   outline: none;
@@ -115,7 +116,6 @@ body {
   max-height: 300px;
   height: 52px;
   line-height: 1.5;
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
 .sous__ingredients-list {
@@ -126,38 +126,33 @@ textarea:focus {
   outline: none;
 }
 
-textarea::placeholder {
-  color: #999;
+textarea::placeholder,
+#dynamic-textarea {
+  color: #666666;
 }
 
 /* Submit button styling, transparent with custom sizing and cursor change on hover */
 .MuiButtonBase-root#submit {
   background-color: transparent;
-  border-radius: 5px;
-  margin-bottom: 5px;
+  border-radius: 50%;
+  margin-bottom: 6.5px;
   height: 35px;
   width: 10px;
   padding: 0px;
   align-self: flex-end;
-  margin-left: -45px;
+  margin-left: -50px;
   cursor: pointer;
   min-width: 33px;
 }
 
 .MuiButtonBase-root.sous__submit--button-typing {
-  background-color: #333 !important;
+  background-color: #000 !important;
 }
 
 /* Changes submit button appearance on hover to indicate interactivity */
 #submit:hover {
   color: #FFF;
-  background-color: #333333E6 !important;
-  fill: #FFF;
-}
-
-/* Ensures the submit button icon changes color appropriately on hover */
-#submit:hover .up-icon {
-  fill: #FFF;
+  background-color: #222222E6 !important;
 }
 
 /* Layout styling for forms, aligning items in a row for a horizontal layout */

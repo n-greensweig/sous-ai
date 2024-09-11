@@ -37,11 +37,11 @@ function Header() {
                 <div className='header--flex'>
                     <div className="header__logo" onClick={() => history.push('/')}>
                         <img
-                         loading='lazy'
-                         src="images/avatars/sous.svg" className="header__img" alt="Sous" />
+                            loading='lazy'
+                            src="images/avatars/sous.svg" className="header__img" alt="Sous" />
                     </div>
                     <div className="header__search-bar header__search-bar--wrapper">
-                        <div className="header__container">
+                        {/* <div className="header__container">
                             <SearchIcon className='icon--black' />
                             <input
                                 id='header__search-bar'
@@ -51,7 +51,7 @@ function Header() {
                                 className="header__search-bar"
                                 onChange={(event) => setSearchQuery(event.target.value)} />
                         </div>
-                        {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray header__search-bar--cancel-icon' /> : null}
+                        {searchQuery ? <CancelIcon onClick={() => setSearchQuery('')} className='icon--gray header__search-bar--cancel-icon' /> : null} */}
                     </div>
                     <Button
                         className="header__button button__recipe-box"
@@ -69,6 +69,7 @@ function Header() {
                     </Button>
                     <div className='menuDiv'>
                         <Button id="basic-button"
+                            aria-label='profile'
                             aria-controls={open ? 'basic-menu' : undefined}
                             aria-haspopup="menu"
                             aria-expanded={open ? 'true' : undefined}
