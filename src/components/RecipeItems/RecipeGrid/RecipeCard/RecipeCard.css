@@ -20,6 +20,12 @@
 .MuiCardMedia-root.recipe-grid__card--media {
     height: 130px;
 }
+.recipe-grid__card--media {
+    height: 130px;
+    width: 200px;
+    border-radius: 1px;
+    object-fit: cover;
+}
 
 .MuiCardContent-root.recipe-grid__card--content {
     display: flex;
