@@ -77,11 +77,11 @@
     align-items: center;
     justify-content: space-between;
 
-    &:focus,
+    /* &:focus,
     &:active,
     &:hover {
         border: 1px solid #222;
-    }
+    } */
 }
 .MuiSvgIcon-root.fill-red {
     fill: #df321b;

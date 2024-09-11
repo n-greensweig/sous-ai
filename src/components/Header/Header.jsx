@@ -38,7 +38,7 @@ function Header() {
                     <div className="header__logo" onClick={() => history.push('/')}>
                         <img
                             loading='lazy'
-                            src="images/avatars/sous.svg" className="header__img" alt="Sous" />
+                            src="images/avatars/sous.webp" className="header__img" alt="Sous" />
                     </div>
                     <div className="header__search-bar header__search-bar--wrapper">
                         {/* <div className="header__container">

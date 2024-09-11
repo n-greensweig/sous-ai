@@ -169,7 +169,7 @@ function RecipeCard(props) {
                             <div onClick={() => handleClick(props.recipe.id)}>
                                 {/* <CardMedia className="recipe-grid__card--media" image={`${props.recipe.display_photo}`} alt={`${props.recipe.title} dish`} /> */}
                                 {/* <img loading='lazy' className="recipe-grid__card--media" image={`${props.recipe.display_photo}`} alt={`${props.recipe.title} dish`} /> */}
-                                {inView && (
+                                {/* {inView && (
                                 <img 
                                 loading={imgLoadingType}
                                 fetchPriority={imgFetchPriority}
@@ -177,7 +177,7 @@ function RecipeCard(props) {
                                 src={`${props.recipe.display_photo}`} 
                                 alt={`${props.recipe.title} dish`} 
                             />
-                            )}
+                            )} */}
                                 <CardContent className="recipe-grid__card--content">
                                     <Typography className="recipe-grid__card--recipe-title" variant="h3">{props.recipe.title}</Typography>
                                 </CardContent>
