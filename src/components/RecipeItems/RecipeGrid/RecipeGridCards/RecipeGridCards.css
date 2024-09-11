@@ -15,8 +15,8 @@
 @media (max-width: 768px) {
     .recipe-grid-container.flex {
         display: flex;
+        height: 249px !important;
     }
-    /* .recipe-grid-container.flex, */
     .recipe-grid-container {
         grid-template-columns: repeat(2, 1fr); /* Two cards per row on mobile */
     }
