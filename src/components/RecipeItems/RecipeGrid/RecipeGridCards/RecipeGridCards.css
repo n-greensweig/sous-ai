@@ -1,6 +1,6 @@
 .recipe-grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    /* grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); */
     gap: 16px;
 }
 
@@ -28,11 +28,11 @@
     }
 }
 
-@media (min-width: 601px) {
+/* @media (min-width: 601px) {
     .recipe-grid-container {
-        grid-template-columns: repeat(2, 1fr); /* Adjust columns for larger screens */
+        grid-template-columns: repeat(2, 1fr);
     }
-}
+} */
 
 @media (min-width: 900px) {
     .recipe-grid-container {

@@ -1,13 +1,6 @@
 /* Global styles setting default font color and family */
 * {
   color: #7F7F7F;
-  font-family: sans-serif;
-}
-
-/* Remove default margin and padding from the body to allow full control over spacing */
-body {
-  margin: 0;
-  padding: 0;
 }
 
 /* Main app container styled to fill available space and use a flex layout */

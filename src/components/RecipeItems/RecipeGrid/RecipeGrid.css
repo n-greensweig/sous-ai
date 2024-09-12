@@ -7,6 +7,7 @@
     min-height: 5vh;
     justify-content: left;
     overflow-x: scroll;
+    background-color: #f8f8f5;
 }
 
 .padding-left-ten {
@@ -28,5 +29,6 @@
     .MuiGrid-root.recipe-grid__container {
         width: 100vw;
         padding-top: 0px;
+        background-color: #fff;
     }
 }

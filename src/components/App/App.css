@@ -22,7 +22,6 @@ html {
 html body {
   padding: 0;
   margin: 0;
-  overflow-y: inherit;
   overflow: auto;
 }
 
@@ -31,11 +30,6 @@ body,
 #react-root {
   height: 100%;
   background-color: #fff;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0px;
 }
 
 img {
