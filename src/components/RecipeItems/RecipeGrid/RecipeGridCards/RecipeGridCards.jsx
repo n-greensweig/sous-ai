@@ -7,7 +7,7 @@ function RecipeGridCards({ recipes, listName, path }) {
                 'mt-175' : 'mt-225'}
         `}>
             {recipes.map((recipe, index) => (
-                index > 0 ? null :
+                // index > 0 ? null :
                     <div className='recipe-card' key={index}>
                         <RecipeCard key={recipe.id} recipe={recipe} index={index} listName={listName} />
                     </div>
