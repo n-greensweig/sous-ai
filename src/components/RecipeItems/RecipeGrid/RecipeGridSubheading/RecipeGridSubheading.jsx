@@ -91,6 +91,7 @@ function RecipeGridSubheading({ listName, numOfRecipes, searchQuery, setSearchQu
                     <div className='recipe-grid__subheading--search-input display-flex flex-row align-center'>
                         <SearchIcon className='icon--black recipe-grid__subheading--search-bar-search' />
                         <input
+                            id='recipe-grid__subheading--search-bar'
                             className='recipe-grid__subheading--search-bar'
                             type='text'
                             placeholder={document.title === 'Saved Recipes' ? 'Search your saved recipes' : 'Search this folder'}

@@ -117,7 +117,7 @@ function RecipeCard(props) {
 
     // Preload logic: apply eager loading for the first two images
     const imgLoadingType = props.index < 2 ? 'eager' : 'lazy';
-    const imgFetchPriority = props.index < 2 ? 'high' : 'low';
+    // const imgFetchPriority = props.index < 2 ? 'high' : 'low';
 
     // Utility function to format time strings in minutes to hours and minutes
     const formatTime = () => {
@@ -172,7 +172,7 @@ function RecipeCard(props) {
                                 {inView && (
                                 <img 
                                 loading={imgLoadingType}
-                                fetchPriority={imgFetchPriority}
+                                // fetchPriority={imgFetchPriority}
                                 className="recipe-grid__card--media" 
                                 src={`${props.recipe.display_photo}`} 
                                 alt={`${props.recipe.title} dish`} 
