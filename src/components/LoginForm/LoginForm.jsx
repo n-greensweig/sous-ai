@@ -50,6 +50,7 @@ function LoginForm() {
           type="password"
           id="password"
           name="password"
+          autoComplete='on'
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           required
