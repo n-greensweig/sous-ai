@@ -1,13 +1,13 @@
 .recipe-items__container {
    margin: 0 auto;
-   background-color: #f8f8f5;
+   /* background-color: #f8f8f5; */
 }
 
 .recipe-items__body--grid-wrapper {
    width: 100%;
    padding-left: 3.5%;
    overflow: hidden;
-   background-color: #F8F8F5;
+   /* background-color: #F8F8F5; */
 }
 .recipe-items__container--see-all {
    display: flex;

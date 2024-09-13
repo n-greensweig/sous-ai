@@ -235,7 +235,7 @@ function SousAI() {
                   {capitalizeFirstLetter(chatMessage.role) === 'Assistant' ?
                     // Renders assistant's avatar and name
                     <div id='name-pic' className='display-flex flex-row align-center'>
-                      <img className='sous__avi' src={`images/avatars/sous.webp`} />
+                      <img className='sous__avi' src={`images/avatars/sous.avif`} />
                       <strong>Sous</strong>
                     </div> :
                     // Renders user's avatar and name
