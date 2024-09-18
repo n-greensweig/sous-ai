@@ -24,7 +24,6 @@ function* saveRecipe(action) {
     }
 }
 
-
 function* getRecipes(action) {
     try {
         const response = yield axios.get(`/api/recipe?q=${action.payload}`);
@@ -396,6 +395,14 @@ function* removeUserIngredient(action) {
     }
 }
 
+function* removeRecipeImage(action) {
+    try {
+        yield axios.delete(`/api/photos/${action.payload}`);
+    } catch (error) {
+        console.error('Error deleting image:', error);
+        alert('Something went wrong.');
+    }
+}
 
 function* recipeSaga() {
     yield takeLatest('SAVE_RECIPE_LIST', saveRecipeList);
@@ -431,6 +438,7 @@ function* recipeSaga() {
     yield takeLatest('FETCH_USER_INGREDIENTS', fetchUserIngredients);
     yield takeLatest('ADD_USER_INGREDIENT', addUserIngredient);
     yield takeLatest('REMOVE_USER_INGREDIENT', removeUserIngredient);
+    yield takeLatest('REMOVE_RECIPE_IMAGE', removeRecipeImage);
 }
 
 

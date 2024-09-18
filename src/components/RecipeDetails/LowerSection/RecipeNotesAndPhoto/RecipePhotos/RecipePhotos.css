@@ -22,6 +22,43 @@
     cursor: pointer;
 }
 
+/* Container for each image */
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.recipe-details__user-photo {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Delete icon styling */
+.delete-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    fill: white !important;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    padding: 10px;
+    transition: opacity 0.3s;
+}
+
+.image-container:hover .delete-icon {
+    opacity: 1;
+}
+
+.clickable-image {
+    cursor: pointer;
+}
+
+
 /* Modal Overlay */
 .modal-overlay {
     position: fixed;

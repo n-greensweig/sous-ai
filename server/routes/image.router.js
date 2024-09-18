@@ -9,6 +9,32 @@ const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
 
+  // Handle DELETE requests
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const imageId = req.params.id;
+    const userId = req.user.id;
+    console.log(imageId, userId);
+    // SQL query to delete the image where id matches and belongs to the user
+    const queryText = `DELETE FROM "images" WHERE "id" = $1 AND "user_id" = $2;`;
+
+    console.log(queryText);
+
+    pool.query(queryText, [imageId, userId])
+        .then((result) => {
+            if (result.rowCount > 0) {
+                console.log(result);
+                res.sendStatus(204); // No Content
+            } else {
+                res.sendStatus(403); // Forbidden
+            }
+        })
+        .catch((error) => {
+            console.error(`Error deleting image ${imageId}`, error);
+            res.sendStatus(500);
+        });
+});
+
+
 /**
  * Route to fetch all images for a specific recipe belonging to the authenticated user.
  * It requires the user to be authenticated and uses their ID along with a recipe ID.
