@@ -10,7 +10,6 @@ const urlsToCache = [
   '/images/food/chicken.webp',
   '/images/food/salmon.webp',
   '/images/food/generic-plate.webp',
-  // Include other assets you want to cache
 ];
 
 // Install Event - Cache Assets
@@ -57,13 +56,14 @@ self.addEventListener('fetch', event => {
         console.log('Fetching from network:', event.request.url);
         return fetch(event.request)
           .then(networkResponse => {
-            // Optional: Cache new resources
+            // Optionally, cache new resources here
+            // e.g., cache.put(event.request, networkResponse.clone());
             return networkResponse;
+          })
+          .catch(error => {
+            console.error('Error fetching:', error);
+            // Optionally, return a fallback page here
           });
-      })
-      .catch(error => {
-        console.error('Error fetching:', error);
-        throw error;
       })
   );
 });

@@ -10,9 +10,6 @@
   
   <!-- Description -->
   <meta name="description" content="Sous: a recipe cooking app">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/icon-192x192.png">
@@ -33,19 +30,7 @@
   <link rel="manifest" href="/app.webmanifest" />
 
   <!-- Service Worker Registration -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('/serviceworker.js')
-          .then(function (registration) {
-            console.log('Service Worker registered with scope:', registration.scope);
-          })
-          .catch(function (error) {
-            console.log('Service Worker registration failed:', error);
-          });
-      });
-    }
-  </script>
+  <script src="/sw-register.js"></script>
 
   <title>Sous</title>
 </head>
