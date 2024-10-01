@@ -14,11 +14,9 @@ const urlsToCache = [
 
 // Install Event - Cache Assets
 self.addEventListener('install', event => {
-  console.log('Service Worker installing.');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Caching assets');
         return cache.addAll(urlsToCache);
       })
   );
@@ -26,7 +24,6 @@ self.addEventListener('install', event => {
 
 // Activate Event - Cleanup Old Caches
 self.addEventListener('activate', event => {
-  console.log('Service Worker activating.');
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys()
@@ -34,7 +31,6 @@ self.addEventListener('activate', event => {
         Promise.all(
           cacheNames.map(cacheName => {
             if (!cacheWhitelist.includes(cacheName)) {
-              console.log('Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
           })
@@ -45,15 +41,12 @@ self.addEventListener('activate', event => {
 
 // Fetch Event - Serve Cached Assets
 self.addEventListener('fetch', event => {
-  console.log('Fetching:', event.request.url);
   event.respondWith(
     caches.match(event.request)
       .then(response => {
         if (response) {
-          console.log('Serving from cache:', event.request.url);
           return response;
         }
-        console.log('Fetching from network:', event.request.url);
         return fetch(event.request)
           .then(networkResponse => {
             // Optionally, cache new resources here
