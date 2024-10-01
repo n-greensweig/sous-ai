@@ -240,7 +240,7 @@ function SousAI() {
                     </div> :
                     // Renders user's avatar and name
                     <div id='name-pic' className='display-flex flex-row align-center'>
-                      <img className='sous__avi' src={`images/avatars/user-avatar.svg`} />
+                      <img className='sous__avi' src={`images/avatars/user-avatar.webp`} />
                       <strong>You</strong>
                     </div>}
                 </p>

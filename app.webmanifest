@@ -1,0 +1,27 @@
+{
+    "id": "/",
+    "start_url": "/",
+    "scope": "/",
+    "name": "Sous",
+    "short_name": "Sous",
+    "display": "standalone",
+    "theme_color": "#FFF",
+    "icons": [
+        {
+            "src": "/public/images/avatars/sous.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/public/images/avatars/sous.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+        },
+        {
+            "src": "/public/images/avatars/sous.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

@@ -1,23 +1,58 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no"> -->
-    <meta name="theme-color" content="#FFF">
-    <meta name="description" content="Sous: a recipe cooking app">
-    <link rel="icon" type="image/x-icon" href="images/avatars/sous.avif" />
-    <link rel="preload" as="font" type="font/woff2" href="fonts/LibreFranklin-VariableFont_wght.woff2" crossorigin />
-    <link rel="preload" as="image" href="images/food/chicken.webp" />
-    <link rel="preload" as="image" href="images/food/salmon.webp" />
-    <link rel="preload" as="image" href="images/food/generic-plate.webp" />
-    <link rel="preload" as="image" href="images/food/salmon.webp" />
-    <title>Sous</title>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="react-root"></div>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <!-- Viewport Meta Tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- Theme Color for Chrome, Firefox OS, and Opera -->
+  <meta name="theme-color" content="#FFF">
+  
+  <!-- Description -->
+  <meta name="description" content="Sous: a recipe cooking app">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/icon-192x192.png">
+
+  <!-- iOS Support -->
+  <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Sous">
+
+  <!-- Preload Fonts and Images -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/LibreFranklin-VariableFont_wght.woff2" crossorigin />
+  <link rel="preload" as="image" href="/images/food/chicken.webp" />
+  <link rel="preload" as="image" href="/images/food/salmon.webp" />
+  <link rel="preload" as="image" href="/images/food/generic-plate.webp" />
+
+  <!-- Manifest -->
+  <link rel="manifest" href="/app.webmanifest" />
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/serviceworker.js')
+          .then(function (registration) {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(function (error) {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
+
+  <title>Sous</title>
+</head>
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="react-root"></div>
+</body>
 </html>
