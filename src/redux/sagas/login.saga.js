@@ -15,12 +15,14 @@ function* loginUser(action) {
     // send the action.payload as the body
     // the config includes credentials which
     // allow the server session to recognize the user
+    console.log(action.payload);
     yield axios.post('/api/user/login', action.payload, config);
 
     // after the user has logged in
     // get the user information from the server
     yield put({ type: 'FETCH_USER' });
   } catch (error) {
+    console.log(action.payload);
     console.log('Error with user login:', error);
     if (error.response.status === 401) {
       // The 401 is the error status sent from passport
