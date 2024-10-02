@@ -6,6 +6,7 @@
     "short_name": "Sous",
     "display": "standalone",
     "theme_color": "#FFF",
+    "background_color": "#FFF",
     "icons": [
         {
             "src": "/images/avatars/sous.png",
